@@ -1,0 +1,20 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'input.type_bigint.dart';
+
+// **************************************************************************
+// PgSqlSerializableGenerator
+// **************************************************************************
+
+SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) {
+  return SimpleClass(
+    pgsql['value'] == null ? null : BigInt.parse(pgsql['value'] as String),
+    BigInt.parse(pgsql['nullable'] as String),
+  );
+}
+
+Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
+    <String, dynamic>{
+      'value': instance.value?.toString(),
+      'nullable': instance.nullable.toString(),
+    };

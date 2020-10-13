@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:checked_yaml/checked_yaml.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -28,9 +28,9 @@ void main() {
         final yamlContent = loadYaml(content, sourceUrl: filePath) as YamlMap;
 
         try {
-          final config = Config.fromJson(yamlContent);
+          final config = Config.fromPgSql(yamlContent);
           expect(config, isNotNull);
-        } on CheckedFromJsonException catch (e) {
+        } on CheckedFromPgSqlException catch (e) {
           print(toParsedYamlException(e).formattedMessage);
           rethrow;
         }
@@ -49,10 +49,10 @@ void main() {
         printOnFailure(entry.key);
 
         try {
-          final config = Config.fromJson(yamlContent);
+          final config = Config.fromPgSql(yamlContent);
           print(loudEncode(config));
           fail('parse should fail');
-        } on CheckedFromJsonException catch (e) {
+        } on CheckedFromPgSqlException catch (e) {
           final prettyOutput = toParsedYamlException(e).formattedMessage;
           printOnFailure("r'''\n$prettyOutput'''");
           expect(prettyOutput, entry.value);
@@ -158,34 +158,34 @@ final throwsCastError = throwsA(isA<CastError>());
 
 T roundTripObject<T>(
   T object,
-  T Function(Map<String, dynamic> json) factory, {
+  T Function(Map<String, dynamic> pgsql) factory, {
   bool skipObjectEquals = false,
 }) {
   final data = loudEncode(object);
 
-  final object2 = factory(json.decode(data) as Map<String, dynamic>);
+  final object2 = factory(pgsql.decode(data) as Map<String, dynamic>);
 
   if (!skipObjectEquals) {
     expect(object2, equals(object));
   }
 
-  final json2 = loudEncode(object2);
+  final pgsql2 = loudEncode(object2);
 
-  expect(json2, equals(data));
+  expect(pgsql2, equals(data));
   return object2;
 }
 
-/// Prints out nested causes before throwing `JsonUnsupportedObjectError`.
+/// Prints out nested causes before throwing `PgSqlUnsupportedObjectError`.
 String loudEncode(Object object) {
   try {
-    return const JsonEncoder.withIndent(' ').convert(object);
-  } on JsonUnsupportedObjectError catch (e) // ignore: avoid_catching_errors
+    return const PgSqlEncoder.withIndent(' ').convert(object);
+  } on PgSqlUnsupportedObjectError catch (e) // ignore: avoid_catching_errors
   {
     var error = e;
     do {
       final cause = error.cause;
       print(cause);
-      error = (cause is JsonUnsupportedObjectError) ? cause : null;
+      error = (cause is PgSqlUnsupportedObjectError) ? cause : null;
     } while (error != null);
     rethrow;
   }

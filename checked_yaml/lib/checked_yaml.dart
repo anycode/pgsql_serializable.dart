@@ -2,14 +2,14 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:yaml/yaml.dart';
 
 /// Decodes [yamlContent] as YAML and calls [constructor] with the resulting
 /// [Map].
 ///
 /// If there are errors thrown while decoding [yamlContent], if it is not a
-/// [Map] or if [CheckedFromJsonException] is thrown when calling [constructor],
+/// [Map] or if [CheckedFromPgSqlException] is thrown when calling [constructor],
 /// a [ParsedYamlException] will be thrown.
 ///
 /// If [sourceUrl] is passed, it's used as the URL from which the YAML
@@ -45,7 +45,7 @@ T checkedYamlDecode<T>(
 
   try {
     return constructor(map);
-  } on CheckedFromJsonException catch (e) {
+  } on CheckedFromPgSqlException catch (e) {
     throw toParsedYamlException(e);
   }
 }
@@ -55,7 +55,7 @@ T checkedYamlDecode<T>(
 /// This function assumes `exception.map` is of type `YamlMap` from
 /// `package:yaml`. If not, you may provide an alternative via [exceptionMap].
 ParsedYamlException toParsedYamlException(
-  CheckedFromJsonException exception, {
+  CheckedFromPgSqlException exception, {
   YamlMap exceptionMap,
 }) {
   final yamlMap = exceptionMap ?? exception.map as YamlMap;

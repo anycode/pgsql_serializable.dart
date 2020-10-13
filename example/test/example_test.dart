@@ -8,14 +8,14 @@ import 'package:example/example.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('JsonSerializable', () {
+  test('PgSqlSerializable', () {
     final person = Person('Inigo', 'Montoya', DateTime(1560, 5, 5))
       ..orders = [Order(DateTime.now())..item = (Item()..count = 42)];
 
-    final personJson = _encode(person);
+    final personPgSql = _encode(person);
 
     final person2 =
-        Person.fromJson(json.decode(personJson) as Map<String, dynamic>);
+        Person.fromPgSql(json.decode(personPgSql) as Map<String, dynamic>);
 
     expect(person.firstName, person2.firstName);
     expect(person.lastName, person2.lastName);
@@ -23,10 +23,10 @@ void main() {
     expect(person.orders.single.date, person2.orders.single.date);
     expect(person.orders.single.item.count, 42);
 
-    expect(_encode(person2), equals(personJson));
+    expect(_encode(person2), equals(personPgSql));
   });
 
-  test('JsonLiteral', () {
+  test('PgSqlLiteral', () {
     expect(glossaryData, hasLength(1));
   });
 }

@@ -8,14 +8,20 @@ environment:
   sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
-  json_annotation: '>=2.2.0 <4.0.0'
+  pgsql_annotation: '>=2.2.0 <4.0.0'
   source_span: ^1.0.0
   yaml: ^2.1.13
 
 dev_dependencies:
-  json_serializable: ^3.0.0
+  pgsql_serializable: ^3.0.0
   build_runner: ^1.0.0
   build_verify: ^1.1.0
   path: ^1.0.0
   test: ^1.6.0
   test_process: ^1.0.1
+
+dependency_overrides:
+  pgsql_annotation:
+    path: ../pgsql_annotation
+  pgsql_serializable:
+    path: ../pgsql_serializable

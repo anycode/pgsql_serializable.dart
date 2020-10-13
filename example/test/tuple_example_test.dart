@@ -29,7 +29,7 @@ void main() {
 }''';
 
     expect(encoded, expected);
-    final decoded = ConcreteClass.fromJson(
+    final decoded = ConcreteClass.fromPgSql(
       jsonDecode(encoded) as Map<String, dynamic>,
     );
     final encoded2 = _encode(decoded);

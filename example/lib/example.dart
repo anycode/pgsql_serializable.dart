@@ -2,56 +2,56 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'example.g.dart';
 
-@JsonSerializable()
+@PgSqlSerializable()
 class Person {
   final String firstName;
-  @JsonKey(includeIfNull: false)
+  @PgSqlKey(includeIfNull: false)
   final String middleName;
   final String lastName;
 
-  @JsonKey(name: 'date-of-birth', nullable: false)
+  @PgSqlKey(name: 'date-of-birth', nullable: false)
   final DateTime dateOfBirth;
 
-  @JsonKey(name: 'last-order')
+  @PgSqlKey(name: 'last-order')
   final DateTime lastOrder;
 
-  @JsonKey(nullable: false)
+  @PgSqlKey(nullable: false)
   List<Order> orders;
 
   Person(this.firstName, this.lastName, this.dateOfBirth,
       {this.middleName, this.lastOrder, List<Order> orders})
       : orders = orders ?? <Order>[];
 
-  factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
+  factory Person.fromPgSql(Map<String, dynamic> pgsql) => _$PersonFromPgSql(pgsql);
 
-  Map<String, dynamic> toJson() => _$PersonToJson(this);
+  Map<String, dynamic> toPgSql() => _$PersonToPgSql(this);
 }
 
-@JsonSerializable(includeIfNull: false)
+@PgSqlSerializable(includeIfNull: false)
 class Order {
   int count;
   int itemNumber;
   bool isRushed;
   Item item;
 
-  @JsonKey(
+  @PgSqlKey(
       name: 'prep-time',
-      fromJson: _durationFromMilliseconds,
-      toJson: _durationToMilliseconds)
+      fromPgSql: _durationFromMilliseconds,
+      toPgSql: _durationToMilliseconds)
   Duration prepTime;
 
-  @JsonKey(fromJson: _dateTimeFromEpochUs, toJson: _dateTimeToEpochUs)
+  @PgSqlKey(fromPgSql: _dateTimeFromEpochUs, toPgSql: _dateTimeToEpochUs)
   final DateTime date;
 
   Order(this.date);
 
-  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+  factory Order.fromPgSql(Map<String, dynamic> pgsql) => _$OrderFromPgSql(pgsql);
 
-  Map<String, dynamic> toJson() => _$OrderToJson(this);
+  Map<String, dynamic> toPgSql() => _$OrderToPgSql(this);
 
   static Duration _durationFromMilliseconds(int milliseconds) =>
       milliseconds == null ? null : Duration(milliseconds: milliseconds);
@@ -66,7 +66,7 @@ class Order {
       dateTime?.microsecondsSinceEpoch;
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class Item {
   int count;
   int itemNumber;
@@ -74,10 +74,10 @@ class Item {
 
   Item();
 
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+  factory Item.fromPgSql(Map<String, dynamic> pgsql) => _$ItemFromPgSql(pgsql);
 
-  Map<String, dynamic> toJson() => _$ItemToJson(this);
+  Map<String, dynamic> toPgSql() => _$ItemToPgSql(this);
 }
 
-@JsonLiteral('data.json')
-Map get glossaryData => _$glossaryDataJsonLiteral;
+@PgSqlLiteral('data.pgsql')
+Map get glossaryData => _$glossaryDataPgSqlLiteral;

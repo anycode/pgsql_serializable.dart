@@ -17,7 +17,7 @@ dev_dependencies:
 dependency_overrides:
   checked_yaml:
     path: ../checked_yaml
-  json_annotation:
-    path: ../json_annotation
-  json_serializable:
-    path: ../json_serializable
+  pgsql_annotation:
+    path: ../pgsql_annotation
+  pgsql_serializable:
+    path: ../pgsql_serializable

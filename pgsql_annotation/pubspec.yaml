@@ -1,0 +1,12 @@
+name: pgsql_annotation
+version: 3.1.1-dev
+description: >-
+  Classes and helper functions that support PgSQL code generation via the
+  `pgsql_serializable` package.
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+# When changing PgSqlSerializable class.
+# dev_dependencies:
+#   build_runner: ^1.0.0
+#   pgsql_serializable: ^3.1.0
