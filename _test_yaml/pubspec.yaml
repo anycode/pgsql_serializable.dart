@@ -11,8 +11,8 @@ dev_dependencies:
 
   # Repo packages
   checked_yaml: any
-  json_annotation: any
-  json_serializable: any
+  pgsql_annotation: any
+  pgsql_serializable: any
 
 dependency_overrides:
   checked_yaml:

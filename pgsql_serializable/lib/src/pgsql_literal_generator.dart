@@ -30,7 +30,7 @@ class PgSqlLiteralGenerator extends GeneratorForAnnotation<PgSqlLiteral> {
     final sourcePathDir = p.dirname(buildStep.inputId.path);
     final fileId = AssetId(buildStep.inputId.package,
         p.join(sourcePathDir, annotation.read('path').stringValue));
-    final content = pgsql.decode(await buildStep.readAsString(fileId));
+    final content = json.decode(await buildStep.readAsString(fileId));
 
     final asConst = annotation.read('asConst').boolValue;
 

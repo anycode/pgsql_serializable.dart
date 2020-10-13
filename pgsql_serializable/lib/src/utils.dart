@@ -11,20 +11,20 @@ import 'package:source_gen/source_gen.dart';
 
 import 'helper_core.dart';
 
-const _PgSqlKeyChecker = TypeChecker.fromRuntime(PgSqlKey);
+const _pgSqlKeyChecker = TypeChecker.fromRuntime(PgSqlKey);
 
-DartObject _PgSqlKeyAnnotation(FieldElement element) =>
-    _PgSqlKeyChecker.firstAnnotationOf(element) ??
+DartObject _pgSqlKeyAnnotation(FieldElement element) =>
+    _pgSqlKeyChecker.firstAnnotationOf(element) ??
     (element.getter == null
         ? null
-        : _PgSqlKeyChecker.firstAnnotationOf(element.getter));
+        : _pgSqlKeyChecker.firstAnnotationOf(element.getter));
 
 ConstantReader PgSqlKeyAnnotation(FieldElement element) =>
-    ConstantReader(_PgSqlKeyAnnotation(element));
+    ConstantReader(_pgSqlKeyAnnotation(element));
 
 /// Returns `true` if [element] is annotated with [PgSqlKey].
 bool hasPgSqlKeyAnnotation(FieldElement element) =>
-    _PgSqlKeyAnnotation(element) != null;
+    _pgSqlKeyAnnotation(element) != null;
 
 final _upperCase = RegExp('[A-Z]');
 
@@ -72,7 +72,7 @@ T enumValueForDartObject<T>(
 ) =>
     items.singleWhere((v) => source.getField(name(v)) != null);
 
-/// Return an instance of [pgsqlSerializable] corresponding to a the provided
+/// Return an instance of [PgSqlSerializable] corresponding to a the provided
 /// [reader].
 PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializable(
       anyMap: reader.read('anyMap').literalValue as bool,
@@ -90,13 +90,13 @@ PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializabl
       nullable: reader.read('nullable').literalValue as bool,
     );
 
-/// Returns a [pgsqlSerializable] with values from the [pgsqlSerializable]
+/// Returns a [PgSqlSerializable] with values from the [PgSqlSerializable]
 /// instance represented by [reader].
 ///
-/// For fields that are not defined in [pgsqlSerializable] or `null` in [reader],
+/// For fields that are not defined in [PgSqlSerializable] or `null` in [reader],
 /// use the values in [config].
 ///
-/// Note: if [pgsqlSerializable.genericArgumentFactories] is `false` for [reader]
+/// Note: if [PgSqlSerializable.genericArgumentFactories] is `false` for [reader]
 /// and `true` for [config], the corresponding field in the return value will
 /// only be `true` if [classElement] has type parameters.
 PgSqlSerializable mergeConfig(
@@ -141,7 +141,7 @@ final _enumMapExpando = Expando<Map<FieldElement, dynamic>>();
 Map<FieldElement, dynamic> enumFieldsMap(DartType targetType) {
   MapEntry<FieldElement, dynamic> _generateEntry(FieldElement fe) {
     final annotation =
-        const TypeChecker.fromRuntime(pgsqlValue).firstAnnotationOfExact(fe);
+        const TypeChecker.fromRuntime(PgSqlValue).firstAnnotationOfExact(fe);
 
     dynamic fieldValue;
     if (annotation == null) {

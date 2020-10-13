@@ -3,8 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-import 'package:pgsql_serializable/pgsql_serializable.dart';
 import 'package:path/path.dart' as p;
+import 'package:pgsql_serializable/src/pgsql_serializable_generator.dart';
 import 'package:source_gen_test/source_gen_test.dart';
 import 'package:test/test.dart';
 

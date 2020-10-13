@@ -10,7 +10,7 @@ dev_dependencies:
   build_runner: ^1.0.0
   pgsql_serializable: ^3.2.0
 
-  # Used by tests. Not required to use `json_serializable`.
+  # Used by tests. Not required to use `pgsql_serializable`.
   build_verify: ^1.0.0
   path: ^1.5.1
   test: ^1.6.0

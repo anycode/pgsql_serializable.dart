@@ -16,7 +16,7 @@ void main() {
         GenericClass<T, S> p) {
       final outputPgSql = loudEncode(p);
       final p2 = GenericClass<T, S>.fromPgSql(
-          pgsqlDecode(outputPgSql) as Map<String, dynamic>);
+          jsonDecode(outputPgSql) as Map<String, dynamic>);
       final outputPgSql2 = loudEncode(p2);
       expect(outputPgSql2, outputPgSql);
       return p2;
@@ -71,7 +71,7 @@ void main() {
       );
 
       final decoded = GenericClassWithHelpers<DateTime, Duration>.fromPgSql(
-        pgsqlDecode(encodedPgSql) as Map<String, dynamic>,
+        jsonDecode(encodedPgSql) as Map<String, dynamic>,
         (value) => DateTime.parse(value as String),
         (value) => Duration(milliseconds: value as int),
       );
@@ -109,7 +109,7 @@ void main() {
 }''';
 
       final instance = ConcreteClass.fromPgSql(
-        pgsqlDecode(inputPgSql) as Map<String, dynamic>,
+        jsonDecode(inputPgSql) as Map<String, dynamic>,
       );
 
       expect(loudEncode(instance), inputPgSql);

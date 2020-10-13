@@ -17,7 +17,7 @@ void main() {
     final dataFilePath = p.join('test', 'literal', 'pgsql_literal.pgsql');
     final dataFile = File(dataFilePath);
 
-    final dataString = loudEncode(pgsql.decode(dataFile.readAsStringSync()));
+    final dataString = loudEncode(json.decode(dataFile.readAsStringSync()));
     // FYI: nice to re-write the test data when it's changed to keep it pretty
     // ... but not a good idea to ship this
     // dataFile.writeAsStringSync(dataString.replaceAll('\u007F', '\\u007F'));
@@ -31,7 +31,7 @@ void main() {
         p.join('test', 'literal', 'big-list-of-naughty-strings.pgsql');
     final dataFile = File(dataFilePath);
 
-    final dataString = loudEncode(pgsql.decode(dataFile.readAsStringSync()));
+    final dataString = loudEncode(json.decode(dataFile.readAsStringSync()));
     final dartString = loudEncode(naughtyStrings);
 
     expect(dartString, dataString);

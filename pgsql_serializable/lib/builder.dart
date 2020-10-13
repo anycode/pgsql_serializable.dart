@@ -25,7 +25,7 @@ Builder pgSqlSerializable(BuilderOptions options) {
   try {
     final config = PgSqlSerializable.fromPgSql(options.config);
     return pgSqlPartBuilder(config: config);
-  } on CheckedFrompgsqlException catch (e) {
+  } on CheckedFromPgSqlException catch (e) {
     final lines = <String>[
       'Could not parse the options provided for `pgsql_serializable`.'
     ];

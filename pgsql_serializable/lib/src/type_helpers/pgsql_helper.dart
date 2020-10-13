@@ -34,29 +34,29 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     final interfaceType = targetType as InterfaceType;
 
-    final ToPgSqlArgs = <String>[];
+    final toPgSqlArgs = <String>[];
 
-    var ToPgSql = _ToPgSqlMethod(interfaceType);
+    var toPgSql = _ToPgSqlMethod(interfaceType);
 
-    if (ToPgSql != null) {
+    if (toPgSql != null) {
       // Using the `declaration` here so we get the original definition –
       // and not one with the generics already populated.
-      ToPgSql = ToPgSql.declaration;
+      toPgSql = toPgSql.declaration;
 
-      ToPgSqlArgs.addAll(
+      toPgSqlArgs.addAll(
         _helperParams(
           context.serialize,
           _encodeHelper,
           interfaceType,
-          ToPgSql.parameters.where((element) => element.isRequiredPositional),
-          ToPgSql,
+          toPgSql.parameters.where((element) => element.isRequiredPositional),
+          toPgSql,
         ),
       );
     }
 
-    if (context.config.explicitToPgSql || ToPgSqlArgs.isNotEmpty) {
+    if (context.config.explicitToPgSql || toPgSqlArgs.isNotEmpty) {
       return '$expression${context.nullable ? '?' : ''}'
-          '.ToPgSql(${ToPgSqlArgs.map((a) => '$a, ').join()} )';
+          '.ToPgSql(${toPgSqlArgs.map((a) => '$a, ').join()} )';
     }
     return expression;
   }
@@ -126,7 +126,7 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     // TODO: the type could be imported from a library with a prefix!
     // https://github.com/google/pgsql_serializable.dart/issues/19
-    output = '${targetType.element.name}.frompgsql($output)';
+    output = '${targetType.element.name}.fromPgSql($output)';
 
     return commonNullPrefix(context.nullable, expression, output).toString();
   }
@@ -180,7 +180,7 @@ TypeParameterType _decodeHelper(
   }
 
   throw InvalidGenerationSourceError(
-    'Expecting a `frompgsql` constructor with exactly one positional '
+    'Expecting a `fromPgSql` constructor with exactly one positional '
     'parameter. '
     'The only extra parameters allowed are functions of the form '
     '`T Function(Object) ${fromPgSqlForName('T')}` where `T` is a type '

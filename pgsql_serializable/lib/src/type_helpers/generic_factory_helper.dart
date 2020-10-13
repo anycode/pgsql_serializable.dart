@@ -18,7 +18,7 @@ class GenericFactoryHelper extends TypeHelper<TypeHelperContextWithConfig> {
   ) {
     if (context.config.genericArgumentFactories &&
         targetType is TypeParameterType) {
-      return LambdaResult(expression, topgsqlForType(targetType));
+      return LambdaResult(expression, toPgSqlForType(targetType));
     }
 
     return null;
@@ -32,19 +32,19 @@ class GenericFactoryHelper extends TypeHelper<TypeHelperContextWithConfig> {
   ) {
     if (context.config.genericArgumentFactories &&
         targetType is TypeParameterType) {
-      return LambdaResult(expression, frompgsqlForType(targetType));
+      return LambdaResult(expression, fromPgSqlForType(targetType));
     }
 
     return null;
   }
 }
 
-String topgsqlForType(TypeParameterType type) =>
-    topgsqlForName(type.getDisplayString(withNullability: false));
+String toPgSqlForType(TypeParameterType type) =>
+    toPgSqlForName(type.getDisplayString(withNullability: false));
 
-String topgsqlForName(String genericType) => 'topgsql$genericType';
+String toPgSqlForName(String genericType) => 'toPgSql$genericType';
 
-String frompgsqlForType(TypeParameterType type) =>
-    frompgsqlForName(type.getDisplayString(withNullability: false));
+String fromPgSqlForType(TypeParameterType type) =>
+    fromPgSqlForName(type.getDisplayString(withNullability: false));
 
-String frompgsqlForName(String genericType) => 'frompgsql$genericType';
+String fromPgSqlForName(String genericType) => 'fromPgSql$genericType';
