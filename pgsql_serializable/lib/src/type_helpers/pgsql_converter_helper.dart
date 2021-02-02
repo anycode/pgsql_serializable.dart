@@ -33,7 +33,7 @@ class PgSqlConverterHelper extends TypeHelper {
 
     logFieldWithConversionFunction(context.fieldElement);
 
-    return LambdaResult(expression, '${converter.accessString}.topgsql');
+    return LambdaResult(expression, '${converter.accessString}.toPgSql');
   }
 
   @override
@@ -52,7 +52,7 @@ class PgSqlConverterHelper extends TypeHelper {
     logFieldWithConversionFunction(context.fieldElement);
 
     return LambdaResult(
-        '$expression$asContent', '${converter.accessString}.frompgsql');
+        '$expression$asContent', '${converter.accessString}.fromPgSql');
   }
 }
 

@@ -20,7 +20,7 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
   /// Simply returns the [expression] provided.
   ///
-  /// By default, pgsql encoding in from `dart:convert` calls `ToPgSql()` on
+  /// By default, pgsql encoding in from `dart:convert` calls `toPgSql()` on
   /// provided objects.
   @override
   String serialize(
@@ -56,7 +56,7 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     if (context.config.explicitToPgSql || toPgSqlArgs.isNotEmpty) {
       return '$expression${context.nullable ? '?' : ''}'
-          '.ToPgSql(${toPgSqlArgs.map((a) => '$a, ').join()} )';
+          '.toPgSql(${toPgSqlArgs.map((a) => '$a, ').join()} )';
     }
     return expression;
   }
@@ -74,20 +74,17 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
     final type = targetType as InterfaceType;
     final classElement = type.element;
 
-    final frompgsqlCtor = classElement.constructors
-        .singleWhere((ce) => ce.name == 'frompgsql', orElse: () => null);
+    final fromPgSqlCtor = classElement.constructors.singleWhere((ce) => ce.name == 'fromPgSql', orElse: () => null);
 
     var output = expression;
-    if (frompgsqlCtor != null) {
-      final positionalParams = frompgsqlCtor.parameters
-          .where((element) => element.isPositional)
-          .toList();
+    if (fromPgSqlCtor != null) {
+      final positionalParams = fromPgSqlCtor.parameters.where((element) => element.isPositional).toList();
 
       if (positionalParams.isEmpty) {
         throw InvalidGenerationSourceError(
-          'Expecting a `frompgsql` constructor with exactly one positional '
+          'Expecting a `fromPgSql` constructor with exactly one positional '
           'parameter. Found a constructor with 0 parameters.',
-          element: frompgsqlCtor,
+          element: fromPgSqlCtor,
         );
       }
 
@@ -109,7 +106,7 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
           _decodeHelper,
           targetType as InterfaceType,
           positionalParams.skip(1),
-          frompgsqlCtor,
+          fromPgSqlCtor,
         ),
       ];
 
@@ -147,8 +144,7 @@ List<String> _helperParams(
   final args = <String>[];
 
   for (var helperArg in rest) {
-    final typeParamIndex =
-        type.element.typeParameters.indexOf(helperArg.element);
+    final typeParamIndex = type.element.typeParameters.indexOf(helperArg.element);
 
     // TODO: throw here if `typeParamIndex` is -1 ?
     final typeArg = type.typeArguments[typeParamIndex];
@@ -165,9 +161,7 @@ TypeParameterType _decodeHelper(
 ) {
   final type = param.type;
 
-  if (type is FunctionType &&
-      type.returnType is TypeParameterType &&
-      type.normalParameterTypes.length == 1) {
+  if (type is FunctionType && type.returnType is TypeParameterType && type.normalParameterTypes.length == 1) {
     final funcReturnType = type.returnType;
 
     if (param.name == fromPgSqlForName(funcReturnType.element.name)) {
@@ -195,9 +189,7 @@ TypeParameterType _encodeHelper(
 ) {
   final type = param.type;
 
-  if (type is FunctionType &&
-      isObjectOrDynamic(type.returnType) &&
-      type.normalParameterTypes.length == 1) {
+  if (type is FunctionType && isObjectOrDynamic(type.returnType) && type.normalParameterTypes.length == 1) {
     final funcParamType = type.normalParameterTypes.single;
 
     if (param.name == toPgSqlForName(funcParamType.element.name)) {
@@ -264,9 +256,8 @@ InterfaceType _instantiate(
 }
 
 PgSqlSerializable _annotation(PgSqlSerializable config, InterfaceType source) {
-  final annotations = const TypeChecker.fromRuntime(PgSqlSerializable)
-      .annotationsOfExact(source.element, throwOnUnresolved: false)
-      .toList();
+  final annotations =
+      const TypeChecker.fromRuntime(PgSqlSerializable).annotationsOfExact(source.element, throwOnUnresolved: false).toList();
 
   if (annotations.isEmpty) {
     return null;

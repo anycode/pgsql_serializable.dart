@@ -188,7 +188,7 @@ abstract class DecodeHelper implements HelperCore {
       }
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('frompgsql', field, e);
+      throw createInvalidGenerationError('fromPgSql', field, e);
     }
 
     final pgSqlKey = pgSqlKeyFor(field);
@@ -205,9 +205,9 @@ abstract class DecodeHelper implements HelperCore {
       }
       if (contextHelper.deserializeConvertData != null) {
         log.warning('The field `${field.name}` has both `defaultValue` and '
-            '`frompgsql` defined which likely won\'t work for your scenario.\n'
+            '`fromPgSql` defined which likely won\'t work for your scenario.\n'
             'Instead of using `defaultValue`, set `nullable: false` and handle '
-            '`null` in the `frompgsql` function.');
+            '`null` in the `fromPgSql` function.');
       }
       value = '$value ?? $defaultValue';
     }

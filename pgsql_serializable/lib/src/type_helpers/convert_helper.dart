@@ -10,7 +10,7 @@ import '../type_helper.dart';
 import '../utils.dart';
 
 /// Information used by [ConvertHelper] when handling `PgSqlKey`-annotated
-/// fields with `topgsql` or `frompgsql` values set.
+/// fields with `toPgSql` or `fromPgSql` values set.
 class ConvertData {
   final String name;
   final DartType paramType;
@@ -33,16 +33,16 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
     String expression,
     TypeHelperContextWithConvert context,
   ) {
-    final topgsqlData = context.serializeConvertData;
-    if (topgsqlData == null) {
+    final toPgSqlData = context.serializeConvertData;
+    if (toPgSqlData == null) {
       return null;
     }
 
     logFieldWithConversionFunction(context.fieldElement);
 
-    assert(topgsqlData.paramType is TypeParameterType ||
-        targetType.isAssignableTo(topgsqlData.paramType));
-    return '${topgsqlData.name}($expression)';
+    assert(toPgSqlData.paramType is TypeParameterType ||
+        targetType.isAssignableTo(toPgSqlData.paramType));
+    return '${toPgSqlData.name}($expression)';
   }
 
   @override
@@ -51,14 +51,14 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
     String expression,
     TypeHelperContextWithConvert context,
   ) {
-    final frompgsqlData = context.deserializeConvertData;
-    if (frompgsqlData == null) {
+    final fromPgSqlData = context.deserializeConvertData;
+    if (fromPgSqlData == null) {
       return null;
     }
 
     logFieldWithConversionFunction(context.fieldElement);
 
-    final asContent = asStatement(frompgsqlData.paramType);
-    return '${frompgsqlData.name}($expression$asContent)';
+    final asContent = asStatement(fromPgSqlData.paramType);
+    return '${fromPgSqlData.name}($expression$asContent)';
   }
 }

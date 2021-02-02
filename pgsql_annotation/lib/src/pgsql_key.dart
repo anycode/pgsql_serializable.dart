@@ -18,7 +18,7 @@ class PgSqlKey {
   /// associated key.
   ///
   /// If [disallowNullValue] is `true`, [includeIfNull] will be treated as
-  /// `false` to ensure compatibility between `topgsql` and `frompgsql`.
+  /// `false` to ensure compatibility between `toPgSql` and `fromPgSql`.
   ///
   /// If both [includeIfNull] and [disallowNullValue] are set to `true` on the
   /// same field, an exception will be thrown during code generation.
@@ -30,7 +30,7 @@ class PgSqlKey {
   /// Must be a top-level or static [Function] that takes one argument mapping
   /// a pgsql literal to a value compatible with the type of the annotated field.
   ///
-  /// When creating a class that supports both `topgsql` and `frompgsql`
+  /// When creating a class that supports both `toPgSql` and `fromPgSql`
   /// (the default), you should also set [toPgSql] if you set [fromPgSql].
   /// Values returned by [toPgSql] should "round-trip" through [fromPgSql].
   final Function fromPgSql;
@@ -52,7 +52,7 @@ class PgSqlKey {
   /// enclosing class.
   ///
   /// If [disallowNullValue] is `true`, this value is treated as `false` to
-  /// ensure compatibility between `topgsql` and `frompgsql`.
+  /// ensure compatibility between `toPgSql` and `fromPgSql`.
   ///
   /// If both [includeIfNull] and [disallowNullValue] are set to `true` on the
   /// same field, an exception will be thrown during code generation.
@@ -77,7 +77,7 @@ class PgSqlKey {
   /// enclosing class.
   final bool nullable;
 
-  /// When `true`, generated code for `frompgsql` will verify that the source
+  /// When `true`, generated code for `fromPgSql` will verify that the source
   /// pgsql map contains the associated key.
   ///
   /// If the key does not exist, a [MissingRequiredKeysException] exception is
@@ -92,7 +92,7 @@ class PgSqlKey {
   /// Must be a top-level or static [Function] with one parameter compatible
   /// with the field being serialized that returns a pgsql-compatible value.
   ///
-  /// When creating a class that supports both `topgsql` and `frompgsql`
+  /// When creating a class that supports both `toPgSql` and `fromPgSql`
   /// (the default), you should also set [fromPgSql] if you set [toPgSql].
   /// Values returned by [toPgSql] should "round-trip" through [fromPgSql].
   final Function toPgSql;

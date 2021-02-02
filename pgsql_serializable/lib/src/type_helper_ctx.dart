@@ -37,10 +37,10 @@ class TypeHelperCtx
   TypeHelperCtx._(this._helperCore, this.fieldElement, this._key);
 
   @override
-  ConvertData get serializeConvertData => _pairFromContext?.topgsql;
+  ConvertData get serializeConvertData => _pairFromContext?.toPgSql;
 
   @override
-  ConvertData get deserializeConvertData => _pairFromContext?.frompgsql;
+  ConvertData get deserializeConvertData => _pairFromContext?.fromPgSql;
 
   _ConvertPair get _pairFromContext => _ConvertPair(fieldElement);
 
@@ -77,9 +77,9 @@ class TypeHelperCtx
 class _ConvertPair {
   static final _expando = Expando<_ConvertPair>();
 
-  final ConvertData frompgsql, topgsql;
+  final ConvertData fromPgSql, toPgSql;
 
-  _ConvertPair._(this.frompgsql, this.topgsql);
+  _ConvertPair._(this.fromPgSql, this.toPgSql);
 
   factory _ConvertPair(FieldElement element) {
     var pair = _expando[element];
@@ -124,7 +124,7 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
 
     if (returnType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `frompgsql` function.
+      // to the `fromPgSql` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!returnType.isAssignableTo(element.type)) {
       final returnTypeCode = typeToCode(returnType);
@@ -138,7 +138,7 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
   } else {
     if (argType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `frompgsql` function.
+      // to the `fromPgSql` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!element.type.isAssignableTo(argType)) {
       final argTypeCode = typeToCode(argType);

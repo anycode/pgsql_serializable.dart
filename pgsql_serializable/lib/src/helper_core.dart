@@ -93,9 +93,9 @@ $converterOrKeyInstructions''';
 const converterOrKeyInstructions = r'''
 * Use `pgsqlConverter`
   https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/pgsqlConverter-class.html
-* Use `PgSqlKey` fields `frompgsql` and `topgsql`
-  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlKey/frompgsql.html
-  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlKey/topgsql.html''';
+* Use `PgSqlKey` fields `fromPgSql` and `toPgSql`
+  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlKey/fromPgSql.html
+  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlKey/toPgSql.html''';
 
 /// Returns a [String] representing the type arguments that exist on
 /// [element].

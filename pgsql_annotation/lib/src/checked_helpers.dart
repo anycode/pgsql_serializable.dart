@@ -47,7 +47,7 @@ T $checkedConvert<T>(Map map, String key, T Function(Object) castFunc) {
   }
 }
 
-/// Exception thrown if there is a runtime exception in `frompgsql`
+/// Exception thrown if there is a runtime exception in `fromPgSql`
 /// code generated when `pgsqlSerializableGenerator.checked` is `true`
 class CheckedFromPgSqlException implements Exception {
   /// The [Error] or [Exception] that triggered this exception.

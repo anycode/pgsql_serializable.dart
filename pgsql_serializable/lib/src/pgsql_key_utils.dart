@@ -74,8 +74,7 @@ PgSqlKey _from(FieldElement element, PgSqlSerializable classAnnotation) {
 
     if (badType != null) {
       badType = typeInformation.followedBy([badType]).join(' > ');
-      throwUnsupported(
-          element, '`defaultValue` is `$badType`, it must be a literal.');
+      throwUnsupported(element, '`defaultValue` is `$badType`, it must be a literal.');
     }
 
     if (reader.isDouble || reader.isInt || reader.isString || reader.isBool) {
@@ -133,9 +132,7 @@ PgSqlKey _from(FieldElement element, PgSqlSerializable classAnnotation) {
   Object _annotationValue(String fieldName, {bool mustBeEnum = false}) {
     final annotationValue = obj.read(fieldName);
 
-    final enumFields = annotationValue.isNull
-        ? null
-        : iterateEnumFields(annotationValue.objectValue.type);
+    final enumFields = annotationValue.isNull ? null : iterateEnumFields(annotationValue.objectValue.type);
     if (enumFields != null) {
       if (mustBeEnum) {
         DartType targetEnumType;
@@ -163,17 +160,13 @@ PgSqlKey _from(FieldElement element, PgSqlSerializable classAnnotation) {
         }
       }
 
-      final enumValueNames =
-          enumFields.map((p) => p.name).toList(growable: false);
+      final enumValueNames = enumFields.map((p) => p.name).toList(growable: false);
 
-      final enumValueName = enumValueForDartObject<String>(
-          annotationValue.objectValue, enumValueNames, (n) => n);
+      final enumValueName = enumValueForDartObject<String>(annotationValue.objectValue, enumValueNames, (n) => n);
 
       return '${annotationValue.objectValue.type.element.name}.$enumValueName';
     } else {
-      final defaultValueLiteral = annotationValue.isNull
-          ? null
-          : literalForObject(annotationValue.objectValue, []);
+      final defaultValueLiteral = annotationValue.isNull ? null : literalForObject(annotationValue.objectValue, []);
       if (defaultValueLiteral == null) {
         return null;
       }
@@ -218,7 +211,7 @@ PgSqlKey _populatePgSqlKey(
       throwUnsupported(
           element,
           'Cannot set both `disallowNullvalue` and `includeIfNull` to `true`. '
-          'This leads to incompatible `topgsql` and `frompgsql` behavior.');
+          'This leads to incompatible `toPgSql` and `fromPgSql` behavior.');
     }
   }
 
@@ -226,8 +219,7 @@ PgSqlKey _populatePgSqlKey(
     defaultValue: defaultValue,
     disallowNullValue: disallowNullValue ?? false,
     ignore: ignore ?? false,
-    includeIfNull: _includeIfNull(
-        includeIfNull, disallowNullValue, classAnnotation.includeIfNull),
+    includeIfNull: _includeIfNull(includeIfNull, disallowNullValue, classAnnotation.includeIfNull),
     name: _encodedFieldName(classAnnotation, name, element),
     nullable: nullable ?? classAnnotation.nullable,
     required: required ?? false,
@@ -241,8 +233,7 @@ PgSqlKey _populatePgSqlKey(
 
 final _explicitNullableExpando = Expando<bool>('explicit nullable');
 
-String _encodedFieldName(PgSqlSerializable classAnnotation,
-    String pgSqlKeyNameValue, FieldElement fieldElement) {
+String _encodedFieldName(PgSqlSerializable classAnnotation, String pgSqlKeyNameValue, FieldElement fieldElement) {
   if (pgSqlKeyNameValue != null) {
     return pgSqlKeyNameValue;
   }
@@ -256,6 +247,10 @@ String _encodedFieldName(PgSqlSerializable classAnnotation,
       return kebabCase(fieldElement.name);
     case FieldRename.pascal:
       return pascalCase(fieldElement.name);
+    case FieldRename.lower:
+      return fieldElement.name.toLowerCase();
+    case FieldRename.upper:
+      return fieldElement.name.toUpperCase();
   }
 
   throw ArgumentError.value(

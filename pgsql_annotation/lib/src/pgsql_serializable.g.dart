@@ -26,18 +26,13 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) {
       checked: $checkedConvert(pgsql, 'checked', (v) => v as bool),
       createFactory: $checkedConvert(pgsql, 'create_factory', (v) => v as bool),
       createToPgSql: $checkedConvert(pgsql, 'create_to_pgsql', (v) => v as bool),
-      disallowUnrecognizedKeys:
-          $checkedConvert(pgsql, 'disallow_unrecognized_keys', (v) => v as bool),
-      explicitToPgSql:
-          $checkedConvert(pgsql, 'explicit_to_pgsql', (v) => v as bool),
-      fieldRename: $checkedConvert(pgsql, 'field_rename',
-          (v) => _$enumDecodeNullable(_$FieldRenameEnumMap, v)),
-      ignoreUnannotated:
-          $checkedConvert(pgsql, 'ignore_unannotated', (v) => v as bool),
+      disallowUnrecognizedKeys: $checkedConvert(pgsql, 'disallow_unrecognized_keys', (v) => v as bool),
+      explicitToPgSql: $checkedConvert(pgsql, 'explicit_to_pgsql', (v) => v as bool),
+      fieldRename: $checkedConvert(pgsql, 'field_rename', (v) => _$enumDecodeNullable(_$FieldRenameEnumMap, v)),
+      ignoreUnannotated: $checkedConvert(pgsql, 'ignore_unannotated', (v) => v as bool),
       includeIfNull: $checkedConvert(pgsql, 'include_if_null', (v) => v as bool),
       nullable: $checkedConvert(pgsql, 'nullable', (v) => v as bool),
-      genericArgumentFactories:
-          $checkedConvert(pgsql, 'generic_argument_factories', (v) => v as bool),
+      genericArgumentFactories: $checkedConvert(pgsql, 'generic_argument_factories', (v) => v as bool),
     );
     return val;
   }, fieldKeyMap: const {
@@ -53,8 +48,7 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) {
   });
 }
 
-Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) => <String, dynamic>{
       'any_map': instance.anyMap,
       'checked': instance.checked,
       'create_factory': instance.createFactory,
@@ -78,9 +72,7 @@ T _$enumDecode<T>(
         '${enumValues.values.join(', ')}');
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
+  final value = enumValues.entries.singleWhere((e) => e.value == source, orElse: () => null)?.key;
 
   if (value == null && unknownValue == null) {
     throw ArgumentError('`$source` is not one of the supported values: '
@@ -105,4 +97,6 @@ const _$FieldRenameEnumMap = {
   FieldRename.kebab: 'kebab',
   FieldRename.snake: 'snake',
   FieldRename.pascal: 'pascal',
+  FieldRename.lower: 'lower',
+  FieldRename.upper: 'upper',
 };

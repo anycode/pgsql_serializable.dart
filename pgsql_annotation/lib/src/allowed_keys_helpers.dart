@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// Helper function used in generated `frompgsql` code when
+/// Helper function used in generated `fromPgSql` code when
 /// `pgsqlSerializable.disallowUnrecognizedKeys` is true for an annotated type or
 /// `pgsqlKey.required` is `true` for any annotated fields.
 ///

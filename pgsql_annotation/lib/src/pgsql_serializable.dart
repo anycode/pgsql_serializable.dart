@@ -20,7 +20,13 @@ enum FieldRename {
   snake,
 
   /// Encodes a field named `pascalCase` with a pgsql key `PascalCase`.
-  pascal
+  pascal,
+
+  /// Encodes a field named `lowerCase` with a pgsql key `lowercase`.
+  lower,
+
+  /// Encodes a field named `upperCase` with a pgsql key `UPPERCASE`.
+  upper
 }
 
 /// An annotation used to specify a class to generate code for.
@@ -68,7 +74,7 @@ class PgSqlSerializable {
   /// ```dart
   /// @pgsqlSerializable()
   /// class Example {
-  ///   Map<String, dynamic> ToPgSql() => _$ExampleToPgSql(this);
+  ///   Map<String, dynamic> toPgSql() => _$ExampleToPgSql(this);
   /// }
   /// ```
   final bool createToPgSql;
@@ -80,23 +86,23 @@ class PgSqlSerializable {
   /// be thrown.
   final bool disallowUnrecognizedKeys;
 
-  /// If `true`, generated `ToPgSql` methods will explicitly call `ToPgSql` on
+  /// If `true`, generated `toPgSql` methods will explicitly call `toPgSql` on
   /// nested objects.
   ///
   /// When using pgsql encoding support in `dart:convert`, `ToPgSql` is
   /// automatically called on objects, so the default behavior
-  /// (`explicitToPgSql: false`) is to omit the `ToPgSql` call.
+  /// (`explicitToPgSql: false`) is to omit the `toPgSql` call.
   ///
   /// Example of `explicitToPgSql: false` (default)
   ///
   /// ```dart
-  /// Map<String, dynamic> ToPgSql() => {'child': child};
+  /// Map<String, dynamic> toPgSql() => {'child': child};
   /// ```
   ///
   /// Example of `explicitToPgSql: true`
   ///
   /// ```dart
-  /// Map<String, dynamic> ToPgSql() => {'child': child?.ToPgSql()};
+  /// Map<String, dynamic> toPgSql() => {'child': child?.toPgSql()};
   /// ```
   final bool explicitToPgSql;
 
@@ -113,7 +119,7 @@ class PgSqlSerializable {
   final FieldRename fieldRename;
 
   /// When `true` on classes with type parameters (generic types), extra
-  /// "helper" parameters will be generated for `FromPgSql` and/or `ToPgSql` to
+  /// "helper" parameters will be generated for `fromPgSql` and/or `toPgSql` to
   /// support serializing values of those types.
   ///
   /// For example, the generated code for
@@ -131,20 +137,20 @@ class PgSqlSerializable {
   /// ```dart
   /// Response<T> _$ResponseFromPgSql<T>(
   ///   Map<String, dynamic> pgsql,
-  ///   T Function(Object pgsql) FromPgSqlT,
+  ///   T Function(Object pgsql) fromPgSqlT,
   /// ) {
   ///   return Response<T>()
   ///     ..status = pgsql['status'] as int
-  ///     ..value = FromPgSqlT(pgsql['value']);
+  ///     ..value = fromPgSqlT(pgsql['value']);
   /// }
   ///
   /// Map<String, dynamic> _$ResponseToPgSql<T>(
   ///   Response<T> instance,
-  ///   Object Function(T value) ToPgSqlT,
+  ///   Object Function(T value) toPgSqlT,
   /// ) =>
   ///     <String, dynamic>{
   ///       'status': instance.status,
-  ///       'value': ToPgSqlT(instance.value),
+  ///       'value': toPgSqlT(instance.value),
   ///     };
   /// ```
   ///
@@ -199,8 +205,7 @@ class PgSqlSerializable {
     this.genericArgumentFactories,
   });
 
-  factory PgSqlSerializable.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PgSqlSerializableFromPgSql(pgsql);
+  factory PgSqlSerializable.fromPgSql(Map<String, dynamic> pgsql) => _$PgSqlSerializableFromPgSql(pgsql);
 
   /// An instance of [PgSqlSerializable] with all fields set to their default
   /// values.
@@ -228,15 +233,13 @@ class PgSqlSerializable {
         checked: checked ?? defaults.checked,
         createFactory: createFactory ?? defaults.createFactory,
         createToPgSql: createToPgSql ?? defaults.createToPgSql,
-        disallowUnrecognizedKeys:
-            disallowUnrecognizedKeys ?? defaults.disallowUnrecognizedKeys,
+        disallowUnrecognizedKeys: disallowUnrecognizedKeys ?? defaults.disallowUnrecognizedKeys,
         explicitToPgSql: explicitToPgSql ?? defaults.explicitToPgSql,
         fieldRename: fieldRename ?? defaults.fieldRename,
         ignoreUnannotated: ignoreUnannotated ?? defaults.ignoreUnannotated,
         includeIfNull: includeIfNull ?? defaults.includeIfNull,
         nullable: nullable ?? defaults.nullable,
-        genericArgumentFactories:
-            genericArgumentFactories ?? defaults.genericArgumentFactories,
+        genericArgumentFactories: genericArgumentFactories ?? defaults.genericArgumentFactories,
       );
 
   Map<String, dynamic> toPgSql() => _$PgSqlSerializableToPgSql(this);

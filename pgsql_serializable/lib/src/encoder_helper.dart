@@ -55,8 +55,7 @@ abstract class EncodeHelper implements HelperCore {
       ..writeln('=> <String, dynamic>{')
       ..writeAll(fields.map((field) {
         final access = _fieldAccess(field);
-        final value =
-            '${safeNameAccess(field)}: ${_serializeField(field, access)}';
+        final value = '${safeNameAccess(field)}: ${_serializeField(field, access)}';
         return '        $value,\n';
       }))
       ..writeln('};');
@@ -68,9 +67,7 @@ abstract class EncodeHelper implements HelperCore {
     StringBuffer buffer,
     Iterable<FieldElement> fields,
   ) {
-    buffer
-      ..writeln('{')
-      ..writeln('    final $generatedLocalVarName = <String, dynamic>{');
+    buffer..writeln('{')..writeln('    final $generatedLocalVarName = <String, dynamic>{');
 
     // Note that the map literal is left open above. As long as target fields
     // don't need to be intercepted by the `only if null` logic, write them
@@ -84,8 +81,7 @@ abstract class EncodeHelper implements HelperCore {
 
       // If `fieldName` collides with one of the local helpers, prefix
       // access with `this.`.
-      if (safeFieldAccess == generatedLocalVarName ||
-          safeFieldAccess == toPgSqlMapHelperName) {
+      if (safeFieldAccess == generatedLocalVarName || safeFieldAccess == toPgSqlMapHelperName) {
         safeFieldAccess = 'this.$safeFieldAccess';
       }
 
@@ -94,8 +90,7 @@ abstract class EncodeHelper implements HelperCore {
         if (directWrite) {
           buffer.writeln('      $safePgSqlKeyString: $expression,');
         } else {
-          buffer.writeln(
-              '    $generatedLocalVarName[$safePgSqlKeyString] = $expression;');
+          buffer.writeln('    $generatedLocalVarName[$safePgSqlKeyString] = $expression;');
         }
       } else {
         if (directWrite) {
@@ -115,8 +110,7 @@ abstract class EncodeHelper implements HelperCore {
 ''');
           directWrite = false;
         }
-        buffer.writeln(
-            '    $toPgSqlMapHelperName($safePgSqlKeyString, $expression);');
+        buffer.writeln('    $toPgSqlMapHelperName($safePgSqlKeyString, $expression);');
       }
     }
 
@@ -125,12 +119,10 @@ abstract class EncodeHelper implements HelperCore {
 
   String _serializeField(FieldElement field, String accessExpression) {
     try {
-      return getHelperContext(field)
-          .serialize(field.type, accessExpression)
-          .toString();
+      return getHelperContext(field).serialize(field.type, accessExpression).toString();
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('ToPgSql', field, e);
+      throw createInvalidGenerationError('toPgSql', field, e);
     }
   }
 
@@ -138,8 +130,7 @@ abstract class EncodeHelper implements HelperCore {
   /// we can avoid checking for `null`.
   bool _writepgsqlValueNaive(FieldElement field) {
     final pgSqlKey = pgSqlKeyFor(field);
-    return pgSqlKey.includeIfNull ||
-        (!pgSqlKey.nullable && !_fieldHasCustomEncoder(field));
+    return pgSqlKey.includeIfNull || (!pgSqlKey.nullable && !_fieldHasCustomEncoder(field));
   }
 
   /// Returns `true` if [field] has a user-defined encoder.
@@ -148,9 +139,6 @@ abstract class EncodeHelper implements HelperCore {
   /// annotation.
   bool _fieldHasCustomEncoder(FieldElement field) {
     final helperContext = getHelperContext(field);
-    return helperContext.serializeConvertData != null ||
-        const PgSqlConverterHelper()
-                .serialize(field.type, 'test', helperContext) !=
-            null;
+    return helperContext.serializeConvertData != null || const PgSqlConverterHelper().serialize(field.type, 'test', helperContext) != null;
   }
 }
