@@ -1,14 +1,6 @@
-This is clone of Json Annotation modified to generate code for PostgreSQL
-RDBM just to allow to generate different code from JSON maps and PgSQL data
-fetched by PostgreSQL Dart library (postgresql2).
-
-Tests, tools, examples are not modified.
-
--- original from Json Annotation --
-
 [![Pub Package](https://img.shields.io/pub/v/json_annotation.svg)](https://pub.dev/packages/json_annotation)
 
-Defines the annotations used by [json_serializable] to create code for PgSQL
+Defines the annotations used by [json_serializable] to create code for JSON
 serialization and deserialization.
 
 See the [example] to understand how to configure your package.
