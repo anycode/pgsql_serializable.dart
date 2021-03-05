@@ -4,17 +4,17 @@
 part of 'input.dart';
 
 // **************************************************************************
-// PgSqlSerializableGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) {
+SimpleClass _$SimpleClassFromJson(Map<String, dynamic> json) {
   return SimpleClass(
-    pgsql['value'],
-    pgsql['withDefault'] ?? 42,
+    json['value'],
+    json['withDefault'] ?? 42,
   );
 }
 
-Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
+Map<String, dynamic> _$SimpleClassToJson(SimpleClass instance) =>
     <String, dynamic>{
       'value': instance.value,
       'withDefault': instance.withDefault,

@@ -1,39 +1,39 @@
 // @dart=2.12
 
-part of '_pgsql_serializable_test_input.dart';
+part of '_json_serializable_test_input.dart';
 
 @ShouldThrow(
   '''
-Could not generate `fromPgSql` code for `mapView`.
+Could not generate `fromJson` code for `mapView`.
 To support the type `MapView` you can:
 $converterOrKeyInstructions''',
   element: 'mapView',
 )
-@PgSqlSerializable(createToPgSql: false)
+@JsonSerializable(createToJson: false)
 class UnsupportedMapField {
   late MapView mapView;
 }
 
 @ShouldThrow(
   '''
-Could not generate `fromPgSql` code for `listView`.
+Could not generate `fromJson` code for `listView`.
 To support the type `UnmodifiableListView` you can:
 $converterOrKeyInstructions''',
   element: 'listView',
 )
-@PgSqlSerializable(createToPgSql: false)
+@JsonSerializable(createToJson: false)
 class UnsupportedListField {
   late UnmodifiableListView listView;
 }
 
 @ShouldThrow(
   '''
-Could not generate `fromPgSql` code for `customSet`.
+Could not generate `fromJson` code for `customSet`.
 To support the type `_CustomSet` you can:
 $converterOrKeyInstructions''',
   element: 'customSet',
 )
-@PgSqlSerializable(createToPgSql: false)
+@JsonSerializable(createToJson: false)
 class UnsupportedSetField {
   late _CustomSet customSet;
 }
@@ -42,12 +42,12 @@ abstract class _CustomSet implements Set {}
 
 @ShouldThrow(
   '''
-Could not generate `fromPgSql` code for `customDuration`.
+Could not generate `fromJson` code for `customDuration`.
 To support the type `_CustomDuration` you can:
 $converterOrKeyInstructions''',
   element: 'customDuration',
 )
-@PgSqlSerializable(createToPgSql: false)
+@JsonSerializable(createToJson: false)
 class UnsupportedDurationField {
   late _CustomDuration customDuration;
 }
@@ -56,12 +56,12 @@ abstract class _CustomDuration implements Duration {}
 
 @ShouldThrow(
   '''
-Could not generate `fromPgSql` code for `customUri`.
+Could not generate `fromJson` code for `customUri`.
 To support the type `_CustomUri` you can:
 $converterOrKeyInstructions''',
   element: 'customUri',
 )
-@PgSqlSerializable(createToPgSql: false)
+@JsonSerializable(createToJson: false)
 class UnsupportedUriField {
   _CustomUri? customUri;
 }
@@ -70,12 +70,12 @@ abstract class _CustomUri implements Uri {}
 
 @ShouldThrow(
   '''
-Could not generate `fromPgSql` code for `customDateTime`.
+Could not generate `fromJson` code for `customDateTime`.
 To support the type `_CustomDateTime` you can:
 $converterOrKeyInstructions''',
   element: 'customDateTime',
 )
-@PgSqlSerializable(createToPgSql: false)
+@JsonSerializable(createToJson: false)
 class UnsupportedDateTimeField {
   late _CustomDateTime customDateTime;
 }

@@ -5,7 +5,7 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 import 'helper_core.dart';
@@ -29,15 +29,15 @@ class TypeHelperCtx
   ClassElement get classElement => _helperCore.element;
 
   @override
-  PgSqlSerializable get config => _helperCore.config;
+  JsonSerializable get config => _helperCore.config;
 
   TypeHelperCtx._(this._helperCore, this.fieldElement);
 
   @override
-  ConvertData get serializeConvertData => _pairFromContext?.toPgSql;
+  ConvertData get serializeConvertData => _pairFromContext?.toJson;
 
   @override
-  ConvertData get deserializeConvertData => _pairFromContext?.fromPgSql;
+  ConvertData get deserializeConvertData => _pairFromContext?.fromJson;
 
   _ConvertPair get _pairFromContext => _ConvertPair(fieldElement);
 
@@ -84,21 +84,21 @@ class TypeHelperCtx
 class _ConvertPair {
   static final _expando = Expando<_ConvertPair>();
 
-  final ConvertData fromPgSql, toPgSql;
+  final ConvertData fromJson, toJson;
 
-  _ConvertPair._(this.fromPgSql, this.toPgSql);
+  _ConvertPair._(this.fromJson, this.toJson);
 
   factory _ConvertPair(FieldElement element) {
     var pair = _expando[element];
 
     if (pair == null) {
-      final obj = pgsqlKeyAnnotation(element);
+      final obj = jsonKeyAnnotation(element);
       if (obj.isNull) {
         pair = _ConvertPair._(null, null);
       } else {
-        final toPgSql = _convertData(obj.objectValue, element, false);
-        final fromPgSql = _convertData(obj.objectValue, element, true);
-        pair = _ConvertPair._(fromPgSql, toPgSql);
+        final toJson = _convertData(obj.objectValue, element, false);
+        final fromJson = _convertData(obj.objectValue, element, true);
+        pair = _ConvertPair._(fromJson, toJson);
       }
       _expando[element] = pair;
     }
@@ -107,7 +107,7 @@ class _ConvertPair {
 }
 
 ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
-  final paramName = isFrom ? 'fromPgSql' : 'toPgSql';
+  final paramName = isFrom ? 'fromJson' : 'toJson';
   final objectValue = obj.getField(paramName);
 
   if (objectValue == null || objectValue.isNull) {
@@ -131,7 +131,7 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
 
     if (returnType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `fromPgSql` function.
+      // to the `fromJson` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!returnType.isAssignableTo(element.type)) {
       final returnTypeCode = typeToCode(returnType);
@@ -145,7 +145,7 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
   } else {
     if (argType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `fromPgSql` function.
+      // to the `fromJson` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!element.type.isAssignableTo(argType)) {
       final argTypeCode = typeToCode(argType);

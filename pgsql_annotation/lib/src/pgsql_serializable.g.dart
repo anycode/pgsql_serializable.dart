@@ -1,49 +1,49 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pgsql_serializable.dart';
+part of 'json_serializable.dart';
 
 // **************************************************************************
-// PgSqlSerializableGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) {
-  return $checkedNew('PgSqlSerializable', pgsql, () {
-    $checkKeys(pgsql, allowedKeys: const [
+JsonSerializable _$JsonSerializableFromJson(Map<String, dynamic> json) {
+  return $checkedNew('JsonSerializable', json, () {
+    $checkKeys(json, allowedKeys: const [
       'any_map',
       'checked',
       'create_factory',
-      'create_to_pgsql',
+      'create_to_json',
       'disallow_unrecognized_keys',
-      'explicit_to_pgsql',
+      'explicit_to_json',
       'field_rename',
       'generic_argument_factories',
       'ignore_unannotated',
       'include_if_null',
     ]);
-    final val = PgSqlSerializable(
-      anyMap: $checkedConvert(pgsql, 'any_map', (v) => v as bool),
-      checked: $checkedConvert(pgsql, 'checked', (v) => v as bool),
-      createFactory: $checkedConvert(pgsql, 'create_factory', (v) => v as bool),
-      createToPgSql: $checkedConvert(pgsql, 'create_to_pgsql', (v) => v as bool),
+    final val = JsonSerializable(
+      anyMap: $checkedConvert(json, 'any_map', (v) => v as bool),
+      checked: $checkedConvert(json, 'checked', (v) => v as bool),
+      createFactory: $checkedConvert(json, 'create_factory', (v) => v as bool),
+      createToJson: $checkedConvert(json, 'create_to_json', (v) => v as bool),
       disallowUnrecognizedKeys:
-          $checkedConvert(pgsql, 'disallow_unrecognized_keys', (v) => v as bool),
-      explicitToPgSql:
-          $checkedConvert(pgsql, 'explicit_to_pgsql', (v) => v as bool),
-      fieldRename: $checkedConvert(pgsql, 'field_rename',
+          $checkedConvert(json, 'disallow_unrecognized_keys', (v) => v as bool),
+      explicitToJson:
+          $checkedConvert(json, 'explicit_to_json', (v) => v as bool),
+      fieldRename: $checkedConvert(json, 'field_rename',
           (v) => _$enumDecodeNullable(_$FieldRenameEnumMap, v)),
       ignoreUnannotated:
-          $checkedConvert(pgsql, 'ignore_unannotated', (v) => v as bool),
-      includeIfNull: $checkedConvert(pgsql, 'include_if_null', (v) => v as bool),
+          $checkedConvert(json, 'ignore_unannotated', (v) => v as bool),
+      includeIfNull: $checkedConvert(json, 'include_if_null', (v) => v as bool),
       genericArgumentFactories:
-          $checkedConvert(pgsql, 'generic_argument_factories', (v) => v as bool),
+          $checkedConvert(json, 'generic_argument_factories', (v) => v as bool),
     );
     return val;
   }, fieldKeyMap: const {
     'anyMap': 'any_map',
     'createFactory': 'create_factory',
-    'createToPgSql': 'create_to_pgsql',
+    'createToJson': 'create_to_json',
     'disallowUnrecognizedKeys': 'disallow_unrecognized_keys',
-    'explicitToPgSql': 'explicit_to_pgsql',
+    'explicitToJson': 'explicit_to_json',
     'fieldRename': 'field_rename',
     'ignoreUnannotated': 'ignore_unannotated',
     'includeIfNull': 'include_if_null',
@@ -51,14 +51,14 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) {
   });
 }
 
-Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
+Map<String, dynamic> _$JsonSerializableToJson(JsonSerializable instance) =>
     <String, dynamic>{
       'any_map': instance.anyMap,
       'checked': instance.checked,
       'create_factory': instance.createFactory,
-      'create_to_pgsql': instance.createToPgSql,
+      'create_to_json': instance.createToJson,
       'disallow_unrecognized_keys': instance.disallowUnrecognizedKeys,
-      'explicit_to_pgsql': instance.explicitToPgSql,
+      'explicit_to_json': instance.explicitToJson,
       'field_rename': _$FieldRenameEnumMap[instance.fieldRename],
       'generic_argument_factories': instance.genericArgumentFactories,
       'ignore_unannotated': instance.ignoreUnannotated,

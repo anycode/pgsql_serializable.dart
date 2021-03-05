@@ -4,30 +4,30 @@
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'constants.dart';
 import 'helper_core.dart';
 import 'type_helpers/generic_factory_helper.dart';
-import 'type_helpers/pgsql_converter_helper.dart';
+import 'type_helpers/json_converter_helper.dart';
 import 'unsupported_type_error.dart';
 import 'utils.dart';
 
 abstract class EncodeHelper implements HelperCore {
-  String _fieldAccess(FieldElement field) => '$_toPgSqlParamName.${field.name}';
+  String _fieldAccess(FieldElement field) => '$_toJsonParamName.${field.name}';
 
-  Iterable<String> createToPgSql(Set<FieldElement> accessibleFields) sync* {
-    assert(config.createToPgSql);
+  Iterable<String> createToJson(Set<FieldElement> accessibleFields) sync* {
+    assert(config.createToJson);
 
     final buffer = StringBuffer();
 
-    final functionName = '${prefix}ToPgSql${genericClassArgumentsImpl(true)}';
+    final functionName = '${prefix}ToJson${genericClassArgumentsImpl(true)}';
     buffer.write('Map<String, dynamic> '
-        '$functionName($targetClassReference $_toPgSqlParamName');
+        '$functionName($targetClassReference $_toJsonParamName');
 
     if (config.genericArgumentFactories) {
       for (var arg in element.typeParameters) {
-        final helperName = toPgSqlForType(
+        final helperName = toJsonForType(
           arg.instantiate(nullabilitySuffix: NullabilitySuffix.none),
         );
         buffer.write(',Object Function(${arg.name} value) $helperName');
@@ -38,20 +38,20 @@ abstract class EncodeHelper implements HelperCore {
     }
     buffer.write(') ');
 
-    final writeNaive = accessibleFields.every(_writePgSqlValueNaive);
+    final writeNaive = accessibleFields.every(_writeJsonValueNaive);
 
     if (writeNaive) {
-      // write simple `toPgSql` method that includes all keys...
-      _writeToPgSqlSimple(buffer, accessibleFields);
+      // write simple `toJson` method that includes all keys...
+      _writeToJsonSimple(buffer, accessibleFields);
     } else {
       // At least one field should be excluded if null
-      _writeToPgSqlWithNullChecks(buffer, accessibleFields);
+      _writeToJsonWithNullChecks(buffer, accessibleFields);
     }
 
     yield buffer.toString();
   }
 
-  void _writeToPgSqlSimple(StringBuffer buffer, Iterable<FieldElement> fields) {
+  void _writeToJsonSimple(StringBuffer buffer, Iterable<FieldElement> fields) {
     buffer
       ..writeln('=> <String, dynamic>{')
       ..writeAll(fields.map((field) {
@@ -63,9 +63,9 @@ abstract class EncodeHelper implements HelperCore {
       ..writeln('};');
   }
 
-  static const _toPgSqlParamName = 'instance';
+  static const _toJsonParamName = 'instance';
 
-  void _writeToPgSqlWithNullChecks(
+  void _writeToJsonWithNullChecks(
     StringBuffer buffer,
     Iterable<FieldElement> fields,
   ) {
@@ -81,22 +81,22 @@ abstract class EncodeHelper implements HelperCore {
 
     for (final field in fields) {
       var safeFieldAccess = _fieldAccess(field);
-      final safePgSqlKeyString = safeNameAccess(field);
+      final safeJsonKeyString = safeNameAccess(field);
 
       // If `fieldName` collides with one of the local helpers, prefix
       // access with `this.`.
       if (safeFieldAccess == generatedLocalVarName ||
-          safeFieldAccess == toPgSqlMapHelperName) {
+          safeFieldAccess == toJsonMapHelperName) {
         safeFieldAccess = 'this.$safeFieldAccess';
       }
 
       final expression = _serializeField(field, safeFieldAccess);
-      if (_writePgSqlValueNaive(field)) {
+      if (_writeJsonValueNaive(field)) {
         if (directWrite) {
-          buffer.writeln('      $safePgSqlKeyString: $expression,');
+          buffer.writeln('      $safeJsonKeyString: $expression,');
         } else {
           buffer.writeln(
-              '    $generatedLocalVarName[$safePgSqlKeyString] = $expression;');
+              '    $generatedLocalVarName[$safeJsonKeyString] = $expression;');
         }
       } else {
         if (directWrite) {
@@ -108,7 +108,7 @@ abstract class EncodeHelper implements HelperCore {
             // write the helper to be used by all following null-excluding
             // fields
             ..writeln('''
-    void $toPgSqlMapHelperName(String key, dynamic value) {
+    void $toJsonMapHelperName(String key, dynamic value) {
       if (value != null) {
         $generatedLocalVarName[key] = value;
       }
@@ -117,7 +117,7 @@ abstract class EncodeHelper implements HelperCore {
           directWrite = false;
         }
         buffer.writeln(
-            '    $toPgSqlMapHelperName($safePgSqlKeyString, $expression);');
+            '    $toJsonMapHelperName($safeJsonKeyString, $expression);');
       }
     }
 
@@ -131,27 +131,27 @@ abstract class EncodeHelper implements HelperCore {
           .toString();
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('toPgSql', field, e);
+      throw createInvalidGenerationError('toJson', field, e);
     }
   }
 
   /// Returns `true` if the field can be written to JSON 'naively' – meaning
   /// we can avoid checking for `null`.
-  bool _writePgSqlValueNaive(FieldElement field) {
-    final pgsqlKey = pgsqlKeyFor(field);
+  bool _writeJsonValueNaive(FieldElement field) {
+    final jsonKey = jsonKeyFor(field);
 
-    return pgsqlKey.includeIfNull ||
+    return jsonKey.includeIfNull ||
         (!field.type.isNullableType && !_fieldHasCustomEncoder(field));
   }
 
   /// Returns `true` if [field] has a user-defined encoder.
   ///
-  /// This can be either a `toPgSql` function in [PgSqlKey] or a [PgSqlConverter]
+  /// This can be either a `toJson` function in [JsonKey] or a [JsonConverter]
   /// annotation.
   bool _fieldHasCustomEncoder(FieldElement field) {
     final helperContext = getHelperContext(field);
     return helperContext.serializeConvertData != null ||
-        const PgSqlConverterHelper()
+        const JsonConverterHelper()
                 .serialize(field.type, 'test', helperContext) !=
             null;
   }

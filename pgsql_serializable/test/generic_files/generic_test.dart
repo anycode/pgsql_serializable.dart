@@ -14,11 +14,13 @@ import 'generic_class.dart';
 
 void main() {
   group('generic', () {
-    GenericClass<T, S> roundTripGenericClass<T extends num, S>(GenericClass<T, S> p) {
-      final outputPgSql = loudEncode(p);
-      final p2 = GenericClass<T, S>.fromPgSql(jsonDecode(outputPgSql) as Map<String, dynamic>);
-      final outputPgSql2 = loudEncode(p2);
-      expect(outputPgSql2, outputPgSql);
+    GenericClass<T, S> roundTripGenericClass<T extends num, S>(
+        GenericClass<T, S> p) {
+      final outputJson = loudEncode(p);
+      final p2 = GenericClass<T, S>.fromJson(
+          jsonDecode(outputJson) as Map<String, dynamic>);
+      final outputJson2 = loudEncode(p2);
+      expect(outputJson2, outputJson);
       return p2;
     }
 
@@ -39,10 +41,17 @@ void main() {
         ..fieldS = 'six');
     });
     test('with bad arguments', () {
-      expect(() => GenericClass<double, String>()..fieldT = (true as dynamic) as double, throwsCastError);
+      expect(
+        () => GenericClass<double, String>()
+          ..fieldT = (true as dynamic) as double,
+        throwsTypeError,
+      );
     });
     test('with bad arguments', () {
-      expect(() => GenericClass<double, String>()..fieldS = (5 as dynamic) as String, throwsCastError);
+      expect(
+        () => GenericClass<double, String>()..fieldS = (5 as dynamic) as String,
+        throwsTypeError,
+      );
     });
   });
 
@@ -60,27 +69,27 @@ void main() {
       String encodeDateTime(DateTime value) => value.toIso8601String();
       int encodeDuration(Duration value) => value.inMilliseconds;
 
-      final encodedPgSql = loudEncode(
-        instance.toPgSql(encodeDateTime, encodeDuration),
+      final encodedJson = loudEncode(
+        instance.toJson(encodeDateTime, encodeDuration),
       );
 
-      final decoded = GenericClassWithHelpers<DateTime, Duration>.fromPgSql(
-        jsonDecode(encodedPgSql) as Map<String, dynamic>,
+      final decoded = GenericClassWithHelpers<DateTime, Duration>.fromJson(
+        jsonDecode(encodedJson) as Map<String, dynamic>,
         (value) => DateTime.parse(value as String),
         (value) => Duration(milliseconds: value as int),
       );
 
-      final encodedPgSql2 = loudEncode(
-        decoded.toPgSql(encodeDateTime, encodeDuration),
+      final encodedJson2 = loudEncode(
+        decoded.toJson(encodeDateTime, encodeDuration),
       );
 
-      expect(encodedPgSql2, encodedPgSql);
+      expect(encodedJson2, encodedJson);
     });
   });
 
   group('argument factories', () {
     test('round trip decode/decode', () {
-      const inputPgSql = r'''
+      const inputJson = r'''
 {
  "value": {
   "value": 5,
@@ -102,11 +111,11 @@ void main() {
  }
 }''';
 
-      final instance = ConcreteClass.fromPgSql(
-        jsonDecode(inputPgSql) as Map<String, dynamic>,
+      final instance = ConcreteClass.fromJson(
+        jsonDecode(inputJson) as Map<String, dynamic>,
       );
 
-      expect(loudEncode(instance), inputPgSql);
+      expect(loudEncode(instance), inputJson);
     });
   });
 }

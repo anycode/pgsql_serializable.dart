@@ -4,7 +4,7 @@
 
 // @dart=2.12
 
-part of '_pgsql_serializable_test_input.dart';
+part of '_json_serializable_test_input.dart';
 
 // TODO: remove this and return link to lib/src/constants.dart once this
 //  package runs with full null safety
@@ -13,11 +13,11 @@ part of '_pgsql_serializable_test_input.dart';
 const closureArg = 'e';
 
 const generatedLocalVarName = 'val';
-const toPgSqlMapHelperName = 'writeNotNull';
+const toJsonMapHelperName = 'writeNotNull';
 
 const converterOrKeyInstructions = r'''
-* Use `PgSqlConverter`
-  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlConverter-class.html
-* Use `PgSqlKey` fields `fromPgSql` and `toPgSql`
-  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlKey/fromPgSql.html
-  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlKey/toPgSql.html''';
+* Use `JsonConverter`
+  https://pub.dev/documentation/json_annotation/latest/json_annotation/JsonConverter-class.html
+* Use `JsonKey` fields `fromJson` and `toJson`
+  https://pub.dev/documentation/json_annotation/latest/json_annotation/JsonKey/fromJson.html
+  https://pub.dev/documentation/json_annotation/latest/json_annotation/JsonKey/toJson.html''';

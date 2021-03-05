@@ -4,22 +4,22 @@
 
 // @dart=2.12
 
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'strict_keys_object.g.dart';
 
-@PgSqlSerializable(disallowUnrecognizedKeys: true, anyMap: true)
+@JsonSerializable(disallowUnrecognizedKeys: true, anyMap: true)
 class StrictKeysObject {
-  @PgSqlKey(required: true)
+  @JsonKey(required: true)
   final int value;
 
-  @PgSqlKey(name: 'custom_field', required: true)
+  @JsonKey(name: 'custom_field', required: true)
   final String customField;
 
   StrictKeysObject(this.value, this.customField);
 
-  factory StrictKeysObject.fromPgSql(Map pgsql) =>
-      _$StrictKeysObjectFromPgSql(pgsql);
+  factory StrictKeysObject.fromJson(Map json) =>
+      _$StrictKeysObjectFromJson(json);
 
-  Map<String, dynamic> toPgSql() => _$StrictKeysObjectToPgSql(this);
+  Map<String, dynamic> toJson() => _$StrictKeysObjectToJson(this);
 }

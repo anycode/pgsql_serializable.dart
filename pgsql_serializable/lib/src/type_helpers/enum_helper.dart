@@ -4,8 +4,8 @@
 
 import 'package:analyzer/dart/element/type.dart';
 
-import '../pgsql_key_utils.dart';
-import '../pgsql_literal_generator.dart';
+import '../json_key_utils.dart';
+import '../json_literal_generator.dart';
 import '../type_helper.dart';
 import '../utils.dart';
 
@@ -56,12 +56,12 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     context.addMember(memberContent);
 
-    final pgsqlKey = pgsqlKeyForField(context.fieldElement, context.config);
+    final jsonKey = jsonKeyForField(context.fieldElement, context.config);
     final args = [
       _constMapName(targetType),
       expression,
-      if (pgsqlKey.unknownEnumValue != null)
-        'unknownValue: ${pgsqlKey.unknownEnumValue}',
+      if (jsonKey.unknownEnumValue != null)
+        'unknownValue: ${jsonKey.unknownEnumValue}',
     ];
 
     return '$functionName(${args.join(', ')})';
@@ -80,7 +80,7 @@ String _enumValueMapFromType(DartType targetType) {
 
   final items = enumMap.entries
       .map((e) => '  ${targetType.element.name}.${e.key.name}: '
-          '${pgsqlLiteralAsDart(e.value)},')
+          '${jsonLiteralAsDart(e.value)},')
       .join();
 
   return 'const ${_constMapName(targetType)} = {\n$items\n};';

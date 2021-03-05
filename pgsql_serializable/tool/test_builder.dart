@@ -83,11 +83,11 @@ class _TestBuilder implements Builder {
 }
 
 const _configReplacements = {
-  'any_map': Replacement.addPgSqlSerializableKey('anyMap', true),
-  'checked': Replacement.addPgSqlSerializableKey('checked', true),
-  'explicit_to_pgsql':
-      Replacement.addPgSqlSerializableKey('explicitToPgSql', true),
-  'exclude_null': Replacement.addPgSqlSerializableKey('includeIfNull', false),
+  'any_map': Replacement.addJsonSerializableKey('anyMap', true),
+  'checked': Replacement.addJsonSerializableKey('checked', true),
+  'explicit_to_json':
+      Replacement.addJsonSerializableKey('explicitToJson', true),
+  'exclude_null': Replacement.addJsonSerializableKey('includeIfNull', false),
 };
 
 const _kitchenSinkReplacements = {
@@ -101,12 +101,12 @@ const _kitchenSinkReplacements = {
       'class _Factory implements k.KitchenSinkFactory<dynamic, dynamic>',
     ),
     Replacement(
-      'k.KitchenSink fromPgSql(Map<String, dynamic> pgsql)',
-      'k.KitchenSink fromPgSql(Map pgsql)',
+      'k.KitchenSink fromJson(Map<String, dynamic> json)',
+      'k.KitchenSink fromJson(Map json)',
     ),
     Replacement(
-      'factory KitchenSink.fromPgSql(Map<String, dynamic> pgsql)',
-      'factory KitchenSink.fromPgSql(Map pgsql)',
+      'factory KitchenSink.fromJson(Map<String, dynamic> json)',
+      'factory KitchenSink.fromJson(Map json)',
     ),
   ],
   'checked': [
@@ -121,10 +121,10 @@ const _kitchenSinkReplacements = {
       'bool get excludeNull => true;',
     ),
   ],
-  'explicit_to_pgsql': [
+  'explicit_to_json': [
     Replacement(
-      'bool get explicitToPgSql => false;',
-      'bool get explicitToPgSql => true;',
+      'bool get explicitToJson => false;',
+      'bool get explicitToJson => true;',
     ),
   ],
   'non_nullable': [
@@ -171,13 +171,13 @@ const _fileConfigurationMap = <String, Set<Set<String>>>{
     {'any_map', 'checked'},
     {'any_map'},
     {'exclude_null'},
-    {'explicit_to_pgsql'},
+    {'explicit_to_json'},
   },
   'default_value': {
     {'any_map', 'checked'},
   },
   'generic_class': <Set<String>>{},
-  'pgsql_test_example': {
+  'json_test_example': {
     {'any_map'},
   },
   'null_safety': <Set<String>>{

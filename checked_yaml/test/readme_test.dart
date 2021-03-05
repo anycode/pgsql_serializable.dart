@@ -61,9 +61,13 @@ $errorContent
 ```'''));
 
     final proc = await TestProcess.start(
-        Platform.resolvedExecutable, [_examplePath, inputContent]);
+      Platform.resolvedExecutable,
+      [_examplePath, inputContent],
+    );
     await expectLater(
-        proc.stderr, emitsInOrder(LineSplitter.split(errorContent)));
+      proc.stderr,
+      emitsInOrder(LineSplitter.split(errorContent)),
+    );
 
     await proc.shouldExit(isNot(0));
   });

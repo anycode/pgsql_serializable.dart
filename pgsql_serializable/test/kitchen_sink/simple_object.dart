@@ -4,17 +4,17 @@
 
 // @dart=2.12
 
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'simple_object.g.dart';
 
-@PgSqlSerializable(anyMap: true)
+@JsonSerializable(anyMap: true)
 class SimpleObject {
   final int value;
 
   SimpleObject(this.value);
 
-  factory SimpleObject.fromPgSql(Map pgsql) => _$SimpleObjectFromPgSql(pgsql);
+  factory SimpleObject.fromJson(Map json) => _$SimpleObjectFromJson(json);
 
-  Map<String, dynamic> toPgSql() => _$SimpleObjectToPgSql(this);
+  Map<String, dynamic> toJson() => _$SimpleObjectToJson(this);
 }

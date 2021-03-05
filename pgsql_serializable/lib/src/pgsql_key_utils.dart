@@ -5,26 +5,26 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'pgsql_literal_generator.dart';
+import 'json_literal_generator.dart';
 import 'shared_checkers.dart';
 import 'utils.dart';
 
-final _pgsqlKeyExpando = Expando<PgSqlKey>();
+final _jsonKeyExpando = Expando<JsonKey>();
 
-PgSqlKey pgsqlKeyForField(FieldElement field, PgSqlSerializable classAnnotation) =>
-    _pgsqlKeyExpando[field] ??= _from(field, classAnnotation);
+JsonKey jsonKeyForField(FieldElement field, JsonSerializable classAnnotation) =>
+    _jsonKeyExpando[field] ??= _from(field, classAnnotation);
 
-PgSqlKey _from(FieldElement element, PgSqlSerializable classAnnotation) {
+JsonKey _from(FieldElement element, JsonSerializable classAnnotation) {
   // If an annotation exists on `element` the source is a 'real' field.
   // If the result is `null`, check the getter – it is a property.
-  // TODO: setters: github.com/google/pgsql_serializable.dart/issues/24
-  final obj = pgsqlKeyAnnotation(element);
+  // TODO: setters: github.com/google/json_serializable.dart/issues/24
+  final obj = jsonKeyAnnotation(element);
 
   if (obj.isNull) {
-    return _populatePgSqlKey(
+    return _populateJsonKey(
       classAnnotation,
       element,
       ignore: classAnnotation.ignoreUnannotated,
@@ -104,7 +104,7 @@ PgSqlKey _from(FieldElement element, PgSqlSerializable classAnnotation) {
     throwUnsupported(
       element,
       'The provided value is not supported: $badType. '
-      'This may be an error in package:pgsql_serializable. '
+      'This may be an error in package:json_serializable. '
       'Please rerun your build with `--verbose` and file an issue.',
     );
   }
@@ -167,11 +167,11 @@ PgSqlKey _from(FieldElement element, PgSqlSerializable classAnnotation) {
           'The value provided for `$fieldName` must be a matching enum.',
         );
       }
-      return pgsqlLiteralAsDart(defaultValueLiteral);
+      return jsonLiteralAsDart(defaultValueLiteral);
     }
   }
 
-  return _populatePgSqlKey(
+  return _populateJsonKey(
     classAnnotation,
     element,
     defaultValue: _annotationValue('defaultValue'),
@@ -184,8 +184,8 @@ PgSqlKey _from(FieldElement element, PgSqlSerializable classAnnotation) {
   );
 }
 
-PgSqlKey _populatePgSqlKey(
-  PgSqlSerializable classAnnotation,
+JsonKey _populateJsonKey(
+  JsonSerializable classAnnotation,
   FieldElement element, {
   Object defaultValue,
   bool disallowNullValue,
@@ -200,11 +200,11 @@ PgSqlKey _populatePgSqlKey(
       throwUnsupported(
           element,
           'Cannot set both `disallowNullvalue` and `includeIfNull` to `true`. '
-          'This leads to incompatible `toPgSql` and `fromPgSql` behavior.');
+          'This leads to incompatible `toJson` and `fromJson` behavior.');
     }
   }
 
-  final pgsqlKey = PgSqlKey(
+  final jsonKey = JsonKey(
     defaultValue: defaultValue,
     disallowNullValue: disallowNullValue ?? false,
     ignore: ignore ?? false,
@@ -215,13 +215,13 @@ PgSqlKey _populatePgSqlKey(
     unknownEnumValue: unknownEnumValue,
   );
 
-  return pgsqlKey;
+  return jsonKey;
 }
 
-String _encodedFieldName(PgSqlSerializable classAnnotation,
-    String pgsqlKeyNameValue, FieldElement fieldElement) {
-  if (pgsqlKeyNameValue != null) {
-    return pgsqlKeyNameValue;
+String _encodedFieldName(JsonSerializable classAnnotation,
+    String jsonKeyNameValue, FieldElement fieldElement) {
+  if (jsonKeyNameValue != null) {
+    return jsonKeyNameValue;
   }
 
   switch (classAnnotation.fieldRename) {

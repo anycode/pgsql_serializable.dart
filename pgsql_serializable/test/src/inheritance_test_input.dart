@@ -1,18 +1,18 @@
 // @dart=2.12
 
-part of '_pgsql_serializable_test_input.dart';
+part of '_json_serializable_test_input.dart';
 
 @ShouldGenerate(r'''
-SubType _$SubTypeFromPgSql(Map<String, dynamic> pgsql) {
+SubType _$SubTypeFromJson(Map<String, dynamic> json) {
   return SubType(
-    pgsql['subTypeViaCtor'] as int,
-    pgsql['super-final-field'] as int,
+    json['subTypeViaCtor'] as int,
+    json['super-final-field'] as int,
   )
-    ..superReadWriteField = pgsql['superReadWriteField'] as int?
-    ..subTypeReadWrite = pgsql['subTypeReadWrite'] as int;
+    ..superReadWriteField = json['superReadWriteField'] as int?
+    ..subTypeReadWrite = json['subTypeReadWrite'] as int;
 }
 
-Map<String, dynamic> _$SubTypeToPgSql(SubType instance) {
+Map<String, dynamic> _$SubTypeToJson(SubType instance) {
   final val = <String, dynamic>{
     'super-final-field': instance.superFinalField,
   };
@@ -29,7 +29,7 @@ Map<String, dynamic> _$SubTypeToPgSql(SubType instance) {
   return val;
 }
 ''')
-@PgSqlSerializable()
+@JsonSerializable()
 class SubType extends SuperType {
   late final int subTypeViaCtor;
   late int subTypeReadWrite;
@@ -40,10 +40,10 @@ class SubType extends SuperType {
 // NOTE: `SuperType` is intentionally after `SubType` in the source file to
 // validate field ordering semantics.
 class SuperType {
-  @PgSqlKey(name: 'super-final-field')
+  @JsonKey(name: 'super-final-field')
   final int? superFinalField;
 
-  @PgSqlKey(includeIfNull: false)
+  @JsonKey(includeIfNull: false)
   int? superReadWriteField;
 
   SuperType(this.superFinalField);
@@ -57,7 +57,7 @@ class SuperType {
 }
 
 @ShouldGenerate(r'''
-Map<String, dynamic> _$SubTypeWithAnnotatedFieldOverrideExtendsToPgSql(
+Map<String, dynamic> _$SubTypeWithAnnotatedFieldOverrideExtendsToJson(
     SubTypeWithAnnotatedFieldOverrideExtends instance) {
   final val = <String, dynamic>{
     'super-final-field': instance.superFinalField,
@@ -74,7 +74,7 @@ Map<String, dynamic> _$SubTypeWithAnnotatedFieldOverrideExtendsToPgSql(
   return val;
 }
 ''')
-@PgSqlSerializable(createFactory: false)
+@JsonSerializable(createFactory: false)
 class SubTypeWithAnnotatedFieldOverrideExtends extends SuperType {
   SubTypeWithAnnotatedFieldOverrideExtends(int superTypeViaCtor)
       : super(superTypeViaCtor);
@@ -82,7 +82,7 @@ class SubTypeWithAnnotatedFieldOverrideExtends extends SuperType {
 
 @ShouldGenerate(r'''
 Map<String, dynamic>
-    _$SubTypeWithAnnotatedFieldOverrideExtendsWithOverridesToPgSql(
+    _$SubTypeWithAnnotatedFieldOverrideExtendsWithOverridesToJson(
             SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides instance) =>
         <String, dynamic>{
           'priceHalf': instance.priceHalf,
@@ -90,13 +90,13 @@ Map<String, dynamic>
           'super-final-field': instance.superFinalField,
         };
 ''')
-@PgSqlSerializable(createFactory: false)
+@JsonSerializable(createFactory: false)
 class SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides extends SuperType {
   SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides(int superTypeViaCtor)
       : super(superTypeViaCtor);
 
   /// The annotation applied here overrides the annotation in [SuperType].
-  @PgSqlKey(includeIfNull: true)
+  @JsonKey(includeIfNull: true)
   @override
   int? get superReadWriteField => super.superReadWriteField;
 
@@ -112,24 +112,24 @@ class SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides extends SuperType {
 }
 
 @ShouldGenerate(r'''
-Map<String, dynamic> _$SubTypeWithAnnotatedFieldOverrideImplementsToPgSql(
+Map<String, dynamic> _$SubTypeWithAnnotatedFieldOverrideImplementsToJson(
         SubTypeWithAnnotatedFieldOverrideImplements instance) =>
     <String, dynamic>{
       'superReadWriteField': instance.superReadWriteField,
       'superFinalField': instance.superFinalField,
     };
 ''')
-@PgSqlSerializable(createFactory: false)
+@JsonSerializable(createFactory: false)
 class SubTypeWithAnnotatedFieldOverrideImplements implements SuperType {
   // Note the order of fields in the output is determined by this class
   @override
   int? superReadWriteField;
 
-  @PgSqlKey(ignore: true)
+  @JsonKey(ignore: true)
   @override
   int get priceHalf => 42;
 
-  /// Since the relationship is `implements` no [PgSqlKey] values from
+  /// Since the relationship is `implements` no [JsonKey] values from
   /// [SuperType] are honored.
   @override
   int get superFinalField => 42;

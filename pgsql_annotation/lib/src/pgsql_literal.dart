@@ -8,14 +8,14 @@
 /// The annotation can be applied to any member, but usually it's applied to
 /// top-level getter.
 ///
-/// In this example, the JSON content of `data.pgsql` is populated into a
-/// top-level, final field `_$glossaryDataPgSqlLiteral` in the generated file.
+/// In this example, the JSON content of `data.json` is populated into a
+/// top-level, final field `_$glossaryDataJsonLiteral` in the generated file.
 ///
 /// ```dart
-/// @PgSqlLiteral('data.pgsql')
-/// Map get glossaryData => _$glossaryDataPgSqlLiteral;
+/// @JsonLiteral('data.json')
+/// Map get glossaryData => _$glossaryDataJsonLiteral;
 /// ```
-class PgSqlLiteral {
+class JsonLiteral {
   /// The relative path from the Dart file with the annotation to the file
   /// containing the source JSON.
   final String path;
@@ -23,6 +23,6 @@ class PgSqlLiteral {
   /// `true` if the JSON literal should be written as a constant.
   final bool asConst;
 
-  /// Creates a new [PgSqlLiteral] instance.
-  const PgSqlLiteral(this.path, {this.asConst = false});
+  /// Creates a new [JsonLiteral] instance.
+  const JsonLiteral(this.path, {this.asConst = false});
 }

@@ -3,22 +3,22 @@
 part of 'build_config.dart';
 
 // **************************************************************************
-// PgSqlSerializableGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-Config _$ConfigFromPgSql(Map pgsql) {
-  return $checkedNew('Config', pgsql, () {
-    $checkKeys(pgsql, requiredKeys: const ['builders']);
+Config _$ConfigFromJson(Map json) {
+  return $checkedNew('Config', json, () {
+    $checkKeys(json, requiredKeys: const ['builders']);
     final val = Config(
       builders: $checkedConvert(
-          pgsql,
+          json,
           'builders',
           (v) => (v as Map).map(
-                (k, e) => MapEntry(k as String, Builder.fromPgSql(e as Map)),
+                (k, e) => MapEntry(k as String, Builder.fromJson(e as Map)),
               )),
     );
     $checkedConvert(
-        pgsql,
+        json,
         'weights',
         (v) => val.weights = (v as Map?)?.map(
               (k, e) => MapEntry(_$enumDecode(_$AutoApplyEnumMap, k), e as int),
@@ -27,7 +27,7 @@ Config _$ConfigFromPgSql(Map pgsql) {
   });
 }
 
-Map<String, dynamic> _$ConfigToPgSql(Config instance) => <String, dynamic>{
+Map<String, dynamic> _$ConfigToJson(Config instance) => <String, dynamic>{
       'builders': instance.builders,
       'weights':
           instance.weights?.map((k, e) => MapEntry(_$AutoApplyEnumMap[k], e)),
@@ -66,9 +66,9 @@ const _$AutoApplyEnumMap = {
   AutoApply.rootPackage: 'root_package',
 };
 
-Builder _$BuilderFromPgSql(Map pgsql) {
-  return $checkedNew('Builder', pgsql, () {
-    $checkKeys(pgsql, allowedKeys: const [
+Builder _$BuilderFromJson(Map json) {
+  return $checkedNew('Builder', json, () {
+    $checkKeys(json, allowedKeys: const [
       'target',
       'import',
       'is_optional',
@@ -85,29 +85,29 @@ Builder _$BuilderFromPgSql(Map pgsql) {
       'auto_apply'
     ]);
     final val = Builder(
-      import: $checkedConvert(pgsql, 'import', (v) => v as String),
-      target: $checkedConvert(pgsql, 'target', (v) => v as String?),
-      isOptional: $checkedConvert(pgsql, 'is_optional', (v) => v as bool?),
-      autoApply: $checkedConvert(pgsql, 'auto_apply',
+      import: $checkedConvert(json, 'import', (v) => v as String),
+      target: $checkedConvert(json, 'target', (v) => v as String?),
+      isOptional: $checkedConvert(json, 'is_optional', (v) => v as bool?),
+      autoApply: $checkedConvert(json, 'auto_apply',
           (v) => _$enumDecodeNullable(_$AutoApplyEnumMap, v)),
       buildTo: $checkedConvert(
-          pgsql, 'build_to', (v) => _$enumDecodeNullable(_$BuildToEnumMap, v)),
-      defaultEnumTest: $checkedConvert(pgsql, 'defaultEnumTest',
+          json, 'build_to', (v) => _$enumDecodeNullable(_$BuildToEnumMap, v)),
+      defaultEnumTest: $checkedConvert(json, 'defaultEnumTest',
           (v) => _$enumDecodeNullable(_$AutoApplyEnumMap, v)),
-      builderFactories: $checkedConvert(pgsql, 'builder_factories',
+      builderFactories: $checkedConvert(json, 'builder_factories',
           (v) => (v as List<dynamic>).map((e) => e as String).toList()),
-      appliesBuilders: $checkedConvert(pgsql, 'applies_builders',
+      appliesBuilders: $checkedConvert(json, 'applies_builders',
           (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
-      requiredInputs: $checkedConvert(pgsql, 'required_inputs',
+      requiredInputs: $checkedConvert(json, 'required_inputs',
           (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
       buildExtensions: $checkedConvert(
-          pgsql,
+          json,
           'build_extensions',
           (v) => (v as Map?)?.map(
                 (k, e) => MapEntry(k as String,
                     (e as List<dynamic>).map((e) => e as String).toList()),
               )),
-      configLocation: $checkedConvert(pgsql, 'configLocation',
+      configLocation: $checkedConvert(json, 'configLocation',
           (v) => v == null ? null : Uri.parse(v as String)),
     );
     return val;
@@ -122,7 +122,7 @@ Builder _$BuilderFromPgSql(Map pgsql) {
   });
 }
 
-Map<String, dynamic> _$BuilderToPgSql(Builder instance) {
+Map<String, dynamic> _$BuilderToJson(Builder instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

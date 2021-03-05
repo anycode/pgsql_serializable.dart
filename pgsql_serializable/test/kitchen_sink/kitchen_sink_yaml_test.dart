@@ -1,6 +1,6 @@
 // @dart=2.12
 
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
@@ -19,14 +19,17 @@ void main() {
 
 void _anyMapTests(KitchenSinkFactory factory) {
   test('valid values round-trip - yaml', () {
-    final pgsqlEncoded = loudEncode(validValues);
-    final yaml = loadYaml(pgsqlEncoded);
-    expect(pgsqlEncoded, loudEncode(factory.fromPgSql(yaml as YamlMap)));
+    final jsonEncoded = loudEncode(validValues);
+    final yaml = loadYaml(jsonEncoded);
+    expect(jsonEncoded, loudEncode(factory.fromJson(yaml as YamlMap)));
   });
 
   group('a bad value for', () {
     for (final e in invalidValueTypes.entries) {
       _testBadValue(e.key, e.value, factory, false);
+    }
+    for (final e in disallowNullKeys) {
+      _testBadValue(e, null, factory, false);
     }
     for (final e in _invalidCheckedValues.entries) {
       _testBadValue(e.key, e.value, factory, true);
@@ -34,21 +37,21 @@ void _anyMapTests(KitchenSinkFactory factory) {
   });
 }
 
-void _testBadValue(String key, Object badValue, KitchenSinkFactory factory,
+void _testBadValue(String key, Object? badValue, KitchenSinkFactory factory,
     bool checkedAssignment) {
   final matcher = _getMatcher(factory.checked, key, checkedAssignment);
 
-  for (final isPgSql in [true, false]) {
-    test('`$key` fails with value `$badValue`- ${isPgSql ? 'pgsql' : 'yaml'}',
+  for (final isJson in [true, false]) {
+    test('`$key` fails with value `$badValue`- ${isJson ? 'json' : 'yaml'}',
         () {
       var copy = Map.from(validValues);
       copy[key] = badValue;
 
-      if (!isPgSql) {
+      if (!isJson) {
         copy = loadYaml(loudEncode(copy)) as YamlMap;
       }
 
-      expect(() => factory.fromPgSql(copy), matcher);
+      expect(() => factory.fromJson(copy), matcher);
     });
   }
 }
@@ -65,8 +68,7 @@ Matcher _getMatcher(bool checked, String? expectedKey, bool checkedAssignment) {
     innerMatcher = checkedMatcher(expectedKey);
   } else {
     innerMatcher = anyOf(
-      _isACastError,
-      _isATypeError,
+      isTypeError,
       _isAUnrecognizedKeysException(
         'Unrecognized keys: [invalid_key]; supported keys: '
         '[value, custom_field]',
@@ -86,7 +88,7 @@ Matcher _getMatcher(bool checked, String? expectedKey, bool checkedAssignment) {
           break;
         case 'intIterable':
         case 'datetime-iterable':
-          innerMatcher = _isACastError;
+          innerMatcher = isTypeError;
           break;
         default:
           throw StateError('Not expected! - $expectedKey');
@@ -96,11 +98,6 @@ Matcher _getMatcher(bool checked, String? expectedKey, bool checkedAssignment) {
 
   return throwsA(innerMatcher);
 }
-
-final _isATypeError = isA<TypeError>();
-
-// ignore: deprecated_member_use
-final _isACastError = isA<CastError>();
 
 Matcher _isAUnrecognizedKeysException(expectedMessage) =>
     isA<UnrecognizedKeysException>()

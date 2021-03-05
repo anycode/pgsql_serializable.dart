@@ -1,6 +1,6 @@
 // @dart=2.12
 
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:test/test.dart';
 
 const validValues = <String, dynamic>{
@@ -28,7 +28,7 @@ const validValues = <String, dynamic>{
   'objectDateTimeMap': <String, dynamic>{'key': '2018-05-10T14:20:58.927'},
   'crazyComplex': [<String, dynamic>{}],
   generatedLocalVarName: <String, dynamic>{'key': true},
-  _toPgSqlMapHelperName: true,
+  _toJsonMapHelperName: true,
   r'$string': 'string',
   'simpleObject': {'value': 42},
   'strictKeysObject': {'value': 10, 'custom_field': 'cool'},
@@ -60,7 +60,7 @@ const invalidValueTypes = {
   'objectDateTimeMap': {'key': 42},
   'crazyComplex': [true],
   generatedLocalVarName: {'key': 42},
-  _toPgSqlMapHelperName: 42,
+  _toJsonMapHelperName: 42,
   r'$string': true,
   'simpleObject': 42,
   'strictKeysObject': {
@@ -70,11 +70,32 @@ const invalidValueTypes = {
   'validatedPropertyNo42': true
 };
 
-Matcher checkedMatcher(String? expectedKey) => isA<CheckedFromPgSqlException>()
+const disallowNullKeys = {
+  'set',
+  'dynamicSet',
+  'objectSet',
+  'intSet',
+  'dateTimeSet',
+  'list',
+  'dynamicList',
+  'objectList',
+  'intList',
+  'dateTimeList',
+  'map',
+  'stringStringMap',
+  'dynamicIntMap',
+  'objectDateTimeMap',
+  'crazyComplex',
+  generatedLocalVarName,
+  'simpleObject',
+  'strictKeysObject',
+};
+
+Matcher checkedMatcher(String? expectedKey) => isA<CheckedFromJsonException>()
     .having((e) => e.className, 'className', 'KitchenSink')
     .having((e) => e.key, 'key', expectedKey);
 
 // copied and renamed as private from /lib/src/constants.dart
 const generatedLocalVarName = 'val';
 
-const _toPgSqlMapHelperName = 'writeNotNull';
+const _toJsonMapHelperName = 'writeNotNull';

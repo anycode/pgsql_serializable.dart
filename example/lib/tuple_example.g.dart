@@ -3,48 +3,48 @@
 part of 'tuple_example.dart';
 
 // **************************************************************************
-// PgSqlSerializableGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-Tuple<T, S> _$TupleFromPgSql<T, S>(
-  Map<String, dynamic> pgsql,
-  T Function(Object? pgsql) fromPgSqlT,
-  S Function(Object? pgsql) fromPgSqlS,
+Tuple<T, S> _$TupleFromJson<T, S>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+  S Function(Object? json) fromJsonS,
 ) {
   return Tuple<T, S>(
-    fromPgSqlT(pgsql['value1']),
-    fromPgSqlS(pgsql['value2']),
+    fromJsonT(json['value1']),
+    fromJsonS(json['value2']),
   );
 }
 
-Map<String, dynamic> _$TupleToPgSql<T, S>(
+Map<String, dynamic> _$TupleToJson<T, S>(
   Tuple<T, S> instance,
-  Object Function(T value) toPgSqlT,
-  Object Function(S value) toPgSqlS,
+  Object Function(T value) toJsonT,
+  Object Function(S value) toJsonS,
 ) =>
     <String, dynamic>{
-      'value1': toPgSqlT(instance.value1),
-      'value2': toPgSqlS(instance.value2),
+      'value1': toJsonT(instance.value1),
+      'value2': toJsonS(instance.value2),
     };
 
-ConcreteClass _$ConcreteClassFromPgSql(Map<String, dynamic> pgsql) {
+ConcreteClass _$ConcreteClassFromJson(Map<String, dynamic> json) {
   return ConcreteClass(
-    Tuple.fromPgSql(pgsql['tuple1'] as Map<String, dynamic>,
+    Tuple.fromJson(json['tuple1'] as Map<String, dynamic>,
         (value) => value as int, (value) => DateTime.parse(value as String)),
-    Tuple.fromPgSql(
-        pgsql['tuple2'] as Map<String, dynamic>,
+    Tuple.fromJson(
+        json['tuple2'] as Map<String, dynamic>,
         (value) => Duration(microseconds: value as int),
         (value) => BigInt.parse(value as String)),
   );
 }
 
-Map<String, dynamic> _$ConcreteClassToPgSql(ConcreteClass instance) =>
+Map<String, dynamic> _$ConcreteClassToJson(ConcreteClass instance) =>
     <String, dynamic>{
-      'tuple1': instance.tuple1.toPgSql(
+      'tuple1': instance.tuple1.toJson(
         (value) => value,
         (value) => value.toIso8601String(),
       ),
-      'tuple2': instance.tuple2.toPgSql(
+      'tuple2': instance.tuple2.toJson(
         (value) => value.inMicroseconds,
         (value) => value.toString(),
       ),

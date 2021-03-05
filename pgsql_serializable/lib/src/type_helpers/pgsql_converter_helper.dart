@@ -5,7 +5,7 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
 import '../helper_core.dart';
@@ -15,9 +15,9 @@ import '../type_helper.dart';
 import '../utils.dart';
 
 /// A [TypeHelper] that supports classes annotated with implementations of
-/// [PgSqlConverter].
-class PgSqlConverterHelper extends TypeHelper {
-  const PgSqlConverterHelper();
+/// [JsonConverter].
+class JsonConverterHelper extends TypeHelper {
+  const JsonConverterHelper();
 
   @override
   Object serialize(
@@ -31,7 +31,7 @@ class PgSqlConverterHelper extends TypeHelper {
       return null;
     }
 
-    return LambdaResult(expression, '${converter.accessString}.toPgSql');
+    return LambdaResult(expression, '${converter.accessString}.toJson');
   }
 
   @override
@@ -46,37 +46,37 @@ class PgSqlConverterHelper extends TypeHelper {
       return null;
     }
 
-    final asContent = asStatement(converter.pgsqlType);
+    final asContent = asStatement(converter.jsonType);
 
     return LambdaResult(
-        '$expression$asContent', '${converter.accessString}.fromPgSql');
+        '$expression$asContent', '${converter.accessString}.fromJson');
   }
 }
 
-class _PgSqlConvertData {
+class _JsonConvertData {
   final String accessString;
-  final DartType pgsqlType;
+  final DartType jsonType;
 
-  _PgSqlConvertData.className(
+  _JsonConvertData.className(
     String className,
     String accessor,
-    this.pgsqlType,
+    this.jsonType,
   ) : accessString = 'const $className${_withAccessor(accessor)}()';
 
-  _PgSqlConvertData.genericClass(
+  _JsonConvertData.genericClass(
     String className,
     String genericTypeArg,
     String accessor,
-    this.pgsqlType,
+    this.jsonType,
   ) : accessString = '$className<$genericTypeArg>${_withAccessor(accessor)}()';
 
-  _PgSqlConvertData.propertyAccess(this.accessString, this.pgsqlType);
+  _JsonConvertData.propertyAccess(this.accessString, this.jsonType);
 
   static String _withAccessor(String accessor) =>
       accessor.isEmpty ? '' : '.$accessor';
 }
 
-_PgSqlConvertData _typeConverter(DartType targetType, TypeHelperContext ctx) {
+_JsonConvertData _typeConverter(DartType targetType, TypeHelperContext ctx) {
   List<_ConverterMatch> converterMatches(List<ElementAnnotation> items) => items
       .map((annotation) => _compatibleMatch(targetType, annotation))
       .where((dt) => dt != null)
@@ -96,7 +96,7 @@ _PgSqlConvertData _typeConverter(DartType targetType, TypeHelperContext ctx) {
   return _typeConverterFrom(matchingAnnotations, targetType);
 }
 
-_PgSqlConvertData _typeConverterFrom(
+_JsonConvertData _typeConverterFrom(
   List<_ConverterMatch> matchingAnnotations,
   DartType targetType,
 ) {
@@ -123,7 +123,7 @@ _PgSqlConvertData _typeConverterFrom(
       accessString = '${enclosing.name}.$accessString';
     }
 
-    return _PgSqlConvertData.propertyAccess(accessString, match.pgsqlType);
+    return _JsonConvertData.propertyAccess(accessString, match.jsonType);
   }
 
   final reviver = ConstantReader(match.annotation).revive();
@@ -136,31 +136,31 @@ _PgSqlConvertData _typeConverterFrom(
   }
 
   if (match.genericTypeArg != null) {
-    return _PgSqlConvertData.genericClass(
+    return _JsonConvertData.genericClass(
       match.annotation.type.element.name,
       match.genericTypeArg,
       reviver.accessor,
-      match.pgsqlType,
+      match.jsonType,
     );
   }
 
-  return _PgSqlConvertData.className(
+  return _JsonConvertData.className(
     match.annotation.type.element.name,
     reviver.accessor,
-    match.pgsqlType,
+    match.jsonType,
   );
 }
 
 class _ConverterMatch {
   final DartObject annotation;
-  final DartType pgsqlType;
+  final DartType jsonType;
   final ElementAnnotation elementAnnotation;
   final String genericTypeArg;
 
   _ConverterMatch(
     this.elementAnnotation,
     this.annotation,
-    this.pgsqlType,
+    this.jsonType,
     this.genericTypeArg,
   );
 }
@@ -173,22 +173,22 @@ _ConverterMatch _compatibleMatch(
 
   final converterClassElement = constantValue.type.element as ClassElement;
 
-  final pgsqlConverterSuper = converterClassElement.allSupertypes.singleWhere(
-      (e) => e is InterfaceType && _pgsqlConverterChecker.isExactly(e.element),
+  final jsonConverterSuper = converterClassElement.allSupertypes.singleWhere(
+      (e) => e is InterfaceType && _jsonConverterChecker.isExactly(e.element),
       orElse: () => null);
 
-  if (pgsqlConverterSuper == null) {
+  if (jsonConverterSuper == null) {
     return null;
   }
 
-  assert(pgsqlConverterSuper.element.typeParameters.length == 2);
-  assert(pgsqlConverterSuper.typeArguments.length == 2);
+  assert(jsonConverterSuper.element.typeParameters.length == 2);
+  assert(jsonConverterSuper.typeArguments.length == 2);
 
-  final fieldType = pgsqlConverterSuper.typeArguments[0];
+  final fieldType = jsonConverterSuper.typeArguments[0];
 
   if (fieldType == targetType) {
     return _ConverterMatch(
-        annotation, constantValue, pgsqlConverterSuper.typeArguments[1], null);
+        annotation, constantValue, jsonConverterSuper.typeArguments[1], null);
   }
 
   if (fieldType is TypeParameterType && targetType is TypeParameterType) {
@@ -196,7 +196,7 @@ _ConverterMatch _compatibleMatch(
     assert(converterClassElement.typeParameters.isNotEmpty);
     if (converterClassElement.typeParameters.length > 1) {
       throw InvalidGenerationSourceError(
-          '`PgSqlConverter` implementations can have no more than one type '
+          '`JsonConverter` implementations can have no more than one type '
           'argument. `${converterClassElement.name}` has '
           '${converterClassElement.typeParameters.length}.',
           element: converterClassElement);
@@ -205,7 +205,7 @@ _ConverterMatch _compatibleMatch(
     return _ConverterMatch(
       annotation,
       constantValue,
-      pgsqlConverterSuper.typeArguments[1],
+      jsonConverterSuper.typeArguments[1],
       '${targetType.element.name}${targetType.isNullableType ? '?' : ''}',
     );
   }
@@ -213,4 +213,4 @@ _ConverterMatch _compatibleMatch(
   return null;
 }
 
-const _pgsqlConverterChecker = TypeChecker.fromRuntime(PgSqlConverter);
+const _jsonConverterChecker = TypeChecker.fromRuntime(JsonConverter);

@@ -2,13 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'build_config.g.dart';
 
-@PgSqlSerializable(checked: true, anyMap: true)
+@JsonSerializable(checked: true, anyMap: true)
 class Config {
-  @PgSqlKey(required: true)
+  @JsonKey(required: true)
   final Map<String, Builder> builders;
 
   // Verifying enum keys in map
@@ -16,12 +16,12 @@ class Config {
 
   Config({required this.builders});
 
-  factory Config.fromPgSql(Map map) => _$ConfigFromPgSql(map);
+  factory Config.fromJson(Map map) => _$ConfigFromJson(map);
 
-  Map<String, dynamic> toPgSql() => _$ConfigToPgSql(this);
+  Map<String, dynamic> toJson() => _$ConfigToJson(this);
 }
 
-@PgSqlSerializable(
+@JsonSerializable(
     includeIfNull: false,
     disallowUnrecognizedKeys: true,
     checked: true,
@@ -31,30 +31,30 @@ class Builder {
 
   final String import;
 
-  @PgSqlKey(name: 'is_optional')
+  @JsonKey(name: 'is_optional')
   final bool? isOptional;
 
-  @PgSqlKey(disallowNullValue: true)
+  @JsonKey(disallowNullValue: true)
   final Uri? configLocation;
 
-  @PgSqlKey(name: 'auto_apply', disallowNullValue: true)
+  @JsonKey(name: 'auto_apply', disallowNullValue: true)
   final AutoApply? autoApply;
 
-  @PgSqlKey(name: 'build_to')
+  @JsonKey(name: 'build_to')
   final BuildTo? buildTo;
 
   final AutoApply? defaultEnumTest;
 
-  @PgSqlKey(name: 'builder_factories')
+  @JsonKey(name: 'builder_factories')
   final List<String> builderFactories;
 
-  @PgSqlKey(name: 'applies_builders')
+  @JsonKey(name: 'applies_builders')
   final List<String>? appliesBuilders;
 
-  @PgSqlKey(name: 'required_inputs')
+  @JsonKey(name: 'required_inputs')
   final List<String>? requiredInputs;
 
-  @PgSqlKey(name: 'build_extensions')
+  @JsonKey(name: 'build_extensions')
   final Map<String, List<String>>? buildExtensions;
 
   Builder({
@@ -76,17 +76,17 @@ class Builder {
     }
   }
 
-  factory Builder.fromPgSql(Map map) => _$BuilderFromPgSql(map);
+  factory Builder.fromJson(Map map) => _$BuilderFromJson(map);
 
-  Map<String, dynamic> toPgSql() => _$BuilderToPgSql(this);
+  Map<String, dynamic> toJson() => _$BuilderToJson(this);
 }
 
 enum AutoApply {
   none,
   dependents,
-  @PgSqlValue('all_packages')
+  @JsonValue('all_packages')
   allPackages,
-  @PgSqlValue('root_package')
+  @JsonValue('root_package')
   rootPackage
 }
 

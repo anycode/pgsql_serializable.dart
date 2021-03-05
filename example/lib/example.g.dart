@@ -3,25 +3,25 @@
 part of 'example.dart';
 
 // **************************************************************************
-// PgSqlSerializableGenerator
+// JsonSerializableGenerator
 // **************************************************************************
 
-Person _$PersonFromPgSql(Map<String, dynamic> pgsql) {
+Person _$PersonFromJson(Map<String, dynamic> json) {
   return Person(
-    pgsql['firstName'] as String,
-    pgsql['lastName'] as String,
-    DateTime.parse(pgsql['date-of-birth'] as String),
-    middleName: pgsql['middleName'] as String?,
-    lastOrder: pgsql['last-order'] == null
+    json['firstName'] as String,
+    json['lastName'] as String,
+    DateTime.parse(json['date-of-birth'] as String),
+    middleName: json['middleName'] as String?,
+    lastOrder: json['last-order'] == null
         ? null
-        : DateTime.parse(pgsql['last-order'] as String),
-    orders: (pgsql['orders'] as List<dynamic>?)
-        ?.map((e) => Order.fromPgSql(e as Map<String, dynamic>))
+        : DateTime.parse(json['last-order'] as String),
+    orders: (json['orders'] as List<dynamic>?)
+        ?.map((e) => Order.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
 
-Map<String, dynamic> _$PersonToPgSql(Person instance) {
+Map<String, dynamic> _$PersonToJson(Person instance) {
   final val = <String, dynamic>{
     'firstName': instance.firstName,
   };
@@ -40,20 +40,20 @@ Map<String, dynamic> _$PersonToPgSql(Person instance) {
   return val;
 }
 
-Order _$OrderFromPgSql(Map<String, dynamic> pgsql) {
+Order _$OrderFromJson(Map<String, dynamic> json) {
   return Order(
-    Order._dateTimeFromEpochUs(pgsql['date'] as int),
+    Order._dateTimeFromEpochUs(json['date'] as int),
   )
-    ..count = pgsql['count'] as int?
-    ..itemNumber = pgsql['itemNumber'] as int?
-    ..isRushed = pgsql['isRushed'] as bool?
-    ..item = pgsql['item'] == null
+    ..count = json['count'] as int?
+    ..itemNumber = json['itemNumber'] as int?
+    ..isRushed = json['isRushed'] as bool?
+    ..item = json['item'] == null
         ? null
-        : Item.fromPgSql(pgsql['item'] as Map<String, dynamic>)
-    ..prepTime = Order._durationFromMilliseconds(pgsql['prep-time'] as int?);
+        : Item.fromJson(json['item'] as Map<String, dynamic>)
+    ..prepTime = Order._durationFromMilliseconds(json['prep-time'] as int?);
 }
 
-Map<String, dynamic> _$OrderToPgSql(Order instance) {
+Map<String, dynamic> _$OrderToJson(Order instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -71,24 +71,24 @@ Map<String, dynamic> _$OrderToPgSql(Order instance) {
   return val;
 }
 
-Item _$ItemFromPgSql(Map<String, dynamic> pgsql) {
+Item _$ItemFromJson(Map<String, dynamic> json) {
   return Item()
-    ..count = pgsql['count'] as int?
-    ..itemNumber = pgsql['itemNumber'] as int?
-    ..isRushed = pgsql['isRushed'] as bool?;
+    ..count = json['count'] as int?
+    ..itemNumber = json['itemNumber'] as int?
+    ..isRushed = json['isRushed'] as bool?;
 }
 
-Map<String, dynamic> _$ItemToPgSql(Item instance) => <String, dynamic>{
+Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
       'count': instance.count,
       'itemNumber': instance.itemNumber,
       'isRushed': instance.isRushed,
     };
 
 // **************************************************************************
-// PgSqlLiteralGenerator
+// JsonLiteralGenerator
 // **************************************************************************
 
-final _$glossaryDataPgSqlLiteral = {
+final _$glossaryDataJsonLiteral = {
   'glossary': {
     'title': 'example glossary',
     'GlossDiv': {

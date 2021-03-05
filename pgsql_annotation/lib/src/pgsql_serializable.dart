@@ -4,11 +4,11 @@
 
 import 'allowed_keys_helpers.dart';
 import 'checked_helpers.dart';
-import 'pgsql_key.dart';
+import 'json_key.dart';
 
-part 'pgsql_serializable.g.dart';
+part 'json_serializable.g.dart';
 
-/// Values for the automatic field renaming behavior for [PgSqlSerializable].
+/// Values for the automatic field renaming behavior for [JsonSerializable].
 enum FieldRename {
   /// Use the field name without changes.
   none,
@@ -24,12 +24,12 @@ enum FieldRename {
 }
 
 /// An annotation used to specify a class to generate code for.
-@PgSqlSerializable(
+@JsonSerializable(
   checked: true,
   disallowUnrecognizedKeys: true,
   fieldRename: FieldRename.snake,
 )
-class PgSqlSerializable {
+class JsonSerializable {
   /// If `true`, [Map] types are *not* assumed to be [Map<String, dynamic>]
   /// – which is the default type of [Map] instances return by JSON decode in
   /// `dart:convert`.
@@ -40,24 +40,24 @@ class PgSqlSerializable {
   /// *Note: in many cases the key values are still assumed to be [String]*.
   final bool? anyMap;
 
-  /// If `true`, generated `fromPgSql` functions include extra checks to validate
+  /// If `true`, generated `fromJson` functions include extra checks to validate
   /// proper deserialization of types.
   ///
   /// If an exception is thrown during deserialization, a
-  /// [CheckedFromPgSqlException] is thrown.
+  /// [CheckedFromJsonException] is thrown.
   final bool? checked;
 
-  /// If `true` (the default), a private, static `_$ExampleFromPgSql` method
+  /// If `true` (the default), a private, static `_$ExampleFromJson` method
   /// is created in the generated part file.
   ///
   /// Call this method from a factory constructor added to the source class:
   ///
   /// ```dart
-  /// @PgSqlSerializable()
+  /// @JsonSerializable()
   /// class Example {
   ///   // ...
-  ///   factory Example.fromPgSql(Map<String, dynamic> pgsql) =>
-  ///     _$ExampleFromPgSql(pgsql);
+  ///   factory Example.fromJson(Map<String, dynamic> json) =>
+  ///     _$ExampleFromJson(json);
   /// }
   /// ```
   final bool? createFactory;
@@ -66,39 +66,39 @@ class PgSqlSerializable {
   /// reference from your class.
   ///
   /// ```dart
-  /// @PgSqlSerializable()
+  /// @JsonSerializable()
   /// class Example {
-  ///   Map<String, dynamic> toPgSql() => _$ExampleToPgSql(this);
+  ///   Map<String, dynamic> toJson() => _$ExampleToJson(this);
   /// }
   /// ```
-  final bool? createToPgSql;
+  final bool? createToJson;
 
-  /// If `false` (the default), then the generated `FromPgSql` function will
+  /// If `false` (the default), then the generated `FromJson` function will
   /// ignore unrecognized keys in the provided JSON [Map].
   ///
   /// If `true`, unrecognized keys will cause an [UnrecognizedKeysException] to
   /// be thrown.
   final bool? disallowUnrecognizedKeys;
 
-  /// If `true`, generated `toPgSql` methods will explicitly call `toPgSql` on
+  /// If `true`, generated `toJson` methods will explicitly call `toJson` on
   /// nested objects.
   ///
-  /// When using JSON encoding support in `dart:convert`, `toPgSql` is
+  /// When using JSON encoding support in `dart:convert`, `toJson` is
   /// automatically called on objects, so the default behavior
-  /// (`explicitToPgSql: false`) is to omit the `toPgSql` call.
+  /// (`explicitToJson: false`) is to omit the `toJson` call.
   ///
-  /// Example of `explicitToPgSql: false` (default)
-  ///
-  /// ```dart
-  /// Map<String, dynamic> toPgSql() => {'child': child};
-  /// ```
-  ///
-  /// Example of `explicitToPgSql: true`
+  /// Example of `explicitToJson: false` (default)
   ///
   /// ```dart
-  /// Map<String, dynamic> toPgSql() => {'child': child?.toPgSql()};
+  /// Map<String, dynamic> toJson() => {'child': child};
   /// ```
-  final bool? explicitToPgSql;
+  ///
+  /// Example of `explicitToJson: true`
+  ///
+  /// ```dart
+  /// Map<String, dynamic> toJson() => {'child': child?.toJson()};
+  /// ```
+  final bool? explicitToJson;
 
   /// Defines the automatic naming strategy when converting class field names
   /// into JSON map keys.
@@ -108,18 +108,18 @@ class PgSqlSerializable {
   ///
   /// See [FieldRename] for details on the other options.
   ///
-  /// Note: the value for [PgSqlKey.name] takes precedence over this option for
-  /// fields annotated with [PgSqlKey].
+  /// Note: the value for [JsonKey.name] takes precedence over this option for
+  /// fields annotated with [JsonKey].
   final FieldRename? fieldRename;
 
   /// When `true` on classes with type parameters (generic types), extra
-  /// "helper" parameters will be generated for `fromPgSql` and/or `toPgSql` to
+  /// "helper" parameters will be generated for `fromJson` and/or `toJson` to
   /// support serializing values of those types.
   ///
   /// For example, the generated code for
   ///
   /// ```dart
-  /// @PgSqlSerializable(genericArgumentFactories: true)
+  /// @JsonSerializable(genericArgumentFactories: true)
   /// class Response<T> {
   ///   int status;
   ///   T value;
@@ -129,22 +129,22 @@ class PgSqlSerializable {
   /// Looks like
   ///
   /// ```dart
-  /// Response<T> _$ResponseFromPgSql<T>(
-  ///   Map<String, dynamic> pgsql,
-  ///   T Function(Object pgsql) fromPgSqlT,
+  /// Response<T> _$ResponseFromJson<T>(
+  ///   Map<String, dynamic> json,
+  ///   T Function(Object json) fromJsonT,
   /// ) {
   ///   return Response<T>()
-  ///     ..status = pgsql['status'] as int
-  ///     ..value = fromPgSqlT(pgsql['value']);
+  ///     ..status = json['status'] as int
+  ///     ..value = fromJsonT(json['value']);
   /// }
   ///
-  /// Map<String, dynamic> _$ResponseToPgSql<T>(
+  /// Map<String, dynamic> _$ResponseToJson<T>(
   ///   Response<T> instance,
-  ///   Object Function(T value) toPgSqlT,
+  ///   Object Function(T value) toJsonT,
   /// ) =>
   ///     <String, dynamic>{
   ///       'status': instance.status,
-  ///       'value': toPgSqlT(instance.value),
+  ///       'value': toJsonT(instance.value),
   ///     };
   /// ```
   ///
@@ -157,11 +157,11 @@ class PgSqlSerializable {
   ///    echoed.
   final bool? genericArgumentFactories;
 
-  /// When `true`, only fields annotated with [PgSqlKey] will have code
+  /// When `true`, only fields annotated with [JsonKey] will have code
   /// generated.
   ///
   /// It will have the same effect as if those fields had been annotated with
-  /// `@PgSqlKey(ignore: true)`.
+  /// `@JsonKey(ignore: true)`.
   final bool? ignoreUnannotated;
 
   /// Whether the generator should include fields with `null` values in the
@@ -170,56 +170,56 @@ class PgSqlSerializable {
   /// If `true` (the default), all fields are written to JSON, even if they are
   /// `null`.
   ///
-  /// If a field is annotated with `PgSqlKey` with a non-`null` value for
+  /// If a field is annotated with `JsonKey` with a non-`null` value for
   /// `includeIfNull`, that value takes precedent.
   final bool? includeIfNull;
 
-  /// Creates a new [PgSqlSerializable] instance.
-  const PgSqlSerializable({
+  /// Creates a new [JsonSerializable] instance.
+  const JsonSerializable({
     @Deprecated('Has no effect') bool? nullable,
     this.anyMap,
     this.checked,
     this.createFactory,
-    this.createToPgSql,
+    this.createToJson,
     this.disallowUnrecognizedKeys,
-    this.explicitToPgSql,
+    this.explicitToJson,
     this.fieldRename,
     this.ignoreUnannotated,
     this.includeIfNull,
     this.genericArgumentFactories,
   });
 
-  factory PgSqlSerializable.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PgSqlSerializableFromPgSql(pgsql);
+  factory JsonSerializable.fromJson(Map<String, dynamic> json) =>
+      _$JsonSerializableFromJson(json);
 
-  /// An instance of [PgSqlSerializable] with all fields set to their default
+  /// An instance of [JsonSerializable] with all fields set to their default
   /// values.
-  static const defaults = PgSqlSerializable(
+  static const defaults = JsonSerializable(
     anyMap: false,
     checked: false,
     createFactory: true,
-    createToPgSql: true,
+    createToJson: true,
     disallowUnrecognizedKeys: false,
-    explicitToPgSql: false,
+    explicitToJson: false,
     fieldRename: FieldRename.none,
     ignoreUnannotated: false,
     includeIfNull: true,
     genericArgumentFactories: false,
   );
 
-  /// Returns a new [PgSqlSerializable] instance with fields equal to the
+  /// Returns a new [JsonSerializable] instance with fields equal to the
   /// corresponding values in `this`, if not `null`.
   ///
   /// Otherwise, the returned value has the default value as defined in
   /// [defaults].
-  PgSqlSerializable withDefaults() => PgSqlSerializable(
+  JsonSerializable withDefaults() => JsonSerializable(
         anyMap: anyMap ?? defaults.anyMap,
         checked: checked ?? defaults.checked,
         createFactory: createFactory ?? defaults.createFactory,
-        createToPgSql: createToPgSql ?? defaults.createToPgSql,
+        createToJson: createToJson ?? defaults.createToJson,
         disallowUnrecognizedKeys:
             disallowUnrecognizedKeys ?? defaults.disallowUnrecognizedKeys,
-        explicitToPgSql: explicitToPgSql ?? defaults.explicitToPgSql,
+        explicitToJson: explicitToJson ?? defaults.explicitToJson,
         fieldRename: fieldRename ?? defaults.fieldRename,
         ignoreUnannotated: ignoreUnannotated ?? defaults.ignoreUnannotated,
         includeIfNull: includeIfNull ?? defaults.includeIfNull,
@@ -227,5 +227,5 @@ class PgSqlSerializable {
             genericArgumentFactories ?? defaults.genericArgumentFactories,
       );
 
-  Map<String, dynamic> toPgSql() => _$PgSqlSerializableToPgSql(this);
+  Map<String, dynamic> toJson() => _$JsonSerializableToJson(this);
 }

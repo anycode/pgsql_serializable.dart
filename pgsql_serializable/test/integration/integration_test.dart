@@ -7,8 +7,8 @@
 import 'package:test/test.dart';
 
 import '../test_utils.dart';
-import 'pgsql_test_common.dart' show Category, Platform, StatusCode;
-import 'pgsql_test_example.dart';
+import 'json_test_common.dart' show Category, Platform, StatusCode;
+import 'json_test_example.dart';
 
 Matcher _throwsArgumentError(matcher) =>
     throwsA(isArgumentError.having((e) => e.message, 'message', matcher));
@@ -16,7 +16,7 @@ Matcher _throwsArgumentError(matcher) =>
 void main() {
   group('Person', () {
     void roundTripPerson(Person p) {
-      roundTripObject(p, (pgsql) => Person.fromPgSql(pgsql));
+      roundTripObject(p, (json) => Person.fromJson(json));
     }
 
     test('now', () {
@@ -29,8 +29,8 @@ void main() {
           middleName: 'c', dateOfBirth: DateTime.now().toUtc()));
     });
 
-    test('empty pgsql', () {
-      final person = Person.fromPgSql({
+    test('empty json', () {
+      final person = Person.fromJson({
         'firstName': 'a',
         'lastName': 'b',
         '\$house': 'top',
@@ -50,7 +50,7 @@ void main() {
 
   group('Order', () {
     void roundTripOrder(Order p) {
-      roundTripObject(p, (pgsql) => Order.fromPgSql(pgsql));
+      roundTripObject(p, (json) => Order.fromJson(json));
     }
 
     test('null', () {
@@ -75,8 +75,8 @@ void main() {
         ..isRushed = true);
     });
 
-    test('almost empty pgsql', () {
-      final order = Order.fromPgSql({'category': 'not_discovered_yet'});
+    test('almost empty json', () {
+      final order = Order.fromJson({'category': 'not_discovered_yet'});
       expect(order.items, isEmpty);
       expect(order.category, Category.notDiscoveredYet);
       expect(
@@ -89,7 +89,7 @@ void main() {
 
     test('required, but missing enum value fails', () {
       expect(
-          () => Person.fromPgSql({
+          () => Person.fromJson({
                 'firstName': 'a',
                 'lastName': 'b',
               }),
@@ -99,7 +99,7 @@ void main() {
 
     test('mismatched enum value fails', () {
       expect(
-          () => Order.fromPgSql({'category': 'weird'}),
+          () => Order.fromJson({'category': 'weird'}),
           _throwsArgumentError('`weird` is not one of the supported values: '
               'top, bottom, strange, charmed, up, down, not_discovered_yet'));
     });
@@ -130,7 +130,7 @@ void main() {
     });
 
     test('statusCode', () {
-      final order = Order.fromPgSql(
+      final order = Order.fromJson(
         {'category': 'not_discovered_yet', 'status_code': 404},
       );
       expect(order.statusCode, StatusCode.notFound);
@@ -138,7 +138,7 @@ void main() {
     });
 
     test('statusCode "500" - weird', () {
-      final order = Order.fromPgSql(
+      final order = Order.fromJson(
         {'category': 'not_discovered_yet', 'status_code': '500'},
       );
       expect(order.statusCode, StatusCode.weird);
@@ -146,14 +146,14 @@ void main() {
     });
 
     test('statusCode `500` - unknown', () {
-      final order = Order.fromPgSql(
+      final order = Order.fromJson(
         {'category': 'not_discovered_yet', 'status_code': 500},
       );
       expect(order.statusCode, StatusCode.unknown);
       roundTripOrder(order);
     });
 
-    test('duration toPgSql', () {
+    test('duration toJson', () {
       final order = Order(Category.notDiscoveredYet)
         ..statusCode = StatusCode.success
         ..duration = const Duration(
@@ -164,12 +164,12 @@ void main() {
           milliseconds: 23,
           microseconds: 12,
         );
-      expect(order.toPgSql()['duration'], equals(190473023012));
+      expect(order.toJson()['duration'], equals(190473023012));
       roundTripOrder(order);
     });
 
-    test('duration fromPgSql', () {
-      final order = Order.fromPgSql({
+    test('duration fromJson', () {
+      final order = Order.fromJson({
         'category': 'not_discovered_yet',
         'duration': 190473023012,
       });
@@ -189,24 +189,24 @@ void main() {
 
   group('Item', () {
     void roundTripItem(Item p) {
-      roundTripObject(p, (pgsql) => Item.fromPgSql(pgsql));
+      roundTripObject(p, (json) => Item.fromJson(json));
     }
 
-    test('empty pgsql', () {
-      final item = Item.fromPgSql({});
+    test('empty json', () {
+      final item = Item.fromJson({});
       expect(item.saleDates, isNull);
       roundTripItem(item);
 
-      expect(item.toPgSql().keys, orderedEquals(['price', 'saleDates', 'rates']),
+      expect(item.toJson().keys, orderedEquals(['price', 'saleDates', 'rates']),
           reason: 'Omits null `itemNumber`');
     });
 
     test('set itemNumber - with custom JSON key', () {
-      final item = Item.fromPgSql({'item-number': 42});
+      final item = Item.fromJson({'item-number': 42});
       expect(item.itemNumber, 42);
       roundTripItem(item);
 
-      expect(item.toPgSql().keys,
+      expect(item.toJson().keys,
           orderedEquals(['price', 'item-number', 'saleDates', 'rates']),
           reason: 'Includes non-null `itemNumber` - with custom key');
     });
@@ -214,7 +214,7 @@ void main() {
 
   group('Numbers', () {
     void roundTripNumber(Numbers p) {
-      roundTripObject(p, (pgsql) => Numbers.fromPgSql(pgsql));
+      roundTripObject(p, (json) => Numbers.fromJson(json));
     }
 
     test('simple', () {
@@ -230,8 +230,8 @@ void main() {
     test('custom DateTime', () {
       final instance = Numbers()
         ..date = DateTime.fromMillisecondsSinceEpoch(42);
-      final pgsql = instance.toPgSql();
-      expect(pgsql, containsPair('date', 42000));
+      final json = instance.toJson();
+      expect(json, containsPair('date', 42000));
     });
 
     test('support ints as doubles', () {
@@ -240,7 +240,7 @@ void main() {
         'nnDoubles': [0, 0.0]
       };
 
-      roundTripNumber(Numbers.fromPgSql(value));
+      roundTripNumber(Numbers.fromJson(value));
     });
 
     test('does not support doubles as ints', () {
@@ -248,7 +248,7 @@ void main() {
         'ints': [3.14, 0],
       };
 
-      expect(() => Numbers.fromPgSql(value), throwsCastError);
+      expect(() => Numbers.fromJson(value), throwsTypeError);
     });
   });
 
@@ -260,13 +260,13 @@ void main() {
       ..uriIntMap = {Uri.parse('https://example.com'): 4};
 
     final roundTrip =
-        roundTripObject(instance, (j) => MapKeyVariety.fromPgSql(j));
+        roundTripObject(instance, (j) => MapKeyVariety.fromJson(j));
 
     expect(roundTrip, instance);
   });
 
   test('UnknownEnumValue', () {
-    final instance = UnknownEnumValue.fromPgSql({
+    final instance = UnknownEnumValue.fromJson({
       'enumValue': 'nope',
       'enumIterable': ['nope'],
       'enumList': ['nope'],

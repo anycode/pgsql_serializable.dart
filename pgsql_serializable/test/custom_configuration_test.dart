@@ -7,10 +7,10 @@ import 'dart:async';
 
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/experiments.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
-import 'package:pgsql_serializable/pgsql_serializable.dart';
-import 'package:pgsql_serializable/src/constants.dart';
-import 'package:pgsql_serializable/src/type_helper.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
+import 'package:json_serializable/src/constants.dart';
+import 'package:json_serializable/src/type_helper.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_gen/source_gen.dart';
 import 'package:source_gen_test/source_gen_test.dart';
@@ -31,14 +31,14 @@ Future<void> main() async {
   );
 
   group('without wrappers', () {
-    _registerTests(PgSqlSerializable.defaults);
+    _registerTests(JsonSerializable.defaults);
   });
 
   group('configuration', () {
     Future<void> runWithConfigAndLogger(
-        PgSqlSerializable config, String className) async {
+        JsonSerializable config, String className) async {
       await generateForElement(
-          PgSqlSerializableGenerator(
+          JsonSerializableGenerator(
               config: config, typeHelpers: const [_ConfigLogger()]),
           _libraryReader,
           className);
@@ -57,13 +57,13 @@ Future<void> main() async {
 
           test(testDescription, () async {
             await runWithConfigAndLogger(
-                nullConfig ? null : const PgSqlSerializable(), className);
+                nullConfig ? null : const JsonSerializable(), className);
 
             expect(_ConfigLogger.configurations, hasLength(2));
             expect(_ConfigLogger.configurations.first,
                 same(_ConfigLogger.configurations.last));
-            expect(_ConfigLogger.configurations.first.toPgSql(),
-                generatorConfigDefaultPgSql);
+            expect(_ConfigLogger.configurations.first.toJson(),
+                generatorConfigDefaultJson);
           });
         }
       }
@@ -73,19 +73,19 @@ Future<void> main() async {
         'values in config override unconfigured (default) values in annotation',
         () async {
       await runWithConfigAndLogger(
-          PgSqlSerializable.fromPgSql(generatorConfigNonDefaultPgSql),
+          JsonSerializable.fromJson(generatorConfigNonDefaultJson),
           'ConfigurationImplicitDefaults');
 
       expect(_ConfigLogger.configurations, isEmpty,
           reason: 'all generation is disabled');
 
-      // Create a configuration with just `create_to_pgsql` set to true so we
+      // Create a configuration with just `create_to_json` set to true so we
       // can validate the configuration that is run with
       final configMap =
-          Map<String, dynamic>.from(generatorConfigNonDefaultPgSql);
-      configMap['create_to_pgsql'] = true;
+          Map<String, dynamic>.from(generatorConfigNonDefaultJson);
+      configMap['create_to_json'] = true;
 
-      await runWithConfigAndLogger(PgSqlSerializable.fromPgSql(configMap),
+      await runWithConfigAndLogger(JsonSerializable.fromJson(configMap),
           'ConfigurationImplicitDefaults');
     });
 
@@ -93,7 +93,7 @@ Future<void> main() async {
       'explicit values in annotation override corresponding settings in config',
       () async {
         await runWithConfigAndLogger(
-            PgSqlSerializable.fromPgSql(generatorConfigNonDefaultPgSql),
+            JsonSerializable.fromJson(generatorConfigNonDefaultJson),
             'ConfigurationExplicitDefaults');
 
         expect(_ConfigLogger.configurations, hasLength(2));
@@ -101,39 +101,39 @@ Future<void> main() async {
             same(_ConfigLogger.configurations.last));
 
         // The effective configuration should be non-Default configuration, but
-        // with all fields set from PgSqlSerializable as the defaults
+        // with all fields set from JsonSerializable as the defaults
 
         final expected =
-            Map<String, dynamic>.from(generatorConfigNonDefaultPgSql);
-        for (var pgsqlSerialKey in pgsqlSerializableFields) {
-          expected[pgsqlSerialKey] = generatorConfigDefaultPgSql[pgsqlSerialKey];
+            Map<String, dynamic>.from(generatorConfigNonDefaultJson);
+        for (var jsonSerialKey in jsonSerializableFields) {
+          expected[jsonSerialKey] = generatorConfigDefaultJson[jsonSerialKey];
         }
 
-        expect(_ConfigLogger.configurations.first.toPgSql(), expected);
+        expect(_ConfigLogger.configurations.first.toJson(), expected);
       },
     );
   });
 }
 
-Future<String> _runForElementNamed(PgSqlSerializable config, String name) async {
-  final generator = PgSqlSerializableGenerator(config: config);
+Future<String> _runForElementNamed(JsonSerializable config, String name) async {
+  final generator = JsonSerializableGenerator(config: config);
   return generateForElement(generator, _libraryReader, name);
 }
 
-void _registerTests(PgSqlSerializable generator) {
+void _registerTests(JsonSerializable generator) {
   Future<String> runForElementNamed(String name) =>
       _runForElementNamed(generator, name);
 
-  group('explicit toPgSql', () {
+  group('explicit toJson', () {
     test('nullable', () async {
       final output = await _runForElementNamed(
-          const PgSqlSerializable(), 'TrivialNestedNullable');
+          const JsonSerializable(), 'TrivialNestedNullable');
 
       const expected = r'''
-Map<String, dynamic> _$TrivialNestedNullableToPgSql(
+Map<String, dynamic> _$TrivialNestedNullableToJson(
         TrivialNestedNullable instance) =>
     <String, dynamic>{
-      'child': instance.child?.toPgSql(),
+      'child': instance.child?.toJson(),
       'otherField': instance.otherField,
     };
 ''';
@@ -142,13 +142,13 @@ Map<String, dynamic> _$TrivialNestedNullableToPgSql(
     });
     test('non-nullable', () async {
       final output = await _runForElementNamed(
-          const PgSqlSerializable(), 'TrivialNestedNonNullable');
+          const JsonSerializable(), 'TrivialNestedNonNullable');
 
       const expected = r'''
-Map<String, dynamic> _$TrivialNestedNonNullableToPgSql(
+Map<String, dynamic> _$TrivialNestedNonNullableToJson(
         TrivialNestedNonNullable instance) =>
     <String, dynamic>{
-      'child': instance.child.toPgSql(),
+      'child': instance.child.toJson(),
       'otherField': instance.otherField,
     };
 ''';
@@ -158,34 +158,34 @@ Map<String, dynamic> _$TrivialNestedNonNullableToPgSql(
   });
 
   group('valid inputs', () {
-    test('class with fromPgSql() constructor with optional parameters',
+    test('class with fromJson() constructor with optional parameters',
         () async {
-      final output = await runForElementNamed('FromPgSqlOptionalParameters');
+      final output = await runForElementNamed('FromJsonOptionalParameters');
 
-      expect(output, contains('ChildWithFromPgSql.fromPgSql'));
+      expect(output, contains('ChildWithFromJson.fromJson'));
     });
 
-    test('class with child pgsql-able object', () async {
+    test('class with child json-able object', () async {
       final output = await runForElementNamed('ParentObject');
 
       expect(
           output,
-          contains("ChildObject.fromPgSql(pgsql['child'] "
+          contains("ChildObject.fromJson(json['child'] "
               'as Map<String, dynamic>)'));
     });
 
-    test('class with child pgsql-able object - anyMap', () async {
+    test('class with child json-able object - anyMap', () async {
       final output = await _runForElementNamed(
-          const PgSqlSerializable(anyMap: true), 'ParentObject');
+          const JsonSerializable(anyMap: true), 'ParentObject');
 
-      expect(output, contains("ChildObject.fromPgSql(pgsql['child'] as Map)"));
+      expect(output, contains("ChildObject.fromJson(json['child'] as Map)"));
     });
 
-    test('class with child list of pgsql-able objects', () async {
+    test('class with child list of json-able objects', () async {
       final output = await runForElementNamed('ParentObjectWithChildren');
 
       expect(output, contains('.toList()'));
-      expect(output, contains('ChildObject.fromPgSql'));
+      expect(output, contains('ChildObject.fromJson'));
     });
 
     test('class with child list of dynamic objects is left alone', () async {
@@ -194,7 +194,7 @@ Map<String, dynamic> _$TrivialNestedNonNullableToPgSql(
 
       expect(
         output,
-        contains('children = pgsql[\'children\'] as List<dynamic>;'),
+        contains('children = json[\'children\'] as List<dynamic>;'),
       );
     });
   });
@@ -203,13 +203,13 @@ Map<String, dynamic> _$TrivialNestedNonNullableToPgSql(
     test('some', () async {
       final output = await runForElementNamed('IncludeIfNullAll');
       expect(output, isNot(contains(generatedLocalVarName)));
-      expect(output, isNot(contains(toPgSqlMapHelperName)));
+      expect(output, isNot(contains(toJsonMapHelperName)));
     });
   });
 }
 
 class _ConfigLogger implements TypeHelper<TypeHelperContextWithConfig> {
-  static final configurations = <PgSqlSerializable>[];
+  static final configurations = <JsonSerializable>[];
 
   const _ConfigLogger();
 

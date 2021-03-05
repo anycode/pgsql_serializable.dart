@@ -5,9 +5,9 @@
 // @dart=2.12
 
 // ignore_for_file: annotate_overrides, hash_and_equals
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import 'pgsql_converters.dart';
+import 'json_converters.dart';
 import 'kitchen_sink_interface.dart' as k;
 import 'simple_object.dart';
 import 'strict_keys_object.dart';
@@ -41,7 +41,7 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
 
   bool get excludeNull => false;
 
-  bool get explicitToPgSql => false;
+  bool get explicitToJson => false;
 
   k.KitchenSink ctor({
     int? ctorValidatedNo42,
@@ -60,9 +60,9 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
         dateTimeIterable: dateTimeIterable,
       );
 
-  k.KitchenSink fromPgSql(Map pgsql) => KitchenSink.fromPgSql(pgsql);
+  k.KitchenSink fromJson(Map json) => KitchenSink.fromJson(json);
 
-  k.PgSqlConverterTestClass pgsqlConverterCtor() => PgSqlConverterTestClass(
+  k.JsonConverterTestClass jsonConverterCtor() => JsonConverterTestClass(
         const Duration(),
         [],
         BigInt.zero,
@@ -72,11 +72,11 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
         DateTime.fromMillisecondsSinceEpoch(0),
       );
 
-  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) =>
-      PgSqlConverterTestClass.fromPgSql(pgsql);
+  k.JsonConverterTestClass jsonConverterFromJson(Map<String, dynamic> json) =>
+      JsonConverterTestClass.fromJson(json);
 }
 
-@PgSqlSerializable(
+@JsonSerializable(
   checked: true,
   anyMap: true,
 )
@@ -89,7 +89,7 @@ class KitchenSink implements k.KitchenSink {
   final Iterable<int> _intIterable;
   final Iterable<DateTime> _dateTimeIterable;
 
-  @PgSqlKey(name: 'no-42')
+  @JsonKey(name: 'no-42')
   final int? ctorValidatedNo42;
 
   KitchenSink({
@@ -110,9 +110,9 @@ class KitchenSink implements k.KitchenSink {
     }
   }
 
-  factory KitchenSink.fromPgSql(Map pgsql) => _$KitchenSinkFromPgSql(pgsql);
+  factory KitchenSink.fromJson(Map json) => _$KitchenSinkFromJson(json);
 
-  Map<String, dynamic> toPgSql() => _$KitchenSinkToPgSql(this);
+  Map<String, dynamic> toJson() => _$KitchenSinkToJson(this);
 
   DateTime? dateTime;
 
@@ -133,7 +133,7 @@ class KitchenSink implements k.KitchenSink {
   Set<DateTime> dateTimeSet = _defaultSet();
 
   // Added a one-off annotation on a property (not a field)
-  @PgSqlKey(name: 'datetime-iterable')
+  @JsonKey(name: 'datetime-iterable')
   Iterable<DateTime> get dateTimeIterable => _dateTimeIterable;
 
   List list = _defaultList();
@@ -153,7 +153,7 @@ class KitchenSink implements k.KitchenSink {
   // Handle fields with names that collide with helper names
   Map<String, bool> val = _defaultMap();
   bool? writeNotNull;
-  @PgSqlKey(name: r'$string')
+  @JsonKey(name: r'$string')
   String? string;
 
   SimpleObject simpleObject = _defaultSimpleObject();
@@ -174,7 +174,7 @@ class KitchenSink implements k.KitchenSink {
   bool operator ==(Object other) => k.sinkEquals(this, other);
 }
 
-@PgSqlSerializable(
+@JsonSerializable(
   checked: true,
   anyMap: true,
 )
@@ -184,8 +184,8 @@ class KitchenSink implements k.KitchenSink {
 @BigIntStringConverter()
 @TrivialNumberConverter.instance
 @EpochDateTimeConverter()
-class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
-  PgSqlConverterTestClass(
+class JsonConverterTestClass implements k.JsonConverterTestClass {
+  JsonConverterTestClass(
     this.duration,
     this.durationList,
     this.bigInt,
@@ -195,10 +195,10 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
     this.dateTime,
   );
 
-  factory PgSqlConverterTestClass.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PgSqlConverterTestClassFromPgSql(pgsql);
+  factory JsonConverterTestClass.fromJson(Map<String, dynamic> json) =>
+      _$JsonConverterTestClassFromJson(json);
 
-  Map<String, dynamic> toPgSql() => _$PgSqlConverterTestClassToPgSql(this);
+  Map<String, dynamic> toJson() => _$JsonConverterTestClassToJson(this);
 
   Duration? duration;
   List<Duration?> durationList;
@@ -212,24 +212,24 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
   DateTime? dateTime;
 }
 
-@PgSqlSerializable(
+@JsonSerializable(
   checked: true,
   anyMap: true,
 )
 @GenericConverter()
-class PgSqlConverterGeneric<S, T, U> {
+class JsonConverterGeneric<S, T, U> {
   S item;
   List<T> itemList;
   Map<String, U> itemMap;
 
-  PgSqlConverterGeneric(
+  JsonConverterGeneric(
     this.item,
     this.itemList,
     this.itemMap,
   );
 
-  factory PgSqlConverterGeneric.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PgSqlConverterGenericFromPgSql(pgsql);
+  factory JsonConverterGeneric.fromJson(Map<String, dynamic> json) =>
+      _$JsonConverterGenericFromJson(json);
 
-  Map<String, dynamic> toPgSql() => _$PgSqlConverterGenericToPgSql(this);
+  Map<String, dynamic> toJson() => _$JsonConverterGenericToJson(this);
 }

@@ -5,7 +5,7 @@
 import 'allowed_keys_helpers.dart';
 
 /// Helper function used in generated code when
-/// `PgSqlSerializableGenerator.checked` is `true`.
+/// `JsonSerializableGenerator.checked` is `true`.
 ///
 /// Should not be used directly.
 T $checkedNew<T>(
@@ -18,7 +18,7 @@ T $checkedNew<T>(
 
   try {
     return constructor();
-  } on CheckedFromPgSqlException catch (e) {
+  } on CheckedFromJsonException catch (e) {
     if (identical(e.map, map) && e._className == null) {
       e._className = className;
     }
@@ -32,7 +32,7 @@ T $checkedNew<T>(
     } else if (error is DisallowedNullValueException) {
       key = error.keysWithNullValues.first;
     }
-    throw CheckedFromPgSqlException._(
+    throw CheckedFromJsonException._(
       error,
       stack,
       map,
@@ -43,22 +43,22 @@ T $checkedNew<T>(
 }
 
 /// Helper function used in generated code when
-/// `PgSqlSerializableGenerator.checked` is `true`.
+/// `JsonSerializableGenerator.checked` is `true`.
 ///
 /// Should not be used directly.
 T $checkedConvert<T>(Map map, String key, T Function(dynamic) castFunc) {
   try {
     return castFunc(map[key]);
-  } on CheckedFromPgSqlException {
+  } on CheckedFromJsonException {
     rethrow;
   } catch (error, stack) {
-    throw CheckedFromPgSqlException._(error, stack, map, key);
+    throw CheckedFromJsonException._(error, stack, map, key);
   }
 }
 
-/// Exception thrown if there is a runtime exception in `fromPgSql`
-/// code generated when `PgSqlSerializableGenerator.checked` is `true`
-class CheckedFromPgSqlException implements Exception {
+/// Exception thrown if there is a runtime exception in `fromJson`
+/// code generated when `JsonSerializableGenerator.checked` is `true`
+class CheckedFromJsonException implements Exception {
   /// The [Error] or [Exception] that triggered this exception.
   ///
   /// If this instance was created by user code, this field will be `null`.
@@ -92,8 +92,8 @@ class CheckedFromPgSqlException implements Exception {
   /// invalid value.
   final bool badKey;
 
-  /// Creates a new instance of [CheckedFromPgSqlException].
-  CheckedFromPgSqlException(
+  /// Creates a new instance of [CheckedFromJsonException].
+  CheckedFromJsonException(
     this.map,
     this.key,
     String className,
@@ -103,8 +103,8 @@ class CheckedFromPgSqlException implements Exception {
         innerError = null,
         innerStack = null;
 
-  CheckedFromPgSqlException._(
-    this.innerError,
+  CheckedFromJsonException._(
+    Object this.innerError,
     this.innerStack,
     this.map,
     this.key, {
@@ -113,9 +113,12 @@ class CheckedFromPgSqlException implements Exception {
         badKey = innerError is BadKeyException,
         message = _getMessage(innerError);
 
-  static String? _getMessage(Object? error) {
+  static String _getMessage(Object error) {
     if (error is ArgumentError) {
-      return error.message?.toString();
+      final message = error.message;
+      if (message != null) {
+        return message.toString();
+      }
     }
     if (error is BadKeyException) {
       return error.message;
@@ -132,7 +135,7 @@ class CheckedFromPgSqlException implements Exception {
 
   @override
   String toString() => <String>[
-        'CheckedFromPgSqlException',
+        'CheckedFromJsonException',
         if (_className != null) 'Could not create `$_className`.',
         if (key != null) 'There is a problem with "$key".',
         if (message != null)
