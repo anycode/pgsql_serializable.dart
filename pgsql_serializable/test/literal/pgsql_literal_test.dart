@@ -27,7 +27,8 @@ void main() {
   });
 
   test('naughty strings', () {
-    final dataFilePath = p.join('test', 'literal', 'big-list-of-naughty-strings.pgsql');
+    final dataFilePath =
+        p.join('test', 'literal', 'big-list-of-naughty-strings.pgsql');
     final dataFile = File(dataFilePath);
 
     final dataString = loudEncode(json.decode(dataFile.readAsStringSync()));

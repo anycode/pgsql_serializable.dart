@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-import 'package:json_serializable/json_serializable.dart';
+import 'package:pgsql_serializable/pgsql_serializable.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_gen_test/source_gen_test.dart';
 import 'package:test/test.dart';
@@ -12,12 +12,12 @@ Future<void> main() async {
   initializeBuildLogTracking();
   final reader = await initializeLibraryReaderForDirectory(
     p.join('test', 'src'),
-    '_json_serializable_test_input.dart',
+    '_pgsql_serializable_test_input.dart',
   );
 
   testAnnotatedElements(
     reader,
-    JsonSerializableGenerator(),
+    PgSqlSerializableGenerator(),
     expectedAnnotatedTests: _expectedAnnotatedTests,
   );
 }
@@ -35,7 +35,7 @@ const _expectedAnnotatedTests = {
   'DefaultWithFunction',
   'DefaultWithNestedEnum',
   'DefaultWithSymbol',
-  'DefaultWithToJsonClass',
+  'DefaultWithToPgSqlClass',
   'DefaultWithType',
   'DupeKeys',
   'DynamicConvertMethods',
@@ -43,7 +43,7 @@ const _expectedAnnotatedTests = {
   'FieldNamerNone',
   'FieldNamerPascal',
   'FieldNamerSnake',
-  'FieldWithFromJsonCtorAndTypeParams',
+  'FieldWithFromPgSqlCtorAndTypeParams',
   'FinalFields',
   'FinalFieldsNotSetInCtor',
   'FromDynamicCollection',
@@ -57,23 +57,23 @@ const _expectedAnnotatedTests = {
   'IgnoreUnannotated',
   'IncludeIfNullDisallowNullClass',
   'IncludeIfNullOverride',
-  'InvalidChildClassFromJson',
-  'InvalidChildClassFromJson2',
-  'InvalidChildClassFromJson3',
+  'InvalidChildClassFromPgSql',
+  'InvalidChildClassFromPgSql2',
+  'InvalidChildClassFromPgSql3',
   'InvalidFromFunc2Args',
   'InvalidToFunc2Args',
   'Issue713',
-  'JsonConvertOnField',
-  'JsonConverterCtorParams',
-  'JsonConverterDuplicateAnnotations',
-  'JsonConverterNamedCtor',
-  'JsonConverterOnGetter',
-  'JsonConverterWithBadTypeArg',
-  'JsonValueValid',
-  'JsonValueWithBool',
+  'PgSqlConvertOnField',
+  'PgSqlConverterCtorParams',
+  'PgSqlConverterDuplicateAnnotations',
+  'PgSqlConverterNamedCtor',
+  'PgSqlConverterOnGetter',
+  'PgSqlConverterWithBadTypeArg',
+  'PgSqlValueValid',
+  'PgSqlValueWithBool',
   'JustSetter',
-  'JustSetterNoFromJson',
-  'JustSetterNoToJson',
+  'JustSetterNoFromPgSql',
+  'JustSetterNoToPgSql',
   'KeyDupesField',
   'MapKeyNoNullableInt',
   'MapKeyNoNullableObject',
@@ -93,13 +93,13 @@ const _expectedAnnotatedTests = {
   'PrivateFieldCtorClass',
   'PropInMixinI448Regression',
   'SetSupport',
-  'SubclassedJsonKey',
+  'SubclassedPgSqlKey',
   'SubType',
   'SubTypeWithAnnotatedFieldOverrideExtends',
   'SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides',
   'SubTypeWithAnnotatedFieldOverrideImplements',
   'theAnswer',
-  'ToJsonNullableFalseIncludeIfNullFalse',
+  'ToPgSqlNullableFalseIncludeIfNullFalse',
   'TypedConvertMethods',
   'UnknownEnumValue',
   'UnknownEnumValueNotEnumValue',

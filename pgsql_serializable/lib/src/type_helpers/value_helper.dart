@@ -20,7 +20,7 @@ class ValueHelper extends TypeHelper {
   ) {
     if (targetType.isDartCoreObject ||
         targetType.isDynamic ||
-        simpleJsonTypeChecker.isAssignableFromType(targetType)) {
+        simplePgSqlTypeChecker.isAssignableFromType(targetType)) {
       return expression;
     }
 
@@ -44,7 +44,7 @@ class ValueHelper extends TypeHelper {
       final targetTypeNullable = defaultProvided || targetType.isNullableType;
       final question = targetTypeNullable ? '?' : '';
       return '($expression as num$question)$question.toDouble()';
-    } else if (simpleJsonTypeChecker.isAssignableFromType(targetType)) {
+    } else if (simplePgSqlTypeChecker.isAssignableFromType(targetType)) {
       final typeCode = typeToCode(targetType, forceNullable: defaultProvided);
       return '$expression as $typeCode';
     }

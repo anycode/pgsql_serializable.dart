@@ -4,12 +4,12 @@
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'constants.dart';
-import 'json_key_utils.dart';
+import 'pgsql_key_utils.dart';
 import 'type_helper.dart';
 import 'type_helper_ctx.dart';
 import 'unsupported_type_error.dart';
@@ -17,7 +17,7 @@ import 'utils.dart';
 
 abstract class HelperCore {
   final ClassElement element;
-  final JsonSerializable config;
+  final PgSqlSerializable config;
 
   HelperCore(this.element, this.config);
 
@@ -30,7 +30,7 @@ abstract class HelperCore {
       '${element.name}${genericClassArgumentsImpl(false)}';
 
   @protected
-  String nameAccess(FieldElement field) => jsonKeyFor(field).name;
+  String nameAccess(FieldElement field) => pgsqlKeyFor(field).name;
 
   @protected
   String safeNameAccess(FieldElement field) =>
@@ -48,7 +48,7 @@ abstract class HelperCore {
       genericClassArguments(element, withConstraints);
 
   @protected
-  JsonKey jsonKeyFor(FieldElement field) => jsonKeyForField(field, config);
+  PgSqlKey pgsqlKeyFor(FieldElement field) => pgsqlKeyForField(field, config);
 
   @protected
   TypeHelperCtx getHelperContext(FieldElement field) =>
@@ -70,8 +70,8 @@ InvalidGenerationSourceError createInvalidGenerationError(
     todo = '''
 To support type parameters (generic types) you can:
 $converterOrKeyInstructions
-* Set `JsonSerializable.genericArgumentFactories` to `true`
-  https://pub.dev/documentation/json_annotation/latest/json_annotation/JsonSerializable/genericArgumentFactories.html''';
+* Set `PgSqlSerializable.genericArgumentFactories` to `true`
+  https://pub.dev/documentation/pgsql_annotation/latest/pgsql_annotation/PgSqlSerializable/genericArgumentFactories.html''';
   } else if (field.type != error.type) {
     message = '$message because of type `${typeToCode(error.type)}`';
   } else {

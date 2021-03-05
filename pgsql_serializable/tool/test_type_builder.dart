@@ -15,49 +15,49 @@ final _formatter = DartFormatter();
 
 const _trivialTypesToTest = {
   'BigInt': TestTypeData(
-    jsonExpression: "'12345'",
-    altJsonExpression: "'67890'",
+    pgsqlExpression: "'12345'",
+    altPgSqlExpression: "'67890'",
   ),
   'bool': TestTypeData(
     defaultExpression: 'true',
-    altJsonExpression: 'false',
+    altPgSqlExpression: 'false',
   ),
   'DateTime': TestTypeData(
-    jsonExpression: "'2020-01-01T00:00:00.000'",
-    altJsonExpression: "'2018-01-01T00:00:00.000'",
+    pgsqlExpression: "'2020-01-01T00:00:00.000'",
+    altPgSqlExpression: "'2018-01-01T00:00:00.000'",
   ),
   'double': TestTypeData(
     defaultExpression: '3.14',
-    altJsonExpression: '6.28',
+    altPgSqlExpression: '6.28',
   ),
   'Duration': TestTypeData(
-    jsonExpression: '1234',
-    altJsonExpression: '2345',
+    pgsqlExpression: '1234',
+    altPgSqlExpression: '2345',
   ),
   customEnumType: TestTypeData(
     defaultExpression: '$customEnumType.alpha',
-    jsonExpression: "'alpha'",
-    altJsonExpression: "'beta'",
+    pgsqlExpression: "'alpha'",
+    altPgSqlExpression: "'beta'",
   ),
   'int': TestTypeData(
     defaultExpression: '42',
-    altJsonExpression: '43',
+    altPgSqlExpression: '43',
   ),
   'num': TestTypeData(
     defaultExpression: '88.6',
-    altJsonExpression: '29',
+    altPgSqlExpression: '29',
   ),
   'Object': TestTypeData(
     defaultExpression: "'o1'",
-    altJsonExpression: "'o2'",
+    altPgSqlExpression: "'o2'",
   ),
   'String': TestTypeData(
     defaultExpression: "'a string'",
-    altJsonExpression: "'another string'",
+    altPgSqlExpression: "'another string'",
   ),
   'Uri': TestTypeData(
-    jsonExpression: "'https://example.com'",
-    altJsonExpression: "'https://dart.dev'",
+    pgsqlExpression: "'https://example.com'",
+    altPgSqlExpression: "'https://dart.dev'",
   ),
 };
 
@@ -68,25 +68,25 @@ final _typesToTest = {
   //
   'Map': TestTypeData(
     defaultExpression: "{'a': 1}",
-    altJsonExpression: "{'b': 2}",
+    altPgSqlExpression: "{'b': 2}",
     genericArgs: _iterableGenericArgs
         .expand((v) => _mapKeyTypes.map((k) => '$k,$v'))
         .toSet(),
   ),
   'List': TestTypeData(
     defaultExpression: '[$_defaultCollectionExpressions]',
-    altJsonExpression: '[$_altCollectionExpressions]',
+    altPgSqlExpression: '[$_altCollectionExpressions]',
     genericArgs: _iterableGenericArgs,
   ),
   'Set': TestTypeData(
     defaultExpression: '{$_defaultCollectionExpressions}',
-    jsonExpression: '[$_defaultCollectionExpressions]',
-    altJsonExpression: '[$_altCollectionExpressions]',
+    pgsqlExpression: '[$_defaultCollectionExpressions]',
+    altPgSqlExpression: '[$_altCollectionExpressions]',
     genericArgs: _iterableGenericArgs,
   ),
   'Iterable': TestTypeData(
     defaultExpression: '[$_defaultCollectionExpressions]',
-    altJsonExpression: '[$_altCollectionExpressions]',
+    altPgSqlExpression: '[$_altCollectionExpressions]',
     genericArgs: _iterableGenericArgs,
   ),
 };

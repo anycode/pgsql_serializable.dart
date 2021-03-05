@@ -4,78 +4,78 @@
 part of 'kitchen_sink.g_any_map__checked.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// PgSqlSerializableGenerator
 // **************************************************************************
 
-KitchenSink _$KitchenSinkFromJson(Map json) {
-  return $checkedNew('KitchenSink', json, () {
+KitchenSink _$KitchenSinkFromPgSql(Map pgsql) {
+  return $checkedNew('KitchenSink', pgsql, () {
     final val = KitchenSink(
-      ctorValidatedNo42: $checkedConvert(json, 'no-42', (v) => v as int?),
-      iterable: $checkedConvert(json, 'iterable', (v) => v as List<dynamic>?),
+      ctorValidatedNo42: $checkedConvert(pgsql, 'no-42', (v) => v as int?),
+      iterable: $checkedConvert(pgsql, 'iterable', (v) => v as List<dynamic>?),
       dynamicIterable:
-          $checkedConvert(json, 'dynamicIterable', (v) => v as List<dynamic>?),
-      objectIterable: $checkedConvert(json, 'objectIterable',
+          $checkedConvert(pgsql, 'dynamicIterable', (v) => v as List<dynamic>?),
+      objectIterable: $checkedConvert(pgsql, 'objectIterable',
           (v) => (v as List<dynamic>?)?.map((e) => e as Object)),
-      intIterable: $checkedConvert(json, 'intIterable',
+      intIterable: $checkedConvert(pgsql, 'intIterable',
           (v) => (v as List<dynamic>?)?.map((e) => e as int)),
       dateTimeIterable: $checkedConvert(
-          json,
+          pgsql,
           'datetime-iterable',
           (v) =>
               (v as List<dynamic>?)?.map((e) => DateTime.parse(e as String))),
     );
-    $checkedConvert(json, 'dateTime',
+    $checkedConvert(pgsql, 'dateTime',
         (v) => val.dateTime = v == null ? null : DateTime.parse(v as String));
-    $checkedConvert(json, 'bigInt',
+    $checkedConvert(pgsql, 'bigInt',
         (v) => val.bigInt = v == null ? null : BigInt.parse(v as String));
-    $checkedConvert(json, 'set', (v) => val.set = (v as List<dynamic>).toSet());
-    $checkedConvert(json, 'dynamicSet',
+    $checkedConvert(pgsql, 'set', (v) => val.set = (v as List<dynamic>).toSet());
+    $checkedConvert(pgsql, 'dynamicSet',
         (v) => val.dynamicSet = (v as List<dynamic>).toSet());
     $checkedConvert(
-        json,
+        pgsql,
         'objectSet',
         (v) => val.objectSet =
             (v as List<dynamic>).map((e) => e as Object).toSet());
-    $checkedConvert(json, 'intSet',
+    $checkedConvert(pgsql, 'intSet',
         (v) => val.intSet = (v as List<dynamic>).map((e) => e as int).toSet());
     $checkedConvert(
-        json,
+        pgsql,
         'dateTimeSet',
         (v) => val.dateTimeSet = (v as List<dynamic>)
             .map((e) => DateTime.parse(e as String))
             .toSet());
-    $checkedConvert(json, 'list', (v) => val.list = v as List<dynamic>);
+    $checkedConvert(pgsql, 'list', (v) => val.list = v as List<dynamic>);
     $checkedConvert(
-        json, 'dynamicList', (v) => val.dynamicList = v as List<dynamic>);
+        pgsql, 'dynamicList', (v) => val.dynamicList = v as List<dynamic>);
     $checkedConvert(
-        json,
+        pgsql,
         'objectList',
         (v) => val.objectList =
             (v as List<dynamic>).map((e) => e as Object).toList());
     $checkedConvert(
-        json,
+        pgsql,
         'intList',
         (v) =>
             val.intList = (v as List<dynamic>).map((e) => e as int).toList());
     $checkedConvert(
-        json,
+        pgsql,
         'dateTimeList',
         (v) => val.dateTimeList = (v as List<dynamic>)
             .map((e) => DateTime.parse(e as String))
             .toList());
-    $checkedConvert(json, 'map', (v) => val.map = v as Map);
-    $checkedConvert(json, 'stringStringMap',
+    $checkedConvert(pgsql, 'map', (v) => val.map = v as Map);
+    $checkedConvert(pgsql, 'stringStringMap',
         (v) => val.stringStringMap = Map<String, String>.from(v as Map));
-    $checkedConvert(json, 'dynamicIntMap',
+    $checkedConvert(pgsql, 'dynamicIntMap',
         (v) => val.dynamicIntMap = Map<String, int>.from(v as Map));
     $checkedConvert(
-        json,
+        pgsql,
         'objectDateTimeMap',
         (v) => val.objectDateTimeMap = (v as Map).map(
               (k, e) => MapEntry(k as Object, DateTime.parse(e as String)),
             ));
     $checkedConvert(
-        json,
+        pgsql,
         'crazyComplex',
         (v) => val.crazyComplex = (v as List<dynamic>)
             .map((e) => (e as Map?)?.map(
@@ -93,14 +93,14 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
                 ))
             .toList());
     $checkedConvert(
-        json, 'val', (v) => val.val = Map<String, bool>.from(v as Map));
-    $checkedConvert(json, 'writeNotNull', (v) => val.writeNotNull = v as bool?);
-    $checkedConvert(json, r'$string', (v) => val.string = v as String?);
-    $checkedConvert(json, 'simpleObject',
-        (v) => val.simpleObject = SimpleObject.fromJson(v as Map));
-    $checkedConvert(json, 'strictKeysObject',
-        (v) => val.strictKeysObject = StrictKeysObject.fromJson(v as Map));
-    $checkedConvert(json, 'validatedPropertyNo42',
+        pgsql, 'val', (v) => val.val = Map<String, bool>.from(v as Map));
+    $checkedConvert(pgsql, 'writeNotNull', (v) => val.writeNotNull = v as bool?);
+    $checkedConvert(pgsql, r'$string', (v) => val.string = v as String?);
+    $checkedConvert(pgsql, 'simpleObject',
+        (v) => val.simpleObject = SimpleObject.fromPgSql(v as Map));
+    $checkedConvert(pgsql, 'strictKeysObject',
+        (v) => val.strictKeysObject = StrictKeysObject.fromPgSql(v as Map));
+    $checkedConvert(pgsql, 'validatedPropertyNo42',
         (v) => val.validatedPropertyNo42 = v as int?);
     return val;
   }, fieldKeyMap: const {
@@ -110,7 +110,7 @@ KitchenSink _$KitchenSinkFromJson(Map json) {
   });
 }
 
-Map<String, dynamic> _$KitchenSinkToJson(KitchenSink instance) =>
+Map<String, dynamic> _$KitchenSinkToPgSql(KitchenSink instance) =>
     <String, dynamic>{
       'no-42': instance.ctorValidatedNo42,
       'dateTime': instance.dateTime?.toIso8601String(),
@@ -155,88 +155,88 @@ Map<String, dynamic> _$KitchenSinkToJson(KitchenSink instance) =>
       'validatedPropertyNo42': instance.validatedPropertyNo42,
     };
 
-JsonConverterTestClass _$JsonConverterTestClassFromJson(Map json) {
-  return $checkedNew('JsonConverterTestClass', json, () {
-    final val = JsonConverterTestClass(
+PgSqlConverterTestClass _$PgSqlConverterTestClassFromPgSql(Map pgsql) {
+  return $checkedNew('PgSqlConverterTestClass', pgsql, () {
+    final val = PgSqlConverterTestClass(
       $checkedConvert(
-          json, 'duration', (v) => durationConverter.fromJson(v as int?)),
+          pgsql, 'duration', (v) => durationConverter.fromPgSql(v as int?)),
       $checkedConvert(
-          json,
+          pgsql,
           'durationList',
           (v) => (v as List<dynamic>)
-              .map((e) => durationConverter.fromJson(e as int?))
+              .map((e) => durationConverter.fromPgSql(e as int?))
               .toList()),
-      $checkedConvert(json, 'bigInt',
-          (v) => const BigIntStringConverter().fromJson(v as String)),
+      $checkedConvert(pgsql, 'bigInt',
+          (v) => const BigIntStringConverter().fromPgSql(v as String)),
       $checkedConvert(
-          json,
+          pgsql,
           'bigIntMap',
           (v) => (v as Map).map(
                 (k, e) => MapEntry(k as String,
-                    const BigIntStringConverter().fromJson(e as String)),
+                    const BigIntStringConverter().fromPgSql(e as String)),
               )),
-      $checkedConvert(json, 'numberSilly',
-          (v) => TrivialNumberConverter.instance.fromJson(v as int?)),
+      $checkedConvert(pgsql, 'numberSilly',
+          (v) => TrivialNumberConverter.instance.fromPgSql(v as int?)),
       $checkedConvert(
-          json,
+          pgsql,
           'numberSillySet',
           (v) => (v as List<dynamic>)
-              .map((e) => TrivialNumberConverter.instance.fromJson(e as int?))
+              .map((e) => TrivialNumberConverter.instance.fromPgSql(e as int?))
               .toSet()),
-      $checkedConvert(json, 'dateTime',
-          (v) => const EpochDateTimeConverter().fromJson(v as int?)),
+      $checkedConvert(pgsql, 'dateTime',
+          (v) => const EpochDateTimeConverter().fromPgSql(v as int?)),
     );
     return val;
   });
 }
 
-Map<String, dynamic> _$JsonConverterTestClassToJson(
-        JsonConverterTestClass instance) =>
+Map<String, dynamic> _$PgSqlConverterTestClassToPgSql(
+        PgSqlConverterTestClass instance) =>
     <String, dynamic>{
-      'duration': durationConverter.toJson(instance.duration),
+      'duration': durationConverter.toPgSql(instance.duration),
       'durationList':
-          instance.durationList.map(durationConverter.toJson).toList(),
-      'bigInt': const BigIntStringConverter().toJson(instance.bigInt),
+          instance.durationList.map(durationConverter.toPgSql).toList(),
+      'bigInt': const BigIntStringConverter().toPgSql(instance.bigInt),
       'bigIntMap': instance.bigIntMap
-          .map((k, e) => MapEntry(k, const BigIntStringConverter().toJson(e))),
+          .map((k, e) => MapEntry(k, const BigIntStringConverter().toPgSql(e))),
       'numberSilly':
-          TrivialNumberConverter.instance.toJson(instance.numberSilly),
+          TrivialNumberConverter.instance.toPgSql(instance.numberSilly),
       'numberSillySet': instance.numberSillySet
-          .map(TrivialNumberConverter.instance.toJson)
+          .map(TrivialNumberConverter.instance.toPgSql)
           .toList(),
-      'dateTime': const EpochDateTimeConverter().toJson(instance.dateTime),
+      'dateTime': const EpochDateTimeConverter().toPgSql(instance.dateTime),
     };
 
-JsonConverterGeneric<S, T, U> _$JsonConverterGenericFromJson<S, T, U>(
-    Map json) {
-  return $checkedNew('JsonConverterGeneric', json, () {
-    final val = JsonConverterGeneric<S, T, U>(
-      $checkedConvert(json, 'item',
-          (v) => GenericConverter<S>().fromJson(v as Map<String, dynamic>)),
+PgSqlConverterGeneric<S, T, U> _$PgSqlConverterGenericFromPgSql<S, T, U>(
+    Map pgsql) {
+  return $checkedNew('PgSqlConverterGeneric', pgsql, () {
+    final val = PgSqlConverterGeneric<S, T, U>(
+      $checkedConvert(pgsql, 'item',
+          (v) => GenericConverter<S>().fromPgSql(v as Map<String, dynamic>)),
       $checkedConvert(
-          json,
+          pgsql,
           'itemList',
           (v) => (v as List<dynamic>)
               .map((e) =>
-                  GenericConverter<T>().fromJson(e as Map<String, dynamic>))
+                  GenericConverter<T>().fromPgSql(e as Map<String, dynamic>))
               .toList()),
       $checkedConvert(
-          json,
+          pgsql,
           'itemMap',
           (v) => (v as Map).map(
                 (k, e) => MapEntry(k as String,
-                    GenericConverter<U>().fromJson(e as Map<String, dynamic>)),
+                    GenericConverter<U>().fromPgSql(e as Map<String, dynamic>)),
               )),
     );
     return val;
   });
 }
 
-Map<String, dynamic> _$JsonConverterGenericToJson<S, T, U>(
-        JsonConverterGeneric<S, T, U> instance) =>
+Map<String, dynamic> _$PgSqlConverterGenericToPgSql<S, T, U>(
+        PgSqlConverterGeneric<S, T, U> instance) =>
     <String, dynamic>{
-      'item': GenericConverter<S>().toJson(instance.item),
-      'itemList': instance.itemList.map(GenericConverter<T>().toJson).toList(),
+      'item': GenericConverter<S>().toPgSql(instance.item),
+      'itemList': instance.itemList.map(GenericConverter<T>().toPgSql).toList(),
       'itemMap': instance.itemMap
-          .map((k, e) => MapEntry(k, GenericConverter<U>().toJson(e))),
+          .map((k, e) => MapEntry(k, GenericConverter<U>().toPgSql(e))),
     };

@@ -8,15 +8,15 @@ dev_dependencies:
   build_runner: ^1.0.0
   build_verify: ^1.1.0
   checked_yaml: any
-  json_annotation: any
-  json_serializable: any
+  pgsql_annotation: any
+  pgsql_serializable: any
   test: ^1.6.0
   yaml: ^3.0.0
 
 dependency_overrides:
   checked_yaml:
     path: ../checked_yaml
-  json_annotation:
-    path: ../json_annotation
-  json_serializable:
-    path: ../json_serializable
+  pgsql_annotation:
+    path: ../pgsql_annotation
+  pgsql_serializable:
+    path: ../pgsql_serializable

@@ -8,7 +8,7 @@ import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'helper_core.dart';
-import 'json_literal_generator.dart';
+import 'pgsql_literal_generator.dart';
 import 'type_helpers/generic_factory_helper.dart';
 import 'unsupported_type_error.dart';
 import 'utils.dart';
@@ -30,16 +30,16 @@ abstract class DecodeHelper implements HelperCore {
 
     final mapType = config.anyMap ? 'Map' : 'Map<String, dynamic>';
     buffer.write('$targetClassReference '
-        '${prefix}FromJson${genericClassArgumentsImpl(true)}'
-        '($mapType json');
+        '${prefix}FromPgSql${genericClassArgumentsImpl(true)}'
+        '($mapType pgsql');
 
     if (config.genericArgumentFactories) {
       for (var arg in element.typeParameters) {
-        final helperName = fromJsonForType(
+        final helperName = fromPgSqlForType(
           arg.instantiate(nullabilitySuffix: NullabilitySuffix.none),
         );
 
-        buffer.write(', ${arg.name} Function(Object? json) $helperName');
+        buffer.write(', ${arg.name} Function(Object? pgsql) $helperName');
       }
       if (element.typeParameters.isNotEmpty) {
         buffer.write(',');
@@ -61,7 +61,7 @@ abstract class DecodeHelper implements HelperCore {
               !fe.isFinal ||
               // Handle the case where `fe` defines a getter in `element`
               // and there is a setter in a super class
-              // See google/json_serializable.dart#613
+              // See google/pgsql_serializable.dart#613
               element.lookUpSetter(fe.name, element.library) != null)
           .map((fe) => fe.name)
           .toList(),
@@ -78,7 +78,7 @@ abstract class DecodeHelper implements HelperCore {
       buffer..write('''
   return \$checkedNew(
     $classLiteral,
-    json,
+    pgsql,
     () {\n''')..write(checks)..write('''
     final val = ${data.content};''');
 
@@ -87,7 +87,7 @@ abstract class DecodeHelper implements HelperCore {
         final safeName = safeNameAccess(accessibleFields[field]);
         buffer
           ..write('''
-    \$checkedConvert(json, $safeName, (v) => ''')
+    \$checkedConvert(pgsql, $safeName, (v) => ''')
           ..write('val.$field = ')
           ..write(_deserializeForField(accessibleFields[field],
               checkedProperty: true))
@@ -105,7 +105,7 @@ abstract class DecodeHelper implements HelperCore {
       if (fieldKeyMap.isEmpty) {
         fieldKeyMapArg = '';
       } else {
-        final mapLiteral = jsonMapAsDart(fieldKeyMap);
+        final mapLiteral = pgsqlMapAsDart(fieldKeyMap);
         fieldKeyMapArg = ', fieldKeyMap: const $mapLiteral';
       }
 
@@ -129,7 +129,7 @@ abstract class DecodeHelper implements HelperCore {
     final args = <String>[];
 
     String constantList(Iterable<FieldElement> things) =>
-        'const ${jsonLiteralAsDart(things.map(nameAccess).toList())}';
+        'const ${pgsqlLiteralAsDart(things.map(nameAccess).toList())}';
 
     if (config.disallowUnrecognizedKeys) {
       final allowKeysLiteral = constantList(accessibleFields);
@@ -138,7 +138,7 @@ abstract class DecodeHelper implements HelperCore {
     }
 
     final requiredKeys =
-        accessibleFields.where((fe) => jsonKeyFor(fe).required).toList();
+        accessibleFields.where((fe) => pgsqlKeyFor(fe).required).toList();
     if (requiredKeys.isNotEmpty) {
       final requiredKeyLiteral = constantList(requiredKeys);
 
@@ -146,7 +146,7 @@ abstract class DecodeHelper implements HelperCore {
     }
 
     final disallowNullKeys = accessibleFields
-        .where((fe) => jsonKeyFor(fe).disallowNullValue)
+        .where((fe) => pgsqlKeyFor(fe).disallowNullValue)
         .toList();
     if (disallowNullKeys.isNotEmpty) {
       final disallowNullKeyLiteral = constantList(disallowNullKeys);
@@ -157,7 +157,7 @@ abstract class DecodeHelper implements HelperCore {
     if (args.isEmpty) {
       return '';
     } else {
-      return '\$checkKeys(json, ${args.join(', ')});\n';
+      return '\$checkKeys(pgsql, ${args.join(', ')});\n';
     }
   }
 
@@ -167,10 +167,10 @@ abstract class DecodeHelper implements HelperCore {
     bool checkedProperty,
   }) {
     checkedProperty ??= false;
-    final jsonKeyName = safeNameAccess(field);
+    final pgsqlKeyName = safeNameAccess(field);
     final targetType = ctorParam?.type ?? field.type;
     final contextHelper = getHelperContext(field);
-    final defaultProvided = jsonKeyFor(field).defaultValue != null;
+    final defaultProvided = pgsqlKeyFor(field).defaultValue != null;
 
     String value;
     try {
@@ -183,7 +183,7 @@ abstract class DecodeHelper implements HelperCore {
             )
             .toString();
         if (!checkedProperty) {
-          value = '\$checkedConvert(json, $jsonKeyName, (v) => $value)';
+          value = '\$checkedConvert(pgsql, $pgsqlKeyName, (v) => $value)';
         }
       } else {
         assert(!checkedProperty,
@@ -192,29 +192,29 @@ abstract class DecodeHelper implements HelperCore {
         value = contextHelper
             .deserialize(
               targetType,
-              'json[$jsonKeyName]',
+              'pgsql[$pgsqlKeyName]',
               defaultProvided: defaultProvided,
             )
             .toString();
       }
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('fromJson', field, e);
+      throw createInvalidGenerationError('fromPgSql', field, e);
     }
 
-    final jsonKey = jsonKeyFor(field);
-    final defaultValue = jsonKey.defaultValue;
+    final pgsqlKey = pgsqlKeyFor(field);
+    final defaultValue = pgsqlKey.defaultValue;
     if (defaultValue != null) {
-      if (jsonKey.disallowNullValue && jsonKey.required) {
+      if (pgsqlKey.disallowNullValue && pgsqlKey.required) {
         log.warning('The `defaultValue` on field `${field.name}` will have no '
             'effect because both `disallowNullValue` and `required` are set to '
             '`true`.');
       }
       if (contextHelper.deserializeConvertData != null) {
         log.warning('The field `${field.name}` has both `defaultValue` and '
-            '`fromJson` defined which likely won\'t work for your scenario.\n'
+            '`fromPgSql` defined which likely won\'t work for your scenario.\n'
             'Instead of using `defaultValue`, set `nullable: false` and handle '
-            '`null` in the `fromJson` function.');
+            '`null` in the `fromPgSql` function.');
       }
       value = '$value ?? $defaultValue';
     }
@@ -244,7 +244,7 @@ _ConstructorData _writeConstructorInvocation(
 
   final ctor = classElement.unnamedConstructor;
   if (ctor == null) {
-    // TODO: support using another ctor - google/json_serializable.dart#50
+    // TODO: support using another ctor - google/pgsql_serializable.dart#50
     throw InvalidGenerationSourceError(
         'The class `$className` has no default constructor.',
         element: classElement);

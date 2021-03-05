@@ -16,11 +16,11 @@ void main() {
   group('generic', () {
     GenericClass<T, S> roundTripGenericClass<T extends num, S>(
         GenericClass<T, S> p) {
-      final outputJson = loudEncode(p);
-      final p2 = GenericClass<T, S>.fromJson(
-          jsonDecode(outputJson) as Map<String, dynamic>);
-      final outputJson2 = loudEncode(p2);
-      expect(outputJson2, outputJson);
+      final outputPgSql = loudEncode(p);
+      final p2 = GenericClass<T, S>.fromPgSql(
+          jsonDecode(outputPgSql) as Map<String, dynamic>);
+      final outputPgSql2 = loudEncode(p2);
+      expect(outputPgSql2, outputPgSql);
       return p2;
     }
 
@@ -69,27 +69,27 @@ void main() {
       String encodeDateTime(DateTime value) => value.toIso8601String();
       int encodeDuration(Duration value) => value.inMilliseconds;
 
-      final encodedJson = loudEncode(
-        instance.toJson(encodeDateTime, encodeDuration),
+      final encodedPgSql = loudEncode(
+        instance.toPgSql(encodeDateTime, encodeDuration),
       );
 
-      final decoded = GenericClassWithHelpers<DateTime, Duration>.fromJson(
-        jsonDecode(encodedJson) as Map<String, dynamic>,
+      final decoded = GenericClassWithHelpers<DateTime, Duration>.fromPgSql(
+        jsonDecode(encodedPgSql) as Map<String, dynamic>,
         (value) => DateTime.parse(value as String),
         (value) => Duration(milliseconds: value as int),
       );
 
-      final encodedJson2 = loudEncode(
-        decoded.toJson(encodeDateTime, encodeDuration),
+      final encodedPgSql2 = loudEncode(
+        decoded.toPgSql(encodeDateTime, encodeDuration),
       );
 
-      expect(encodedJson2, encodedJson);
+      expect(encodedPgSql2, encodedPgSql);
     });
   });
 
   group('argument factories', () {
     test('round trip decode/decode', () {
-      const inputJson = r'''
+      const inputPgSql = r'''
 {
  "value": {
   "value": 5,
@@ -111,11 +111,11 @@ void main() {
  }
 }''';
 
-      final instance = ConcreteClass.fromJson(
-        jsonDecode(inputJson) as Map<String, dynamic>,
+      final instance = ConcreteClass.fromPgSql(
+        jsonDecode(inputPgSql) as Map<String, dynamic>,
       );
 
-      expect(loudEncode(instance), inputJson);
+      expect(loudEncode(instance), inputPgSql);
     });
   });
 }

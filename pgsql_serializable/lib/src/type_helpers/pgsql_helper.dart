@@ -5,7 +5,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
 import '../shared_checkers.dart';
@@ -15,12 +15,12 @@ import 'generic_factory_helper.dart';
 
 const _helperLambdaParam = 'value';
 
-class JsonHelper extends TypeHelper<TypeHelperContextWithConfig> {
-  const JsonHelper();
+class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
+  const PgSqlHelper();
 
   /// Simply returns the [expression] provided.
   ///
-  /// By default, JSON encoding in from `dart:convert` calls `toJson()` on
+  /// By default, JSON encoding in from `dart:convert` calls `toPgSql()` on
   /// provided objects.
   @override
   String serialize(
@@ -34,29 +34,29 @@ class JsonHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     final interfaceType = targetType as InterfaceType;
 
-    final toJsonArgs = <String>[];
+    final toPgSqlArgs = <String>[];
 
-    var toJson = _toJsonMethod(interfaceType);
+    var toPgSql = _toPgSqlMethod(interfaceType);
 
-    if (toJson != null) {
+    if (toPgSql != null) {
       // Using the `declaration` here so we get the original definition –
       // and not one with the generics already populated.
-      toJson = toJson.declaration;
+      toPgSql = toPgSql.declaration;
 
-      toJsonArgs.addAll(
+      toPgSqlArgs.addAll(
         _helperParams(
           context.serialize,
           _encodeHelper,
           interfaceType,
-          toJson.parameters.where((element) => element.isRequiredPositional),
-          toJson,
+          toPgSql.parameters.where((element) => element.isRequiredPositional),
+          toPgSql,
         ),
       );
     }
 
-    if (context.config.explicitToJson || toJsonArgs.isNotEmpty) {
+    if (context.config.explicitToPgSql || toPgSqlArgs.isNotEmpty) {
       return '$expression${interfaceType.isNullableType ? '?' : ''}'
-          '.toJson(${toJsonArgs.map((a) => '$a, ').join()} )';
+          '.toPgSql(${toPgSqlArgs.map((a) => '$a, ').join()} )';
     }
     return expression;
   }
@@ -75,20 +75,20 @@ class JsonHelper extends TypeHelper<TypeHelperContextWithConfig> {
     final type = targetType as InterfaceType;
     final classElement = type.element;
 
-    final fromJsonCtor = classElement.constructors
-        .singleWhere((ce) => ce.name == 'fromJson', orElse: () => null);
+    final fromPgSqlCtor = classElement.constructors
+        .singleWhere((ce) => ce.name == 'fromPgSql', orElse: () => null);
 
     var output = expression;
-    if (fromJsonCtor != null) {
-      final positionalParams = fromJsonCtor.parameters
+    if (fromPgSqlCtor != null) {
+      final positionalParams = fromPgSqlCtor.parameters
           .where((element) => element.isPositional)
           .toList();
 
       if (positionalParams.isEmpty) {
         throw InvalidGenerationSourceError(
-          'Expecting a `fromJson` constructor with exactly one positional '
+          'Expecting a `fromPgSql` constructor with exactly one positional '
           'parameter. Found a constructor with 0 parameters.',
-          element: fromJsonCtor,
+          element: fromPgSqlCtor,
         );
       }
 
@@ -110,7 +110,7 @@ class JsonHelper extends TypeHelper<TypeHelperContextWithConfig> {
           _decodeHelper,
           targetType as InterfaceType,
           positionalParams.skip(1),
-          fromJsonCtor,
+          fromPgSqlCtor,
         ),
       ];
 
@@ -126,8 +126,8 @@ class JsonHelper extends TypeHelper<TypeHelperContextWithConfig> {
     }
 
     // TODO: the type could be imported from a library with a prefix!
-    // https://github.com/google/json_serializable.dart/issues/19
-    output = '${targetType.element.name}.fromJson($output)';
+    // https://github.com/google/pgsql_serializable.dart/issues/19
+    output = '${targetType.element.name}.fromPgSql($output)';
 
     return commonNullPrefix(targetType.isNullableType, expression, output)
         .toString();
@@ -172,7 +172,7 @@ TypeParameterType _decodeHelper(
       type.normalParameterTypes.length == 1) {
     final funcReturnType = type.returnType;
 
-    if (param.name == fromJsonForName(funcReturnType.element.name)) {
+    if (param.name == fromPgSqlForName(funcReturnType.element.name)) {
       final funcParamType = type.normalParameterTypes.single;
 
       if ((funcParamType.isDartCoreObject && funcParamType.isNullableType) ||
@@ -183,10 +183,10 @@ TypeParameterType _decodeHelper(
   }
 
   throw InvalidGenerationSourceError(
-    'Expecting a `fromJson` constructor with exactly one positional '
+    'Expecting a `fromPgSql` constructor with exactly one positional '
     'parameter. '
     'The only extra parameters allowed are functions of the form '
-    '`T Function(Object?) ${fromJsonForName('T')}` where `T` is a type '
+    '`T Function(Object?) ${fromPgSqlForName('T')}` where `T` is a type '
     'parameter of the target type.',
     element: targetElement,
   );
@@ -203,7 +203,7 @@ TypeParameterType _encodeHelper(
       type.normalParameterTypes.length == 1) {
     final funcParamType = type.normalParameterTypes.single;
 
-    if (param.name == toJsonForName(funcParamType.element.name)) {
+    if (param.name == toPgSqlForName(funcParamType.element.name)) {
       if (funcParamType is TypeParameterType) {
         return funcParamType;
       }
@@ -211,23 +211,23 @@ TypeParameterType _encodeHelper(
   }
 
   throw InvalidGenerationSourceError(
-    'Expecting a `toJson` function with no required parameters. '
+    'Expecting a `toPgSql` function with no required parameters. '
     'The only extra parameters allowed are functions of the form '
-    '`Object Function(T) toJsonT` where `T` is a type parameter of the target '
+    '`Object Function(T) toPgSqlT` where `T` is a type parameter of the target '
     ' type.',
     element: targetElement,
   );
 }
 
-bool _canSerialize(JsonSerializable config, DartType type) {
+bool _canSerialize(PgSqlSerializable config, DartType type) {
   if (type is InterfaceType) {
-    final toJsonMethod = _toJsonMethod(type);
+    final toPgSqlMethod = _toPgSqlMethod(type);
 
-    if (toJsonMethod != null) {
+    if (toPgSqlMethod != null) {
       return true;
     }
 
-    if (_annotation(config, type)?.createToJson == true) {
+    if (_annotation(config, type)?.createToPgSql == true) {
       // TODO: consider logging that we're assuming a user will wire up the
       // generated mixin at some point...
       return true;
@@ -266,8 +266,8 @@ InterfaceType _instantiate(
   );
 }
 
-JsonSerializable _annotation(JsonSerializable config, InterfaceType source) {
-  final annotations = const TypeChecker.fromRuntime(JsonSerializable)
+PgSqlSerializable _annotation(PgSqlSerializable config, InterfaceType source) {
+  final annotations = const TypeChecker.fromRuntime(PgSqlSerializable)
       .annotationsOfExact(source.element, throwOnUnresolved: false)
       .toList();
 
@@ -282,6 +282,6 @@ JsonSerializable _annotation(JsonSerializable config, InterfaceType source) {
   );
 }
 
-MethodElement _toJsonMethod(DartType type) => typeImplementations(type)
-    .map((dt) => dt is InterfaceType ? dt.getMethod('toJson') : null)
+MethodElement _toPgSqlMethod(DartType type) => typeImplementations(type)
+    .map((dt) => dt is InterfaceType ? dt.getMethod('toPgSql') : null)
     .firstWhere((me) => me != null, orElse: () => null);

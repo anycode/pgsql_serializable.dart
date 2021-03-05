@@ -19,7 +19,7 @@ abstract class KitchenSinkFactory<K, V> {
 
   bool get excludeNull;
 
-  bool get explicitToJson;
+  bool get explicitToPgSql;
 
   KitchenSink ctor({
     int ctorValidatedNo42,
@@ -30,18 +30,18 @@ abstract class KitchenSinkFactory<K, V> {
     Iterable<DateTime> dateTimeIterable,
   });
 
-  KitchenSink fromJson(Map<K, V> json);
+  KitchenSink fromPgSql(Map<K, V> pgsql);
 
-  JsonConverterTestClass jsonConverterCtor();
+  PgSqlConverterTestClass pgsqlConverterCtor();
 
-  JsonConverterTestClass jsonConverterFromJson(Map<String, dynamic> json);
+  PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql);
 
   @override
   String toString() => description;
 }
 
-abstract class JsonConverterTestClass {
-  Map<String, dynamic> toJson();
+abstract class PgSqlConverterTestClass {
+  Map<String, dynamic> toPgSql();
 }
 
 abstract class KitchenSink {
@@ -109,7 +109,7 @@ abstract class KitchenSink {
 
   int? validatedPropertyNo42;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toPgSql();
 }
 
 // TODO: finish this...

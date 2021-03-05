@@ -4,15 +4,15 @@
 
 // @dart=2.12
 
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'input.g.dart';
 
-@JsonSerializable()
+@PgSqlSerializable()
 class SimpleClass {
   final dynamic value;
 
-  @JsonKey(defaultValue: 42)
+  @PgSqlKey(defaultValue: 42)
   dynamic withDefault;
 
   SimpleClass(
@@ -20,8 +20,8 @@ class SimpleClass {
     this.withDefault,
   );
 
-  factory SimpleClass.fromJson(Map<String, Object?> json) =>
-      _$SimpleClassFromJson(json);
+  factory SimpleClass.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassFromPgSql(pgsql);
 
-  Map<String, Object?> toJson() => _$SimpleClassToJson(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassToPgSql(this);
 }

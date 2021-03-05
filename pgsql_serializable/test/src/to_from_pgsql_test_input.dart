@@ -170,6 +170,35 @@ class FromDynamicCollection {
   late String iterableField;
 }
 
+String _fromNullableDynamicMap(Map? input) => '';
+
+String _fromNullableDynamicList(List? input) => 'null';
+
+String _fromNullableDynamicIterable(Iterable? input) => 'null';
+
+@ShouldGenerate(
+  r'''
+FromNullableDynamicCollection _$FromNullableDynamicCollectionFromPgSql(
+    Map<String, dynamic> pgsql) {
+  return FromNullableDynamicCollection()
+    ..mapField = _fromNullableDynamicMap(pgsql['mapField'] as Map?)
+    ..listField = _fromNullableDynamicList(pgsql['listField'] as List?)
+    ..iterableField =
+        _fromNullableDynamicIterable(pgsql['iterableField'] as List?);
+}
+''',
+  configurations: ['default'],
+)
+@PgSqlSerializable(createToPgSql: false)
+class FromNullableDynamicCollection {
+  @PgSqlKey(fromPgSql: _fromNullableDynamicMap)
+  late String mapField;
+  @PgSqlKey(fromPgSql: _fromNullableDynamicList)
+  late String listField;
+  @PgSqlKey(fromPgSql: _fromNullableDynamicIterable)
+  late String iterableField;
+}
+
 String _noArgs() => throw UnimplementedError();
 
 @ShouldThrow(

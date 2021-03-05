@@ -23,11 +23,13 @@ class PgSqlLiteralGenerator extends GeneratorForAnnotation<PgSqlLiteral> {
     BuildStep buildStep,
   ) async {
     if (p.isAbsolute(annotation.read('path').stringValue)) {
-      throw ArgumentError('`annotation.path` must be relative path to the source file.');
+      throw ArgumentError(
+          '`annotation.path` must be relative path to the source file.');
     }
 
     final sourcePathDir = p.dirname(buildStep.inputId.path);
-    final fileId = AssetId(buildStep.inputId.package, p.join(sourcePathDir, annotation.read('path').stringValue));
+    final fileId = AssetId(buildStep.inputId.package,
+        p.join(sourcePathDir, annotation.read('path').stringValue));
     final content = json.decode(await buildStep.readAsString(fileId));
 
     final asConst = annotation.read('asConst').boolValue;
@@ -72,7 +74,8 @@ String pgsqlLiteralAsDart(dynamic value) {
 
   if (value is Map) return pgsqlMapAsDart(value);
 
-  throw StateError('Should never get here – with ${value.runtimeType} - `$value`.');
+  throw StateError(
+      'Should never get here – with ${value.runtimeType} - `$value`.');
 }
 
 String pgsqlMapAsDart(Map value) {
@@ -85,7 +88,10 @@ String pgsqlMapAsDart(Map value) {
     } else {
       buffer.writeln(',');
     }
-    buffer..write(escapeDartString(k as String))..write(': ')..write(pgsqlLiteralAsDart(v));
+    buffer
+      ..write(escapeDartString(k as String))
+      ..write(': ')
+      ..write(pgsqlLiteralAsDart(v));
   });
 
   buffer.write('}');

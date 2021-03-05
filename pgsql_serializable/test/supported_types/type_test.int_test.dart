@@ -31,7 +31,7 @@ void main() {
     test('round trip null', () {
       expect(
         () => loudEncode(SimpleClass.fromPgSql({})),
-        throwsA(isA<TypeError>()),
+        throwsTypeError,
       );
     });
 

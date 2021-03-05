@@ -8,8 +8,8 @@ import '../shared_checkers.dart';
 import '../type_helper.dart';
 import '../utils.dart';
 
-/// Information used by [ConvertHelper] when handling `JsonKey`-annotated
-/// fields with `toJson` or `fromJson` values set.
+/// Information used by [ConvertHelper] when handling `PgSqlKey`-annotated
+/// fields with `toPgSql` or `fromPgSql` values set.
 class ConvertData {
   final String name;
   final DartType paramType;
@@ -32,14 +32,14 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
     String expression,
     TypeHelperContextWithConvert context,
   ) {
-    final toJsonData = context.serializeConvertData;
-    if (toJsonData == null) {
+    final toPgSqlData = context.serializeConvertData;
+    if (toPgSqlData == null) {
       return null;
     }
 
-    assert(toJsonData.paramType is TypeParameterType ||
-        targetType.isAssignableTo(toJsonData.paramType));
-    return '${toJsonData.name}($expression)';
+    assert(toPgSqlData.paramType is TypeParameterType ||
+        targetType.isAssignableTo(toPgSqlData.paramType));
+    return '${toPgSqlData.name}($expression)';
   }
 
   @override
@@ -49,12 +49,12 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
     TypeHelperContextWithConvert context,
     bool defaultProvided,
   ) {
-    final fromJsonData = context.deserializeConvertData;
-    if (fromJsonData == null) {
+    final fromPgSqlData = context.deserializeConvertData;
+    if (fromPgSqlData == null) {
       return null;
     }
 
-    final asContent = asStatement(fromJsonData.paramType);
-    return '${fromJsonData.name}($expression$asContent)';
+    final asContent = asStatement(fromPgSqlData.paramType);
+    return '${fromPgSqlData.name}($expression$asContent)';
   }
 }

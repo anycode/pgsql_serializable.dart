@@ -4,7 +4,8 @@ import 'shared.dart';
 
 const customEnumType = 'EnumType';
 
-const _annotationImport = "import 'package:pgsql_annotation/pgsql_annotation.dart';";
+const _annotationImport =
+    "import 'package:pgsql_annotation/pgsql_annotation.dart';";
 
 class TestTypeData {
   final String defaultExpression;
@@ -18,7 +19,8 @@ class TestTypeData {
     @required String altPgSqlExpression,
     this.genericArgs = const {},
   })  : pgsqlExpression = pgsqlExpression ?? defaultExpression,
-        altPgSqlExpression = altPgSqlExpression ?? pgsqlExpression ?? defaultExpression;
+        altPgSqlExpression =
+            altPgSqlExpression ?? pgsqlExpression ?? defaultExpression;
 
   String libContent(String source, String type) {
     const classAnnotationSplit = '@PgSqlSerializable()';
@@ -30,7 +32,8 @@ class TestTypeData {
     final newPart = toTypeExtension(type, includeDotDart: false);
 
     final headerReplacements = [
-      if (type == customEnumType || genericArgs.any((element) => element.contains(customEnumType)))
+      if (type == customEnumType ||
+          genericArgs.any((element) => element.contains(customEnumType)))
         const Replacement(
           _annotationImport,
           '$_annotationImport'
@@ -42,7 +45,8 @@ class TestTypeData {
       )
     ];
 
-    final buffer = StringBuffer(Replacement.generate(split[0], headerReplacements));
+    final buffer =
+        StringBuffer(Replacement.generate(split[0], headerReplacements));
 
     final simpleClassContent = '$classAnnotationSplit${split[1]}';
 
@@ -103,8 +107,11 @@ class TestTypeData {
             type.contains('<') // no support for default values and generic args
         ;
 
-    final defaultReplacement =
-        defaultNotSupported ? '' : _defaultSource.replaceFirst('42', defaultExpression).replaceFirst('dynamic', type);
+    final defaultReplacement = defaultNotSupported
+        ? ''
+        : _defaultSource
+            .replaceFirst('42', defaultExpression)
+            .replaceFirst('dynamic', type);
 
     yield Replacement(
       _defaultSource,
@@ -128,9 +135,12 @@ class TestTypeData {
 
     final groupContent = sourceContent.substring(startIndex, endIndex);
 
-    final nullableGroupContent = groupContent.replaceAll('non-nullable', 'nullable').replaceAll('SimpleClass', 'SimpleClassNullable');
+    final nullableGroupContent = groupContent
+        .replaceAll('non-nullable', 'nullable')
+        .replaceAll('SimpleClass', 'SimpleClassNullable');
 
-    final thrownError = type == customEnumType ? 'ArgumentError' : 'TypeError';
+    final thrownError =
+        type == customEnumType ? 'throwsArgumentError' : 'throwsTypeError';
 
     final newGroupContent = groupContent.replaceAll(
       r'''
@@ -145,7 +155,7 @@ class TestTypeData {
       '''
       expect(
         () => loudEncode(SimpleClass.fromPgSql({})),
-        throwsA(isA<$thrownError>()),
+        $thrownError,
       );''',
     );
 
@@ -207,6 +217,7 @@ String _genericClassPart(String genericArg) => genericArg
         ].join())
     .join('To');
 
-String toTypeExtension(String e, {bool includeDotDart = true}) => '.type_${typeToPathPart(e)}${includeDotDart ? '.dart' : ''}';
+String toTypeExtension(String e, {bool includeDotDart = true}) =>
+    '.type_${typeToPathPart(e)}${includeDotDart ? '.dart' : ''}';
 
 String typeToPathPart(String type) => type.toLowerCase();

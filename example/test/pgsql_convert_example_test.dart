@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:example/json_converter_example.dart';
+import 'package:example/pgsql_converter_example.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,13 +13,13 @@ void main() {
 
     final epochDateTime = DateTime.fromMillisecondsSinceEpoch(value);
     final instance = DateTimeExample(epochDateTime);
-    final json = _encode(instance);
-    expect(json, '''{
+    final pgsql = _encode(instance);
+    expect(pgsql, '''{
  "when": $value
 }''');
 
     final copy =
-        DateTimeExample.fromJson(jsonDecode(json) as Map<String, dynamic>);
+        DateTimeExample.fromPgSql(pgsqlDecode(pgsql) as Map<String, dynamic>);
     expect(copy.when, epochDateTime);
   });
 
@@ -28,8 +28,8 @@ void main() {
         page: 0, totalPages: 3, totalResults: 10, results: [1, 2, 3]);
 
     final encoded = _encode(collection);
-    final collection2 = GenericCollection<int>.fromJson(
-        jsonDecode(encoded) as Map<String, dynamic>);
+    final collection2 = GenericCollection<int>.fromPgSql(
+        pgsqlDecode(encoded) as Map<String, dynamic>);
 
     expect(collection2.results, [1, 2, 3]);
 
@@ -44,8 +44,8 @@ void main() {
         results: [CustomResult('bob', 42)]);
 
     final encoded = _encode(collection);
-    final collection2 = GenericCollection<CustomResult>.fromJson(
-        jsonDecode(encoded) as Map<String, dynamic>);
+    final collection2 = GenericCollection<CustomResult>.fromPgSql(
+        pgsqlDecode(encoded) as Map<String, dynamic>);
 
     expect(collection2.results, [CustomResult('bob', 42)]);
 
@@ -67,23 +67,23 @@ void main() {
     final encoded = _encode(collection);
 
     expect(
-      () => GenericCollection<CustomResult>.fromJson(
-          jsonDecode(encoded) as Map<String, dynamic>),
+      () => GenericCollection<CustomResult>.fromPgSql(
+          pgsqlDecode(encoded) as Map<String, dynamic>),
       _throwsTypeError,
     );
     expect(
-      () => GenericCollection<int>.fromJson(
-          jsonDecode(encoded) as Map<String, dynamic>),
+      () => GenericCollection<int>.fromPgSql(
+          pgsqlDecode(encoded) as Map<String, dynamic>),
       _throwsTypeError,
     );
     expect(
-      () => GenericCollection<String>.fromJson(
-          jsonDecode(encoded) as Map<String, dynamic>),
+      () => GenericCollection<String>.fromPgSql(
+          pgsqlDecode(encoded) as Map<String, dynamic>),
       _throwsTypeError,
     );
 
     final collection2 =
-        GenericCollection.fromJson(jsonDecode(encoded) as Map<String, dynamic>);
+        GenericCollection.fromPgSql(pgsqlDecode(encoded) as Map<String, dynamic>);
 
     expect(collection2.results, [
       1,
@@ -102,4 +102,4 @@ void main() {
 final _throwsTypeError = throwsA(isA<TypeError>());
 
 String _encode(Object object) =>
-    const JsonEncoder.withIndent(' ').convert(object);
+    const PgSqlEncoder.withIndent(' ').convert(object);

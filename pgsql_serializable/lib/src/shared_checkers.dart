@@ -32,7 +32,7 @@ List<DartType> typeArgumentsOf(DartType type, TypeChecker checker) {
 }
 
 /// A [TypeChecker] for [String], [bool] and [num].
-const simpleJsonTypeChecker = TypeChecker.any([
+const simplePgSqlTypeChecker = TypeChecker.any([
   coreStringTypeChecker,
   TypeChecker.fromUrl('dart:core#bool'),
   TypeChecker.fromUrl('dart:core#num')
