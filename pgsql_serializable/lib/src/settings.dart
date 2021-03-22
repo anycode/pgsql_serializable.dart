@@ -12,9 +12,9 @@ import 'type_helpers/duration_helper.dart';
 import 'type_helpers/enum_helper.dart';
 import 'type_helpers/generic_factory_helper.dart';
 import 'type_helpers/iterable_helper.dart';
+import 'type_helpers/map_helper.dart';
 import 'type_helpers/pgsql_converter_helper.dart';
 import 'type_helpers/pgsql_helper.dart';
-import 'type_helpers/map_helper.dart';
 import 'type_helpers/uri_helper.dart';
 import 'type_helpers/value_helper.dart';
 

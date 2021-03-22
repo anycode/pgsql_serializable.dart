@@ -7,8 +7,8 @@
 // ignore_for_file: annotate_overrides, hash_and_equals
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
-import 'pgsql_converters.dart';
 import 'kitchen_sink_interface.dart' as k;
+import 'pgsql_converters.dart';
 import 'simple_object.dart';
 import 'strict_keys_object.dart';
 
@@ -72,8 +72,7 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
         DateTime.fromMillisecondsSinceEpoch(0),
       );
 
-  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) =>
-      PgSqlConverterTestClass.fromPgSql(pgsql);
+  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) => PgSqlConverterTestClass.fromPgSql(pgsql);
 }
 
 @PgSqlSerializable(
@@ -104,8 +103,7 @@ class KitchenSink implements k.KitchenSink {
         _intIterable = intIterable?.toList() ?? _defaultList(),
         _dateTimeIterable = dateTimeIterable?.toList() ?? _defaultList() {
     if (ctorValidatedNo42 == 42) {
-      throw ArgumentError.value(
-          42, 'ctorValidatedNo42', 'The value `42` is not allowed.');
+      throw ArgumentError.value(42, 'ctorValidatedNo42', 'The value `42` is not allowed.');
     }
   }
 
@@ -146,8 +144,7 @@ class KitchenSink implements k.KitchenSink {
   Map<dynamic, int> dynamicIntMap = _defaultMap();
   Map<Object, DateTime> objectDateTimeMap = _defaultMap();
 
-  List<Map<String, Map<String, List<List<DateTime>?>?>?>?> crazyComplex =
-      _defaultList();
+  List<Map<String, Map<String, List<List<DateTime>?>?>?>?> crazyComplex = _defaultList();
 
   // Handle fields with names that collide with helper names
   Map<String, bool> val = _defaultMap();
@@ -193,8 +190,7 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
     this.dateTime,
   );
 
-  factory PgSqlConverterTestClass.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PgSqlConverterTestClassFromPgSql(pgsql);
+  factory PgSqlConverterTestClass.fromPgSql(Map<String, dynamic> pgsql) => _$PgSqlConverterTestClassFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$PgSqlConverterTestClassToPgSql(this);
 
@@ -225,8 +221,7 @@ class PgSqlConverterGeneric<S, T, U> {
     this.itemMap,
   );
 
-  factory PgSqlConverterGeneric.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PgSqlConverterGenericFromPgSql(pgsql);
+  factory PgSqlConverterGeneric.fromPgSql(Map<String, dynamic> pgsql) => _$PgSqlConverterGenericFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$PgSqlConverterGenericToPgSql(this);
 }
