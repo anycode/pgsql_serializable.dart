@@ -7,8 +7,8 @@ import 'dart:convert';
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:path/path.dart' as p;
 import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:path/path.dart' as p;
 import 'package:source_gen/source_gen.dart';
 
 import 'utils.dart';

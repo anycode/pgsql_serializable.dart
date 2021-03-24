@@ -16,8 +16,8 @@ import 'settings.dart';
 /// [formatOutput] is called to format the generated code. If not provided,
 /// the default Dart code formatter is used.
 Builder pgsqlPartBuilder({
-  String Function(String code) formatOutput,
-  PgSqlSerializable config,
+  String Function(String code)? formatOutput,
+  PgSqlSerializable? config,
 }) {
   final settings = Settings(config: config);
 

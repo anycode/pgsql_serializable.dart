@@ -6,26 +6,33 @@ import 'package:analyzer/dart/element/type.dart';
 
 import '../lambda_result.dart';
 import '../type_helper.dart';
+import '../utils.dart';
 
 class GenericFactoryHelper extends TypeHelper<TypeHelperContextWithConfig> {
   const GenericFactoryHelper();
 
   @override
-  Object serialize(
+  Object? serialize(
     DartType targetType,
     String expression,
     TypeHelperContextWithConfig context,
   ) {
     if (context.config.genericArgumentFactories &&
         targetType is TypeParameterType) {
-      return LambdaResult(expression, toPgSqlForType(targetType));
+      final toPgSqlFunc = toPgSqlForType(targetType);
+      if (targetType.isNullableType) {
+        context.addMember(_toPgSqlHelper);
+        return '$_toPgSqlHelperName($expression, $toPgSqlFunc)';
+      }
+
+      return LambdaResult(expression, toPgSqlFunc);
     }
 
     return null;
   }
 
   @override
-  Object deserialize(
+  Object? deserialize(
     DartType targetType,
     String expression,
     TypeHelperContextWithConfig context,
@@ -33,12 +40,39 @@ class GenericFactoryHelper extends TypeHelper<TypeHelperContextWithConfig> {
   ) {
     if (context.config.genericArgumentFactories &&
         targetType is TypeParameterType) {
-      return LambdaResult(expression, fromPgSqlForType(targetType));
+      final fromPgSqlFunc = fromPgSqlForType(targetType);
+
+      if (targetType.isNullableType) {
+        context.addMember(_fromPgSqlHelper);
+        return '$_fromPgSqlHelperName($expression, $fromPgSqlFunc)';
+      }
+
+      return LambdaResult(expression, fromPgSqlFunc);
     }
 
     return null;
   }
 }
+
+const _fromPgSqlHelperName = r'_$nullableGenericFromPgSql';
+
+const _fromPgSqlHelper = '''
+T? $_fromPgSqlHelperName<T>(
+  Object? input,
+  T Function(Object? pgsql) fromPgSql,
+) =>
+    input == null ? null : fromPgSql(input);
+''';
+
+const _toPgSqlHelperName = r'_$nullableGenericToPgSql';
+
+const _toPgSqlHelper = '''
+Object? $_toPgSqlHelperName<T>(
+  T? input,
+  Object? Function(T value) toPgSql,
+) =>
+    input == null ? null : toPgSql(input);
+''';
 
 String toPgSqlForType(TypeParameterType type) =>
     toPgSqlForName(type.getDisplayString(withNullability: false));

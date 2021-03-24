@@ -5,6 +5,7 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:collection/collection.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -20,7 +21,7 @@ class PgSqlConverterHelper extends TypeHelper {
   const PgSqlConverterHelper();
 
   @override
-  Object serialize(
+  Object? serialize(
     DartType targetType,
     String expression,
     TypeHelperContext context,
@@ -35,7 +36,7 @@ class PgSqlConverterHelper extends TypeHelper {
   }
 
   @override
-  Object deserialize(
+  Object? deserialize(
     DartType targetType,
     String expression,
     TypeHelperContext context,
@@ -76,10 +77,10 @@ class _PgSqlConvertData {
       accessor.isEmpty ? '' : '.$accessor';
 }
 
-_PgSqlConvertData _typeConverter(DartType targetType, TypeHelperContext ctx) {
+_PgSqlConvertData? _typeConverter(DartType targetType, TypeHelperContext ctx) {
   List<_ConverterMatch> converterMatches(List<ElementAnnotation> items) => items
       .map((annotation) => _compatibleMatch(targetType, annotation))
-      .where((dt) => dt != null)
+      .whereType<_ConverterMatch>()
       .toList();
 
   var matchingAnnotations = converterMatches(ctx.fieldElement.metadata);
@@ -96,7 +97,7 @@ _PgSqlConvertData _typeConverter(DartType targetType, TypeHelperContext ctx) {
   return _typeConverterFrom(matchingAnnotations, targetType);
 }
 
-_PgSqlConvertData _typeConverterFrom(
+_PgSqlConvertData? _typeConverterFrom(
   List<_ConverterMatch> matchingAnnotations,
   DartType targetType,
 ) {
@@ -137,15 +138,15 @@ _PgSqlConvertData _typeConverterFrom(
 
   if (match.genericTypeArg != null) {
     return _PgSqlConvertData.genericClass(
-      match.annotation.type.element.name,
-      match.genericTypeArg,
+      match.annotation.type!.element!.name!,
+      match.genericTypeArg!,
       reviver.accessor,
       match.pgsqlType,
     );
   }
 
   return _PgSqlConvertData.className(
-    match.annotation.type.element.name,
+    match.annotation.type!.element!.name!,
     reviver.accessor,
     match.pgsqlType,
   );
@@ -155,7 +156,7 @@ class _ConverterMatch {
   final DartObject annotation;
   final DartType pgsqlType;
   final ElementAnnotation elementAnnotation;
-  final String genericTypeArg;
+  final String? genericTypeArg;
 
   _ConverterMatch(
     this.elementAnnotation,
@@ -165,17 +166,18 @@ class _ConverterMatch {
   );
 }
 
-_ConverterMatch _compatibleMatch(
+_ConverterMatch? _compatibleMatch(
   DartType targetType,
   ElementAnnotation annotation,
 ) {
-  final constantValue = annotation.computeConstantValue();
+  final constantValue = annotation.computeConstantValue()!;
 
-  final converterClassElement = constantValue.type.element as ClassElement;
+  final converterClassElement = constantValue.type!.element as ClassElement;
 
-  final pgsqlConverterSuper = converterClassElement.allSupertypes.singleWhere(
-      (e) => e is InterfaceType && _pgsqlConverterChecker.isExactly(e.element),
-      orElse: () => null);
+  final pgsqlConverterSuper =
+      converterClassElement.allSupertypes.singleWhereOrNull(
+    (e) => e is InterfaceType && _pgsqlConverterChecker.isExactly(e.element),
+  );
 
   if (pgsqlConverterSuper == null) {
     return null;

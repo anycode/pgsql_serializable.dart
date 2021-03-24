@@ -1,5 +1,3 @@
-// @dart=2.12
-
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldThrow(

@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// @dart=2.12
-
 import 'dart:convert';
 
 import 'package:stack_trace/stack_trace.dart';
@@ -26,7 +24,7 @@ T roundTripObject<T>(T object, T Function(Map<String, dynamic> pgsql) factory) {
   return object2;
 }
 
-/// Prints out nested causes before throwing `JsonUnsupportedObjectError`.
+/// Prints out nested causes before throwing `PgSqlUnsupportedObjectError`.
 String loudEncode(Object? object) {
   try {
     return const JsonEncoder.withIndent(' ').convert(object);

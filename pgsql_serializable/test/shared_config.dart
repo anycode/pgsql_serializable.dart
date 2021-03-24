@@ -3,11 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:pgsql_serializable/src/type_helpers/config_types.dart';
 
 final pgsqlSerializableFields = generatorConfigDefaultPgSql.keys.toList();
 
 final generatorConfigDefaultPgSql = Map<String, dynamic>.unmodifiable(
-    const PgSqlSerializable().withDefaults().toPgSql());
+    ClassConfig.defaults.withDefaults().toPgSql());
 
 final generatorConfigNonDefaultPgSql =
     Map<String, dynamic>.unmodifiable(const PgSqlSerializable(

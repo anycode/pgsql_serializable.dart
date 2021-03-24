@@ -30,8 +30,8 @@ class PgSqlSerializableGenerator
   /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
   /// [UriHelper].
   factory PgSqlSerializableGenerator({
-    PgSqlSerializable config,
-    List<TypeHelper> typeHelpers,
+    PgSqlSerializable? config,
+    List<TypeHelper>? typeHelpers,
   }) =>
       PgSqlSerializableGenerator.fromSettings(Settings(
         config: config,
@@ -46,7 +46,7 @@ class PgSqlSerializableGenerator
   /// [UriHelper].
   factory PgSqlSerializableGenerator.withDefaultHelpers(
     Iterable<TypeHelper> typeHelpers, {
-    PgSqlSerializable config,
+    PgSqlSerializable? config,
   }) =>
       PgSqlSerializableGenerator(
         config: config,
@@ -61,7 +61,7 @@ class PgSqlSerializableGenerator
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    if (!element.library.isNonNullableByDefault) {
+    if (!element.library!.isNonNullableByDefault) {
       throw InvalidGenerationSourceError(
         'Generator cannot target libraries that have not been migrated to '
         'null-safety.',
@@ -76,8 +76,7 @@ class PgSqlSerializableGenerator
       );
     }
 
-    final classElement = element as ClassElement;
-    final helper = GeneratorHelper(_settings, classElement, annotation);
+    final helper = GeneratorHelper(_settings, element, annotation);
     return helper.generate();
   }
 }

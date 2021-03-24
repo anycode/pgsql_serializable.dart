@@ -6,15 +6,16 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 import 'type_helper.dart';
 import 'type_helpers/big_int_helper.dart';
+import 'type_helpers/config_types.dart';
 import 'type_helpers/convert_helper.dart';
 import 'type_helpers/date_time_helper.dart';
 import 'type_helpers/duration_helper.dart';
 import 'type_helpers/enum_helper.dart';
 import 'type_helpers/generic_factory_helper.dart';
 import 'type_helpers/iterable_helper.dart';
-import 'type_helpers/map_helper.dart';
 import 'type_helpers/pgsql_converter_helper.dart';
 import 'type_helpers/pgsql_helper.dart';
+import 'type_helpers/map_helper.dart';
 import 'type_helpers/uri_helper.dart';
 import 'type_helpers/value_helper.dart';
 
@@ -44,7 +45,24 @@ class Settings {
 
   final PgSqlSerializable _config;
 
-  PgSqlSerializable get config => _config.withDefaults();
+  ClassConfig get config => ClassConfig(
+        checked: _config.checked ?? ClassConfig.defaults.checked,
+        anyMap: _config.anyMap ?? ClassConfig.defaults.anyMap,
+        createFactory:
+            _config.createFactory ?? ClassConfig.defaults.createFactory,
+        createToPgSql: _config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
+        ignoreUnannotated:
+            _config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
+        explicitToPgSql:
+            _config.explicitToPgSql ?? ClassConfig.defaults.explicitToPgSql,
+        includeIfNull:
+            _config.includeIfNull ?? ClassConfig.defaults.includeIfNull,
+        genericArgumentFactories: _config.genericArgumentFactories ??
+            ClassConfig.defaults.genericArgumentFactories,
+        fieldRename: _config.fieldRename ?? ClassConfig.defaults.fieldRename,
+        disallowUnrecognizedKeys: _config.disallowUnrecognizedKeys ??
+            ClassConfig.defaults.disallowUnrecognizedKeys,
+      );
 
   /// Creates an instance of [Settings].
   ///
@@ -52,9 +70,9 @@ class Settings {
   /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
   /// [UriHelper].
   const Settings({
-    PgSqlSerializable config,
-    List<TypeHelper> typeHelpers,
-  })  : _config = config ?? PgSqlSerializable.defaults,
+    PgSqlSerializable? config,
+    List<TypeHelper>? typeHelpers,
+  })  : _config = config ?? ClassConfig.defaults,
         _typeHelpers = typeHelpers ?? defaultHelpers;
 
   /// Creates an instance of [Settings].
@@ -65,7 +83,7 @@ class Settings {
   /// [UriHelper].
   factory Settings.withDefaultHelpers(
     Iterable<TypeHelper> typeHelpers, {
-    PgSqlSerializable config,
+    PgSqlSerializable? config,
   }) =>
       Settings(
         config: config,

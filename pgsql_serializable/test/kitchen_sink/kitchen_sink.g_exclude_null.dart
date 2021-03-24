@@ -2,13 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// @dart=2.12
-
 // ignore_for_file: annotate_overrides, hash_and_equals
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
-import 'kitchen_sink_interface.dart' as k;
 import 'pgsql_converters.dart';
+import 'kitchen_sink_interface.dart' as k;
 import 'simple_object.dart';
 import 'strict_keys_object.dart';
 
@@ -60,7 +58,8 @@ class _Factory implements k.KitchenSinkFactory<String, dynamic> {
         dateTimeIterable: dateTimeIterable,
       );
 
-  k.KitchenSink fromPgSql(Map<String, dynamic> pgsql) => KitchenSink.fromPgSql(pgsql);
+  k.KitchenSink fromPgSql(Map<String, dynamic> pgsql) =>
+      KitchenSink.fromPgSql(pgsql);
 
   k.PgSqlConverterTestClass pgsqlConverterCtor() => PgSqlConverterTestClass(
         const Duration(),
@@ -72,7 +71,8 @@ class _Factory implements k.KitchenSinkFactory<String, dynamic> {
         DateTime.fromMillisecondsSinceEpoch(0),
       );
 
-  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) => PgSqlConverterTestClass.fromPgSql(pgsql);
+  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) =>
+      PgSqlConverterTestClass.fromPgSql(pgsql);
 }
 
 @PgSqlSerializable(
@@ -103,11 +103,13 @@ class KitchenSink implements k.KitchenSink {
         _intIterable = intIterable?.toList() ?? _defaultList(),
         _dateTimeIterable = dateTimeIterable?.toList() ?? _defaultList() {
     if (ctorValidatedNo42 == 42) {
-      throw ArgumentError.value(42, 'ctorValidatedNo42', 'The value `42` is not allowed.');
+      throw ArgumentError.value(
+          42, 'ctorValidatedNo42', 'The value `42` is not allowed.');
     }
   }
 
-  factory KitchenSink.fromPgSql(Map<String, dynamic> pgsql) => _$KitchenSinkFromPgSql(pgsql);
+  factory KitchenSink.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$KitchenSinkFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$KitchenSinkToPgSql(this);
 
@@ -144,7 +146,8 @@ class KitchenSink implements k.KitchenSink {
   Map<dynamic, int> dynamicIntMap = _defaultMap();
   Map<Object, DateTime> objectDateTimeMap = _defaultMap();
 
-  List<Map<String, Map<String, List<List<DateTime>?>?>?>?> crazyComplex = _defaultList();
+  List<Map<String, Map<String, List<List<DateTime>?>?>?>?> crazyComplex =
+      _defaultList();
 
   // Handle fields with names that collide with helper names
   Map<String, bool> val = _defaultMap();
@@ -190,7 +193,8 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
     this.dateTime,
   );
 
-  factory PgSqlConverterTestClass.fromPgSql(Map<String, dynamic> pgsql) => _$PgSqlConverterTestClassFromPgSql(pgsql);
+  factory PgSqlConverterTestClass.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$PgSqlConverterTestClassFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$PgSqlConverterTestClassToPgSql(this);
 
@@ -221,7 +225,8 @@ class PgSqlConverterGeneric<S, T, U> {
     this.itemMap,
   );
 
-  factory PgSqlConverterGeneric.fromPgSql(Map<String, dynamic> pgsql) => _$PgSqlConverterGenericFromPgSql(pgsql);
+  factory PgSqlConverterGeneric.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$PgSqlConverterGenericFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$PgSqlConverterGenericToPgSql(this);
 }

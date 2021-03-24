@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// @dart=2.12
-
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'generic_argument_factories.g.dart';
@@ -30,8 +28,8 @@ class GenericClassWithHelpers<T, S> {
       _$GenericClassWithHelpersFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
 
   Map<String, dynamic> toPgSql(
-    Object Function(T value) toPgSqlT,
-    Object Function(S value) toPgSqlS,
+    Object? Function(T value) toPgSqlT,
+    Object? Function(S value) toPgSqlS,
   ) =>
       _$GenericClassWithHelpersToPgSql(this, toPgSqlT, toPgSqlS);
 }
@@ -42,7 +40,10 @@ class ConcreteClass {
 
   final GenericClassWithHelpers<double, BigInt> value2;
 
-  ConcreteClass(this.value, this.value2);
+  // Regression scenario for google/pgsql_serializable.dart#803
+  final GenericClassWithHelpers<double?, BigInt?> value3;
+
+  ConcreteClass(this.value, this.value2, this.value3);
 
   factory ConcreteClass.fromPgSql(Map<String, dynamic> pgsql) =>
       _$ConcreteClassFromPgSql(pgsql);

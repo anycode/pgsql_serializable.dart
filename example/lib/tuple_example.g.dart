@@ -19,8 +19,8 @@ Tuple<T, S> _$TupleFromPgSql<T, S>(
 
 Map<String, dynamic> _$TupleToPgSql<T, S>(
   Tuple<T, S> instance,
-  Object Function(T value) toPgSqlT,
-  Object Function(S value) toPgSqlS,
+  Object? Function(T value) toPgSqlT,
+  Object? Function(S value) toPgSqlS,
 ) =>
     <String, dynamic>{
       'value1': toPgSqlT(instance.value1),

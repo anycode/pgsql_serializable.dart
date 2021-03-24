@@ -5,11 +5,10 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
-import 'package:meta/meta.dart';
 
 import 'helper_core.dart';
 import 'type_helper.dart';
+import 'type_helpers/config_types.dart';
 import 'type_helpers/convert_helper.dart';
 import 'unsupported_type_error.dart';
 import 'utils.dart';
@@ -29,15 +28,15 @@ class TypeHelperCtx
   ClassElement get classElement => _helperCore.element;
 
   @override
-  PgSqlSerializable get config => _helperCore.config;
+  ClassConfig get config => _helperCore.config;
 
   TypeHelperCtx._(this._helperCore, this.fieldElement);
 
   @override
-  ConvertData get serializeConvertData => _pairFromContext?.toPgSql;
+  ConvertData? get serializeConvertData => _pairFromContext.toPgSql;
 
   @override
-  ConvertData get deserializeConvertData => _pairFromContext?.fromPgSql;
+  ConvertData? get deserializeConvertData => _pairFromContext.fromPgSql;
 
   _ConvertPair get _pairFromContext => _ConvertPair(fieldElement);
 
@@ -47,17 +46,17 @@ class TypeHelperCtx
   }
 
   @override
-  Object serialize(DartType targetType, String expression) => _run(
+  Object? serialize(DartType targetType, String expression) => _run(
         targetType,
         expression,
         (TypeHelper th) => th.serialize(targetType, expression, this),
       );
 
   @override
-  Object deserialize(
+  Object? deserialize(
     DartType targetType,
     String expression, {
-    @required bool defaultProvided,
+    bool defaultProvided = false,
   }) =>
       _run(
         targetType,
@@ -66,25 +65,25 @@ class TypeHelperCtx
           targetType,
           expression,
           this,
-          defaultProvided ?? false,
+          defaultProvided,
         ),
       );
 
   Object _run(
     DartType targetType,
     String expression,
-    Object Function(TypeHelper) invoke,
+    Object? Function(TypeHelper) invoke,
   ) =>
       _helperCore.allTypeHelpers.map(invoke).firstWhere(
             (r) => r != null,
             orElse: () => throw UnsupportedTypeError(targetType, expression),
-          );
+          ) as Object;
 }
 
 class _ConvertPair {
   static final _expando = Expando<_ConvertPair>();
 
-  final ConvertData fromPgSql, toPgSql;
+  final ConvertData? fromPgSql, toPgSql;
 
   _ConvertPair._(this.fromPgSql, this.toPgSql);
 
@@ -106,7 +105,7 @@ class _ConvertPair {
   }
 }
 
-ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
+ConvertData? _convertData(DartObject obj, FieldElement element, bool isFrom) {
   final paramName = isFrom ? 'fromPgSql' : 'toPgSql';
   final objectValue = obj.getField(paramName);
 
@@ -114,7 +113,7 @@ ConvertData _convertData(DartObject obj, FieldElement element, bool isFrom) {
     return null;
   }
 
-  final executableElement = objectValue.toFunctionValue();
+  final executableElement = objectValue.toFunctionValue()!;
 
   if (executableElement.parameters.isEmpty ||
       executableElement.parameters.first.isNamed ||

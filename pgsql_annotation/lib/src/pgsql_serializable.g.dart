@@ -18,24 +18,25 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) {
       'field_rename',
       'generic_argument_factories',
       'ignore_unannotated',
-      'include_if_null',
+      'include_if_null'
     ]);
     final val = PgSqlSerializable(
-      anyMap: $checkedConvert(pgsql, 'any_map', (v) => v as bool),
-      checked: $checkedConvert(pgsql, 'checked', (v) => v as bool),
-      createFactory: $checkedConvert(pgsql, 'create_factory', (v) => v as bool),
-      createToPgSql: $checkedConvert(pgsql, 'create_to_pgsql', (v) => v as bool),
-      disallowUnrecognizedKeys:
-          $checkedConvert(pgsql, 'disallow_unrecognized_keys', (v) => v as bool),
+      anyMap: $checkedConvert(pgsql, 'any_map', (v) => v as bool?),
+      checked: $checkedConvert(pgsql, 'checked', (v) => v as bool?),
+      createFactory: $checkedConvert(pgsql, 'create_factory', (v) => v as bool?),
+      createToPgSql: $checkedConvert(pgsql, 'create_to_pgsql', (v) => v as bool?),
+      disallowUnrecognizedKeys: $checkedConvert(
+          pgsql, 'disallow_unrecognized_keys', (v) => v as bool?),
       explicitToPgSql:
-          $checkedConvert(pgsql, 'explicit_to_pgsql', (v) => v as bool),
+          $checkedConvert(pgsql, 'explicit_to_pgsql', (v) => v as bool?),
       fieldRename: $checkedConvert(pgsql, 'field_rename',
           (v) => _$enumDecodeNullable(_$FieldRenameEnumMap, v)),
       ignoreUnannotated:
-          $checkedConvert(pgsql, 'ignore_unannotated', (v) => v as bool),
-      includeIfNull: $checkedConvert(pgsql, 'include_if_null', (v) => v as bool),
-      genericArgumentFactories:
-          $checkedConvert(pgsql, 'generic_argument_factories', (v) => v as bool),
+          $checkedConvert(pgsql, 'ignore_unannotated', (v) => v as bool?),
+      includeIfNull:
+          $checkedConvert(pgsql, 'include_if_null', (v) => v as bool?),
+      genericArgumentFactories: $checkedConvert(
+          pgsql, 'generic_argument_factories', (v) => v as bool?),
     );
     return val;
   }, fieldKeyMap: const {
@@ -65,37 +66,41 @@ Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
       'include_if_null': instance.includeIfNull,
     };
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T? unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .cast<MapEntry<T, String>?>()
-      .singleWhere((e) => e!.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue!;
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
-T? _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
   dynamic source, {
-  T? unknownValue,
+  K? unknownValue,
 }) {
   if (source == null) {
     return null;
   }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$FieldRenameEnumMap = {

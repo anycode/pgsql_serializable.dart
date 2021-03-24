@@ -1,5 +1,3 @@
-// @dart=2.12
-
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:test/test.dart';
 

@@ -194,6 +194,7 @@ class PgSqlSerializable {
 
   /// An instance of [PgSqlSerializable] with all fields set to their default
   /// values.
+  @Deprecated('Was only ever included to support builder infrastructure.')
   static const defaults = PgSqlSerializable(
     anyMap: false,
     checked: false,
@@ -212,6 +213,7 @@ class PgSqlSerializable {
   ///
   /// Otherwise, the returned value has the default value as defined in
   /// [defaults].
+  @Deprecated('Was only ever included to support builder infrastructure.')
   PgSqlSerializable withDefaults() => PgSqlSerializable(
         anyMap: anyMap ?? defaults.anyMap,
         checked: checked ?? defaults.checked,

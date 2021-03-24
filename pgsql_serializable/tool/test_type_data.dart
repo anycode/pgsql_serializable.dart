@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import 'shared.dart';
 
 const customEnumType = 'EnumType';
@@ -8,15 +6,15 @@ const _annotationImport =
     "import 'package:pgsql_annotation/pgsql_annotation.dart';";
 
 class TestTypeData {
-  final String defaultExpression;
-  final String pgsqlExpression;
-  final String altPgSqlExpression;
+  final String? defaultExpression;
+  final String? pgsqlExpression;
+  final String? altPgSqlExpression;
   final Set<String> genericArgs;
 
   const TestTypeData({
     this.defaultExpression,
-    String pgsqlExpression,
-    @required String altPgSqlExpression,
+    String? pgsqlExpression,
+    required String? altPgSqlExpression,
     this.genericArgs = const {},
   })  : pgsqlExpression = pgsqlExpression ?? defaultExpression,
         altPgSqlExpression =
@@ -110,7 +108,7 @@ class TestTypeData {
     final defaultReplacement = defaultNotSupported
         ? ''
         : _defaultSource
-            .replaceFirst('42', defaultExpression)
+            .replaceFirst('42', defaultExpression!)
             .replaceFirst('dynamic', type);
 
     yield Replacement(
@@ -149,7 +147,7 @@ class TestTypeData {
 
       expect(encoded, loudEncode(_nullableDefaultOutput));
       final object2 = SimpleClass.fromPgSql(
-        jsonDecode(encoded) as Map<String, Object?>,
+        pgsqlDecode(encoded) as Map<String, Object?>,
       );
       expect(loudEncode(object2), encoded);''',
       '''
