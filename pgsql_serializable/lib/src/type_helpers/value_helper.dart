@@ -7,7 +7,6 @@ import 'package:source_helper/source_helper.dart';
 
 import '../shared_checkers.dart';
 import '../type_helper.dart';
-import '../utils.dart';
 
 /// Handles the types corresponding to [simplePgSqlTypeChecker], namely
 /// [String], [bool], [num], [int], [double].
