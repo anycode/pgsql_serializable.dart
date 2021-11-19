@@ -2,50 +2,12 @@ part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(
   r'''
-UnknownEnumValue _$UnknownEnumValueFromPgSql(Map<String, dynamic> pgsql) {
-  return UnknownEnumValue()
-    ..value = _$enumDecodeNullable(
-            _$UnknownEnumValueItemsEnumMap, pgsql['value'],
-            unknownValue: UnknownEnumValueItems.vUnknown) ??
-        UnknownEnumValueItems.vNull;
-}
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}
+UnknownEnumValue _$UnknownEnumValueFromPgSql(Map<String, dynamic> pgsql) =>
+    UnknownEnumValue()
+      ..value = $enumDecodeNullable(
+              _$UnknownEnumValueItemsEnumMap, pgsql['value'],
+              unknownValue: UnknownEnumValueItems.vUnknown) ??
+          UnknownEnumValueItems.vNull;
 
 const _$UnknownEnumValueItemsEnumMap = {
   UnknownEnumValueItems.v0: 'v0',
@@ -70,7 +32,7 @@ class UnknownEnumValue {
 enum UnknownEnumValueItems { v0, v1, v2, vUnknown, vNull }
 
 @ShouldThrow(
-  'Error with `@PgSqlKey` on `value`. `unknownEnumValue` has type '
+  'Error with `@PgSqlKey` on the `value` field. `unknownEnumValue` has type '
   '`int`, but the provided unknownEnumValue is of type '
   '`WrongEnumType`.',
 )
@@ -81,7 +43,7 @@ class UnknownEnumValueListWrongType {
 }
 
 @ShouldThrow(
-  'Error with `@PgSqlKey` on `value`. `unknownEnumValue` has type '
+  'Error with `@PgSqlKey` on the `value` field. `unknownEnumValue` has type '
   '`UnknownEnumValueItems`, but the provided unknownEnumValue is of type '
   '`WrongEnumType`.',
 )
@@ -94,7 +56,7 @@ class UnknownEnumValueListWrongEnumType {
 enum WrongEnumType { otherValue }
 
 @ShouldThrow(
-  'Error with `@PgSqlKey` on `value`. `unknownEnumValue` has type '
+  'Error with `@PgSqlKey` on the `value` field. `unknownEnumValue` has type '
   '`UnknownEnumValueItems`, but the provided unknownEnumValue is of type '
   '`WrongEnumType`.',
 )
@@ -105,7 +67,7 @@ class UnknownEnumValueWrongEnumType {
 }
 
 @ShouldThrow(
-  'Error with `@PgSqlKey` on `value`. The value provided '
+  'Error with `@PgSqlKey` on the `value` field. The value provided '
   'for `unknownEnumValue` must be a matching enum.',
 )
 @PgSqlSerializable()
@@ -115,11 +77,32 @@ class UnknownEnumValueNotEnumValue {
 }
 
 @ShouldThrow(
-  'Error with `@PgSqlKey` on `value`. `unknownEnumValue` can only be set on '
-  'fields of type enum or on Iterable, List, or Set instances of an enum type.',
+  'Error with `@PgSqlKey` on the `value` field. `unknownEnumValue` can only be '
+  'set on fields of type enum or on Iterable, List, or Set instances of an '
+  'enum type.',
 )
 @PgSqlSerializable()
 class UnknownEnumValueNotEnumField {
   @PgSqlKey(unknownEnumValue: UnknownEnumValueItems.vUnknown)
   int? value;
+}
+
+@ShouldThrow(
+  '`PgSqlKey.nullForUndefinedEnumValue` cannot be used with '
+  '`PgSqlKey.unknownEnumValue` unless the field is nullable.',
+)
+@PgSqlSerializable()
+class NullForUndefinedEnumValueOnNonNullableField {
+  @PgSqlKey(unknownEnumValue: PgSqlKey.nullForUndefinedEnumValue)
+  late UnknownEnumValueItems value;
+}
+
+@ShouldThrow(
+  'Error with `@PgSqlKey` on the `value` field. `unknownEnumValue` is '
+  '`PgSqlSerializable`, it must be a literal.',
+)
+@PgSqlSerializable()
+class WeirdValueForUnknownEnumValue {
+  @PgSqlKey(unknownEnumValue: PgSqlSerializable())
+  late UnknownEnumValueItems value;
 }

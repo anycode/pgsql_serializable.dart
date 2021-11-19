@@ -2,10 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:meta/meta_meta.dart';
+
 import 'allowed_keys_helpers.dart';
 import 'pgsql_serializable.dart';
 
 /// An annotation used to specify how a field is serialized.
+@Target({TargetKind.field, TargetKind.getter})
 class PgSqlKey {
   /// The value to use if the source JSON does not contain this key or if the
   /// value is `null`.
@@ -88,6 +91,10 @@ class PgSqlKey {
   /// source enum.
   ///
   /// Valid only on enum fields with a compatible enum value.
+  ///
+  /// If you want to use the value `null` when encountering an unknown value,
+  /// use the value of [PgSqlKey.nullForUndefinedEnumValue] instead. This is only
+  /// valid on an nullable enum field.
   final Object? unknownEnumValue;
 
   /// Creates a new [PgSqlKey] instance.
@@ -105,4 +112,10 @@ class PgSqlKey {
     this.toPgSql,
     this.unknownEnumValue,
   });
+
+  /// Sentinel value for use with [unknownEnumValue].
+  ///
+  /// Read the documentation on [unknownEnumValue] for more details.
+  static const Object nullForUndefinedEnumValue =
+      r'PgSqlKey.nullForUndefinedEnumValue';
 }

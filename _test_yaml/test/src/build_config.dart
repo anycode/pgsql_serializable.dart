@@ -81,13 +81,12 @@ class Builder {
   Map<String, dynamic> toPgSql() => _$BuilderToPgSql(this);
 }
 
+@PgSqlEnum(fieldRename: FieldRename.snake)
 enum AutoApply {
   none,
   dependents,
-  @PgSqlValue('all_packages')
   allPackages,
-  @PgSqlValue('root_package')
-  rootPackage
+  rootPackage,
 }
 
 enum BuildTo { cache, source }

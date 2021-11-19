@@ -8,6 +8,7 @@ import '../test_utils.dart';
 import 'default_value.dart' as normal;
 import 'default_value.g_any_map__checked.dart' as checked;
 import 'default_value_interface.dart';
+import 'implicit_default_value.dart' as implicit;
 
 const _defaultInstance = {
   'fieldBool': true,
@@ -23,7 +24,10 @@ const _defaultInstance = {
   'fieldMapListString': {
     'root': ['child']
   },
-  'fieldEnum': 'beta'
+  'fieldEnum': 'beta',
+  'constClass': {'field': 'value'},
+  'valueFromConverter': 'value',
+  'valueFromFunction': 'value',
 };
 
 const _otherValues = {
@@ -40,12 +44,16 @@ const _otherValues = {
   'fieldMapListString': {
     'root2': ['alpha']
   },
-  'fieldEnum': 'delta'
+  'fieldEnum': 'delta',
+  'constClass': {'field': 'otherValue'},
+  'valueFromConverter': 'otherValue',
+  'valueFromFunction': 'otherValue',
 };
 
 void main() {
   group('nullable', () => _test(normal.fromPgSql));
   group('non-nullable', () => _test(checked.fromPgSql));
+  group('implicit', () => _test(implicit.fromPgSql));
 }
 
 void _test(DefaultValue Function(Map<String, dynamic> pgsql) fromPgSql) {

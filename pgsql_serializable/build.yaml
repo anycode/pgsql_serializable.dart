@@ -2,6 +2,11 @@
 targets:
   $default:
     builders:
+      source_gen|combining_builder:
+        options:
+          ignore_for_file:
+          - lines_longer_than_80_chars
+
       pgsql_serializable:
         generate_for:
         - example/*
@@ -16,7 +21,6 @@ targets:
         generate_for:
         - test/default_value/default_value.dart
         - test/generic_files/generic_class.dart
-        - test/integration/pgsql_test_example.dart
         - test/integration/pgsql_test_example.dart
         - test/kitchen_sink/kitchen_sink.dart
 
@@ -88,14 +92,13 @@ builders:
     build_to: source
     runs_before: ["pgsql_serializable"]
 
-  _doc_builder:
-    import: "tool/doc_builder.dart"
-    builder_factories: ["docBuilder"]
-    build_extensions: {"lib/pgsql_serializable.dart": ["doc/doc.md"]}
+  _readme_builder:
+    import: "tool/readme_builder.dart"
+    builder_factories: ["readmeBuilder"]
+    build_extensions: {"tool/readme/readme_template.md": ["README.md"]}
     build_to: source
     auto_apply: root_package
-    runs_before: ["pgsql_serializable"]
-    required_inputs: ["doc/pgsql_annotation_version.txt"]
+    required_inputs: ['.dart']
 
   pgsql_serializable:
     import: "package:pgsql_serializable/builder.dart"

@@ -72,7 +72,8 @@ void _nonNullableTests(KitchenSinkFactory factory) {
   });
 
   test('nullable values are not allowed in non-nullable version', () {
-    final instance = factory.pgsqlConverterFromPgSql(_pgsqlConverterValidValues);
+    final instance =
+        factory.pgsqlConverterFromPgSql(_pgsqlConverterValidValues);
     final pgsql = instance.toPgSql();
     expect(pgsql, _pgsqlConverterValidValues);
     expect(pgsql.values, everyElement(isNotNull));
@@ -84,7 +85,7 @@ void _nonNullableTests(KitchenSinkFactory factory) {
 
 void _nullableTests(KitchenSinkFactory factory) {
   void roundTripSink(KitchenSink p) {
-    roundTripObject(p, factory.fromPgSql);
+    validateRoundTrip(p, factory.fromPgSql);
   }
 
   test('nullable values are allowed in the nullable version', () {
@@ -164,7 +165,7 @@ void _nullableTests(KitchenSinkFactory factory) {
 void _sharedTests(KitchenSinkFactory factory) {
   test('empty', () {
     final item = factory.ctor();
-    roundTripObject(item, factory.fromPgSql);
+    validateRoundTrip(item, factory.fromPgSql);
   });
 
   test('list and map of DateTime - not null', () {
@@ -173,7 +174,7 @@ void _sharedTests(KitchenSinkFactory factory) {
       ..dateTimeList = <DateTime>[now, now]
       ..objectDateTimeMap = <Object, DateTime>{'value': now};
 
-    roundTripObject(item, factory.fromPgSql);
+    validateRoundTrip(item, factory.fromPgSql);
   });
 
   test('complex nested type - not null', () {
@@ -191,7 +192,7 @@ void _sharedTests(KitchenSinkFactory factory) {
           }
         }
       ];
-    roundTripObject(item, factory.fromPgSql);
+    validateRoundTrip(item, factory.fromPgSql);
   });
 
   test('round trip valid, empty values', () {
@@ -210,7 +211,7 @@ void _sharedTests(KitchenSinkFactory factory) {
 
     final validInstance = factory.fromPgSql(values);
 
-    roundTripObject(validInstance, factory.fromPgSql);
+    validateRoundTrip(validInstance, factory.fromPgSql);
   });
 
   test('JSON keys should be defined in field/property order', () {
@@ -224,7 +225,7 @@ void _sharedTests(KitchenSinkFactory factory) {
 
   test('valid values round-trip - pgsql', () {
     final validInstance = factory.fromPgSql(validValues);
-    roundTripObject(validInstance, factory.fromPgSql);
+    validateRoundTrip(validInstance, factory.fromPgSql);
   });
 }
 
@@ -243,10 +244,12 @@ const _nonNullableFields = {
   'objectList',
   'intList',
   'dateTimeList',
+  'nullableSimpleObjectList',
   'map',
   'stringStringMap',
   'dynamicIntMap',
   'objectDateTimeMap',
+  'nullableSimpleObjectMap',
   'crazyComplex',
   'val',
   'simpleObject',
@@ -270,8 +273,10 @@ const _iterableMapKeys = {
   'intList',
   'intSet',
   'iterable',
+  'nullableSimpleObjectList',
   'list',
   'map',
+  'nullableSimpleObjectMap',
   'numberSillySet',
   'objectDateTimeMap',
   'objectIterable',

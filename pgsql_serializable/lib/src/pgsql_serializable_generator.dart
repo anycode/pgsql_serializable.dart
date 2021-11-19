@@ -69,7 +69,7 @@ class PgSqlSerializableGenerator
       );
     }
 
-    if (element is! ClassElement) {
+    if (element is! ClassElement || element.isEnum) {
       throw InvalidGenerationSourceError(
         '`@PgSqlSerializable` can only be used on classes.',
         element: element,

@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'package:test/test.dart';
 
@@ -11,7 +12,13 @@ final throwsTypeError = throwsA(isTypeError);
 
 final isTypeError = isA<TypeError>();
 
-T roundTripObject<T>(T object, T Function(Map<String, dynamic> pgsql) factory) {
+bool deepEquals(dynamic a, dynamic b) =>
+    const DeepCollectionEquality().equals(a, b);
+
+void validateRoundTrip<T>(
+  T object,
+  T Function(Map<String, dynamic> pgsql) factory,
+) {
   final data = loudEncode(object);
 
   final object2 = factory(json.decode(data) as Map<String, dynamic>);
@@ -21,7 +28,6 @@ T roundTripObject<T>(T object, T Function(Map<String, dynamic> pgsql) factory) {
   final pgsql2 = loudEncode(object2);
 
   expect(pgsql2, equals(data));
-  return object2;
 }
 
 /// Prints out nested causes before throwing `PgSqlUnsupportedObjectError`.
@@ -36,7 +42,8 @@ String loudEncode(Object? object) {
 
       while (error is JsonUnsupportedObjectError) {
         print(
-          '(${count++}) $error ${error.unsupportedObject} (${error.unsupportedObject.runtimeType}) !!!',
+          '(${count++}) $error ${error.unsupportedObject} '
+          '(${error.unsupportedObject.runtimeType}) !!!',
         );
         print(Trace.from(error.stackTrace!).terse);
         error = error.cause;

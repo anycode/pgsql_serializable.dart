@@ -10,8 +10,7 @@ import 'package:build/build.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_gen/source_gen.dart';
-
-import 'utils.dart';
+import 'package:source_helper/source_helper.dart';
 
 class PgSqlLiteralGenerator extends GeneratorForAnnotation<PgSqlLiteral> {
   const PgSqlLiteralGenerator();
@@ -42,7 +41,7 @@ class PgSqlLiteralGenerator extends GeneratorForAnnotation<PgSqlLiteral> {
 }
 
 /// Returns a [String] representing a valid Dart literal for [value].
-String pgsqlLiteralAsDart(dynamic value) {
+String pgsqlLiteralAsDart(Object? value) {
   if (value == null) return 'null';
 
   if (value is String) return escapeDartString(value);
@@ -75,7 +74,8 @@ String pgsqlLiteralAsDart(dynamic value) {
   if (value is Map) return pgsqlMapAsDart(value);
 
   throw StateError(
-      'Should never get here – with ${value.runtimeType} - `$value`.');
+    'Should never get here – with ${value.runtimeType} - `$value`.',
+  );
 }
 
 String pgsqlMapAsDart(Map value) {

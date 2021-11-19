@@ -7,13 +7,15 @@ import 'package:pgsql_serializable/src/type_helpers/config_types.dart';
 
 final pgsqlSerializableFields = generatorConfigDefaultPgSql.keys.toList();
 
-final generatorConfigDefaultPgSql = Map<String, dynamic>.unmodifiable(
-    ClassConfig.defaults.withDefaults().toPgSql());
+final generatorConfigDefaultPgSql =
+    Map<String, dynamic>.unmodifiable(ClassConfig.defaults.toPgSql());
 
+// #CHANGE WHEN UPDATING pgsql_annotation
 final generatorConfigNonDefaultPgSql =
     Map<String, dynamic>.unmodifiable(const PgSqlSerializable(
   anyMap: true,
   checked: true,
+  constructor: 'something',
   createFactory: false,
   createToPgSql: false,
   disallowUnrecognizedKeys: true,

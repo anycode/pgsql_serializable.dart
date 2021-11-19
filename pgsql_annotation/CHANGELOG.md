@@ -1,3 +1,22 @@
+## 4.2.0
+
+- Added `JsonSerializable.constructor` field to allow specifying an alternative
+  constructor to invoke when creating a `fromJson` helper.
+- Added `JsonEnum` for annotating `enum` types.
+- Added `$enumDecodeNullable` and `$enumDecode` helpers to minimize generated
+  code.
+- Added `const` `JsonKey.nullForUndefinedEnumValue` for use in
+  `JsonKey.unknownEnumValue` when you want to use `null` for an unknown value.
+- Require Dart SDK `>=2.14.0`.
+
+## 4.1.0
+
+- Added a `const` constructor to `JsonConverter`.
+- Added `$checkedCreate` helper that will be used by `package:json_serializable`
+  v5+ and replaces both `$checkedNew` and `$checkedConvert`.
+- Annotate annotations with the supported target types, to minimize incorrect
+  usage.
+
 ## 4.0.1
 
 - Fix a potential error with `checked: true` when `ArgumentError.message` is 

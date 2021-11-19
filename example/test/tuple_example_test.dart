@@ -38,4 +38,4 @@ void main() {
 }
 
 String _encode(Object object) =>
-    const PgSqlEncoder.withIndent(' ').convert(object);
+    const JsonEncoder.withIndent(' ').convert(object);

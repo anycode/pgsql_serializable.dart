@@ -70,7 +70,8 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
         DateTime.fromMillisecondsSinceEpoch(0),
       );
 
-  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) =>
+  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(
+          Map<String, dynamic> pgsql) =>
       PgSqlConverterTestClass.fromPgSql(pgsql);
 }
 
@@ -138,11 +139,13 @@ class KitchenSink implements k.KitchenSink {
   List<Object> objectList = _defaultList();
   List<int> intList = _defaultList();
   List<DateTime> dateTimeList = _defaultList();
+  List<SimpleObject?> nullableSimpleObjectList = _defaultList();
 
   Map map = _defaultMap();
   Map<String, String> stringStringMap = _defaultMap();
   Map<dynamic, int> dynamicIntMap = _defaultMap();
   Map<Object, DateTime> objectDateTimeMap = _defaultMap();
+  Map<String, SimpleObject?> nullableSimpleObjectMap = _defaultMap();
 
   List<Map<String, Map<String, List<List<DateTime>?>?>?>?> crazyComplex =
       _defaultList();

@@ -4,12 +4,11 @@
 
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:source_helper/source_helper.dart';
 
-import 'helper_core.dart';
 import 'type_helpers/config_types.dart';
 
 const _pgsqlKeyChecker = TypeChecker.fromRuntime(PgSqlKey);
@@ -27,35 +26,11 @@ ConstantReader pgsqlKeyAnnotation(FieldElement element) =>
 bool hasPgSqlKeyAnnotation(FieldElement element) =>
     _pgsqlKeyAnnotation(element) != null;
 
-final _upperCase = RegExp('[A-Z]');
-
-String kebabCase(String input) => _fixCase(input, '-');
-
-String snakeCase(String input) => _fixCase(input, '_');
-
-String pascalCase(String input) {
-  if (input.isEmpty) {
-    return '';
-  }
-
-  return input[0].toUpperCase() + input.substring(1);
-}
-
-String _fixCase(String input, String separator) =>
-    input.replaceAllMapped(_upperCase, (match) {
-      var lower = match.group(0)!.toLowerCase();
-
-      if (match.start > 0) {
-        lower = '$separator$lower';
-      }
-
-      return lower;
-    });
-
 Never throwUnsupported(FieldElement element, String message) =>
     throw InvalidGenerationSourceError(
-        'Error with `@PgSqlKey` on `${element.name}`. $message',
-        element: element);
+      'Error with `@PgSqlKey` on the `${element.name}` field. $message',
+      element: element,
+    );
 
 FieldRename? _fromDartObject(ConstantReader reader) => reader.isNull
     ? null
@@ -74,9 +49,12 @@ T enumValueForDartObject<T>(
 
 /// Return an instance of [PgSqlSerializable] corresponding to a the provided
 /// [reader].
-PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializable(
+// #CHANGE WHEN UPDATING pgsql_annotation
+PgSqlSerializable _valueForAnnotation(ConstantReader reader) =>
+    PgSqlSerializable(
       anyMap: reader.read('anyMap').literalValue as bool?,
       checked: reader.read('checked').literalValue as bool?,
+      constructor: reader.read('constructor').literalValue as String?,
       createFactory: reader.read('createFactory').literalValue as bool?,
       createToPgSql: reader.read('createToPgSql').literalValue as bool?,
       disallowUnrecognizedKeys:
@@ -104,10 +82,20 @@ ClassConfig mergeConfig(
   required ClassElement classElement,
 }) {
   final annotation = _valueForAnnotation(reader);
+  assert(config.ctorParamDefaults.isEmpty);
+
+  final constructor = annotation.constructor ?? config.constructor;
+  final constructorInstance = constructorByName(classElement, constructor);
+
+  final paramDefaultValueMap = Map<String, String>.fromEntries(
+      constructorInstance.parameters
+          .where((element) => element.hasDefaultValue)
+          .map((e) => MapEntry(e.name, e.defaultValueCode!)));
 
   return ClassConfig(
     anyMap: annotation.anyMap ?? config.anyMap,
     checked: annotation.checked ?? config.checked,
+    constructor: constructor,
     createFactory: annotation.createFactory ?? config.createFactory,
     createToPgSql: annotation.createToPgSql ?? config.createToPgSql,
     disallowUnrecognizedKeys:
@@ -119,158 +107,90 @@ ClassConfig mergeConfig(
             config.genericArgumentFactories),
     ignoreUnannotated: annotation.ignoreUnannotated ?? config.ignoreUnannotated,
     includeIfNull: annotation.includeIfNull ?? config.includeIfNull,
+    ctorParamDefaults: paramDefaultValueMap,
   );
 }
 
-final _enumMapExpando = Expando<Map<FieldElement, dynamic>>();
+ConstructorElement constructorByName(ClassElement classElement, String name) {
+  final className = classElement.name;
 
-/// If [targetType] is an enum, returns a [Map] of the [FieldElement] instances
-/// associated with the enum values mapped to the [String] values that represent
-/// the serialized output.
-///
-/// By default, the [String] value is just the name of the enum value.
-/// If the enum value is annotated with [PgSqlKey], then the `name` property is
-/// used if it's set and not `null`.
-///
-/// If [targetType] is not an enum, `null` is returned.
-Map<FieldElement, dynamic>? enumFieldsMap(DartType targetType) {
-  MapEntry<FieldElement, dynamic> _generateEntry(FieldElement fe) {
-    final annotation =
-        const TypeChecker.fromRuntime(PgSqlValue).firstAnnotationOfExact(fe);
-
-    dynamic fieldValue;
-    if (annotation == null) {
-      fieldValue = fe.name;
-    } else {
-      final reader = ConstantReader(annotation);
-
-      final valueReader = reader.read('value');
-
-      if (valueReader.isString || valueReader.isNull || valueReader.isInt) {
-        fieldValue = valueReader.literalValue;
-      } else {
-        final targetTypeCode = typeToCode(targetType);
-        throw InvalidGenerationSourceError(
-            'The `PgSqlValue` annotation on `$targetTypeCode.${fe.name}` does '
-            'not have a value of type String, int, or null.',
-            element: fe);
-      }
+  ConstructorElement? ctor;
+  if (name.isEmpty) {
+    ctor = classElement.unnamedConstructor;
+    if (ctor == null) {
+      throw InvalidGenerationSourceError(
+        'The class `$className` has no default constructor.',
+        element: classElement,
+      );
     }
-
-    final entry = MapEntry(fe, fieldValue);
-
-    return entry;
+  } else {
+    ctor = classElement.getNamedConstructor(name);
+    if (ctor == null) {
+      throw InvalidGenerationSourceError(
+        'The class `$className` does not have a constructor with the name '
+        '`$name`.',
+        element: classElement,
+      );
+    }
   }
 
-  if (targetType is InterfaceType && targetType.element.isEnum) {
-    return _enumMapExpando[targetType] ??=
-        Map<FieldElement, dynamic>.fromEntries(targetType.element.fields
-            .where((p) => !p.isSynthetic)
-            .map(_generateEntry));
-  }
-  return null;
+  return ctor;
 }
 
 /// If [targetType] is an enum, returns the [FieldElement] instances associated
 /// with its values.
 ///
 /// Otherwise, `null`.
-Iterable<FieldElement>? iterateEnumFields(DartType targetType) =>
-    enumFieldsMap(targetType)?.keys;
-
-/// Returns a quoted String literal for [value] that can be used in generated
-/// Dart code.
-String escapeDartString(String value) {
-  var hasSingleQuote = false;
-  var hasDoubleQuote = false;
-  var hasDollar = false;
-  var canBeRaw = true;
-
-  value = value.replaceAllMapped(_escapeRegExp, (match) {
-    final value = match[0]!;
-    if (value == "'") {
-      hasSingleQuote = true;
-      return value;
-    } else if (value == '"') {
-      hasDoubleQuote = true;
-      return value;
-    } else if (value == r'$') {
-      hasDollar = true;
-      return value;
-    }
-
-    canBeRaw = false;
-    return _escapeMap[value] ?? _getHexLiteral(value);
-  });
-
-  if (!hasDollar) {
-    if (hasSingleQuote) {
-      if (!hasDoubleQuote) {
-        return '"$value"';
-      }
-      // something
-    } else {
-      // trivial!
-      return "'$value'";
-    }
+Iterable<FieldElement>? iterateEnumFields(DartType targetType) {
+  if (targetType is InterfaceType && targetType.element.isEnum) {
+    return targetType.element.fields.where((element) => !element.isSynthetic);
   }
-
-  if (hasDollar && canBeRaw) {
-    if (hasSingleQuote) {
-      if (!hasDoubleQuote) {
-        // quote it with single quotes!
-        return 'r"$value"';
-      }
-    } else {
-      // quote it with single quotes!
-      return "r'$value'";
-    }
-  }
-
-  // The only safe way to wrap the content is to escape all of the
-  // problematic characters - `$`, `'`, and `"`
-  final string = value.replaceAll(_dollarQuoteRegexp, r'\');
-  return "'$string'";
-}
-
-final _dollarQuoteRegexp = RegExp(r"""(?=[$'"])""");
-
-/// A [Map] between whitespace characters & `\` and their escape sequences.
-const _escapeMap = {
-  '\b': r'\b', // 08 - backspace
-  '\t': r'\t', // 09 - tab
-  '\n': r'\n', // 0A - new line
-  '\v': r'\v', // 0B - vertical tab
-  '\f': r'\f', // 0C - form feed
-  '\r': r'\r', // 0D - carriage return
-  '\x7F': r'\x7F', // delete
-  r'\': r'\\' // backslash
-};
-
-final _escapeMapRegexp = _escapeMap.keys.map(_getHexLiteral).join();
-
-/// A [RegExp] that matches whitespace characters that should be escaped and
-/// single-quote, double-quote, and `$`
-final _escapeRegExp = RegExp('[\$\'"\\x00-\\x07\\x0E-\\x1F$_escapeMapRegexp]');
-
-/// Given single-character string, return the hex-escaped equivalent.
-String _getHexLiteral(String input) {
-  final rune = input.runes.single;
-  final value = rune.toRadixString(16).toUpperCase().padLeft(2, '0');
-  return '\\x$value';
+  return null;
 }
 
 extension DartTypeExtension on DartType {
-  bool isAssignableTo(DartType other) =>
-      // If the library is `null`, treat it like dynamic => `true`
-      element!.library == null ||
-      element!.library!.typeSystem.isAssignableTo(this, other);
-
-  bool get isEnum =>
-      this is InterfaceType && (this as InterfaceType).element.isEnum;
+  DartType promoteNonNullable() =>
+      element?.library?.typeSystem.promoteToNonNull(this) ?? this;
 }
 
-extension TypeExtension on DartType {
-  bool get isNullableType =>
-      isDynamic || nullabilitySuffix == NullabilitySuffix.question;
+String ifNullOrElse(String test, String ifNull, String ifNotNull) =>
+    '$test == null ? $ifNull : $ifNotNull';
+
+String encodedFieldName(
+  FieldRename fieldRename,
+  String declaredName,
+) {
+  switch (fieldRename) {
+    case FieldRename.none:
+      return declaredName;
+    case FieldRename.snake:
+      return declaredName.snake;
+    case FieldRename.kebab:
+      return declaredName.kebab;
+    case FieldRename.pascal:
+      return declaredName.pascal;
+  }
+}
+
+/// Return the Dart code presentation for the given [type].
+///
+/// This function is intentionally limited, and does not support all possible
+/// types and locations of these files in code. Specifically, it supports
+/// only [InterfaceType]s, with optional type arguments that are also should
+/// be [InterfaceType]s.
+String typeToCode(
+  DartType type, {
+  bool forceNullable = false,
+}) {
+  if (type.isDynamic) {
+    return 'dynamic';
+  } else if (type is InterfaceType) {
+    return [
+      type.element.name,
+      if (type.typeArguments.isNotEmpty)
+        '<${type.typeArguments.map(typeToCode).join(', ')}>',
+      (type.isNullableType || forceNullable) ? '?' : '',
+    ].join();
+  }
+  throw UnimplementedError('(${type.runtimeType}) $type');
 }

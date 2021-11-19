@@ -6,20 +6,18 @@ part of 'example.dart';
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-Person _$PersonFromPgSql(Map<String, dynamic> pgsql) {
-  return Person(
-    pgsql['firstName'] as String,
-    pgsql['lastName'] as String,
-    DateTime.parse(pgsql['date-of-birth'] as String),
-    middleName: pgsql['middleName'] as String?,
-    lastOrder: pgsql['last-order'] == null
-        ? null
-        : DateTime.parse(pgsql['last-order'] as String),
-    orders: (pgsql['orders'] as List<dynamic>?)
-        ?.map((e) => Order.fromPgSql(e as Map<String, dynamic>))
-        .toList(),
-  );
-}
+Person _$PersonFromPgSql(Map<String, dynamic> pgsql) => Person(
+      pgsql['firstName'] as String,
+      pgsql['lastName'] as String,
+      DateTime.parse(pgsql['date-of-birth'] as String),
+      middleName: pgsql['middleName'] as String?,
+      lastOrder: pgsql['last-order'] == null
+          ? null
+          : DateTime.parse(pgsql['last-order'] as String),
+      orders: (pgsql['orders'] as List<dynamic>?)
+          ?.map((e) => Order.fromPgSql(e as Map<String, dynamic>))
+          .toList(),
+    );
 
 Map<String, dynamic> _$PersonToPgSql(Person instance) {
   final val = <String, dynamic>{
@@ -40,18 +38,16 @@ Map<String, dynamic> _$PersonToPgSql(Person instance) {
   return val;
 }
 
-Order _$OrderFromPgSql(Map<String, dynamic> pgsql) {
-  return Order(
-    Order._dateTimeFromEpochUs(pgsql['date'] as int),
-  )
-    ..count = pgsql['count'] as int?
-    ..itemNumber = pgsql['itemNumber'] as int?
-    ..isRushed = pgsql['isRushed'] as bool?
-    ..item = pgsql['item'] == null
-        ? null
-        : Item.fromPgSql(pgsql['item'] as Map<String, dynamic>)
-    ..prepTime = Order._durationFromMilliseconds(pgsql['prep-time'] as int?);
-}
+Order _$OrderFromPgSql(Map<String, dynamic> pgsql) => Order(
+      Order._dateTimeFromEpochUs(pgsql['date'] as int),
+    )
+      ..count = pgsql['count'] as int?
+      ..itemNumber = pgsql['itemNumber'] as int?
+      ..isRushed = pgsql['isRushed'] as bool?
+      ..item = pgsql['item'] == null
+          ? null
+          : Item.fromPgSql(pgsql['item'] as Map<String, dynamic>)
+      ..prepTime = Order._durationFromMilliseconds(pgsql['prep-time'] as int?);
 
 Map<String, dynamic> _$OrderToPgSql(Order instance) {
   final val = <String, dynamic>{};
@@ -71,12 +67,10 @@ Map<String, dynamic> _$OrderToPgSql(Order instance) {
   return val;
 }
 
-Item _$ItemFromPgSql(Map<String, dynamic> pgsql) {
-  return Item()
-    ..count = pgsql['count'] as int?
-    ..itemNumber = pgsql['itemNumber'] as int?
-    ..isRushed = pgsql['isRushed'] as bool?;
-}
+Item _$ItemFromPgSql(Map<String, dynamic> pgsql) => Item()
+  ..count = pgsql['count'] as int?
+  ..itemNumber = pgsql['itemNumber'] as int?
+  ..isRushed = pgsql['isRushed'] as bool?;
 
 Map<String, dynamic> _$ItemToPgSql(Item instance) => <String, dynamic>{
       'count': instance.count,
@@ -101,8 +95,7 @@ final _$glossaryDataPgSqlLiteral = {
           'Acronym': 'SGML',
           'Abbrev': 'ISO 8879:1986',
           'GlossDef': {
-            'para':
-                'A meta-markup language, used to create markup languages such as DocBook.',
+            'para': 'A meta-markup language, used to create markup languages.',
             'GlossSeeAlso': ['GML', 'XML']
           },
           'GlossSee': 'markup'

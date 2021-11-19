@@ -1,14 +1,12 @@
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(r'''
-SubType _$SubTypeFromPgSql(Map<String, dynamic> pgsql) {
-  return SubType(
-    pgsql['subTypeViaCtor'] as int,
-    pgsql['super-final-field'] as int,
-  )
-    ..superReadWriteField = pgsql['superReadWriteField'] as int?
-    ..subTypeReadWrite = pgsql['subTypeReadWrite'] as int;
-}
+SubType _$SubTypeFromPgSql(Map<String, dynamic> pgsql) => SubType(
+      pgsql['subTypeViaCtor'] as int,
+      pgsql['super-final-field'] as int,
+    )
+      ..superReadWriteField = pgsql['superReadWriteField'] as int?
+      ..subTypeReadWrite = pgsql['subTypeReadWrite'] as int;
 
 Map<String, dynamic> _$SubTypeToPgSql(SubType instance) {
   final val = <String, dynamic>{

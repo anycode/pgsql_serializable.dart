@@ -45,12 +45,15 @@ class Settings {
 
   final PgSqlSerializable _config;
 
+  // #CHANGE WHEN UPDATING pgsql_annotation
   ClassConfig get config => ClassConfig(
         checked: _config.checked ?? ClassConfig.defaults.checked,
         anyMap: _config.anyMap ?? ClassConfig.defaults.anyMap,
+        constructor: _config.constructor ?? ClassConfig.defaults.constructor,
         createFactory:
             _config.createFactory ?? ClassConfig.defaults.createFactory,
-        createToPgSql: _config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
+        createToPgSql:
+            _config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
         ignoreUnannotated:
             _config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
         explicitToPgSql:

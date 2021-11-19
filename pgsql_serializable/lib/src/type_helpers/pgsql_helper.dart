@@ -8,8 +8,9 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:collection/collection.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:source_helper/source_helper.dart';
 
-import '../shared_checkers.dart';
+import '../default_container.dart';
 import '../type_helper.dart';
 import '../utils.dart';
 import 'config_types.dart';
@@ -17,6 +18,7 @@ import 'generic_factory_helper.dart';
 
 const _helperLambdaParam = 'value';
 
+/// Supports types that have `fromPgSql` constructors and/or `toPgSql` functions.
 class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
   const PgSqlHelper();
 
@@ -64,7 +66,7 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
   }
 
   @override
-  String? deserialize(
+  Object? deserialize(
     DartType targetType,
     String expression,
     TypeHelperContextWithConfig context,
@@ -128,10 +130,10 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     // TODO: the type could be imported from a library with a prefix!
     // https://github.com/google/pgsql_serializable.dart/issues/19
-    output = '${targetType.element.name}.fromPgSql($output)';
+    output =
+        '${typeToCode(targetType.promoteNonNullable())}.fromPgSql($output)';
 
-    return commonNullPrefix(targetType.isNullableType, expression, output)
-        .toString();
+    return DefaultContainer(expression, output);
   }
 }
 
@@ -268,6 +270,9 @@ InterfaceType? _instantiate(
 }
 
 ClassConfig? _annotation(ClassConfig config, InterfaceType source) {
+  if (source.isEnum) {
+    return null;
+  }
   final annotations = const TypeChecker.fromRuntime(PgSqlSerializable)
       .annotationsOfExact(source.element, throwOnUnresolved: false)
       .toList();
@@ -283,6 +288,6 @@ ClassConfig? _annotation(ClassConfig config, InterfaceType source) {
   );
 }
 
-MethodElement? _toPgSqlMethod(DartType type) => typeImplementations(type)
+MethodElement? _toPgSqlMethod(DartType type) => type.typeImplementations
     .map((dt) => dt is InterfaceType ? dt.getMethod('toPgSql') : null)
     .firstWhereOrNull((me) => me != null);

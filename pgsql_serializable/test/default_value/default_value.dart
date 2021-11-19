@@ -7,7 +7,13 @@
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 import 'default_value_interface.dart' as dvi hide Greek;
-import 'default_value_interface.dart' show Greek;
+import 'default_value_interface.dart'
+    show
+        Greek,
+        ConstClass,
+        ConstClassConverter,
+        constClassFromPgSql,
+        constClassToPgSql;
 
 part 'default_value.g.dart';
 
@@ -56,6 +62,14 @@ class DefaultValue implements dvi.DefaultValue {
   @PgSqlKey(defaultValue: Greek.beta)
   Greek fieldEnum;
 
+  ConstClass constClass;
+
+  @ConstClassConverter()
+  ConstClass valueFromConverter;
+
+  @PgSqlKey(fromPgSql: constClassFromPgSql, toPgSql: constClassToPgSql)
+  ConstClass valueFromFunction;
+
   DefaultValue(
     this.fieldBool,
     this.fieldString,
@@ -68,8 +82,11 @@ class DefaultValue implements dvi.DefaultValue {
     this.fieldSetSimple,
     this.fieldMapSimple,
     this.fieldMapListString,
-    this.fieldEnum,
-  );
+    this.fieldEnum, {
+    this.constClass = const ConstClass('value'),
+    this.valueFromConverter = const ConstClass('value'),
+    this.valueFromFunction = const ConstClass('value'),
+  });
 
   factory DefaultValue.fromPgSql(Map<String, dynamic> pgsql) =>
       _$DefaultValueFromPgSql(pgsql);

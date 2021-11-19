@@ -1,17 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: lines_longer_than_80_chars
+
 part of 'input.type_map.dart';
 
 // **************************************************************************
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClass(
-    pgsql['value'] as Map<String, dynamic>,
-    pgsql['withDefault'] as Map<String, dynamic>? ?? {'a': 1},
-  );
-}
+SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) => SimpleClass(
+      pgsql['value'] as Map<String, dynamic>,
+      pgsql['withDefault'] as Map<String, dynamic>? ?? {'a': 1},
+    );
 
 Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
     <String, dynamic>{
@@ -19,12 +19,12 @@ Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
       'withDefault': instance.withDefault,
     };
 
-SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullable(
-    pgsql['value'] as Map<String, dynamic>?,
-    pgsql['withDefault'] as Map<String, dynamic>? ?? {'a': 1},
-  );
-}
+SimpleClassNullable _$SimpleClassNullableFromPgSql(
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullable(
+      pgsql['value'] as Map<String, dynamic>?,
+      pgsql['withDefault'] as Map<String, dynamic>? ?? {'a': 1},
+    );
 
 Map<String, dynamic> _$SimpleClassNullableToPgSql(
         SimpleClassNullable instance) =>
@@ -34,13 +34,12 @@ Map<String, dynamic> _$SimpleClassNullableToPgSql(
     };
 
 SimpleClassOfBigIntToBigInt _$SimpleClassOfBigIntToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToBigIntToPgSql(
         SimpleClassOfBigIntToBigInt instance) =>
@@ -50,13 +49,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToBigIntToPgSql(
     };
 
 SimpleClassNullableOfBigIntToBigInt
-    _$SimpleClassNullableOfBigIntToBigIntFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToBigIntFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToBigInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToBigIntToPgSql(
         SimpleClassNullableOfBigIntToBigInt instance) =>
@@ -66,13 +65,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToBigIntToPgSql(
     };
 
 SimpleClassOfDateTimeToBigInt _$SimpleClassOfDateTimeToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToBigIntToPgSql(
         SimpleClassOfDateTimeToBigInt instance) =>
@@ -82,13 +80,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToBigIntToPgSql(
     };
 
 SimpleClassNullableOfDateTimeToBigInt
-    _$SimpleClassNullableOfDateTimeToBigIntFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDateTimeToBigIntFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToBigInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBigIntToPgSql(
         SimpleClassNullableOfDateTimeToBigInt instance) =>
@@ -98,13 +96,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBigIntToPgSql(
     };
 
 SimpleClassOfDynamicToBigInt _$SimpleClassOfDynamicToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToBigIntToPgSql(
         SimpleClassOfDynamicToBigInt instance) =>
@@ -113,13 +110,13 @@ Map<String, dynamic> _$SimpleClassOfDynamicToBigIntToPgSql(
     };
 
 SimpleClassNullableOfDynamicToBigInt
-    _$SimpleClassNullableOfDynamicToBigIntFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDynamicToBigIntFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToBigInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToBigIntToPgSql(
         SimpleClassNullableOfDynamicToBigInt instance) =>
@@ -128,14 +125,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToBigIntToPgSql(
     };
 
 SimpleClassOfEnumTypeToBigInt _$SimpleClassOfEnumTypeToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          _$enumDecode(_$EnumTypeEnumMap, k), BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            $enumDecode(_$EnumTypeEnumMap, k), BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToBigIntToPgSql(
         SimpleClassOfEnumTypeToBigInt instance) =>
@@ -143,32 +139,6 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToBigIntToPgSql(
       'value': instance.value
           .map((k, e) => MapEntry(_$EnumTypeEnumMap[k], e.toString())),
     };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
 
 const _$EnumTypeEnumMap = {
   EnumType.alpha: 'alpha',
@@ -178,14 +148,14 @@ const _$EnumTypeEnumMap = {
 };
 
 SimpleClassNullableOfEnumTypeToBigInt
-    _$SimpleClassNullableOfEnumTypeToBigIntFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          _$enumDecode(_$EnumTypeEnumMap, k), BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfEnumTypeToBigIntFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToBigInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                $enumDecode(_$EnumTypeEnumMap, k), BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBigIntToPgSql(
         SimpleClassNullableOfEnumTypeToBigInt instance) =>
@@ -195,13 +165,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBigIntToPgSql(
     };
 
 SimpleClassOfIntToBigInt _$SimpleClassOfIntToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToBigIntToPgSql(
         SimpleClassOfIntToBigInt instance) =>
@@ -211,13 +180,12 @@ Map<String, dynamic> _$SimpleClassOfIntToBigIntToPgSql(
     };
 
 SimpleClassNullableOfIntToBigInt _$SimpleClassNullableOfIntToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToBigInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToBigIntToPgSql(
         SimpleClassNullableOfIntToBigInt instance) =>
@@ -227,13 +195,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToBigIntToPgSql(
     };
 
 SimpleClassOfObjectToBigInt _$SimpleClassOfObjectToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToBigIntToPgSql(
         SimpleClassOfObjectToBigInt instance) =>
@@ -242,13 +209,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToBigIntToPgSql(
     };
 
 SimpleClassNullableOfObjectToBigInt
-    _$SimpleClassNullableOfObjectToBigIntFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfObjectToBigIntFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToBigInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToBigIntToPgSql(
         SimpleClassNullableOfObjectToBigInt instance) =>
@@ -257,13 +224,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToBigIntToPgSql(
     };
 
 SimpleClassOfStringToBigInt _$SimpleClassOfStringToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToBigIntToPgSql(
         SimpleClassOfStringToBigInt instance) =>
@@ -272,13 +238,13 @@ Map<String, dynamic> _$SimpleClassOfStringToBigIntToPgSql(
     };
 
 SimpleClassNullableOfStringToBigInt
-    _$SimpleClassNullableOfStringToBigIntFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfStringToBigIntFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToBigInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToBigIntToPgSql(
         SimpleClassNullableOfStringToBigInt instance) =>
@@ -287,13 +253,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToBigIntToPgSql(
     };
 
 SimpleClassOfUriToBigInt _$SimpleClassOfUriToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToBigInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToBigInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToBigIntToPgSql(
         SimpleClassOfUriToBigInt instance) =>
@@ -303,13 +268,12 @@ Map<String, dynamic> _$SimpleClassOfUriToBigIntToPgSql(
     };
 
 SimpleClassNullableOfUriToBigInt _$SimpleClassNullableOfUriToBigIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToBigInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToBigInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToBigIntToPgSql(
         SimpleClassNullableOfUriToBigInt instance) =>
@@ -319,14 +283,14 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToBigIntToPgSql(
     };
 
 SimpleClassOfBigIntToBigIntNullable
-    _$SimpleClassOfBigIntToBigIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          BigInt.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfBigIntToBigIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfBigIntToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                BigInt.parse(k), e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToBigIntNullableToPgSql(
         SimpleClassOfBigIntToBigIntNullable instance) =>
@@ -337,14 +301,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToBigIntNullableToPgSql(
 
 SimpleClassNullableOfBigIntToBigIntNullable
     _$SimpleClassNullableOfBigIntToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          BigInt.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                BigInt.parse(k), e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToBigIntNullableToPgSql(
         SimpleClassNullableOfBigIntToBigIntNullable instance) =>
@@ -354,14 +317,14 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToBigIntNullableToPgSql(
     };
 
 SimpleClassOfDateTimeToBigIntNullable
-    _$SimpleClassOfDateTimeToBigIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfDateTimeToBigIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k),
+                e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToBigIntNullableToPgSql(
         SimpleClassOfDateTimeToBigIntNullable instance) =>
@@ -372,14 +335,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToBigIntNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToBigIntNullable
     _$SimpleClassNullableOfDateTimeToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k),
+                e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBigIntNullableToPgSql(
         SimpleClassNullableOfDateTimeToBigIntNullable instance) =>
@@ -389,13 +351,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBigIntNullableToPgSql(
     };
 
 SimpleClassOfDynamicToBigIntNullable
-    _$SimpleClassOfDynamicToBigIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfDynamicToBigIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToBigIntNullableToPgSql(
         SimpleClassOfDynamicToBigIntNullable instance) =>
@@ -405,13 +367,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToBigIntNullableToPgSql(
 
 SimpleClassNullableOfDynamicToBigIntNullable
     _$SimpleClassNullableOfDynamicToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToBigIntNullableToPgSql(
         SimpleClassNullableOfDynamicToBigIntNullable instance) =>
@@ -420,14 +381,14 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToBigIntNullableToPgSql(
     };
 
 SimpleClassOfEnumTypeToBigIntNullable
-    _$SimpleClassOfEnumTypeToBigIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfEnumTypeToBigIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToBigIntNullableToPgSql(
         SimpleClassOfEnumTypeToBigIntNullable instance) =>
@@ -438,14 +399,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToBigIntNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToBigIntNullable
     _$SimpleClassNullableOfEnumTypeToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBigIntNullableToPgSql(
         SimpleClassNullableOfEnumTypeToBigIntNullable instance) =>
@@ -455,14 +415,13 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBigIntNullableToPgSql(
     };
 
 SimpleClassOfIntToBigIntNullable _$SimpleClassOfIntToBigIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(int.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToBigIntNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            int.parse(k), e == null ? null : BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToBigIntNullableToPgSql(
         SimpleClassOfIntToBigIntNullable instance) =>
@@ -473,14 +432,13 @@ Map<String, dynamic> _$SimpleClassOfIntToBigIntNullableToPgSql(
 
 SimpleClassNullableOfIntToBigIntNullable
     _$SimpleClassNullableOfIntToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(int.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                int.parse(k), e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToBigIntNullableToPgSql(
         SimpleClassNullableOfIntToBigIntNullable instance) =>
@@ -490,13 +448,13 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToBigIntNullableToPgSql(
     };
 
 SimpleClassOfObjectToBigIntNullable
-    _$SimpleClassOfObjectToBigIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfObjectToBigIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfObjectToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfObjectToBigIntNullableToPgSql(
         SimpleClassOfObjectToBigIntNullable instance) =>
@@ -506,13 +464,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToBigIntNullableToPgSql(
 
 SimpleClassNullableOfObjectToBigIntNullable
     _$SimpleClassNullableOfObjectToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToBigIntNullableToPgSql(
         SimpleClassNullableOfObjectToBigIntNullable instance) =>
@@ -521,13 +478,13 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToBigIntNullableToPgSql(
     };
 
 SimpleClassOfStringToBigIntNullable
-    _$SimpleClassOfStringToBigIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfStringToBigIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfStringToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfStringToBigIntNullableToPgSql(
         SimpleClassOfStringToBigIntNullable instance) =>
@@ -537,13 +494,12 @@ Map<String, dynamic> _$SimpleClassOfStringToBigIntNullableToPgSql(
 
 SimpleClassNullableOfStringToBigIntNullable
     _$SimpleClassNullableOfStringToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToBigIntNullableToPgSql(
         SimpleClassNullableOfStringToBigIntNullable instance) =>
@@ -552,14 +508,13 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToBigIntNullableToPgSql(
     };
 
 SimpleClassOfUriToBigIntNullable _$SimpleClassOfUriToBigIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(Uri.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToBigIntNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            Uri.parse(k), e == null ? null : BigInt.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToBigIntNullableToPgSql(
         SimpleClassOfUriToBigIntNullable instance) =>
@@ -570,14 +525,13 @@ Map<String, dynamic> _$SimpleClassOfUriToBigIntNullableToPgSql(
 
 SimpleClassNullableOfUriToBigIntNullable
     _$SimpleClassNullableOfUriToBigIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToBigIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(Uri.parse(k), e == null ? null : BigInt.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToBigIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                Uri.parse(k), e == null ? null : BigInt.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToBigIntNullableToPgSql(
         SimpleClassNullableOfUriToBigIntNullable instance) =>
@@ -587,13 +541,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToBigIntNullableToPgSql(
     };
 
 SimpleClassOfBigIntToBool _$SimpleClassOfBigIntToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToBool(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToBool(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToBoolToPgSql(
         SimpleClassOfBigIntToBool instance) =>
@@ -602,13 +555,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToBoolToPgSql(
     };
 
 SimpleClassNullableOfBigIntToBool _$SimpleClassNullableOfBigIntToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfBigIntToBool(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(BigInt.parse(k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToBoolToPgSql(
         SimpleClassNullableOfBigIntToBool instance) =>
@@ -617,13 +569,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToBoolToPgSql(
     };
 
 SimpleClassOfDateTimeToBool _$SimpleClassOfDateTimeToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToBool(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToBool(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToBoolToPgSql(
         SimpleClassOfDateTimeToBool instance) =>
@@ -632,13 +583,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToBoolToPgSql(
     };
 
 SimpleClassNullableOfDateTimeToBool
-    _$SimpleClassNullableOfDateTimeToBoolFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as bool),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDateTimeToBoolFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToBool(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as bool),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBoolToPgSql(
         SimpleClassNullableOfDateTimeToBool instance) =>
@@ -647,11 +598,10 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBoolToPgSql(
     };
 
 SimpleClassOfDynamicToBool _$SimpleClassOfDynamicToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToBool(
-    Map<String, bool>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToBool(
+      Map<String, bool>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToBoolToPgSql(
         SimpleClassOfDynamicToBool instance) =>
@@ -659,14 +609,13 @@ Map<String, dynamic> _$SimpleClassOfDynamicToBoolToPgSql(
       'value': instance.value,
     };
 
-SimpleClassNullableOfDynamicToBool _$SimpleClassNullableOfDynamicToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as bool),
-    ),
-  );
-}
+SimpleClassNullableOfDynamicToBool
+    _$SimpleClassNullableOfDynamicToBoolFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToBool(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as bool),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToBoolToPgSql(
         SimpleClassNullableOfDynamicToBool instance) =>
@@ -675,13 +624,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToBoolToPgSql(
     };
 
 SimpleClassOfEnumTypeToBool _$SimpleClassOfEnumTypeToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToBool(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToBool(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToBoolToPgSql(
         SimpleClassOfEnumTypeToBool instance) =>
@@ -690,13 +638,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToBoolToPgSql(
     };
 
 SimpleClassNullableOfEnumTypeToBool
-    _$SimpleClassNullableOfEnumTypeToBoolFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as bool),
-    ),
-  );
-}
+    _$SimpleClassNullableOfEnumTypeToBoolFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToBool(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as bool),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBoolToPgSql(
         SimpleClassNullableOfEnumTypeToBool instance) =>
@@ -705,13 +653,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBoolToPgSql(
     };
 
 SimpleClassOfIntToBool _$SimpleClassOfIntToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToBool(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToBool(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToBoolToPgSql(
         SimpleClassOfIntToBool instance) =>
@@ -720,13 +667,12 @@ Map<String, dynamic> _$SimpleClassOfIntToBoolToPgSql(
     };
 
 SimpleClassNullableOfIntToBool _$SimpleClassNullableOfIntToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToBool(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToBoolToPgSql(
         SimpleClassNullableOfIntToBool instance) =>
@@ -735,11 +681,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToBoolToPgSql(
     };
 
 SimpleClassOfObjectToBool _$SimpleClassOfObjectToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToBool(
-    Map<String, bool>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToBool(
+      Map<String, bool>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToBoolToPgSql(
         SimpleClassOfObjectToBool instance) =>
@@ -748,13 +693,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToBoolToPgSql(
     };
 
 SimpleClassNullableOfObjectToBool _$SimpleClassNullableOfObjectToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfObjectToBool(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToBoolToPgSql(
         SimpleClassNullableOfObjectToBool instance) =>
@@ -763,11 +707,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToBoolToPgSql(
     };
 
 SimpleClassOfStringToBool _$SimpleClassOfStringToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToBool(
-    Map<String, bool>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToBool(
+      Map<String, bool>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToBoolToPgSql(
         SimpleClassOfStringToBool instance) =>
@@ -776,13 +719,12 @@ Map<String, dynamic> _$SimpleClassOfStringToBoolToPgSql(
     };
 
 SimpleClassNullableOfStringToBool _$SimpleClassNullableOfStringToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfStringToBool(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToBoolToPgSql(
         SimpleClassNullableOfStringToBool instance) =>
@@ -791,13 +733,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToBoolToPgSql(
     };
 
 SimpleClassOfUriToBool _$SimpleClassOfUriToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToBool(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToBool(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToBoolToPgSql(
         SimpleClassOfUriToBool instance) =>
@@ -806,13 +747,12 @@ Map<String, dynamic> _$SimpleClassOfUriToBoolToPgSql(
     };
 
 SimpleClassNullableOfUriToBool _$SimpleClassNullableOfUriToBoolFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToBool(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as bool),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToBool(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), e as bool),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToBoolToPgSql(
         SimpleClassNullableOfUriToBool instance) =>
@@ -821,13 +761,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToBoolToPgSql(
     };
 
 SimpleClassOfBigIntToBoolNullable _$SimpleClassOfBigIntToBoolNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as bool?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToBoolNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as bool?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToBoolNullableToPgSql(
         SimpleClassOfBigIntToBoolNullable instance) =>
@@ -837,13 +776,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToBoolNullableToPgSql(
 
 SimpleClassNullableOfBigIntToBoolNullable
     _$SimpleClassNullableOfBigIntToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToBoolNullableToPgSql(
         SimpleClassNullableOfBigIntToBoolNullable instance) =>
@@ -852,13 +790,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToBoolNullableToPgSql(
     };
 
 SimpleClassOfDateTimeToBoolNullable
-    _$SimpleClassOfDateTimeToBoolNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as bool?),
-    ),
-  );
-}
+    _$SimpleClassOfDateTimeToBoolNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k), e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToBoolNullableToPgSql(
         SimpleClassOfDateTimeToBoolNullable instance) =>
@@ -868,13 +806,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToBoolNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToBoolNullable
     _$SimpleClassNullableOfDateTimeToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBoolNullableToPgSql(
         SimpleClassNullableOfDateTimeToBoolNullable instance) =>
@@ -882,12 +819,11 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToBoolNullableToPgSql(
       'value': instance.value?.map((k, e) => MapEntry(k.toIso8601String(), e)),
     };
 
-SimpleClassOfDynamicToBoolNullable _$SimpleClassOfDynamicToBoolNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToBoolNullable(
-    Map<String, bool>.from(pgsql['value'] as Map),
-  );
-}
+SimpleClassOfDynamicToBoolNullable
+    _$SimpleClassOfDynamicToBoolNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToBoolNullable(
+          Map<String, bool?>.from(pgsql['value'] as Map),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToBoolNullableToPgSql(
         SimpleClassOfDynamicToBoolNullable instance) =>
@@ -897,13 +833,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToBoolNullableToPgSql(
 
 SimpleClassNullableOfDynamicToBoolNullable
     _$SimpleClassNullableOfDynamicToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToBoolNullableToPgSql(
         SimpleClassNullableOfDynamicToBoolNullable instance) =>
@@ -912,13 +847,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToBoolNullableToPgSql(
     };
 
 SimpleClassOfEnumTypeToBoolNullable
-    _$SimpleClassOfEnumTypeToBoolNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as bool?),
-    ),
-  );
-}
+    _$SimpleClassOfEnumTypeToBoolNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToBoolNullableToPgSql(
         SimpleClassOfEnumTypeToBoolNullable instance) =>
@@ -928,13 +863,12 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToBoolNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToBoolNullable
     _$SimpleClassNullableOfEnumTypeToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBoolNullableToPgSql(
         SimpleClassNullableOfEnumTypeToBoolNullable instance) =>
@@ -943,13 +877,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToBoolNullableToPgSql(
     };
 
 SimpleClassOfIntToBoolNullable _$SimpleClassOfIntToBoolNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as bool?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToBoolNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as bool?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToBoolNullableToPgSql(
         SimpleClassOfIntToBoolNullable instance) =>
@@ -959,13 +892,12 @@ Map<String, dynamic> _$SimpleClassOfIntToBoolNullableToPgSql(
 
 SimpleClassNullableOfIntToBoolNullable
     _$SimpleClassNullableOfIntToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToBoolNullableToPgSql(
         SimpleClassNullableOfIntToBoolNullable instance) =>
@@ -974,11 +906,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToBoolNullableToPgSql(
     };
 
 SimpleClassOfObjectToBoolNullable _$SimpleClassOfObjectToBoolNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToBoolNullable(
-    Map<String, bool>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToBoolNullable(
+      Map<String, bool?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToBoolNullableToPgSql(
         SimpleClassOfObjectToBoolNullable instance) =>
@@ -988,13 +919,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToBoolNullableToPgSql(
 
 SimpleClassNullableOfObjectToBoolNullable
     _$SimpleClassNullableOfObjectToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToBoolNullableToPgSql(
         SimpleClassNullableOfObjectToBoolNullable instance) =>
@@ -1003,11 +933,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToBoolNullableToPgSql(
     };
 
 SimpleClassOfStringToBoolNullable _$SimpleClassOfStringToBoolNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToBoolNullable(
-    Map<String, bool>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToBoolNullable(
+      Map<String, bool?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToBoolNullableToPgSql(
         SimpleClassOfStringToBoolNullable instance) =>
@@ -1017,13 +946,12 @@ Map<String, dynamic> _$SimpleClassOfStringToBoolNullableToPgSql(
 
 SimpleClassNullableOfStringToBoolNullable
     _$SimpleClassNullableOfStringToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToBoolNullableToPgSql(
         SimpleClassNullableOfStringToBoolNullable instance) =>
@@ -1032,13 +960,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToBoolNullableToPgSql(
     };
 
 SimpleClassOfUriToBoolNullable _$SimpleClassOfUriToBoolNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as bool?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToBoolNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as bool?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToBoolNullableToPgSql(
         SimpleClassOfUriToBoolNullable instance) =>
@@ -1048,13 +975,12 @@ Map<String, dynamic> _$SimpleClassOfUriToBoolNullableToPgSql(
 
 SimpleClassNullableOfUriToBoolNullable
     _$SimpleClassNullableOfUriToBoolNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToBoolNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as bool?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToBoolNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), e as bool?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToBoolNullableToPgSql(
         SimpleClassNullableOfUriToBoolNullable instance) =>
@@ -1063,13 +989,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToBoolNullableToPgSql(
     };
 
 SimpleClassOfBigIntToDateTime _$SimpleClassOfBigIntToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToDateTimeToPgSql(
         SimpleClassOfBigIntToDateTime instance) =>
@@ -1079,13 +1004,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToDateTimeToPgSql(
     };
 
 SimpleClassNullableOfBigIntToDateTime
-    _$SimpleClassNullableOfBigIntToDateTimeFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToDateTimeFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToDateTimeToPgSql(
         SimpleClassNullableOfBigIntToDateTime instance) =>
@@ -1095,13 +1020,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToDateTimeToPgSql(
     };
 
 SimpleClassOfDateTimeToDateTime _$SimpleClassOfDateTimeToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToDateTimeToPgSql(
         SimpleClassOfDateTimeToDateTime instance) =>
@@ -1112,13 +1036,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToDateTimeToPgSql(
 
 SimpleClassNullableOfDateTimeToDateTime
     _$SimpleClassNullableOfDateTimeToDateTimeFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDateTimeToPgSql(
         SimpleClassNullableOfDateTimeToDateTime instance) =>
@@ -1128,13 +1051,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDateTimeToPgSql(
     };
 
 SimpleClassOfDynamicToDateTime _$SimpleClassOfDynamicToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToDateTimeToPgSql(
         SimpleClassOfDynamicToDateTime instance) =>
@@ -1144,13 +1066,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToDateTimeToPgSql(
 
 SimpleClassNullableOfDynamicToDateTime
     _$SimpleClassNullableOfDynamicToDateTimeFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToDateTimeToPgSql(
         SimpleClassNullableOfDynamicToDateTime instance) =>
@@ -1159,14 +1080,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToDateTimeToPgSql(
     };
 
 SimpleClassOfEnumTypeToDateTime _$SimpleClassOfEnumTypeToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          _$enumDecode(_$EnumTypeEnumMap, k), DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            $enumDecode(_$EnumTypeEnumMap, k), DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToDateTimeToPgSql(
         SimpleClassOfEnumTypeToDateTime instance) =>
@@ -1177,14 +1097,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToDateTimeToPgSql(
 
 SimpleClassNullableOfEnumTypeToDateTime
     _$SimpleClassNullableOfEnumTypeToDateTimeFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          _$enumDecode(_$EnumTypeEnumMap, k), DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                $enumDecode(_$EnumTypeEnumMap, k), DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDateTimeToPgSql(
         SimpleClassNullableOfEnumTypeToDateTime instance) =>
@@ -1194,13 +1113,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDateTimeToPgSql(
     };
 
 SimpleClassOfIntToDateTime _$SimpleClassOfIntToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToDateTimeToPgSql(
         SimpleClassOfIntToDateTime instance) =>
@@ -1209,14 +1127,13 @@ Map<String, dynamic> _$SimpleClassOfIntToDateTimeToPgSql(
           .map((k, e) => MapEntry(k.toString(), e.toIso8601String())),
     };
 
-SimpleClassNullableOfIntToDateTime _$SimpleClassNullableOfIntToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+SimpleClassNullableOfIntToDateTime
+    _$SimpleClassNullableOfIntToDateTimeFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToDateTimeToPgSql(
         SimpleClassNullableOfIntToDateTime instance) =>
@@ -1226,13 +1143,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToDateTimeToPgSql(
     };
 
 SimpleClassOfObjectToDateTime _$SimpleClassOfObjectToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToDateTimeToPgSql(
         SimpleClassOfObjectToDateTime instance) =>
@@ -1241,13 +1157,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToDateTimeToPgSql(
     };
 
 SimpleClassNullableOfObjectToDateTime
-    _$SimpleClassNullableOfObjectToDateTimeFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, DateTime.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfObjectToDateTimeFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToDateTimeToPgSql(
         SimpleClassNullableOfObjectToDateTime instance) =>
@@ -1256,13 +1172,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToDateTimeToPgSql(
     };
 
 SimpleClassOfStringToDateTime _$SimpleClassOfStringToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToDateTimeToPgSql(
         SimpleClassOfStringToDateTime instance) =>
@@ -1271,13 +1186,13 @@ Map<String, dynamic> _$SimpleClassOfStringToDateTimeToPgSql(
     };
 
 SimpleClassNullableOfStringToDateTime
-    _$SimpleClassNullableOfStringToDateTimeFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, DateTime.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfStringToDateTimeFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToDateTimeToPgSql(
         SimpleClassNullableOfStringToDateTime instance) =>
@@ -1286,13 +1201,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToDateTimeToPgSql(
     };
 
 SimpleClassOfUriToDateTime _$SimpleClassOfUriToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToDateTime(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToDateTime(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), DateTime.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToDateTimeToPgSql(
         SimpleClassOfUriToDateTime instance) =>
@@ -1301,14 +1215,13 @@ Map<String, dynamic> _$SimpleClassOfUriToDateTimeToPgSql(
           .map((k, e) => MapEntry(k.toString(), e.toIso8601String())),
     };
 
-SimpleClassNullableOfUriToDateTime _$SimpleClassNullableOfUriToDateTimeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToDateTime(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), DateTime.parse(e as String)),
-    ),
-  );
-}
+SimpleClassNullableOfUriToDateTime
+    _$SimpleClassNullableOfUriToDateTimeFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToDateTime(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToDateTimeToPgSql(
         SimpleClassNullableOfUriToDateTime instance) =>
@@ -1318,14 +1231,14 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToDateTimeToPgSql(
     };
 
 SimpleClassOfBigIntToDateTimeNullable
-    _$SimpleClassOfBigIntToDateTimeNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          BigInt.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfBigIntToDateTimeNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfBigIntToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(BigInt.parse(k),
+                e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToDateTimeNullableToPgSql(
         SimpleClassOfBigIntToDateTimeNullable instance) =>
@@ -1336,14 +1249,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfBigIntToDateTimeNullable
     _$SimpleClassNullableOfBigIntToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          BigInt.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k),
+                e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToDateTimeNullableToPgSql(
         SimpleClassNullableOfBigIntToDateTimeNullable instance) =>
@@ -1354,14 +1266,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToDateTimeNullableToPgSql(
 
 SimpleClassOfDateTimeToDateTimeNullable
     _$SimpleClassOfDateTimeToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k),
+                e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToDateTimeNullableToPgSql(
         SimpleClassOfDateTimeToDateTimeNullable instance) =>
@@ -1372,14 +1283,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToDateTimeNullable
     _$SimpleClassNullableOfDateTimeToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k),
+                e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDateTimeNullableToPgSql(
         SimpleClassNullableOfDateTimeToDateTimeNullable instance) =>
@@ -1390,13 +1300,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDateTimeNullableToPgSql(
 
 SimpleClassOfDynamicToDateTimeNullable
     _$SimpleClassOfDynamicToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) =>
+                MapEntry(k, e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToDateTimeNullableToPgSql(
         SimpleClassOfDynamicToDateTimeNullable instance) =>
@@ -1406,13 +1316,13 @@ Map<String, dynamic> _$SimpleClassOfDynamicToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfDynamicToDateTimeNullable
     _$SimpleClassNullableOfDynamicToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) =>
+                MapEntry(k, e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToDateTimeNullableToPgSql(
         SimpleClassNullableOfDynamicToDateTimeNullable instance) =>
@@ -1422,14 +1332,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToDateTimeNullableToPgSql(
 
 SimpleClassOfEnumTypeToDateTimeNullable
     _$SimpleClassOfEnumTypeToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToDateTimeNullableToPgSql(
         SimpleClassOfEnumTypeToDateTimeNullable instance) =>
@@ -1440,14 +1349,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToDateTimeNullable
     _$SimpleClassNullableOfEnumTypeToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDateTimeNullableToPgSql(
         SimpleClassNullableOfEnumTypeToDateTimeNullable instance) =>
@@ -1456,15 +1364,14 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDateTimeNullableToPgSql(
           ?.map((k, e) => MapEntry(_$EnumTypeEnumMap[k], e?.toIso8601String())),
     };
 
-SimpleClassOfIntToDateTimeNullable _$SimpleClassOfIntToDateTimeNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          int.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+SimpleClassOfIntToDateTimeNullable
+    _$SimpleClassOfIntToDateTimeNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfIntToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                int.parse(k), e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfIntToDateTimeNullableToPgSql(
         SimpleClassOfIntToDateTimeNullable instance) =>
@@ -1475,14 +1382,13 @@ Map<String, dynamic> _$SimpleClassOfIntToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfIntToDateTimeNullable
     _$SimpleClassNullableOfIntToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          int.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                int.parse(k), e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToDateTimeNullableToPgSql(
         SimpleClassNullableOfIntToDateTimeNullable instance) =>
@@ -1492,13 +1398,14 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToDateTimeNullableToPgSql(
     };
 
 SimpleClassOfObjectToDateTimeNullable
-    _$SimpleClassOfObjectToDateTimeNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfObjectToDateTimeNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfObjectToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) =>
+                MapEntry(k, e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfObjectToDateTimeNullableToPgSql(
         SimpleClassOfObjectToDateTimeNullable instance) =>
@@ -1508,13 +1415,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfObjectToDateTimeNullable
     _$SimpleClassNullableOfObjectToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) =>
+                MapEntry(k, e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToDateTimeNullableToPgSql(
         SimpleClassNullableOfObjectToDateTimeNullable instance) =>
@@ -1523,13 +1430,14 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToDateTimeNullableToPgSql(
     };
 
 SimpleClassOfStringToDateTimeNullable
-    _$SimpleClassOfStringToDateTimeNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassOfStringToDateTimeNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfStringToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) =>
+                MapEntry(k, e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfStringToDateTimeNullableToPgSql(
         SimpleClassOfStringToDateTimeNullable instance) =>
@@ -1539,13 +1447,13 @@ Map<String, dynamic> _$SimpleClassOfStringToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfStringToDateTimeNullable
     _$SimpleClassNullableOfStringToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) =>
+                MapEntry(k, e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToDateTimeNullableToPgSql(
         SimpleClassNullableOfStringToDateTimeNullable instance) =>
@@ -1553,15 +1461,14 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToDateTimeNullableToPgSql(
       'value': instance.value?.map((k, e) => MapEntry(k, e?.toIso8601String())),
     };
 
-SimpleClassOfUriToDateTimeNullable _$SimpleClassOfUriToDateTimeNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          Uri.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+SimpleClassOfUriToDateTimeNullable
+    _$SimpleClassOfUriToDateTimeNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfUriToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                Uri.parse(k), e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfUriToDateTimeNullableToPgSql(
         SimpleClassOfUriToDateTimeNullable instance) =>
@@ -1572,14 +1479,13 @@ Map<String, dynamic> _$SimpleClassOfUriToDateTimeNullableToPgSql(
 
 SimpleClassNullableOfUriToDateTimeNullable
     _$SimpleClassNullableOfUriToDateTimeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToDateTimeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          Uri.parse(k), e == null ? null : DateTime.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToDateTimeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                Uri.parse(k), e == null ? null : DateTime.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToDateTimeNullableToPgSql(
         SimpleClassNullableOfUriToDateTimeNullable instance) =>
@@ -1589,13 +1495,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToDateTimeNullableToPgSql(
     };
 
 SimpleClassOfBigIntToDouble _$SimpleClassOfBigIntToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToDouble(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToDoubleToPgSql(
         SimpleClassOfBigIntToDouble instance) =>
@@ -1604,13 +1509,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToDoubleToPgSql(
     };
 
 SimpleClassNullableOfBigIntToDouble
-    _$SimpleClassNullableOfBigIntToDoubleFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToDoubleFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToDouble(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), (e as num).toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToDoubleToPgSql(
         SimpleClassNullableOfBigIntToDouble instance) =>
@@ -1619,13 +1524,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToDoubleToPgSql(
     };
 
 SimpleClassOfDateTimeToDouble _$SimpleClassOfDateTimeToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToDouble(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToDoubleToPgSql(
         SimpleClassOfDateTimeToDouble instance) =>
@@ -1634,13 +1538,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToDoubleToPgSql(
     };
 
 SimpleClassNullableOfDateTimeToDouble
-    _$SimpleClassNullableOfDateTimeToDoubleFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDateTimeToDoubleFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToDouble(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), (e as num).toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDoubleToPgSql(
         SimpleClassNullableOfDateTimeToDouble instance) =>
@@ -1649,11 +1553,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDoubleToPgSql(
     };
 
 SimpleClassOfDynamicToDouble _$SimpleClassOfDynamicToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToDouble(
-    Map<String, double>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToDoubleToPgSql(
         SimpleClassOfDynamicToDouble instance) =>
@@ -1662,13 +1567,13 @@ Map<String, dynamic> _$SimpleClassOfDynamicToDoubleToPgSql(
     };
 
 SimpleClassNullableOfDynamicToDouble
-    _$SimpleClassNullableOfDynamicToDoubleFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, (e as num).toDouble()),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDynamicToDoubleFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToDouble(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, (e as num).toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToDoubleToPgSql(
         SimpleClassNullableOfDynamicToDouble instance) =>
@@ -1677,14 +1582,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToDoubleToPgSql(
     };
 
 SimpleClassOfEnumTypeToDouble _$SimpleClassOfEnumTypeToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToDouble(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), (e as num).toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) =>
+            MapEntry($enumDecode(_$EnumTypeEnumMap, k), (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToDoubleToPgSql(
         SimpleClassOfEnumTypeToDouble instance) =>
@@ -1693,14 +1597,14 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToDoubleToPgSql(
     };
 
 SimpleClassNullableOfEnumTypeToDouble
-    _$SimpleClassNullableOfEnumTypeToDoubleFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), (e as num).toDouble()),
-    ),
-  );
-}
+    _$SimpleClassNullableOfEnumTypeToDoubleFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToDouble(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                $enumDecode(_$EnumTypeEnumMap, k), (e as num).toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDoubleToPgSql(
         SimpleClassNullableOfEnumTypeToDouble instance) =>
@@ -1709,13 +1613,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDoubleToPgSql(
     };
 
 SimpleClassOfIntToDouble _$SimpleClassOfIntToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToDouble(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToDoubleToPgSql(
         SimpleClassOfIntToDouble instance) =>
@@ -1724,13 +1627,12 @@ Map<String, dynamic> _$SimpleClassOfIntToDoubleToPgSql(
     };
 
 SimpleClassNullableOfIntToDouble _$SimpleClassNullableOfIntToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToDouble(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToDoubleToPgSql(
         SimpleClassNullableOfIntToDouble instance) =>
@@ -1739,11 +1641,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToDoubleToPgSql(
     };
 
 SimpleClassOfObjectToDouble _$SimpleClassOfObjectToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToDouble(
-    Map<String, double>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToDoubleToPgSql(
         SimpleClassOfObjectToDouble instance) =>
@@ -1752,13 +1655,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToDoubleToPgSql(
     };
 
 SimpleClassNullableOfObjectToDouble
-    _$SimpleClassNullableOfObjectToDoubleFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, (e as num).toDouble()),
-    ),
-  );
-}
+    _$SimpleClassNullableOfObjectToDoubleFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToDouble(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, (e as num).toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToDoubleToPgSql(
         SimpleClassNullableOfObjectToDouble instance) =>
@@ -1767,11 +1670,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToDoubleToPgSql(
     };
 
 SimpleClassOfStringToDouble _$SimpleClassOfStringToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToDouble(
-    Map<String, double>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToDoubleToPgSql(
         SimpleClassOfStringToDouble instance) =>
@@ -1780,13 +1684,13 @@ Map<String, dynamic> _$SimpleClassOfStringToDoubleToPgSql(
     };
 
 SimpleClassNullableOfStringToDouble
-    _$SimpleClassNullableOfStringToDoubleFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, (e as num).toDouble()),
-    ),
-  );
-}
+    _$SimpleClassNullableOfStringToDoubleFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToDouble(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, (e as num).toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToDoubleToPgSql(
         SimpleClassNullableOfStringToDouble instance) =>
@@ -1795,13 +1699,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToDoubleToPgSql(
     };
 
 SimpleClassOfUriToDouble _$SimpleClassOfUriToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToDouble(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToDouble(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToDoubleToPgSql(
         SimpleClassOfUriToDouble instance) =>
@@ -1810,13 +1713,12 @@ Map<String, dynamic> _$SimpleClassOfUriToDoubleToPgSql(
     };
 
 SimpleClassNullableOfUriToDouble _$SimpleClassNullableOfUriToDoubleFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToDouble(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), (e as num).toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToDouble(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), (e as num).toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToDoubleToPgSql(
         SimpleClassNullableOfUriToDouble instance) =>
@@ -1825,13 +1727,13 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToDoubleToPgSql(
     };
 
 SimpleClassOfBigIntToDoubleNullable
-    _$SimpleClassOfBigIntToDoubleNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+    _$SimpleClassOfBigIntToDoubleNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfBigIntToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(BigInt.parse(k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToDoubleNullableToPgSql(
         SimpleClassOfBigIntToDoubleNullable instance) =>
@@ -1841,13 +1743,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToDoubleNullableToPgSql(
 
 SimpleClassNullableOfBigIntToDoubleNullable
     _$SimpleClassNullableOfBigIntToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToDoubleNullableToPgSql(
         SimpleClassNullableOfBigIntToDoubleNullable instance) =>
@@ -1856,13 +1757,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToDoubleNullableToPgSql(
     };
 
 SimpleClassOfDateTimeToDoubleNullable
-    _$SimpleClassOfDateTimeToDoubleNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+    _$SimpleClassOfDateTimeToDoubleNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToDoubleNullableToPgSql(
         SimpleClassOfDateTimeToDoubleNullable instance) =>
@@ -1872,13 +1773,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToDoubleNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToDoubleNullable
     _$SimpleClassNullableOfDateTimeToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDoubleNullableToPgSql(
         SimpleClassNullableOfDateTimeToDoubleNullable instance) =>
@@ -1887,11 +1787,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDoubleNullableToPgSql(
     };
 
 SimpleClassOfDynamicToDoubleNullable
-    _$SimpleClassOfDynamicToDoubleNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToDoubleNullable(
-    Map<String, double>.from(pgsql['value'] as Map),
-  );
-}
+    _$SimpleClassOfDynamicToDoubleNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToDoubleNullableToPgSql(
         SimpleClassOfDynamicToDoubleNullable instance) =>
@@ -1901,13 +1803,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToDoubleNullableToPgSql(
 
 SimpleClassNullableOfDynamicToDoubleNullable
     _$SimpleClassNullableOfDynamicToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToDoubleNullableToPgSql(
         SimpleClassNullableOfDynamicToDoubleNullable instance) =>
@@ -1916,14 +1817,14 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToDoubleNullableToPgSql(
     };
 
 SimpleClassOfEnumTypeToDoubleNullable
-    _$SimpleClassOfEnumTypeToDoubleNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+    _$SimpleClassOfEnumTypeToDoubleNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                $enumDecode(_$EnumTypeEnumMap, k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToDoubleNullableToPgSql(
         SimpleClassOfEnumTypeToDoubleNullable instance) =>
@@ -1933,14 +1834,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToDoubleNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToDoubleNullable
     _$SimpleClassNullableOfEnumTypeToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                $enumDecode(_$EnumTypeEnumMap, k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDoubleNullableToPgSql(
         SimpleClassNullableOfEnumTypeToDoubleNullable instance) =>
@@ -1949,13 +1849,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDoubleNullableToPgSql(
     };
 
 SimpleClassOfIntToDoubleNullable _$SimpleClassOfIntToDoubleNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToDoubleNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), (e as num?)?.toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToDoubleNullableToPgSql(
         SimpleClassOfIntToDoubleNullable instance) =>
@@ -1965,13 +1864,12 @@ Map<String, dynamic> _$SimpleClassOfIntToDoubleNullableToPgSql(
 
 SimpleClassNullableOfIntToDoubleNullable
     _$SimpleClassNullableOfIntToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToDoubleNullableToPgSql(
         SimpleClassNullableOfIntToDoubleNullable instance) =>
@@ -1980,11 +1878,13 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToDoubleNullableToPgSql(
     };
 
 SimpleClassOfObjectToDoubleNullable
-    _$SimpleClassOfObjectToDoubleNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToDoubleNullable(
-    Map<String, double>.from(pgsql['value'] as Map),
-  );
-}
+    _$SimpleClassOfObjectToDoubleNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfObjectToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfObjectToDoubleNullableToPgSql(
         SimpleClassOfObjectToDoubleNullable instance) =>
@@ -1994,13 +1894,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToDoubleNullableToPgSql(
 
 SimpleClassNullableOfObjectToDoubleNullable
     _$SimpleClassNullableOfObjectToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToDoubleNullableToPgSql(
         SimpleClassNullableOfObjectToDoubleNullable instance) =>
@@ -2009,11 +1908,13 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToDoubleNullableToPgSql(
     };
 
 SimpleClassOfStringToDoubleNullable
-    _$SimpleClassOfStringToDoubleNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToDoubleNullable(
-    Map<String, double>.from(pgsql['value'] as Map),
-  );
-}
+    _$SimpleClassOfStringToDoubleNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfStringToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfStringToDoubleNullableToPgSql(
         SimpleClassOfStringToDoubleNullable instance) =>
@@ -2023,13 +1924,12 @@ Map<String, dynamic> _$SimpleClassOfStringToDoubleNullableToPgSql(
 
 SimpleClassNullableOfStringToDoubleNullable
     _$SimpleClassNullableOfStringToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToDoubleNullableToPgSql(
         SimpleClassNullableOfStringToDoubleNullable instance) =>
@@ -2038,13 +1938,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToDoubleNullableToPgSql(
     };
 
 SimpleClassOfUriToDoubleNullable _$SimpleClassOfUriToDoubleNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToDoubleNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), (e as num?)?.toDouble()),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToDoubleNullableToPgSql(
         SimpleClassOfUriToDoubleNullable instance) =>
@@ -2054,13 +1953,12 @@ Map<String, dynamic> _$SimpleClassOfUriToDoubleNullableToPgSql(
 
 SimpleClassNullableOfUriToDoubleNullable
     _$SimpleClassNullableOfUriToDoubleNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToDoubleNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), (e as num?)?.toDouble()),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToDoubleNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), (e as num?)?.toDouble()),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToDoubleNullableToPgSql(
         SimpleClassNullableOfUriToDoubleNullable instance) =>
@@ -2069,13 +1967,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToDoubleNullableToPgSql(
     };
 
 SimpleClassOfBigIntToDuration _$SimpleClassOfBigIntToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToDurationToPgSql(
         SimpleClassOfBigIntToDuration instance) =>
@@ -2085,13 +1982,14 @@ Map<String, dynamic> _$SimpleClassOfBigIntToDurationToPgSql(
     };
 
 SimpleClassNullableOfBigIntToDuration
-    _$SimpleClassNullableOfBigIntToDurationFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToDurationFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) =>
+                MapEntry(BigInt.parse(k), Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToDurationToPgSql(
         SimpleClassNullableOfBigIntToDuration instance) =>
@@ -2101,13 +1999,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToDurationToPgSql(
     };
 
 SimpleClassOfDateTimeToDuration _$SimpleClassOfDateTimeToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToDurationToPgSql(
         SimpleClassOfDateTimeToDuration instance) =>
@@ -2118,13 +2015,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToDurationToPgSql(
 
 SimpleClassNullableOfDateTimeToDuration
     _$SimpleClassNullableOfDateTimeToDurationFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) =>
+                MapEntry(DateTime.parse(k), Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDurationToPgSql(
         SimpleClassNullableOfDateTimeToDuration instance) =>
@@ -2134,13 +2031,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDurationToPgSql(
     };
 
 SimpleClassOfDynamicToDuration _$SimpleClassOfDynamicToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToDurationToPgSql(
         SimpleClassOfDynamicToDuration instance) =>
@@ -2150,13 +2046,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToDurationToPgSql(
 
 SimpleClassNullableOfDynamicToDuration
     _$SimpleClassNullableOfDynamicToDurationFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToDurationToPgSql(
         SimpleClassNullableOfDynamicToDuration instance) =>
@@ -2165,14 +2060,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToDurationToPgSql(
     };
 
 SimpleClassOfEnumTypeToDuration _$SimpleClassOfEnumTypeToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          _$enumDecode(_$EnumTypeEnumMap, k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+            Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToDurationToPgSql(
         SimpleClassOfEnumTypeToDuration instance) =>
@@ -2183,14 +2077,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToDurationToPgSql(
 
 SimpleClassNullableOfEnumTypeToDuration
     _$SimpleClassNullableOfEnumTypeToDurationFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          _$enumDecode(_$EnumTypeEnumMap, k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDurationToPgSql(
         SimpleClassNullableOfEnumTypeToDuration instance) =>
@@ -2200,13 +2093,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDurationToPgSql(
     };
 
 SimpleClassOfIntToDuration _$SimpleClassOfIntToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToDurationToPgSql(
         SimpleClassOfIntToDuration instance) =>
@@ -2215,14 +2107,13 @@ Map<String, dynamic> _$SimpleClassOfIntToDurationToPgSql(
           .map((k, e) => MapEntry(k.toString(), e.inMicroseconds)),
     };
 
-SimpleClassNullableOfIntToDuration _$SimpleClassNullableOfIntToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+SimpleClassNullableOfIntToDuration
+    _$SimpleClassNullableOfIntToDurationFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToDurationToPgSql(
         SimpleClassNullableOfIntToDuration instance) =>
@@ -2232,13 +2123,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToDurationToPgSql(
     };
 
 SimpleClassOfObjectToDuration _$SimpleClassOfObjectToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToDurationToPgSql(
         SimpleClassOfObjectToDuration instance) =>
@@ -2247,13 +2137,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToDurationToPgSql(
     };
 
 SimpleClassNullableOfObjectToDuration
-    _$SimpleClassNullableOfObjectToDurationFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, Duration(microseconds: e as int)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfObjectToDurationFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToDurationToPgSql(
         SimpleClassNullableOfObjectToDuration instance) =>
@@ -2262,13 +2152,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToDurationToPgSql(
     };
 
 SimpleClassOfStringToDuration _$SimpleClassOfStringToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToDurationToPgSql(
         SimpleClassOfStringToDuration instance) =>
@@ -2277,13 +2166,13 @@ Map<String, dynamic> _$SimpleClassOfStringToDurationToPgSql(
     };
 
 SimpleClassNullableOfStringToDuration
-    _$SimpleClassNullableOfStringToDurationFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, Duration(microseconds: e as int)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfStringToDurationFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToDurationToPgSql(
         SimpleClassNullableOfStringToDuration instance) =>
@@ -2292,13 +2181,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToDurationToPgSql(
     };
 
 SimpleClassOfUriToDuration _$SimpleClassOfUriToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToDuration(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToDuration(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), Duration(microseconds: e as int)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToDurationToPgSql(
         SimpleClassOfUriToDuration instance) =>
@@ -2307,14 +2195,13 @@ Map<String, dynamic> _$SimpleClassOfUriToDurationToPgSql(
           .map((k, e) => MapEntry(k.toString(), e.inMicroseconds)),
     };
 
-SimpleClassNullableOfUriToDuration _$SimpleClassNullableOfUriToDurationFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToDuration(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), Duration(microseconds: e as int)),
-    ),
-  );
-}
+SimpleClassNullableOfUriToDuration
+    _$SimpleClassNullableOfUriToDurationFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToDuration(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToDurationToPgSql(
         SimpleClassNullableOfUriToDuration instance) =>
@@ -2324,14 +2211,14 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToDurationToPgSql(
     };
 
 SimpleClassOfBigIntToDurationNullable
-    _$SimpleClassOfBigIntToDurationNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          BigInt.parse(k), e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+    _$SimpleClassOfBigIntToDurationNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfBigIntToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(BigInt.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToDurationNullableToPgSql(
         SimpleClassOfBigIntToDurationNullable instance) =>
@@ -2342,14 +2229,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToDurationNullableToPgSql(
 
 SimpleClassNullableOfBigIntToDurationNullable
     _$SimpleClassNullableOfBigIntToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          BigInt.parse(k), e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToDurationNullableToPgSql(
         SimpleClassNullableOfBigIntToDurationNullable instance) =>
@@ -2360,14 +2246,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToDurationNullableToPgSql(
 
 SimpleClassOfDateTimeToDurationNullable
     _$SimpleClassOfDateTimeToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k),
-          e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToDurationNullableToPgSql(
         SimpleClassOfDateTimeToDurationNullable instance) =>
@@ -2378,14 +2263,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToDurationNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToDurationNullable
     _$SimpleClassNullableOfDateTimeToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k),
-          e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDurationNullableToPgSql(
         SimpleClassNullableOfDateTimeToDurationNullable instance) =>
@@ -2396,14 +2280,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDurationNullableToPgSql(
 
 SimpleClassOfDynamicToDurationNullable
     _$SimpleClassOfDynamicToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(k, e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                k, e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToDurationNullableToPgSql(
         SimpleClassOfDynamicToDurationNullable instance) =>
@@ -2413,14 +2296,13 @@ Map<String, dynamic> _$SimpleClassOfDynamicToDurationNullableToPgSql(
 
 SimpleClassNullableOfDynamicToDurationNullable
     _$SimpleClassNullableOfDynamicToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(k, e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                k, e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToDurationNullableToPgSql(
         SimpleClassNullableOfDynamicToDurationNullable instance) =>
@@ -2430,14 +2312,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToDurationNullableToPgSql(
 
 SimpleClassOfEnumTypeToDurationNullable
     _$SimpleClassOfEnumTypeToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToDurationNullableToPgSql(
         SimpleClassOfEnumTypeToDurationNullable instance) =>
@@ -2448,14 +2329,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToDurationNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToDurationNullable
     _$SimpleClassNullableOfEnumTypeToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDurationNullableToPgSql(
         SimpleClassNullableOfEnumTypeToDurationNullable instance) =>
@@ -2464,15 +2344,14 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDurationNullableToPgSql(
           ?.map((k, e) => MapEntry(_$EnumTypeEnumMap[k], e?.inMicroseconds)),
     };
 
-SimpleClassOfIntToDurationNullable _$SimpleClassOfIntToDurationNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          int.parse(k), e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+SimpleClassOfIntToDurationNullable
+    _$SimpleClassOfIntToDurationNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfIntToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(int.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfIntToDurationNullableToPgSql(
         SimpleClassOfIntToDurationNullable instance) =>
@@ -2483,14 +2362,13 @@ Map<String, dynamic> _$SimpleClassOfIntToDurationNullableToPgSql(
 
 SimpleClassNullableOfIntToDurationNullable
     _$SimpleClassNullableOfIntToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          int.parse(k), e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToDurationNullableToPgSql(
         SimpleClassNullableOfIntToDurationNullable instance) =>
@@ -2500,14 +2378,14 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToDurationNullableToPgSql(
     };
 
 SimpleClassOfObjectToDurationNullable
-    _$SimpleClassOfObjectToDurationNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(k, e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+    _$SimpleClassOfObjectToDurationNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfObjectToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                k, e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfObjectToDurationNullableToPgSql(
         SimpleClassOfObjectToDurationNullable instance) =>
@@ -2517,14 +2395,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToDurationNullableToPgSql(
 
 SimpleClassNullableOfObjectToDurationNullable
     _$SimpleClassNullableOfObjectToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(k, e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                k, e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToDurationNullableToPgSql(
         SimpleClassNullableOfObjectToDurationNullable instance) =>
@@ -2533,14 +2410,14 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToDurationNullableToPgSql(
     };
 
 SimpleClassOfStringToDurationNullable
-    _$SimpleClassOfStringToDurationNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(k, e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+    _$SimpleClassOfStringToDurationNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfStringToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                k, e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfStringToDurationNullableToPgSql(
         SimpleClassOfStringToDurationNullable instance) =>
@@ -2550,14 +2427,13 @@ Map<String, dynamic> _$SimpleClassOfStringToDurationNullableToPgSql(
 
 SimpleClassNullableOfStringToDurationNullable
     _$SimpleClassNullableOfStringToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(k, e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                k, e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToDurationNullableToPgSql(
         SimpleClassNullableOfStringToDurationNullable instance) =>
@@ -2565,15 +2441,14 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToDurationNullableToPgSql(
       'value': instance.value?.map((k, e) => MapEntry(k, e?.inMicroseconds)),
     };
 
-SimpleClassOfUriToDurationNullable _$SimpleClassOfUriToDurationNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          Uri.parse(k), e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+SimpleClassOfUriToDurationNullable
+    _$SimpleClassOfUriToDurationNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfUriToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(Uri.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfUriToDurationNullableToPgSql(
         SimpleClassOfUriToDurationNullable instance) =>
@@ -2584,14 +2459,13 @@ Map<String, dynamic> _$SimpleClassOfUriToDurationNullableToPgSql(
 
 SimpleClassNullableOfUriToDurationNullable
     _$SimpleClassNullableOfUriToDurationNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToDurationNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          Uri.parse(k), e == null ? null : Duration(microseconds: e as int)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToDurationNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k),
+                e == null ? null : Duration(microseconds: e as int)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToDurationNullableToPgSql(
         SimpleClassNullableOfUriToDurationNullable instance) =>
@@ -2601,13 +2475,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToDurationNullableToPgSql(
     };
 
 SimpleClassOfBigIntToDynamic _$SimpleClassOfBigIntToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToDynamic(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToDynamic(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToDynamicToPgSql(
         SimpleClassOfBigIntToDynamic instance) =>
@@ -2616,13 +2489,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToDynamicToPgSql(
     };
 
 SimpleClassNullableOfBigIntToDynamic
-    _$SimpleClassNullableOfBigIntToDynamicFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToDynamic(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToDynamicFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToDynamic(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToDynamicToPgSql(
         SimpleClassNullableOfBigIntToDynamic instance) =>
@@ -2631,13 +2504,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToDynamicToPgSql(
     };
 
 SimpleClassOfDateTimeToDynamic _$SimpleClassOfDateTimeToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToDynamic(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToDynamic(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToDynamicToPgSql(
         SimpleClassOfDateTimeToDynamic instance) =>
@@ -2647,13 +2519,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToDynamicToPgSql(
 
 SimpleClassNullableOfDateTimeToDynamic
     _$SimpleClassNullableOfDateTimeToDynamicFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToDynamic(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToDynamic(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDynamicToPgSql(
         SimpleClassNullableOfDateTimeToDynamic instance) =>
@@ -2662,11 +2533,10 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToDynamicToPgSql(
     };
 
 SimpleClassOfDynamicToDynamic _$SimpleClassOfDynamicToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToDynamic(
-    pgsql['value'] as Map<String, dynamic>,
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToDynamic(
+      pgsql['value'] as Map<String, dynamic>,
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToDynamicToPgSql(
         SimpleClassOfDynamicToDynamic instance) =>
@@ -2675,11 +2545,11 @@ Map<String, dynamic> _$SimpleClassOfDynamicToDynamicToPgSql(
     };
 
 SimpleClassNullableOfDynamicToDynamic
-    _$SimpleClassNullableOfDynamicToDynamicFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToDynamic(
-    pgsql['value'] as Map<String, dynamic>?,
-  );
-}
+    _$SimpleClassNullableOfDynamicToDynamicFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToDynamic(
+          pgsql['value'] as Map<String, dynamic>?,
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToDynamicToPgSql(
         SimpleClassNullableOfDynamicToDynamic instance) =>
@@ -2688,13 +2558,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToDynamicToPgSql(
     };
 
 SimpleClassOfEnumTypeToDynamic _$SimpleClassOfEnumTypeToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToDynamic(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToDynamic(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToDynamicToPgSql(
         SimpleClassOfEnumTypeToDynamic instance) =>
@@ -2704,13 +2573,12 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToDynamicToPgSql(
 
 SimpleClassNullableOfEnumTypeToDynamic
     _$SimpleClassNullableOfEnumTypeToDynamicFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToDynamic(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToDynamic(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDynamicToPgSql(
         SimpleClassNullableOfEnumTypeToDynamic instance) =>
@@ -2719,13 +2587,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToDynamicToPgSql(
     };
 
 SimpleClassOfIntToDynamic _$SimpleClassOfIntToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToDynamic(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToDynamic(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToDynamicToPgSql(
         SimpleClassOfIntToDynamic instance) =>
@@ -2734,13 +2601,12 @@ Map<String, dynamic> _$SimpleClassOfIntToDynamicToPgSql(
     };
 
 SimpleClassNullableOfIntToDynamic _$SimpleClassNullableOfIntToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToDynamic(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToDynamic(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToDynamicToPgSql(
         SimpleClassNullableOfIntToDynamic instance) =>
@@ -2749,11 +2615,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToDynamicToPgSql(
     };
 
 SimpleClassOfObjectToDynamic _$SimpleClassOfObjectToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToDynamic(
-    pgsql['value'] as Map<String, dynamic>,
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToDynamic(
+      pgsql['value'] as Map<String, dynamic>,
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToDynamicToPgSql(
         SimpleClassOfObjectToDynamic instance) =>
@@ -2762,11 +2627,11 @@ Map<String, dynamic> _$SimpleClassOfObjectToDynamicToPgSql(
     };
 
 SimpleClassNullableOfObjectToDynamic
-    _$SimpleClassNullableOfObjectToDynamicFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToDynamic(
-    pgsql['value'] as Map<String, dynamic>?,
-  );
-}
+    _$SimpleClassNullableOfObjectToDynamicFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToDynamic(
+          pgsql['value'] as Map<String, dynamic>?,
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToDynamicToPgSql(
         SimpleClassNullableOfObjectToDynamic instance) =>
@@ -2775,11 +2640,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToDynamicToPgSql(
     };
 
 SimpleClassOfStringToDynamic _$SimpleClassOfStringToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToDynamic(
-    pgsql['value'] as Map<String, dynamic>,
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToDynamic(
+      pgsql['value'] as Map<String, dynamic>,
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToDynamicToPgSql(
         SimpleClassOfStringToDynamic instance) =>
@@ -2788,11 +2652,11 @@ Map<String, dynamic> _$SimpleClassOfStringToDynamicToPgSql(
     };
 
 SimpleClassNullableOfStringToDynamic
-    _$SimpleClassNullableOfStringToDynamicFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToDynamic(
-    pgsql['value'] as Map<String, dynamic>?,
-  );
-}
+    _$SimpleClassNullableOfStringToDynamicFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToDynamic(
+          pgsql['value'] as Map<String, dynamic>?,
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToDynamicToPgSql(
         SimpleClassNullableOfStringToDynamic instance) =>
@@ -2801,13 +2665,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToDynamicToPgSql(
     };
 
 SimpleClassOfUriToDynamic _$SimpleClassOfUriToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToDynamic(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToDynamic(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToDynamicToPgSql(
         SimpleClassOfUriToDynamic instance) =>
@@ -2816,13 +2679,12 @@ Map<String, dynamic> _$SimpleClassOfUriToDynamicToPgSql(
     };
 
 SimpleClassNullableOfUriToDynamic _$SimpleClassNullableOfUriToDynamicFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToDynamic(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToDynamic(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToDynamicToPgSql(
         SimpleClassNullableOfUriToDynamic instance) =>
@@ -2831,13 +2693,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToDynamicToPgSql(
     };
 
 SimpleClassOfBigIntToEnumType _$SimpleClassOfBigIntToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToEnumTypeToPgSql(
         SimpleClassOfBigIntToEnumType instance) =>
@@ -2847,13 +2708,14 @@ Map<String, dynamic> _$SimpleClassOfBigIntToEnumTypeToPgSql(
     };
 
 SimpleClassNullableOfBigIntToEnumType
-    _$SimpleClassNullableOfBigIntToEnumTypeFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToEnumTypeFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) =>
+                MapEntry(BigInt.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToEnumTypeToPgSql(
         SimpleClassNullableOfBigIntToEnumType instance) =>
@@ -2863,13 +2725,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToEnumTypeToPgSql(
     };
 
 SimpleClassOfDateTimeToEnumType _$SimpleClassOfDateTimeToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) =>
+            MapEntry(DateTime.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToEnumTypeToPgSql(
         SimpleClassOfDateTimeToEnumType instance) =>
@@ -2880,13 +2742,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToEnumTypeToPgSql(
 
 SimpleClassNullableOfDateTimeToEnumType
     _$SimpleClassNullableOfDateTimeToEnumTypeFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) =>
+                MapEntry(DateTime.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToEnumTypeToPgSql(
         SimpleClassNullableOfDateTimeToEnumType instance) =>
@@ -2896,13 +2758,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToEnumTypeToPgSql(
     };
 
 SimpleClassOfDynamicToEnumType _$SimpleClassOfDynamicToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToEnumTypeToPgSql(
         SimpleClassOfDynamicToEnumType instance) =>
@@ -2912,13 +2773,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToEnumTypeToPgSql(
 
 SimpleClassNullableOfDynamicToEnumType
     _$SimpleClassNullableOfDynamicToEnumTypeFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToEnumTypeToPgSql(
         SimpleClassNullableOfDynamicToEnumType instance) =>
@@ -2927,14 +2787,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToEnumTypeToPgSql(
     };
 
 SimpleClassOfEnumTypeToEnumType _$SimpleClassOfEnumTypeToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+            $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToEnumTypeToPgSql(
         SimpleClassOfEnumTypeToEnumType instance) =>
@@ -2945,14 +2804,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToEnumTypeToPgSql(
 
 SimpleClassNullableOfEnumTypeToEnumType
     _$SimpleClassNullableOfEnumTypeToEnumTypeFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToEnumTypeToPgSql(
         SimpleClassNullableOfEnumTypeToEnumType instance) =>
@@ -2962,13 +2820,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToEnumTypeToPgSql(
     };
 
 SimpleClassOfIntToEnumType _$SimpleClassOfIntToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToEnumTypeToPgSql(
         SimpleClassOfIntToEnumType instance) =>
@@ -2977,14 +2834,13 @@ Map<String, dynamic> _$SimpleClassOfIntToEnumTypeToPgSql(
           .map((k, e) => MapEntry(k.toString(), _$EnumTypeEnumMap[e])),
     };
 
-SimpleClassNullableOfIntToEnumType _$SimpleClassNullableOfIntToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+SimpleClassNullableOfIntToEnumType
+    _$SimpleClassNullableOfIntToEnumTypeFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToEnumTypeToPgSql(
         SimpleClassNullableOfIntToEnumType instance) =>
@@ -2994,13 +2850,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToEnumTypeToPgSql(
     };
 
 SimpleClassOfObjectToEnumType _$SimpleClassOfObjectToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToEnumTypeToPgSql(
         SimpleClassOfObjectToEnumType instance) =>
@@ -3009,13 +2864,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToEnumTypeToPgSql(
     };
 
 SimpleClassNullableOfObjectToEnumType
-    _$SimpleClassNullableOfObjectToEnumTypeFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfObjectToEnumTypeFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToEnumTypeToPgSql(
         SimpleClassNullableOfObjectToEnumType instance) =>
@@ -3024,13 +2879,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToEnumTypeToPgSql(
     };
 
 SimpleClassOfStringToEnumType _$SimpleClassOfStringToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToEnumTypeToPgSql(
         SimpleClassOfStringToEnumType instance) =>
@@ -3039,13 +2893,13 @@ Map<String, dynamic> _$SimpleClassOfStringToEnumTypeToPgSql(
     };
 
 SimpleClassNullableOfStringToEnumType
-    _$SimpleClassNullableOfStringToEnumTypeFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfStringToEnumTypeFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToEnumTypeToPgSql(
         SimpleClassNullableOfStringToEnumType instance) =>
@@ -3054,13 +2908,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToEnumTypeToPgSql(
     };
 
 SimpleClassOfUriToEnumType _$SimpleClassOfUriToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToEnumType(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToEnumType(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToEnumTypeToPgSql(
         SimpleClassOfUriToEnumType instance) =>
@@ -3069,14 +2922,13 @@ Map<String, dynamic> _$SimpleClassOfUriToEnumTypeToPgSql(
           .map((k, e) => MapEntry(k.toString(), _$EnumTypeEnumMap[e])),
     };
 
-SimpleClassNullableOfUriToEnumType _$SimpleClassNullableOfUriToEnumTypeFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToEnumType(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), _$enumDecode(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+SimpleClassNullableOfUriToEnumType
+    _$SimpleClassNullableOfUriToEnumTypeFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToEnumType(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), $enumDecode(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToEnumTypeToPgSql(
         SimpleClassNullableOfUriToEnumType instance) =>
@@ -3086,14 +2938,14 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToEnumTypeToPgSql(
     };
 
 SimpleClassOfBigIntToEnumTypeNullable
-    _$SimpleClassOfBigIntToEnumTypeNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(BigInt.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+    _$SimpleClassOfBigIntToEnumTypeNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfBigIntToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                BigInt.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToEnumTypeNullableToPgSql(
         SimpleClassOfBigIntToEnumTypeNullable instance) =>
@@ -3102,27 +2954,15 @@ Map<String, dynamic> _$SimpleClassOfBigIntToEnumTypeNullableToPgSql(
           .map((k, e) => MapEntry(k.toString(), _$EnumTypeEnumMap[e])),
     };
 
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}
-
 SimpleClassNullableOfBigIntToEnumTypeNullable
     _$SimpleClassNullableOfBigIntToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(BigInt.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                BigInt.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToEnumTypeNullableToPgSql(
         SimpleClassNullableOfBigIntToEnumTypeNullable instance) =>
@@ -3133,14 +2973,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToEnumTypeNullableToPgSql(
 
 SimpleClassOfDateTimeToEnumTypeNullable
     _$SimpleClassOfDateTimeToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                DateTime.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToEnumTypeNullableToPgSql(
         SimpleClassOfDateTimeToEnumTypeNullable instance) =>
@@ -3151,14 +2990,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToEnumTypeNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToEnumTypeNullable
     _$SimpleClassNullableOfDateTimeToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                DateTime.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToEnumTypeNullableToPgSql(
         SimpleClassNullableOfDateTimeToEnumTypeNullable instance) =>
@@ -3169,13 +3007,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToEnumTypeNullableToPgSql(
 
 SimpleClassOfDynamicToEnumTypeNullable
     _$SimpleClassOfDynamicToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToEnumTypeNullableToPgSql(
         SimpleClassOfDynamicToEnumTypeNullable instance) =>
@@ -3185,13 +3022,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToEnumTypeNullableToPgSql(
 
 SimpleClassNullableOfDynamicToEnumTypeNullable
     _$SimpleClassNullableOfDynamicToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToEnumTypeNullableToPgSql(
         SimpleClassNullableOfDynamicToEnumTypeNullable instance) =>
@@ -3201,14 +3037,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToEnumTypeNullableToPgSql(
 
 SimpleClassOfEnumTypeToEnumTypeNullable
     _$SimpleClassOfEnumTypeToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToEnumTypeNullableToPgSql(
         SimpleClassOfEnumTypeToEnumTypeNullable instance) =>
@@ -3219,14 +3054,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToEnumTypeNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToEnumTypeNullable
     _$SimpleClassNullableOfEnumTypeToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToEnumTypeNullableToPgSql(
         SimpleClassNullableOfEnumTypeToEnumTypeNullable instance) =>
@@ -3235,15 +3069,14 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToEnumTypeNullableToPgSql(
           ?.map((k, e) => MapEntry(_$EnumTypeEnumMap[k], _$EnumTypeEnumMap[e])),
     };
 
-SimpleClassOfIntToEnumTypeNullable _$SimpleClassOfIntToEnumTypeNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(int.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+SimpleClassOfIntToEnumTypeNullable
+    _$SimpleClassOfIntToEnumTypeNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfIntToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                int.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfIntToEnumTypeNullableToPgSql(
         SimpleClassOfIntToEnumTypeNullable instance) =>
@@ -3254,14 +3087,13 @@ Map<String, dynamic> _$SimpleClassOfIntToEnumTypeNullableToPgSql(
 
 SimpleClassNullableOfIntToEnumTypeNullable
     _$SimpleClassNullableOfIntToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(int.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                int.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToEnumTypeNullableToPgSql(
         SimpleClassNullableOfIntToEnumTypeNullable instance) =>
@@ -3271,13 +3103,13 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToEnumTypeNullableToPgSql(
     };
 
 SimpleClassOfObjectToEnumTypeNullable
-    _$SimpleClassOfObjectToEnumTypeNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+    _$SimpleClassOfObjectToEnumTypeNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfObjectToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfObjectToEnumTypeNullableToPgSql(
         SimpleClassOfObjectToEnumTypeNullable instance) =>
@@ -3287,13 +3119,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToEnumTypeNullableToPgSql(
 
 SimpleClassNullableOfObjectToEnumTypeNullable
     _$SimpleClassNullableOfObjectToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToEnumTypeNullableToPgSql(
         SimpleClassNullableOfObjectToEnumTypeNullable instance) =>
@@ -3302,13 +3133,13 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToEnumTypeNullableToPgSql(
     };
 
 SimpleClassOfStringToEnumTypeNullable
-    _$SimpleClassOfStringToEnumTypeNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+    _$SimpleClassOfStringToEnumTypeNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfStringToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(k, $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfStringToEnumTypeNullableToPgSql(
         SimpleClassOfStringToEnumTypeNullable instance) =>
@@ -3318,13 +3149,12 @@ Map<String, dynamic> _$SimpleClassOfStringToEnumTypeNullableToPgSql(
 
 SimpleClassNullableOfStringToEnumTypeNullable
     _$SimpleClassNullableOfStringToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToEnumTypeNullableToPgSql(
         SimpleClassNullableOfStringToEnumTypeNullable instance) =>
@@ -3332,15 +3162,14 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToEnumTypeNullableToPgSql(
       'value': instance.value?.map((k, e) => MapEntry(k, _$EnumTypeEnumMap[e])),
     };
 
-SimpleClassOfUriToEnumTypeNullable _$SimpleClassOfUriToEnumTypeNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(Uri.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+SimpleClassOfUriToEnumTypeNullable
+    _$SimpleClassOfUriToEnumTypeNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfUriToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                Uri.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfUriToEnumTypeNullableToPgSql(
         SimpleClassOfUriToEnumTypeNullable instance) =>
@@ -3351,14 +3180,13 @@ Map<String, dynamic> _$SimpleClassOfUriToEnumTypeNullableToPgSql(
 
 SimpleClassNullableOfUriToEnumTypeNullable
     _$SimpleClassNullableOfUriToEnumTypeNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToEnumTypeNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(Uri.parse(k), _$enumDecodeNullable(_$EnumTypeEnumMap, e)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToEnumTypeNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                Uri.parse(k), $enumDecodeNullable(_$EnumTypeEnumMap, e)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToEnumTypeNullableToPgSql(
         SimpleClassNullableOfUriToEnumTypeNullable instance) =>
@@ -3368,13 +3196,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToEnumTypeNullableToPgSql(
     };
 
 SimpleClassOfBigIntToInt _$SimpleClassOfBigIntToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToIntToPgSql(
         SimpleClassOfBigIntToInt instance) =>
@@ -3383,13 +3210,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToIntToPgSql(
     };
 
 SimpleClassNullableOfBigIntToInt _$SimpleClassNullableOfBigIntToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfBigIntToInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(BigInt.parse(k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToIntToPgSql(
         SimpleClassNullableOfBigIntToInt instance) =>
@@ -3398,13 +3224,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToIntToPgSql(
     };
 
 SimpleClassOfDateTimeToInt _$SimpleClassOfDateTimeToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToIntToPgSql(
         SimpleClassOfDateTimeToInt instance) =>
@@ -3412,14 +3237,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToIntToPgSql(
       'value': instance.value.map((k, e) => MapEntry(k.toIso8601String(), e)),
     };
 
-SimpleClassNullableOfDateTimeToInt _$SimpleClassNullableOfDateTimeToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as int),
-    ),
-  );
-}
+SimpleClassNullableOfDateTimeToInt
+    _$SimpleClassNullableOfDateTimeToIntFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as int),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToIntToPgSql(
         SimpleClassNullableOfDateTimeToInt instance) =>
@@ -3428,11 +3252,10 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToIntToPgSql(
     };
 
 SimpleClassOfDynamicToInt _$SimpleClassOfDynamicToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToInt(
-    Map<String, int>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToInt(
+      Map<String, int>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToIntToPgSql(
         SimpleClassOfDynamicToInt instance) =>
@@ -3441,13 +3264,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToIntToPgSql(
     };
 
 SimpleClassNullableOfDynamicToInt _$SimpleClassNullableOfDynamicToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfDynamicToInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToIntToPgSql(
         SimpleClassNullableOfDynamicToInt instance) =>
@@ -3456,13 +3278,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToIntToPgSql(
     };
 
 SimpleClassOfEnumTypeToInt _$SimpleClassOfEnumTypeToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToIntToPgSql(
         SimpleClassOfEnumTypeToInt instance) =>
@@ -3470,14 +3291,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToIntToPgSql(
       'value': instance.value.map((k, e) => MapEntry(_$EnumTypeEnumMap[k], e)),
     };
 
-SimpleClassNullableOfEnumTypeToInt _$SimpleClassNullableOfEnumTypeToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as int),
-    ),
-  );
-}
+SimpleClassNullableOfEnumTypeToInt
+    _$SimpleClassNullableOfEnumTypeToIntFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToInt(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as int),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToIntToPgSql(
         SimpleClassNullableOfEnumTypeToInt instance) =>
@@ -3486,13 +3306,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToIntToPgSql(
     };
 
 SimpleClassOfIntToInt _$SimpleClassOfIntToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToIntToPgSql(
         SimpleClassOfIntToInt instance) =>
@@ -3501,13 +3320,12 @@ Map<String, dynamic> _$SimpleClassOfIntToIntToPgSql(
     };
 
 SimpleClassNullableOfIntToInt _$SimpleClassNullableOfIntToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToIntToPgSql(
         SimpleClassNullableOfIntToInt instance) =>
@@ -3516,11 +3334,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToIntToPgSql(
     };
 
 SimpleClassOfObjectToInt _$SimpleClassOfObjectToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToInt(
-    Map<String, int>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToInt(
+      Map<String, int>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToIntToPgSql(
         SimpleClassOfObjectToInt instance) =>
@@ -3529,13 +3346,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToIntToPgSql(
     };
 
 SimpleClassNullableOfObjectToInt _$SimpleClassNullableOfObjectToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfObjectToInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToIntToPgSql(
         SimpleClassNullableOfObjectToInt instance) =>
@@ -3544,11 +3360,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToIntToPgSql(
     };
 
 SimpleClassOfStringToInt _$SimpleClassOfStringToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToInt(
-    Map<String, int>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToInt(
+      Map<String, int>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToIntToPgSql(
         SimpleClassOfStringToInt instance) =>
@@ -3557,13 +3372,12 @@ Map<String, dynamic> _$SimpleClassOfStringToIntToPgSql(
     };
 
 SimpleClassNullableOfStringToInt _$SimpleClassNullableOfStringToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfStringToInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToIntToPgSql(
         SimpleClassNullableOfStringToInt instance) =>
@@ -3572,13 +3386,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToIntToPgSql(
     };
 
 SimpleClassOfUriToInt _$SimpleClassOfUriToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToInt(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToInt(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToIntToPgSql(
         SimpleClassOfUriToInt instance) =>
@@ -3587,13 +3400,12 @@ Map<String, dynamic> _$SimpleClassOfUriToIntToPgSql(
     };
 
 SimpleClassNullableOfUriToInt _$SimpleClassNullableOfUriToIntFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToInt(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as int),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToInt(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), e as int),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToIntToPgSql(
         SimpleClassNullableOfUriToInt instance) =>
@@ -3602,13 +3414,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToIntToPgSql(
     };
 
 SimpleClassOfBigIntToIntNullable _$SimpleClassOfBigIntToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as int?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToIntNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as int?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToIntNullableToPgSql(
         SimpleClassOfBigIntToIntNullable instance) =>
@@ -3618,13 +3429,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToIntNullableToPgSql(
 
 SimpleClassNullableOfBigIntToIntNullable
     _$SimpleClassNullableOfBigIntToIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as int?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToIntNullableToPgSql(
         SimpleClassNullableOfBigIntToIntNullable instance) =>
@@ -3632,14 +3442,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToIntNullableToPgSql(
       'value': instance.value?.map((k, e) => MapEntry(k.toString(), e)),
     };
 
-SimpleClassOfDateTimeToIntNullable _$SimpleClassOfDateTimeToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as int?),
-    ),
-  );
-}
+SimpleClassOfDateTimeToIntNullable
+    _$SimpleClassOfDateTimeToIntNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k), e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToIntNullableToPgSql(
         SimpleClassOfDateTimeToIntNullable instance) =>
@@ -3649,13 +3458,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToIntNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToIntNullable
     _$SimpleClassNullableOfDateTimeToIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as int?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToIntNullableToPgSql(
         SimpleClassNullableOfDateTimeToIntNullable instance) =>
@@ -3664,11 +3472,10 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToIntNullableToPgSql(
     };
 
 SimpleClassOfDynamicToIntNullable _$SimpleClassOfDynamicToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToIntNullable(
-    Map<String, int>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToIntNullable(
+      Map<String, int?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToIntNullableToPgSql(
         SimpleClassOfDynamicToIntNullable instance) =>
@@ -3678,13 +3485,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToIntNullableToPgSql(
 
 SimpleClassNullableOfDynamicToIntNullable
     _$SimpleClassNullableOfDynamicToIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToIntNullableToPgSql(
         SimpleClassNullableOfDynamicToIntNullable instance) =>
@@ -3692,14 +3498,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToIntNullableToPgSql(
       'value': instance.value,
     };
 
-SimpleClassOfEnumTypeToIntNullable _$SimpleClassOfEnumTypeToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as int?),
-    ),
-  );
-}
+SimpleClassOfEnumTypeToIntNullable
+    _$SimpleClassOfEnumTypeToIntNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToIntNullableToPgSql(
         SimpleClassOfEnumTypeToIntNullable instance) =>
@@ -3709,13 +3514,12 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToIntNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToIntNullable
     _$SimpleClassNullableOfEnumTypeToIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as int?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToIntNullableToPgSql(
         SimpleClassNullableOfEnumTypeToIntNullable instance) =>
@@ -3724,13 +3528,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToIntNullableToPgSql(
     };
 
 SimpleClassOfIntToIntNullable _$SimpleClassOfIntToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as int?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToIntNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as int?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToIntNullableToPgSql(
         SimpleClassOfIntToIntNullable instance) =>
@@ -3739,13 +3542,13 @@ Map<String, dynamic> _$SimpleClassOfIntToIntNullableToPgSql(
     };
 
 SimpleClassNullableOfIntToIntNullable
-    _$SimpleClassNullableOfIntToIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as int?),
-    ),
-  );
-}
+    _$SimpleClassNullableOfIntToIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToIntNullableToPgSql(
         SimpleClassNullableOfIntToIntNullable instance) =>
@@ -3754,11 +3557,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToIntNullableToPgSql(
     };
 
 SimpleClassOfObjectToIntNullable _$SimpleClassOfObjectToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToIntNullable(
-    Map<String, int>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToIntNullable(
+      Map<String, int?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToIntNullableToPgSql(
         SimpleClassOfObjectToIntNullable instance) =>
@@ -3768,13 +3570,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToIntNullableToPgSql(
 
 SimpleClassNullableOfObjectToIntNullable
     _$SimpleClassNullableOfObjectToIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToIntNullableToPgSql(
         SimpleClassNullableOfObjectToIntNullable instance) =>
@@ -3783,11 +3584,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToIntNullableToPgSql(
     };
 
 SimpleClassOfStringToIntNullable _$SimpleClassOfStringToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToIntNullable(
-    Map<String, int>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToIntNullable(
+      Map<String, int?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToIntNullableToPgSql(
         SimpleClassOfStringToIntNullable instance) =>
@@ -3797,13 +3597,12 @@ Map<String, dynamic> _$SimpleClassOfStringToIntNullableToPgSql(
 
 SimpleClassNullableOfStringToIntNullable
     _$SimpleClassNullableOfStringToIntNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as int?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToIntNullableToPgSql(
         SimpleClassNullableOfStringToIntNullable instance) =>
@@ -3812,13 +3611,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToIntNullableToPgSql(
     };
 
 SimpleClassOfUriToIntNullable _$SimpleClassOfUriToIntNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as int?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToIntNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as int?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToIntNullableToPgSql(
         SimpleClassOfUriToIntNullable instance) =>
@@ -3827,13 +3625,13 @@ Map<String, dynamic> _$SimpleClassOfUriToIntNullableToPgSql(
     };
 
 SimpleClassNullableOfUriToIntNullable
-    _$SimpleClassNullableOfUriToIntNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToIntNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as int?),
-    ),
-  );
-}
+    _$SimpleClassNullableOfUriToIntNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToIntNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), e as int?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToIntNullableToPgSql(
         SimpleClassNullableOfUriToIntNullable instance) =>
@@ -3842,13 +3640,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToIntNullableToPgSql(
     };
 
 SimpleClassOfBigIntToNum _$SimpleClassOfBigIntToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToNum(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToNum(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToNumToPgSql(
         SimpleClassOfBigIntToNum instance) =>
@@ -3857,13 +3654,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToNumToPgSql(
     };
 
 SimpleClassNullableOfBigIntToNum _$SimpleClassNullableOfBigIntToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfBigIntToNum(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(BigInt.parse(k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToNumToPgSql(
         SimpleClassNullableOfBigIntToNum instance) =>
@@ -3872,13 +3668,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToNumToPgSql(
     };
 
 SimpleClassOfDateTimeToNum _$SimpleClassOfDateTimeToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToNum(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToNum(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToNumToPgSql(
         SimpleClassOfDateTimeToNum instance) =>
@@ -3886,14 +3681,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToNumToPgSql(
       'value': instance.value.map((k, e) => MapEntry(k.toIso8601String(), e)),
     };
 
-SimpleClassNullableOfDateTimeToNum _$SimpleClassNullableOfDateTimeToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as num),
-    ),
-  );
-}
+SimpleClassNullableOfDateTimeToNum
+    _$SimpleClassNullableOfDateTimeToNumFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToNum(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as num),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToNumToPgSql(
         SimpleClassNullableOfDateTimeToNum instance) =>
@@ -3902,11 +3696,10 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToNumToPgSql(
     };
 
 SimpleClassOfDynamicToNum _$SimpleClassOfDynamicToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToNum(
-    Map<String, num>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToNum(
+      Map<String, num>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToNumToPgSql(
         SimpleClassOfDynamicToNum instance) =>
@@ -3915,13 +3708,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToNumToPgSql(
     };
 
 SimpleClassNullableOfDynamicToNum _$SimpleClassNullableOfDynamicToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfDynamicToNum(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToNumToPgSql(
         SimpleClassNullableOfDynamicToNum instance) =>
@@ -3930,13 +3722,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToNumToPgSql(
     };
 
 SimpleClassOfEnumTypeToNum _$SimpleClassOfEnumTypeToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToNum(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToNum(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToNumToPgSql(
         SimpleClassOfEnumTypeToNum instance) =>
@@ -3944,14 +3735,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToNumToPgSql(
       'value': instance.value.map((k, e) => MapEntry(_$EnumTypeEnumMap[k], e)),
     };
 
-SimpleClassNullableOfEnumTypeToNum _$SimpleClassNullableOfEnumTypeToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as num),
-    ),
-  );
-}
+SimpleClassNullableOfEnumTypeToNum
+    _$SimpleClassNullableOfEnumTypeToNumFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToNum(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as num),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToNumToPgSql(
         SimpleClassNullableOfEnumTypeToNum instance) =>
@@ -3960,13 +3750,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToNumToPgSql(
     };
 
 SimpleClassOfIntToNum _$SimpleClassOfIntToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToNum(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToNum(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToNumToPgSql(
         SimpleClassOfIntToNum instance) =>
@@ -3975,13 +3764,12 @@ Map<String, dynamic> _$SimpleClassOfIntToNumToPgSql(
     };
 
 SimpleClassNullableOfIntToNum _$SimpleClassNullableOfIntToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToNum(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToNumToPgSql(
         SimpleClassNullableOfIntToNum instance) =>
@@ -3990,11 +3778,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToNumToPgSql(
     };
 
 SimpleClassOfObjectToNum _$SimpleClassOfObjectToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToNum(
-    Map<String, num>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToNum(
+      Map<String, num>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToNumToPgSql(
         SimpleClassOfObjectToNum instance) =>
@@ -4003,13 +3790,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToNumToPgSql(
     };
 
 SimpleClassNullableOfObjectToNum _$SimpleClassNullableOfObjectToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfObjectToNum(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToNumToPgSql(
         SimpleClassNullableOfObjectToNum instance) =>
@@ -4018,11 +3804,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToNumToPgSql(
     };
 
 SimpleClassOfStringToNum _$SimpleClassOfStringToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToNum(
-    Map<String, num>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToNum(
+      Map<String, num>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToNumToPgSql(
         SimpleClassOfStringToNum instance) =>
@@ -4031,13 +3816,12 @@ Map<String, dynamic> _$SimpleClassOfStringToNumToPgSql(
     };
 
 SimpleClassNullableOfStringToNum _$SimpleClassNullableOfStringToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfStringToNum(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToNumToPgSql(
         SimpleClassNullableOfStringToNum instance) =>
@@ -4046,13 +3830,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToNumToPgSql(
     };
 
 SimpleClassOfUriToNum _$SimpleClassOfUriToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToNum(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToNum(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToNumToPgSql(
         SimpleClassOfUriToNum instance) =>
@@ -4061,13 +3844,12 @@ Map<String, dynamic> _$SimpleClassOfUriToNumToPgSql(
     };
 
 SimpleClassNullableOfUriToNum _$SimpleClassNullableOfUriToNumFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToNum(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as num),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToNum(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), e as num),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToNumToPgSql(
         SimpleClassNullableOfUriToNum instance) =>
@@ -4076,13 +3858,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToNumToPgSql(
     };
 
 SimpleClassOfBigIntToNumNullable _$SimpleClassOfBigIntToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as num?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToNumNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as num?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToNumNullableToPgSql(
         SimpleClassOfBigIntToNumNullable instance) =>
@@ -4092,13 +3873,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToNumNullableToPgSql(
 
 SimpleClassNullableOfBigIntToNumNullable
     _$SimpleClassNullableOfBigIntToNumNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as num?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToNumNullableToPgSql(
         SimpleClassNullableOfBigIntToNumNullable instance) =>
@@ -4106,14 +3886,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToNumNullableToPgSql(
       'value': instance.value?.map((k, e) => MapEntry(k.toString(), e)),
     };
 
-SimpleClassOfDateTimeToNumNullable _$SimpleClassOfDateTimeToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as num?),
-    ),
-  );
-}
+SimpleClassOfDateTimeToNumNullable
+    _$SimpleClassOfDateTimeToNumNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k), e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToNumNullableToPgSql(
         SimpleClassOfDateTimeToNumNullable instance) =>
@@ -4123,13 +3902,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToNumNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToNumNullable
     _$SimpleClassNullableOfDateTimeToNumNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as num?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToNumNullableToPgSql(
         SimpleClassNullableOfDateTimeToNumNullable instance) =>
@@ -4138,11 +3916,10 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToNumNullableToPgSql(
     };
 
 SimpleClassOfDynamicToNumNullable _$SimpleClassOfDynamicToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToNumNullable(
-    Map<String, num>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToNumNullable(
+      Map<String, num?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToNumNullableToPgSql(
         SimpleClassOfDynamicToNumNullable instance) =>
@@ -4152,13 +3929,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToNumNullableToPgSql(
 
 SimpleClassNullableOfDynamicToNumNullable
     _$SimpleClassNullableOfDynamicToNumNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as num?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToNumNullableToPgSql(
         SimpleClassNullableOfDynamicToNumNullable instance) =>
@@ -4166,14 +3942,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToNumNullableToPgSql(
       'value': instance.value,
     };
 
-SimpleClassOfEnumTypeToNumNullable _$SimpleClassOfEnumTypeToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as num?),
-    ),
-  );
-}
+SimpleClassOfEnumTypeToNumNullable
+    _$SimpleClassOfEnumTypeToNumNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToNumNullableToPgSql(
         SimpleClassOfEnumTypeToNumNullable instance) =>
@@ -4183,13 +3958,12 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToNumNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToNumNullable
     _$SimpleClassNullableOfEnumTypeToNumNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as num?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToNumNullableToPgSql(
         SimpleClassNullableOfEnumTypeToNumNullable instance) =>
@@ -4198,13 +3972,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToNumNullableToPgSql(
     };
 
 SimpleClassOfIntToNumNullable _$SimpleClassOfIntToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as num?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToNumNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as num?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToNumNullableToPgSql(
         SimpleClassOfIntToNumNullable instance) =>
@@ -4213,13 +3986,13 @@ Map<String, dynamic> _$SimpleClassOfIntToNumNullableToPgSql(
     };
 
 SimpleClassNullableOfIntToNumNullable
-    _$SimpleClassNullableOfIntToNumNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as num?),
-    ),
-  );
-}
+    _$SimpleClassNullableOfIntToNumNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToNumNullableToPgSql(
         SimpleClassNullableOfIntToNumNullable instance) =>
@@ -4228,11 +4001,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToNumNullableToPgSql(
     };
 
 SimpleClassOfObjectToNumNullable _$SimpleClassOfObjectToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToNumNullable(
-    Map<String, num>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToNumNullable(
+      Map<String, num?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToNumNullableToPgSql(
         SimpleClassOfObjectToNumNullable instance) =>
@@ -4242,13 +4014,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToNumNullableToPgSql(
 
 SimpleClassNullableOfObjectToNumNullable
     _$SimpleClassNullableOfObjectToNumNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as num?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToNumNullableToPgSql(
         SimpleClassNullableOfObjectToNumNullable instance) =>
@@ -4257,11 +4028,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToNumNullableToPgSql(
     };
 
 SimpleClassOfStringToNumNullable _$SimpleClassOfStringToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToNumNullable(
-    Map<String, num>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToNumNullable(
+      Map<String, num?>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToNumNullableToPgSql(
         SimpleClassOfStringToNumNullable instance) =>
@@ -4271,13 +4041,12 @@ Map<String, dynamic> _$SimpleClassOfStringToNumNullableToPgSql(
 
 SimpleClassNullableOfStringToNumNullable
     _$SimpleClassNullableOfStringToNumNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as num?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToNumNullableToPgSql(
         SimpleClassNullableOfStringToNumNullable instance) =>
@@ -4286,13 +4055,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToNumNullableToPgSql(
     };
 
 SimpleClassOfUriToNumNullable _$SimpleClassOfUriToNumNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as num?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToNumNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as num?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToNumNullableToPgSql(
         SimpleClassOfUriToNumNullable instance) =>
@@ -4301,13 +4069,13 @@ Map<String, dynamic> _$SimpleClassOfUriToNumNullableToPgSql(
     };
 
 SimpleClassNullableOfUriToNumNullable
-    _$SimpleClassNullableOfUriToNumNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToNumNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as num?),
-    ),
-  );
-}
+    _$SimpleClassNullableOfUriToNumNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToNumNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), e as num?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToNumNullableToPgSql(
         SimpleClassNullableOfUriToNumNullable instance) =>
@@ -4316,13 +4084,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToNumNullableToPgSql(
     };
 
 SimpleClassOfBigIntToObject _$SimpleClassOfBigIntToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToObjectToPgSql(
         SimpleClassOfBigIntToObject instance) =>
@@ -4331,13 +4098,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToObjectToPgSql(
     };
 
 SimpleClassNullableOfBigIntToObject
-    _$SimpleClassNullableOfBigIntToObjectFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as Object),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToObjectFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToObject(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e as Object),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToObjectToPgSql(
         SimpleClassNullableOfBigIntToObject instance) =>
@@ -4346,13 +4113,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToObjectToPgSql(
     };
 
 SimpleClassOfDateTimeToObject _$SimpleClassOfDateTimeToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToObjectToPgSql(
         SimpleClassOfDateTimeToObject instance) =>
@@ -4361,13 +4127,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToObjectToPgSql(
     };
 
 SimpleClassNullableOfDateTimeToObject
-    _$SimpleClassNullableOfDateTimeToObjectFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as Object),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDateTimeToObjectFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToObject(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as Object),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToObjectToPgSql(
         SimpleClassNullableOfDateTimeToObject instance) =>
@@ -4376,13 +4142,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToObjectToPgSql(
     };
 
 SimpleClassOfDynamicToObject _$SimpleClassOfDynamicToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToObjectToPgSql(
         SimpleClassOfDynamicToObject instance) =>
@@ -4391,13 +4156,13 @@ Map<String, dynamic> _$SimpleClassOfDynamicToObjectToPgSql(
     };
 
 SimpleClassNullableOfDynamicToObject
-    _$SimpleClassNullableOfDynamicToObjectFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as Object),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDynamicToObjectFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToObject(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as Object),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToObjectToPgSql(
         SimpleClassNullableOfDynamicToObject instance) =>
@@ -4406,13 +4171,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToObjectToPgSql(
     };
 
 SimpleClassOfEnumTypeToObject _$SimpleClassOfEnumTypeToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToObjectToPgSql(
         SimpleClassOfEnumTypeToObject instance) =>
@@ -4421,13 +4185,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToObjectToPgSql(
     };
 
 SimpleClassNullableOfEnumTypeToObject
-    _$SimpleClassNullableOfEnumTypeToObjectFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as Object),
-    ),
-  );
-}
+    _$SimpleClassNullableOfEnumTypeToObjectFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToObject(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as Object),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToObjectToPgSql(
         SimpleClassNullableOfEnumTypeToObject instance) =>
@@ -4436,13 +4200,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToObjectToPgSql(
     };
 
 SimpleClassOfIntToObject _$SimpleClassOfIntToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToObjectToPgSql(
         SimpleClassOfIntToObject instance) =>
@@ -4451,13 +4214,12 @@ Map<String, dynamic> _$SimpleClassOfIntToObjectToPgSql(
     };
 
 SimpleClassNullableOfIntToObject _$SimpleClassNullableOfIntToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToObject(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToObjectToPgSql(
         SimpleClassNullableOfIntToObject instance) =>
@@ -4466,13 +4228,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToObjectToPgSql(
     };
 
 SimpleClassOfObjectToObject _$SimpleClassOfObjectToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToObjectToPgSql(
         SimpleClassOfObjectToObject instance) =>
@@ -4481,13 +4242,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToObjectToPgSql(
     };
 
 SimpleClassNullableOfObjectToObject
-    _$SimpleClassNullableOfObjectToObjectFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as Object),
-    ),
-  );
-}
+    _$SimpleClassNullableOfObjectToObjectFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToObject(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as Object),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToObjectToPgSql(
         SimpleClassNullableOfObjectToObject instance) =>
@@ -4496,13 +4257,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToObjectToPgSql(
     };
 
 SimpleClassOfStringToObject _$SimpleClassOfStringToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToObjectToPgSql(
         SimpleClassOfStringToObject instance) =>
@@ -4511,13 +4271,13 @@ Map<String, dynamic> _$SimpleClassOfStringToObjectToPgSql(
     };
 
 SimpleClassNullableOfStringToObject
-    _$SimpleClassNullableOfStringToObjectFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as Object),
-    ),
-  );
-}
+    _$SimpleClassNullableOfStringToObjectFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToObject(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as Object),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToObjectToPgSql(
         SimpleClassNullableOfStringToObject instance) =>
@@ -4526,13 +4286,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToObjectToPgSql(
     };
 
 SimpleClassOfUriToObject _$SimpleClassOfUriToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToObject(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToObject(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToObjectToPgSql(
         SimpleClassOfUriToObject instance) =>
@@ -4541,13 +4300,12 @@ Map<String, dynamic> _$SimpleClassOfUriToObjectToPgSql(
     };
 
 SimpleClassNullableOfUriToObject _$SimpleClassNullableOfUriToObjectFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToObject(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as Object),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToObject(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), e as Object),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToObjectToPgSql(
         SimpleClassNullableOfUriToObject instance) =>
@@ -4556,13 +4314,13 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToObjectToPgSql(
     };
 
 SimpleClassOfBigIntToObjectNullable
-    _$SimpleClassOfBigIntToObjectNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e),
-    ),
-  );
-}
+    _$SimpleClassOfBigIntToObjectNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfBigIntToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(BigInt.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToObjectNullableToPgSql(
         SimpleClassOfBigIntToObjectNullable instance) =>
@@ -4572,13 +4330,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToObjectNullableToPgSql(
 
 SimpleClassNullableOfBigIntToObjectNullable
     _$SimpleClassNullableOfBigIntToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToObjectNullableToPgSql(
         SimpleClassNullableOfBigIntToObjectNullable instance) =>
@@ -4587,13 +4344,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToObjectNullableToPgSql(
     };
 
 SimpleClassOfDateTimeToObjectNullable
-    _$SimpleClassOfDateTimeToObjectNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e),
-    ),
-  );
-}
+    _$SimpleClassOfDateTimeToObjectNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToObjectNullableToPgSql(
         SimpleClassOfDateTimeToObjectNullable instance) =>
@@ -4603,13 +4360,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToObjectNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToObjectNullable
     _$SimpleClassNullableOfDateTimeToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToObjectNullableToPgSql(
         SimpleClassNullableOfDateTimeToObjectNullable instance) =>
@@ -4618,11 +4374,11 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToObjectNullableToPgSql(
     };
 
 SimpleClassOfDynamicToObjectNullable
-    _$SimpleClassOfDynamicToObjectNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToObjectNullable(
-    pgsql['value'] as Map<String, dynamic>,
-  );
-}
+    _$SimpleClassOfDynamicToObjectNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToObjectNullable(
+          pgsql['value'] as Map<String, dynamic>,
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToObjectNullableToPgSql(
         SimpleClassOfDynamicToObjectNullable instance) =>
@@ -4632,11 +4388,10 @@ Map<String, dynamic> _$SimpleClassOfDynamicToObjectNullableToPgSql(
 
 SimpleClassNullableOfDynamicToObjectNullable
     _$SimpleClassNullableOfDynamicToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToObjectNullable(
-    pgsql['value'] as Map<String, dynamic>?,
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToObjectNullable(
+          pgsql['value'] as Map<String, dynamic>?,
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToObjectNullableToPgSql(
         SimpleClassNullableOfDynamicToObjectNullable instance) =>
@@ -4645,13 +4400,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToObjectNullableToPgSql(
     };
 
 SimpleClassOfEnumTypeToObjectNullable
-    _$SimpleClassOfEnumTypeToObjectNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e),
-    ),
-  );
-}
+    _$SimpleClassOfEnumTypeToObjectNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToObjectNullableToPgSql(
         SimpleClassOfEnumTypeToObjectNullable instance) =>
@@ -4661,13 +4416,12 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToObjectNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToObjectNullable
     _$SimpleClassNullableOfEnumTypeToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToObjectNullableToPgSql(
         SimpleClassNullableOfEnumTypeToObjectNullable instance) =>
@@ -4676,13 +4430,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToObjectNullableToPgSql(
     };
 
 SimpleClassOfIntToObjectNullable _$SimpleClassOfIntToObjectNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToObjectNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToObjectNullableToPgSql(
         SimpleClassOfIntToObjectNullable instance) =>
@@ -4692,13 +4445,12 @@ Map<String, dynamic> _$SimpleClassOfIntToObjectNullableToPgSql(
 
 SimpleClassNullableOfIntToObjectNullable
     _$SimpleClassNullableOfIntToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToObjectNullableToPgSql(
         SimpleClassNullableOfIntToObjectNullable instance) =>
@@ -4707,11 +4459,11 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToObjectNullableToPgSql(
     };
 
 SimpleClassOfObjectToObjectNullable
-    _$SimpleClassOfObjectToObjectNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToObjectNullable(
-    pgsql['value'] as Map<String, dynamic>,
-  );
-}
+    _$SimpleClassOfObjectToObjectNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfObjectToObjectNullable(
+          pgsql['value'] as Map<String, dynamic>,
+        );
 
 Map<String, dynamic> _$SimpleClassOfObjectToObjectNullableToPgSql(
         SimpleClassOfObjectToObjectNullable instance) =>
@@ -4721,11 +4473,10 @@ Map<String, dynamic> _$SimpleClassOfObjectToObjectNullableToPgSql(
 
 SimpleClassNullableOfObjectToObjectNullable
     _$SimpleClassNullableOfObjectToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToObjectNullable(
-    pgsql['value'] as Map<String, dynamic>?,
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToObjectNullable(
+          pgsql['value'] as Map<String, dynamic>?,
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToObjectNullableToPgSql(
         SimpleClassNullableOfObjectToObjectNullable instance) =>
@@ -4734,11 +4485,11 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToObjectNullableToPgSql(
     };
 
 SimpleClassOfStringToObjectNullable
-    _$SimpleClassOfStringToObjectNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToObjectNullable(
-    pgsql['value'] as Map<String, dynamic>,
-  );
-}
+    _$SimpleClassOfStringToObjectNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfStringToObjectNullable(
+          pgsql['value'] as Map<String, dynamic>,
+        );
 
 Map<String, dynamic> _$SimpleClassOfStringToObjectNullableToPgSql(
         SimpleClassOfStringToObjectNullable instance) =>
@@ -4748,11 +4499,10 @@ Map<String, dynamic> _$SimpleClassOfStringToObjectNullableToPgSql(
 
 SimpleClassNullableOfStringToObjectNullable
     _$SimpleClassNullableOfStringToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToObjectNullable(
-    pgsql['value'] as Map<String, dynamic>?,
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToObjectNullable(
+          pgsql['value'] as Map<String, dynamic>?,
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToObjectNullableToPgSql(
         SimpleClassNullableOfStringToObjectNullable instance) =>
@@ -4761,13 +4511,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToObjectNullableToPgSql(
     };
 
 SimpleClassOfUriToObjectNullable _$SimpleClassOfUriToObjectNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToObjectNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToObjectNullableToPgSql(
         SimpleClassOfUriToObjectNullable instance) =>
@@ -4777,13 +4526,12 @@ Map<String, dynamic> _$SimpleClassOfUriToObjectNullableToPgSql(
 
 SimpleClassNullableOfUriToObjectNullable
     _$SimpleClassNullableOfUriToObjectNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToObjectNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToObjectNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), e),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToObjectNullableToPgSql(
         SimpleClassNullableOfUriToObjectNullable instance) =>
@@ -4792,13 +4540,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToObjectNullableToPgSql(
     };
 
 SimpleClassOfBigIntToString _$SimpleClassOfBigIntToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToString(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as String),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToString(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), e as String),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToStringToPgSql(
         SimpleClassOfBigIntToString instance) =>
@@ -4807,13 +4554,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToStringToPgSql(
     };
 
 SimpleClassNullableOfBigIntToString
-    _$SimpleClassNullableOfBigIntToStringFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as String),
-    ),
-  );
-}
+    _$SimpleClassNullableOfBigIntToStringFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToString(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e as String),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToStringToPgSql(
         SimpleClassNullableOfBigIntToString instance) =>
@@ -4822,13 +4569,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToStringToPgSql(
     };
 
 SimpleClassOfDateTimeToString _$SimpleClassOfDateTimeToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToString(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as String),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToString(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), e as String),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToStringToPgSql(
         SimpleClassOfDateTimeToString instance) =>
@@ -4837,13 +4583,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToStringToPgSql(
     };
 
 SimpleClassNullableOfDateTimeToString
-    _$SimpleClassNullableOfDateTimeToStringFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as String),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDateTimeToStringFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToString(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as String),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToStringToPgSql(
         SimpleClassNullableOfDateTimeToString instance) =>
@@ -4852,11 +4598,10 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToStringToPgSql(
     };
 
 SimpleClassOfDynamicToString _$SimpleClassOfDynamicToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToString(
-    Map<String, String>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToString(
+      Map<String, String>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToStringToPgSql(
         SimpleClassOfDynamicToString instance) =>
@@ -4865,13 +4610,13 @@ Map<String, dynamic> _$SimpleClassOfDynamicToStringToPgSql(
     };
 
 SimpleClassNullableOfDynamicToString
-    _$SimpleClassNullableOfDynamicToStringFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String),
-    ),
-  );
-}
+    _$SimpleClassNullableOfDynamicToStringFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToString(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToStringToPgSql(
         SimpleClassNullableOfDynamicToString instance) =>
@@ -4880,13 +4625,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToStringToPgSql(
     };
 
 SimpleClassOfEnumTypeToString _$SimpleClassOfEnumTypeToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToString(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as String),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToString(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as String),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToStringToPgSql(
         SimpleClassOfEnumTypeToString instance) =>
@@ -4895,13 +4639,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToStringToPgSql(
     };
 
 SimpleClassNullableOfEnumTypeToString
-    _$SimpleClassNullableOfEnumTypeToStringFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as String),
-    ),
-  );
-}
+    _$SimpleClassNullableOfEnumTypeToStringFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToString(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as String),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToStringToPgSql(
         SimpleClassNullableOfEnumTypeToString instance) =>
@@ -4910,13 +4654,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToStringToPgSql(
     };
 
 SimpleClassOfIntToString _$SimpleClassOfIntToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToString(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as String),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToString(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as String),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToStringToPgSql(
         SimpleClassOfIntToString instance) =>
@@ -4925,13 +4668,12 @@ Map<String, dynamic> _$SimpleClassOfIntToStringToPgSql(
     };
 
 SimpleClassNullableOfIntToString _$SimpleClassNullableOfIntToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as String),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToString(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), e as String),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToStringToPgSql(
         SimpleClassNullableOfIntToString instance) =>
@@ -4940,11 +4682,10 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToStringToPgSql(
     };
 
 SimpleClassOfObjectToString _$SimpleClassOfObjectToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToString(
-    Map<String, String>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToString(
+      Map<String, String>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToStringToPgSql(
         SimpleClassOfObjectToString instance) =>
@@ -4953,13 +4694,13 @@ Map<String, dynamic> _$SimpleClassOfObjectToStringToPgSql(
     };
 
 SimpleClassNullableOfObjectToString
-    _$SimpleClassNullableOfObjectToStringFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String),
-    ),
-  );
-}
+    _$SimpleClassNullableOfObjectToStringFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToString(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToStringToPgSql(
         SimpleClassNullableOfObjectToString instance) =>
@@ -4968,11 +4709,10 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToStringToPgSql(
     };
 
 SimpleClassOfStringToString _$SimpleClassOfStringToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToString(
-    Map<String, String>.from(pgsql['value'] as Map),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToString(
+      Map<String, String>.from(pgsql['value'] as Map),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToStringToPgSql(
         SimpleClassOfStringToString instance) =>
@@ -4981,13 +4721,13 @@ Map<String, dynamic> _$SimpleClassOfStringToStringToPgSql(
     };
 
 SimpleClassNullableOfStringToString
-    _$SimpleClassNullableOfStringToStringFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String),
-    ),
-  );
-}
+    _$SimpleClassNullableOfStringToStringFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToString(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToStringToPgSql(
         SimpleClassNullableOfStringToString instance) =>
@@ -4996,13 +4736,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToStringToPgSql(
     };
 
 SimpleClassOfUriToString _$SimpleClassOfUriToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToString(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as String),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToString(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as String),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToStringToPgSql(
         SimpleClassOfUriToString instance) =>
@@ -5011,13 +4750,12 @@ Map<String, dynamic> _$SimpleClassOfUriToStringToPgSql(
     };
 
 SimpleClassNullableOfUriToString _$SimpleClassNullableOfUriToStringFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToString(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as String),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToString(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), e as String),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToStringToPgSql(
         SimpleClassNullableOfUriToString instance) =>
@@ -5026,13 +4764,13 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToStringToPgSql(
     };
 
 SimpleClassOfBigIntToStringNullable
-    _$SimpleClassOfBigIntToStringNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), e as String?),
-    ),
-  );
-}
+    _$SimpleClassOfBigIntToStringNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfBigIntToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(BigInt.parse(k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToStringNullableToPgSql(
         SimpleClassOfBigIntToStringNullable instance) =>
@@ -5042,13 +4780,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToStringNullableToPgSql(
 
 SimpleClassNullableOfBigIntToStringNullable
     _$SimpleClassNullableOfBigIntToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(BigInt.parse(k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToStringNullableToPgSql(
         SimpleClassNullableOfBigIntToStringNullable instance) =>
@@ -5057,13 +4794,13 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToStringNullableToPgSql(
     };
 
 SimpleClassOfDateTimeToStringNullable
-    _$SimpleClassOfDateTimeToStringNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), e as String?),
-    ),
-  );
-}
+    _$SimpleClassOfDateTimeToStringNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(DateTime.parse(k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToStringNullableToPgSql(
         SimpleClassOfDateTimeToStringNullable instance) =>
@@ -5073,13 +4810,12 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToStringNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToStringNullable
     _$SimpleClassNullableOfDateTimeToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToStringNullableToPgSql(
         SimpleClassNullableOfDateTimeToStringNullable instance) =>
@@ -5088,11 +4824,11 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToStringNullableToPgSql(
     };
 
 SimpleClassOfDynamicToStringNullable
-    _$SimpleClassOfDynamicToStringNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToStringNullable(
-    Map<String, String>.from(pgsql['value'] as Map),
-  );
-}
+    _$SimpleClassOfDynamicToStringNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfDynamicToStringNullable(
+          Map<String, String?>.from(pgsql['value'] as Map),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToStringNullableToPgSql(
         SimpleClassOfDynamicToStringNullable instance) =>
@@ -5102,13 +4838,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToStringNullableToPgSql(
 
 SimpleClassNullableOfDynamicToStringNullable
     _$SimpleClassNullableOfDynamicToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToStringNullableToPgSql(
         SimpleClassNullableOfDynamicToStringNullable instance) =>
@@ -5117,13 +4852,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToStringNullableToPgSql(
     };
 
 SimpleClassOfEnumTypeToStringNullable
-    _$SimpleClassOfEnumTypeToStringNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as String?),
-    ),
-  );
-}
+    _$SimpleClassOfEnumTypeToStringNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToStringNullableToPgSql(
         SimpleClassOfEnumTypeToStringNullable instance) =>
@@ -5133,13 +4868,12 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToStringNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToStringNullable
     _$SimpleClassNullableOfEnumTypeToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToStringNullableToPgSql(
         SimpleClassNullableOfEnumTypeToStringNullable instance) =>
@@ -5148,13 +4882,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToStringNullableToPgSql(
     };
 
 SimpleClassOfIntToStringNullable _$SimpleClassOfIntToStringNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), e as String?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToStringNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), e as String?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToStringNullableToPgSql(
         SimpleClassOfIntToStringNullable instance) =>
@@ -5164,13 +4897,12 @@ Map<String, dynamic> _$SimpleClassOfIntToStringNullableToPgSql(
 
 SimpleClassNullableOfIntToStringNullable
     _$SimpleClassNullableOfIntToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(int.parse(k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToStringNullableToPgSql(
         SimpleClassNullableOfIntToStringNullable instance) =>
@@ -5179,11 +4911,11 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToStringNullableToPgSql(
     };
 
 SimpleClassOfObjectToStringNullable
-    _$SimpleClassOfObjectToStringNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToStringNullable(
-    Map<String, String>.from(pgsql['value'] as Map),
-  );
-}
+    _$SimpleClassOfObjectToStringNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfObjectToStringNullable(
+          Map<String, String?>.from(pgsql['value'] as Map),
+        );
 
 Map<String, dynamic> _$SimpleClassOfObjectToStringNullableToPgSql(
         SimpleClassOfObjectToStringNullable instance) =>
@@ -5193,13 +4925,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToStringNullableToPgSql(
 
 SimpleClassNullableOfObjectToStringNullable
     _$SimpleClassNullableOfObjectToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToStringNullableToPgSql(
         SimpleClassNullableOfObjectToStringNullable instance) =>
@@ -5208,11 +4939,11 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToStringNullableToPgSql(
     };
 
 SimpleClassOfStringToStringNullable
-    _$SimpleClassOfStringToStringNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToStringNullable(
-    Map<String, String>.from(pgsql['value'] as Map),
-  );
-}
+    _$SimpleClassOfStringToStringNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfStringToStringNullable(
+          Map<String, String?>.from(pgsql['value'] as Map),
+        );
 
 Map<String, dynamic> _$SimpleClassOfStringToStringNullableToPgSql(
         SimpleClassOfStringToStringNullable instance) =>
@@ -5222,13 +4953,12 @@ Map<String, dynamic> _$SimpleClassOfStringToStringNullableToPgSql(
 
 SimpleClassNullableOfStringToStringNullable
     _$SimpleClassNullableOfStringToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToStringNullableToPgSql(
         SimpleClassNullableOfStringToStringNullable instance) =>
@@ -5237,13 +4967,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToStringNullableToPgSql(
     };
 
 SimpleClassOfUriToStringNullable _$SimpleClassOfUriToStringNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), e as String?),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToStringNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), e as String?),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToStringNullableToPgSql(
         SimpleClassOfUriToStringNullable instance) =>
@@ -5253,13 +4982,12 @@ Map<String, dynamic> _$SimpleClassOfUriToStringNullableToPgSql(
 
 SimpleClassNullableOfUriToStringNullable
     _$SimpleClassNullableOfUriToStringNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToStringNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), e as String?),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToStringNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(Uri.parse(k), e as String?),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToStringNullableToPgSql(
         SimpleClassNullableOfUriToStringNullable instance) =>
@@ -5268,13 +4996,12 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToStringNullableToPgSql(
     };
 
 SimpleClassOfBigIntToUri _$SimpleClassOfBigIntToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(BigInt.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(BigInt.parse(k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToUriToPgSql(
         SimpleClassOfBigIntToUri instance) =>
@@ -5284,13 +5011,12 @@ Map<String, dynamic> _$SimpleClassOfBigIntToUriToPgSql(
     };
 
 SimpleClassNullableOfBigIntToUri _$SimpleClassNullableOfBigIntToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(BigInt.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfBigIntToUri(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(BigInt.parse(k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToUriToPgSql(
         SimpleClassNullableOfBigIntToUri instance) =>
@@ -5300,13 +5026,12 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToUriToPgSql(
     };
 
 SimpleClassOfDateTimeToUri _$SimpleClassOfDateTimeToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(DateTime.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDateTimeToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(DateTime.parse(k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToUriToPgSql(
         SimpleClassOfDateTimeToUri instance) =>
@@ -5315,14 +5040,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToUriToPgSql(
           .map((k, e) => MapEntry(k.toIso8601String(), e.toString())),
     };
 
-SimpleClassNullableOfDateTimeToUri _$SimpleClassNullableOfDateTimeToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(DateTime.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+SimpleClassNullableOfDateTimeToUri
+    _$SimpleClassNullableOfDateTimeToUriFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToUri(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(DateTime.parse(k), Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToUriToPgSql(
         SimpleClassNullableOfDateTimeToUri instance) =>
@@ -5332,13 +5056,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToUriToPgSql(
     };
 
 SimpleClassOfDynamicToUri _$SimpleClassOfDynamicToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToUriToPgSql(
         SimpleClassOfDynamicToUri instance) =>
@@ -5347,13 +5070,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToUriToPgSql(
     };
 
 SimpleClassNullableOfDynamicToUri _$SimpleClassNullableOfDynamicToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfDynamicToUri(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToUriToPgSql(
         SimpleClassNullableOfDynamicToUri instance) =>
@@ -5362,14 +5084,13 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToUriToPgSql(
     };
 
 SimpleClassOfEnumTypeToUri _$SimpleClassOfEnumTypeToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfEnumTypeToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) =>
+            MapEntry($enumDecode(_$EnumTypeEnumMap, k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToUriToPgSql(
         SimpleClassOfEnumTypeToUri instance) =>
@@ -5378,15 +5099,14 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToUriToPgSql(
           .map((k, e) => MapEntry(_$EnumTypeEnumMap[k], e.toString())),
     };
 
-SimpleClassNullableOfEnumTypeToUri _$SimpleClassNullableOfEnumTypeToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(_$enumDecode(_$EnumTypeEnumMap, k), Uri.parse(e as String)),
-    ),
-  );
-}
+SimpleClassNullableOfEnumTypeToUri
+    _$SimpleClassNullableOfEnumTypeToUriFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToUri(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                $enumDecode(_$EnumTypeEnumMap, k), Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToUriToPgSql(
         SimpleClassNullableOfEnumTypeToUri instance) =>
@@ -5396,13 +5116,12 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToUriToPgSql(
     };
 
 SimpleClassOfIntToUri _$SimpleClassOfIntToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(int.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(int.parse(k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToUriToPgSql(
         SimpleClassOfIntToUri instance) =>
@@ -5412,13 +5131,12 @@ Map<String, dynamic> _$SimpleClassOfIntToUriToPgSql(
     };
 
 SimpleClassNullableOfIntToUri _$SimpleClassNullableOfIntToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(int.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfIntToUri(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToUriToPgSql(
         SimpleClassNullableOfIntToUri instance) =>
@@ -5428,13 +5146,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToUriToPgSql(
     };
 
 SimpleClassOfObjectToUri _$SimpleClassOfObjectToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToUriToPgSql(
         SimpleClassOfObjectToUri instance) =>
@@ -5443,13 +5160,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToUriToPgSql(
     };
 
 SimpleClassNullableOfObjectToUri _$SimpleClassNullableOfObjectToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfObjectToUri(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToUriToPgSql(
         SimpleClassNullableOfObjectToUri instance) =>
@@ -5458,13 +5174,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToUriToPgSql(
     };
 
 SimpleClassOfStringToUri _$SimpleClassOfStringToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToUriToPgSql(
         SimpleClassOfStringToUri instance) =>
@@ -5473,13 +5188,12 @@ Map<String, dynamic> _$SimpleClassOfStringToUriToPgSql(
     };
 
 SimpleClassNullableOfStringToUri _$SimpleClassNullableOfStringToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfStringToUri(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToUriToPgSql(
         SimpleClassNullableOfStringToUri instance) =>
@@ -5488,13 +5202,12 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToUriToPgSql(
     };
 
 SimpleClassOfUriToUri _$SimpleClassOfUriToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToUri(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(Uri.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToUri(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(Uri.parse(k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToUriToPgSql(
         SimpleClassOfUriToUri instance) =>
@@ -5504,13 +5217,12 @@ Map<String, dynamic> _$SimpleClassOfUriToUriToPgSql(
     };
 
 SimpleClassNullableOfUriToUri _$SimpleClassNullableOfUriToUriFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToUri(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(Uri.parse(k), Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfUriToUri(
+      (pgsql['value'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(Uri.parse(k), Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToUriToPgSql(
         SimpleClassNullableOfUriToUri instance) =>
@@ -5520,14 +5232,13 @@ Map<String, dynamic> _$SimpleClassNullableOfUriToUriToPgSql(
     };
 
 SimpleClassOfBigIntToUriNullable _$SimpleClassOfBigIntToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfBigIntToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(BigInt.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfBigIntToUriNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            BigInt.parse(k), e == null ? null : Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfBigIntToUriNullableToPgSql(
         SimpleClassOfBigIntToUriNullable instance) =>
@@ -5538,14 +5249,13 @@ Map<String, dynamic> _$SimpleClassOfBigIntToUriNullableToPgSql(
 
 SimpleClassNullableOfBigIntToUriNullable
     _$SimpleClassNullableOfBigIntToUriNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfBigIntToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(BigInt.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfBigIntToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                BigInt.parse(k), e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfBigIntToUriNullableToPgSql(
         SimpleClassNullableOfBigIntToUriNullable instance) =>
@@ -5554,15 +5264,14 @@ Map<String, dynamic> _$SimpleClassNullableOfBigIntToUriNullableToPgSql(
           instance.value?.map((k, e) => MapEntry(k.toString(), e?.toString())),
     };
 
-SimpleClassOfDateTimeToUriNullable _$SimpleClassOfDateTimeToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDateTimeToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+SimpleClassOfDateTimeToUriNullable
+    _$SimpleClassOfDateTimeToUriNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfDateTimeToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                DateTime.parse(k), e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfDateTimeToUriNullableToPgSql(
         SimpleClassOfDateTimeToUriNullable instance) =>
@@ -5573,14 +5282,13 @@ Map<String, dynamic> _$SimpleClassOfDateTimeToUriNullableToPgSql(
 
 SimpleClassNullableOfDateTimeToUriNullable
     _$SimpleClassNullableOfDateTimeToUriNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDateTimeToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(
-          DateTime.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDateTimeToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                DateTime.parse(k), e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDateTimeToUriNullableToPgSql(
         SimpleClassNullableOfDateTimeToUriNullable instance) =>
@@ -5590,13 +5298,12 @@ Map<String, dynamic> _$SimpleClassNullableOfDateTimeToUriNullableToPgSql(
     };
 
 SimpleClassOfDynamicToUriNullable _$SimpleClassOfDynamicToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfDynamicToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfDynamicToUriNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfDynamicToUriNullableToPgSql(
         SimpleClassOfDynamicToUriNullable instance) =>
@@ -5606,13 +5313,12 @@ Map<String, dynamic> _$SimpleClassOfDynamicToUriNullableToPgSql(
 
 SimpleClassNullableOfDynamicToUriNullable
     _$SimpleClassNullableOfDynamicToUriNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfDynamicToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfDynamicToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfDynamicToUriNullableToPgSql(
         SimpleClassNullableOfDynamicToUriNullable instance) =>
@@ -5620,15 +5326,14 @@ Map<String, dynamic> _$SimpleClassNullableOfDynamicToUriNullableToPgSql(
       'value': instance.value?.map((k, e) => MapEntry(k, e?.toString())),
     };
 
-SimpleClassOfEnumTypeToUriNullable _$SimpleClassOfEnumTypeToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfEnumTypeToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+SimpleClassOfEnumTypeToUriNullable
+    _$SimpleClassOfEnumTypeToUriNullableFromPgSql(Map<String, dynamic> pgsql) =>
+        SimpleClassOfEnumTypeToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassOfEnumTypeToUriNullableToPgSql(
         SimpleClassOfEnumTypeToUriNullable instance) =>
@@ -5639,14 +5344,13 @@ Map<String, dynamic> _$SimpleClassOfEnumTypeToUriNullableToPgSql(
 
 SimpleClassNullableOfEnumTypeToUriNullable
     _$SimpleClassNullableOfEnumTypeToUriNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfEnumTypeToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(_$enumDecode(_$EnumTypeEnumMap, k),
-          e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfEnumTypeToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry($enumDecode(_$EnumTypeEnumMap, k),
+                e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToUriNullableToPgSql(
         SimpleClassNullableOfEnumTypeToUriNullable instance) =>
@@ -5656,14 +5360,13 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeToUriNullableToPgSql(
     };
 
 SimpleClassOfIntToUriNullable _$SimpleClassOfIntToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfIntToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(int.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfIntToUriNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) =>
+            MapEntry(int.parse(k), e == null ? null : Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfIntToUriNullableToPgSql(
         SimpleClassOfIntToUriNullable instance) =>
@@ -5673,14 +5376,14 @@ Map<String, dynamic> _$SimpleClassOfIntToUriNullableToPgSql(
     };
 
 SimpleClassNullableOfIntToUriNullable
-    _$SimpleClassNullableOfIntToUriNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfIntToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(int.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfIntToUriNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfIntToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                int.parse(k), e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfIntToUriNullableToPgSql(
         SimpleClassNullableOfIntToUriNullable instance) =>
@@ -5690,13 +5393,12 @@ Map<String, dynamic> _$SimpleClassNullableOfIntToUriNullableToPgSql(
     };
 
 SimpleClassOfObjectToUriNullable _$SimpleClassOfObjectToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfObjectToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfObjectToUriNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfObjectToUriNullableToPgSql(
         SimpleClassOfObjectToUriNullable instance) =>
@@ -5706,13 +5408,12 @@ Map<String, dynamic> _$SimpleClassOfObjectToUriNullableToPgSql(
 
 SimpleClassNullableOfObjectToUriNullable
     _$SimpleClassNullableOfObjectToUriNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfObjectToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfObjectToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfObjectToUriNullableToPgSql(
         SimpleClassNullableOfObjectToUriNullable instance) =>
@@ -5721,13 +5422,12 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectToUriNullableToPgSql(
     };
 
 SimpleClassOfStringToUriNullable _$SimpleClassOfStringToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfStringToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfStringToUriNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfStringToUriNullableToPgSql(
         SimpleClassOfStringToUriNullable instance) =>
@@ -5737,13 +5437,12 @@ Map<String, dynamic> _$SimpleClassOfStringToUriNullableToPgSql(
 
 SimpleClassNullableOfStringToUriNullable
     _$SimpleClassNullableOfStringToUriNullableFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfStringToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfStringToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfStringToUriNullableToPgSql(
         SimpleClassNullableOfStringToUriNullable instance) =>
@@ -5752,14 +5451,13 @@ Map<String, dynamic> _$SimpleClassNullableOfStringToUriNullableToPgSql(
     };
 
 SimpleClassOfUriToUriNullable _$SimpleClassOfUriToUriNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return SimpleClassOfUriToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>).map(
-      (k, e) =>
-          MapEntry(Uri.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfUriToUriNullable(
+      (pgsql['value'] as Map<String, dynamic>).map(
+        (k, e) =>
+            MapEntry(Uri.parse(k), e == null ? null : Uri.parse(e as String)),
+      ),
+    );
 
 Map<String, dynamic> _$SimpleClassOfUriToUriNullableToPgSql(
         SimpleClassOfUriToUriNullable instance) =>
@@ -5769,14 +5467,14 @@ Map<String, dynamic> _$SimpleClassOfUriToUriNullableToPgSql(
     };
 
 SimpleClassNullableOfUriToUriNullable
-    _$SimpleClassNullableOfUriToUriNullableFromPgSql(Map<String, dynamic> pgsql) {
-  return SimpleClassNullableOfUriToUriNullable(
-    (pgsql['value'] as Map<String, dynamic>?)?.map(
-      (k, e) =>
-          MapEntry(Uri.parse(k), e == null ? null : Uri.parse(e as String)),
-    ),
-  );
-}
+    _$SimpleClassNullableOfUriToUriNullableFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfUriToUriNullable(
+          (pgsql['value'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(
+                Uri.parse(k), e == null ? null : Uri.parse(e as String)),
+          ),
+        );
 
 Map<String, dynamic> _$SimpleClassNullableOfUriToUriNullableToPgSql(
         SimpleClassNullableOfUriToUriNullable instance) =>

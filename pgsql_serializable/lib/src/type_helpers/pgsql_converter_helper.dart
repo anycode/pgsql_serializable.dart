@@ -8,8 +8,8 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:collection/collection.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:source_helper/source_helper.dart';
 
-import '../helper_core.dart';
 import '../lambda_result.dart';
 import '../shared_checkers.dart';
 import '../type_helper.dart';
@@ -50,7 +50,10 @@ class PgSqlConverterHelper extends TypeHelper {
     final asContent = asStatement(converter.pgsqlType);
 
     return LambdaResult(
-        '$expression$asContent', '${converter.accessString}.fromPgSql');
+      expression,
+      '${converter.accessString}.fromPgSql',
+      asContent: asContent,
+    );
   }
 }
 
@@ -176,7 +179,7 @@ _ConverterMatch? _compatibleMatch(
 
   final pgsqlConverterSuper =
       converterClassElement.allSupertypes.singleWhereOrNull(
-    (e) => e is InterfaceType && _pgsqlConverterChecker.isExactly(e.element),
+    (e) => _pgsqlConverterChecker.isExactly(e.element),
   );
 
   if (pgsqlConverterSuper == null) {

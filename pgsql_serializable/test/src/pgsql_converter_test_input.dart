@@ -6,15 +6,14 @@ part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(r'''
 PgSqlConverterNamedCtor<E> _$PgSqlConverterNamedCtorFromPgSql<E>(
-    Map<String, dynamic> pgsql) {
-  return PgSqlConverterNamedCtor<E>()
-    ..value = const _DurationMillisecondConverter.named()
-        .fromPgSql(pgsql['value'] as int)
-    ..genericValue =
-        _GenericConverter<E>.named().fromPgSql(pgsql['genericValue'] as int)
-    ..keyAnnotationFirst =
-        PgSqlConverterNamedCtor._fromPgSql(pgsql['keyAnnotationFirst'] as int);
-}
+        Map<String, dynamic> pgsql) =>
+    PgSqlConverterNamedCtor<E>()
+      ..value = const _DurationMillisecondConverter.named()
+          .fromPgSql(pgsql['value'] as int)
+      ..genericValue =
+          _GenericConverter<E>.named().fromPgSql(pgsql['genericValue'] as int)
+      ..keyAnnotationFirst =
+          PgSqlConverterNamedCtor._fromPgSql(pgsql['keyAnnotationFirst'] as int);
 
 Map<String, dynamic> _$PgSqlConverterNamedCtorToPgSql<E>(
         PgSqlConverterNamedCtor<E> instance) =>
@@ -45,17 +44,16 @@ class PgSqlConverterNamedCtor<E> {
 
 @ShouldGenerate(r'''
 PgSqlConvertOnField<E> _$PgSqlConvertOnFieldFromPgSql<E>(
-    Map<String, dynamic> pgsql) {
-  return PgSqlConvertOnField<E>()
-    ..annotatedField = const _DurationMillisecondConverter()
-        .fromPgSql(pgsql['annotatedField'] as int)
-    ..annotatedWithNamedCtor = const _DurationMillisecondConverter.named()
-        .fromPgSql(pgsql['annotatedWithNamedCtor'] as int)
-    ..classAnnotatedWithField =
-        _durationConverter.fromPgSql(pgsql['classAnnotatedWithField'] as int)
-    ..genericValue =
-        _GenericConverter<E>().fromPgSql(pgsql['genericValue'] as int);
-}
+        Map<String, dynamic> pgsql) =>
+    PgSqlConvertOnField<E>()
+      ..annotatedField = const _DurationMillisecondConverter()
+          .fromPgSql(pgsql['annotatedField'] as int)
+      ..annotatedWithNamedCtor = const _DurationMillisecondConverter.named()
+          .fromPgSql(pgsql['annotatedWithNamedCtor'] as int)
+      ..classAnnotatedWithField =
+          _durationConverter.fromPgSql(pgsql['classAnnotatedWithField'] as int)
+      ..genericValue =
+          _GenericConverter<E>().fromPgSql(pgsql['genericValue'] as int);
 
 Map<String, dynamic> _$PgSqlConvertOnFieldToPgSql<E>(
         PgSqlConvertOnField<E> instance) =>

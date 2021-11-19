@@ -1,3 +1,60 @@
+## 5.1.0-dev
+
+- Added support for `JsonSerializabel.constructor` to allow specifying an 
+  alternative constructor to invoke when creating a `fromJson` helper.
+- Support the new `@JsonEnum` annotation in `package:json_annotation`.
+- Support `JsonKey.nullForUndefinedEnumValue` as a value for
+  `JsonKey.unknownEnumValue` when you want to use `null` as the unknown value.
+- Use the new `$enumDecodeNullable` and `$enumDecode` in `json_annotation'
+  instead of generating these for each library.
+  **NOTE**: This is a potential breaking change if any user code relies on
+  the previously generated private functions.
+- Require Dart SDK `>=2.14.0`.
+- Require `json_annotation` `'>=4.2.0 <4.3.0'`.
+
+## 5.0.2
+
+- Include type arguments when invoking `fromJson` on custom types.
+  This fixes an edge case where the generic arguments could not be inferred.
+
+## 5.0.1
+
+- Correctly handle nullable custom objects within `Iterable` and `Map`.
+- Require the latest `package:source_helper`.
+
+## 5.0.0
+
+- Use the default value for optional constructor parameters if
+  `JsonKey.defaultValue` is not provided. This could be a breaking behavior
+  change in generated code in some cases.
+- Fixed `fromJson` for `Map` fields with nullable values.
+- Improve names of private classes generated for `toJson` and `fromJson`.
+- Use the new `$checkedCreate` helper exposed in `package:json_annotation`
+  v4.1+.
+- Generated code now conforms to this `prefer_expression_function_bodies` lint.
+- Support default values and types with a `fromJson` constructor.
+- Support default values with class- and function-based converters.
+- `type_helper.dart`:
+  - **BREAKING**: removed `typeArgumentsOf`. This is now an extension exposed by
+    `package:source_helper`.
+- Require `package:analyzer` `^2.0.0`.
+
+## 4.1.4
+
+- Allow the latest `package:json_annotation`.
+
+## 4.1.3
+
+- Correctly handle nullable types with type arguments in generated code.
+
+## 4.1.2
+
+- Correctly decode `Map<String, double>` when the input has `int` literals.
+
+## 4.1.1
+
+- Allow the latest `package:build_config`.
+
 ## 4.1.0
 
 - Implementation is now null-safe.

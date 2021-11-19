@@ -1,13 +1,13 @@
 # See https://github.com/google/mono_repo.dart for details on this file
 dart:
-- 2.12.0
+- 2.14.0
 - dev
 
 stages:
 - analyzer_and_format:
   - group:
-    - dartfmt
-    - dartanalyzer: --fatal-infos .
+    - format
+    - analyze: --fatal-infos .
 - unit_test:
   - test:
   - test: -p chrome

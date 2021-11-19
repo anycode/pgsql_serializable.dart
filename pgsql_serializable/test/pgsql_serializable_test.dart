@@ -10,25 +10,40 @@ import 'package:test/test.dart';
 
 Future<void> main() async {
   initializeBuildLogTracking();
-  final reader = await initializeLibraryReaderForDirectory(
+  final pgsqlSerializableTestReader = await initializeLibraryReaderForDirectory(
     p.join('test', 'src'),
     '_pgsql_serializable_test_input.dart',
   );
 
   testAnnotatedElements(
-    reader,
+    pgsqlSerializableTestReader,
     PgSqlSerializableGenerator(),
     expectedAnnotatedTests: _expectedAnnotatedTests,
+  );
+
+  final pgsqlEnumTestReader = await initializeLibraryReaderForDirectory(
+    p.join('test', 'src'),
+    '_pgsql_enum_test_input.dart',
+  );
+
+  testAnnotatedElements(
+    pgsqlEnumTestReader,
+    const PgSqlEnumGenerator(),
+    expectedAnnotatedTests: {'UnsupportedClass'},
   );
 }
 
 const _expectedAnnotatedTests = {
   'annotatedMethod',
+  'unsupportedEnum',
   'BadFromFuncReturnType',
   'BadNoArgs',
   'BadOneNamed',
   'BadToFuncReturnType',
   'BadTwoRequiredPositional',
+  'BadEnumDefaultValue',
+  '_BetterPrivateNames',
+  'CtorDefaultValueAndPgSqlKeyDefaultValue',
   'DefaultDoubleConstants',
   'DefaultWithConstObject',
   'DefaultWithDisallowNullRequiredClass',
@@ -84,6 +99,7 @@ const _expectedAnnotatedTests = {
   'NoDeserializeFieldType',
   'NoSerializeBadKey',
   'NoSerializeFieldType',
+  'NullForUndefinedEnumValueOnNonNullableField',
   'ObjectConvertMethods',
   'OkayOneNormalOptionalNamed',
   'OkayOneNormalOptionalPositional',
@@ -92,6 +108,8 @@ const _expectedAnnotatedTests = {
   'OverrideGetterExampleI613',
   'PrivateFieldCtorClass',
   'PropInMixinI448Regression',
+  'Reproduce869NullableGenericType',
+  'Reproduce869NullableGenericTypeWithDefault',
   'SetSupport',
   'SubclassedPgSqlKey',
   'SubType',
@@ -114,6 +132,8 @@ const _expectedAnnotatedTests = {
   'UnsupportedSetField',
   'UnsupportedUriField',
   'ValidToFromFuncClassStatic',
+  'WeirdValueForUnknownEnumValue',
   'WithANonCtorGetter',
   'WithANonCtorGetterChecked',
+  'WrongConstructorNameClass',
 };

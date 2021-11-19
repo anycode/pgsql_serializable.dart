@@ -75,13 +75,11 @@ class _Converter<T> implements PgSqlConverter<T, Object?> {
     return pgsql as T;
   }
 
+  // This will only work if `object` is a native JSON type:
+  //   num, String, bool, null, etc
+  // Or if it has a `toPgSql()` function`.
   @override
-  Object? toPgSql(T object) {
-    // This will only work if `object` is a native JSON type:
-    //   num, String, bool, null, etc
-    // Or if it has a `toPgSql()` function`.
-    return object;
-  }
+  Object? toPgSql(T object) => object;
 }
 
 @PgSqlSerializable()

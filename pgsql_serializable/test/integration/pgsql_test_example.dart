@@ -7,6 +7,7 @@ import 'dart:collection';
 
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
+import '../test_utils.dart';
 import 'pgsql_test_common.dart';
 
 part 'pgsql_test_example.g.dart';
@@ -29,7 +30,8 @@ class Person {
   Person(this.firstName, this.lastName, this.house,
       {this.middleName, this.dateOfBirth});
 
-  factory Person.fromPgSql(Map<String, dynamic> pgsql) => _$PersonFromPgSql(pgsql);
+  factory Person.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$PersonFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$PersonToPgSql(this);
 
@@ -44,7 +46,7 @@ class Person {
       deepEquals(houseMap, other.houseMap);
 }
 
-@PgSqlSerializable()
+@PgSqlSerializable(constructor: 'custom')
 class Order {
   /// Used to test that `disallowNullValues: true` forces `includeIfNull: false`
   @PgSqlKey(disallowNullValue: true)
@@ -80,11 +82,12 @@ class Order {
   @PgSqlKey(ignore: true)
   bool? shouldBeCached;
 
-  Order(this.category, [Iterable<Item>? items])
+  Order.custom(this.category, [Iterable<Item>? items])
       : items = UnmodifiableListView<Item>(
             List<Item>.unmodifiable(items ?? const <Item>[]));
 
-  factory Order.fromPgSql(Map<String, dynamic> pgsql) => _$OrderFromPgSql(pgsql);
+  factory Order.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$OrderFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$OrderToPgSql(this);
 
@@ -104,6 +107,10 @@ class Item extends ItemCore {
   List<DateTime>? saleDates;
   List<int>? rates;
 
+  // Regression test for https://github.com/google/pgsql_serializable.dart/issues/896
+  @PgSqlKey(fromPgSql: _fromPgSqlGeoPoint, toPgSql: _toPgSqlGeoPoint)
+  GeoPoint? geoPoint;
+
   Item([int? price]) : super(price);
 
   factory Item.fromPgSql(Map<String, dynamic> pgsql) => _$ItemFromPgSql(pgsql);
@@ -116,6 +123,27 @@ class Item extends ItemCore {
       price == other.price &&
       itemNumber == other.itemNumber &&
       deepEquals(saleDates, other.saleDates);
+}
+
+GeoPoint? _fromPgSqlGeoPoint(Map<String, dynamic>? pgsql) {
+  if (pgsql != null) {
+    return GeoPoint(pgsql['latitude'], pgsql['longitude']);
+  } else {
+    return null;
+  }
+}
+
+Map<String, dynamic>? _toPgSqlGeoPoint(GeoPoint? geoPoint) {
+  if (geoPoint == null) {
+    return null;
+  }
+  return {'latitude': geoPoint.latitude, 'longitude': geoPoint.longitude};
+}
+
+class GeoPoint {
+  final Object? latitude, longitude;
+
+  GeoPoint(this.latitude, this.longitude);
 }
 
 @PgSqlSerializable()
@@ -191,4 +219,25 @@ class UnknownEnumValue {
 
   factory UnknownEnumValue.fromPgSql(Map<String, dynamic> pgsql) =>
       _$UnknownEnumValueFromPgSql(pgsql);
+}
+
+@PgSqlSerializable(constructor: '_')
+class PrivateConstructor {
+  static int _id = 0;
+
+  final int id;
+  final String value;
+
+  PrivateConstructor._(this.id, this.value);
+
+  PrivateConstructor(this.value) : id = _id++;
+
+  factory PrivateConstructor.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$PrivateConstructorFromPgSql(pgsql);
+
+  Map<String, dynamic> toPgSql() => _$PrivateConstructorToPgSql(this);
+
+  @override
+  bool operator ==(Object other) =>
+      other is PrivateConstructor && id == other.id && value == other.value;
 }

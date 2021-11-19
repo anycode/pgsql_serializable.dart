@@ -5,18 +5,21 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:build/build.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:source_helper/source_helper.dart';
 
 import 'pgsql_literal_generator.dart';
 import 'shared_checkers.dart';
 import 'type_helpers/config_types.dart';
 import 'utils.dart';
 
-final _pgsqlKeyExpando = Expando<KeyConfig>();
+final _pgsqlKeyExpando = Expando<Map<ClassConfig, KeyConfig>>();
 
 KeyConfig pgsqlKeyForField(FieldElement field, ClassConfig classAnnotation) =>
-    _pgsqlKeyExpando[field] ??= _from(field, classAnnotation);
+    (_pgsqlKeyExpando[field] ??= Map.identity())[classAnnotation] ??=
+        _from(field, classAnnotation);
 
 KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   // If an annotation exists on `element` the source is a 'real' field.
@@ -24,10 +27,13 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   // TODO: setters: github.com/google/pgsql_serializable.dart/issues/24
   final obj = pgsqlKeyAnnotation(element);
 
+  final ctorParamDefault = classAnnotation.ctorParamDefaults[element.name];
+
   if (obj.isNull) {
     return _populatePgSqlKey(
       classAnnotation,
       element,
+      defaultValue: ctorParamDefault,
       ignore: classAnnotation.ignoreUnannotated,
     );
   }
@@ -36,6 +42,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   /// an [InvalidGenerationSourceError] using [typeInformation] to describe
   /// the unsupported type.
   Object? literalForObject(
+    String fieldName,
     DartObject dartObject,
     Iterable<String> typeInformation,
   ) {
@@ -60,7 +67,9 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
     if (badType != null) {
       badType = typeInformation.followedBy([badType]).join(' > ');
       throwUnsupported(
-          element, '`defaultValue` is `$badType`, it must be a literal.');
+        element,
+        '`$fieldName` is `$badType`, it must be a literal.',
+      );
     }
 
     if (reader.isDouble || reader.isInt || reader.isString || reader.isBool) {
@@ -70,7 +79,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
     if (reader.isList) {
       return [
         for (var e in reader.listValue)
-          literalForObject(e, [
+          literalForObject(fieldName, e, [
             ...typeInformation,
             'List',
           ])
@@ -80,7 +89,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
     if (reader.isSet) {
       return {
         for (var e in reader.setValue)
-          literalForObject(e, [
+          literalForObject(fieldName, e, [
             ...typeInformation,
             'Set',
           ])
@@ -94,8 +103,8 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
       ];
       return reader.mapValue.map(
         (k, v) => MapEntry(
-          literalForObject(k!, mapTypeInformation),
-          literalForObject(v!, mapTypeInformation),
+          literalForObject(fieldName, k!, mapTypeInformation),
+          literalForObject(fieldName, v!, mapTypeInformation),
         ),
       );
     }
@@ -115,7 +124,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   /// If [mustBeEnum] is `true`, throws an [InvalidGenerationSourceError] if
   /// either the annotated field is not an `enum` or `List` or if the value in
   /// [fieldName] is not an `enum` value.
-  Object? _annotationValue(String fieldName, {bool mustBeEnum = false}) {
+  String? _annotationValue(String fieldName, {bool mustBeEnum = false}) {
     final annotationValue = obj.read(fieldName);
 
     final enumFields = annotationValue.isNull
@@ -153,15 +162,19 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
       final enumValueName = enumValueForDartObject<String>(
           annotationValue.objectValue, enumValueNames, (n) => n);
 
-      return '${annotationValue.objectValue.type!.element!.name}.$enumValueName';
+      return '${annotationValue.objectValue.type!.element!.name}'
+          '.$enumValueName';
     } else {
       final defaultValueLiteral = annotationValue.isNull
           ? null
-          : literalForObject(annotationValue.objectValue, []);
+          : literalForObject(fieldName, annotationValue.objectValue, []);
       if (defaultValueLiteral == null) {
         return null;
       }
       if (mustBeEnum) {
+        if (defaultValueLiteral == PgSqlKey.nullForUndefinedEnumValue) {
+          return defaultValueLiteral as String;
+        }
         throwUnsupported(
           element,
           'The value provided for `$fieldName` must be a matching enum.',
@@ -171,10 +184,20 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
     }
   }
 
+  final defaultValue = _annotationValue('defaultValue');
+  if (defaultValue != null && ctorParamDefault != null) {
+    log.warning(
+      'The constructor parameter for `${element.name}` has a default value '
+      '`$ctorParamDefault`, but the `PgSqlKey.defaultValue` value '
+      '`$defaultValue` will be used for missing or `null` values in JSON '
+      'decoding.',
+    );
+  }
+
   return _populatePgSqlKey(
     classAnnotation,
     element,
-    defaultValue: _annotationValue('defaultValue'),
+    defaultValue: defaultValue ?? ctorParamDefault,
     disallowNullValue: obj.read('disallowNullValue').literalValue as bool?,
     ignore: obj.read('ignore').literalValue as bool?,
     includeIfNull: obj.read('includeIfNull').literalValue as bool?,
@@ -187,19 +210,19 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
 KeyConfig _populatePgSqlKey(
   ClassConfig classAnnotation,
   FieldElement element, {
-  Object? defaultValue,
+  required String? defaultValue,
   bool? disallowNullValue,
   bool? ignore,
   bool? includeIfNull,
   String? name,
   bool? required,
-  Object? unknownEnumValue,
+  String? unknownEnumValue,
 }) {
   if (disallowNullValue == true) {
     if (includeIfNull == true) {
       throwUnsupported(
           element,
-          'Cannot set both `disallowNullvalue` and `includeIfNull` to `true`. '
+          'Cannot set both `disallowNullValue` and `includeIfNull` to `true`. '
           'This leads to incompatible `toPgSql` and `fromPgSql` behavior.');
     }
   }
@@ -210,38 +233,10 @@ KeyConfig _populatePgSqlKey(
     ignore: ignore ?? false,
     includeIfNull: _includeIfNull(
         includeIfNull, disallowNullValue, classAnnotation.includeIfNull),
-    name: _encodedFieldName(classAnnotation, name, element),
+    name: name ?? encodedFieldName(classAnnotation.fieldRename, element.name),
     required: required ?? false,
     unknownEnumValue: unknownEnumValue,
   );
-}
-
-String _encodedFieldName(
-  PgSqlSerializable classAnnotation,
-  String? pgsqlKeyNameValue,
-  FieldElement fieldElement,
-) {
-  if (pgsqlKeyNameValue != null) {
-    return pgsqlKeyNameValue;
-  }
-
-  switch (classAnnotation.fieldRename) {
-    case FieldRename.none:
-      return fieldElement.name;
-    case FieldRename.snake:
-      return snakeCase(fieldElement.name);
-    case FieldRename.kebab:
-      return kebabCase(fieldElement.name);
-    case FieldRename.pascal:
-      return pascalCase(fieldElement.name);
-    default:
-      throw ArgumentError.value(
-        classAnnotation,
-        'classAnnotation',
-        'The provided `fieldRename` (${classAnnotation.fieldRename}) is not '
-            'supported.',
-      );
-  }
 }
 
 bool _includeIfNull(

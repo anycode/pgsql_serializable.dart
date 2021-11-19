@@ -20,14 +20,13 @@ class Issue713<TResult> {
 
 @ShouldGenerate(r'''
 GenericClass<T, S> _$GenericClassFromPgSql<T extends num, S>(
-    Map<String, dynamic> pgsql) {
-  return GenericClass<T, S>()
-    ..fieldObject = _dataFromPgSql(pgsql['fieldObject'])
-    ..fieldDynamic = _dataFromPgSql(pgsql['fieldDynamic'])
-    ..fieldInt = _dataFromPgSql(pgsql['fieldInt'])
-    ..fieldT = _dataFromPgSql(pgsql['fieldT'])
-    ..fieldS = _dataFromPgSql(pgsql['fieldS']);
-}
+        Map<String, dynamic> pgsql) =>
+    GenericClass<T, S>()
+      ..fieldObject = _dataFromPgSql(pgsql['fieldObject'])
+      ..fieldDynamic = _dataFromPgSql(pgsql['fieldDynamic'])
+      ..fieldInt = _dataFromPgSql(pgsql['fieldInt'])
+      ..fieldT = _dataFromPgSql(pgsql['fieldT'])
+      ..fieldS = _dataFromPgSql(pgsql['fieldS']);
 
 Map<String, dynamic> _$GenericClassToPgSql<T extends num, S>(
         GenericClass<T, S> instance) =>
@@ -67,9 +66,8 @@ Object _dataToPgSql<T extends num>(T input) => throw UnimplementedError();
   r'''
 GenericArgumentFactoriesFlagWithoutGenericType
     _$GenericArgumentFactoriesFlagWithoutGenericTypeFromPgSql(
-        Map<String, dynamic> pgsql) {
-  return GenericArgumentFactoriesFlagWithoutGenericType();
-}
+            Map<String, dynamic> pgsql) =>
+        GenericArgumentFactoriesFlagWithoutGenericType();
 
 Map<String, dynamic> _$GenericArgumentFactoriesFlagWithoutGenericTypeToPgSql(
         GenericArgumentFactoriesFlagWithoutGenericType instance) =>

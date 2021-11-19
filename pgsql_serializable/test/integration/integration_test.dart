@@ -2,9 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:test/test.dart';
 
 import '../test_utils.dart';
+import 'pgsql_enum_example.dart';
 import 'pgsql_test_common.dart' show Category, Platform, StatusCode;
 import 'pgsql_test_example.dart';
 
@@ -14,7 +16,7 @@ Matcher _throwsArgumentError(matcher) =>
 void main() {
   group('Person', () {
     void roundTripPerson(Person p) {
-      roundTripObject(p, (pgsql) => Person.fromPgSql(pgsql));
+      validateRoundTrip(p, (pgsql) => Person.fromPgSql(pgsql));
     }
 
     test('now', () {
@@ -48,22 +50,23 @@ void main() {
 
   group('Order', () {
     void roundTripOrder(Order p) {
-      roundTripObject(p, (pgsql) => Order.fromPgSql(pgsql));
+      validateRoundTrip(p, (pgsql) => Order.fromPgSql(pgsql));
     }
 
     test('null', () {
-      roundTripOrder(Order(Category.charmed)..statusCode = StatusCode.success);
+      roundTripOrder(
+          Order.custom(Category.charmed)..statusCode = StatusCode.success);
     });
 
     test('empty', () {
-      roundTripOrder(Order(Category.strange, const [])
+      roundTripOrder(Order.custom(Category.strange, const [])
         ..statusCode = StatusCode.success
         ..count = 0
         ..isRushed = false);
     });
 
     test('simple', () {
-      roundTripOrder(Order(Category.top, <Item>[
+      roundTripOrder(Order.custom(Category.top, <Item>[
         Item(24)
           ..itemNumber = 42
           ..saleDates = [DateTime.now()]
@@ -103,7 +106,7 @@ void main() {
     });
 
     test('platform', () {
-      final order = Order(Category.charmed)
+      final order = Order.custom(Category.charmed)
         ..statusCode = StatusCode.success
         ..platform = Platform.undefined
         ..altPlatforms = {
@@ -115,7 +118,7 @@ void main() {
     });
 
     test('homepage', () {
-      final order = Order(Category.charmed)
+      final order = Order.custom(Category.charmed)
         ..platform = Platform.undefined
         ..statusCode = StatusCode.success
         ..altPlatforms = {
@@ -152,7 +155,7 @@ void main() {
     });
 
     test('duration toPgSql', () {
-      final order = Order(Category.notDiscoveredYet)
+      final order = Order.custom(Category.notDiscoveredYet)
         ..statusCode = StatusCode.success
         ..duration = const Duration(
           days: 2,
@@ -187,7 +190,7 @@ void main() {
 
   group('Item', () {
     void roundTripItem(Item p) {
-      roundTripObject(p, (pgsql) => Item.fromPgSql(pgsql));
+      validateRoundTrip(p, (pgsql) => Item.fromPgSql(pgsql));
     }
 
     test('empty pgsql', () {
@@ -195,8 +198,16 @@ void main() {
       expect(item.saleDates, isNull);
       roundTripItem(item);
 
-      expect(item.toPgSql().keys, orderedEquals(['price', 'saleDates', 'rates']),
-          reason: 'Omits null `itemNumber`');
+      expect(
+        item.toPgSql().keys,
+        orderedEquals([
+          'price',
+          'saleDates',
+          'rates',
+          'geoPoint',
+        ]),
+        reason: 'Omits null `itemNumber`',
+      );
     });
 
     test('set itemNumber - with custom JSON key', () {
@@ -204,15 +215,23 @@ void main() {
       expect(item.itemNumber, 42);
       roundTripItem(item);
 
-      expect(item.toPgSql().keys,
-          orderedEquals(['price', 'item-number', 'saleDates', 'rates']),
-          reason: 'Includes non-null `itemNumber` - with custom key');
+      expect(
+        item.toPgSql().keys,
+        orderedEquals([
+          'price',
+          'item-number',
+          'saleDates',
+          'rates',
+          'geoPoint',
+        ]),
+        reason: 'Includes non-null `itemNumber` - with custom key',
+      );
     });
   });
 
   group('Numbers', () {
     void roundTripNumber(Numbers p) {
-      roundTripObject(p, (pgsql) => Numbers.fromPgSql(pgsql));
+      validateRoundTrip(p, (pgsql) => Numbers.fromPgSql(pgsql));
     }
 
     test('simple', () {
@@ -257,10 +276,7 @@ void main() {
       ..intIntMap = {3: 3}
       ..uriIntMap = {Uri.parse('https://example.com'): 4};
 
-    final roundTrip =
-        roundTripObject(instance, (j) => MapKeyVariety.fromPgSql(j));
-
-    expect(roundTrip, instance);
+    validateRoundTrip(instance, (j) => MapKeyVariety.fromPgSql(j));
   });
 
   test('UnknownEnumValue', () {
@@ -275,5 +291,35 @@ void main() {
     expect(instance.enumIterable, [Category.notDiscoveredYet]);
     expect(instance.enumList, [Category.notDiscoveredYet]);
     expect(instance.enumSet, [Category.notDiscoveredYet]);
+  });
+
+  test('PrivateConstructor', () {
+    final value = PrivateConstructor('test');
+
+    validateRoundTrip(value, (pgsql) => PrivateConstructor.fromPgSql(pgsql));
+  });
+
+  test('enum helpers', () {
+    expect(standAloneEnumValues, ['a', 'b', 'g', 'd']);
+    expect(dayTypeEnumValues, ['no-good', 'rotten', 'very-bad']);
+  });
+
+  test('unknown as null for enum', () {
+    expect(
+      () => Issue559Regression.fromPgSql({}).status,
+      throwsA(isA<MissingRequiredKeysException>()),
+    );
+    expect(
+      () => Issue559Regression.fromPgSql({'status': null}).status,
+      throwsA(isA<DisallowedNullValueException>()),
+    );
+    expect(
+      Issue559Regression.fromPgSql({'status': 'gamma'}).status,
+      Issue559RegressionEnum.gamma,
+    );
+    expect(
+      Issue559Regression.fromPgSql({'status': 'bob'}).status,
+      isNull,
+    );
   });
 }

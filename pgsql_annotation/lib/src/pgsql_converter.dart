@@ -9,6 +9,8 @@
 /// [S] is the type of the value stored in JSON. It must be a valid JSON type
 /// such as [String], [int], or [Map<String, dynamic>].
 abstract class PgSqlConverter<T, S> {
+  const PgSqlConverter();
+
   T fromPgSql(S pgsql);
   S toPgSql(T object);
 }

@@ -46,7 +46,8 @@ void main() {
     expect(builder, isNotNull);
   });
 
-  test('config is null-protected when passed to PgSqlSerializableGenerator', () {
+  test('config is null-protected when passed to PgSqlSerializableGenerator',
+      () {
     final nullValueMap = Map.fromEntries(
         generatorConfigDefaultPgSql.entries.map((e) => MapEntry(e.key, null)));
     final config = PgSqlSerializable.fromPgSql(nullValueMap);
@@ -76,8 +77,12 @@ void main() {
 
     final configMap = Map<String, dynamic>.from(yaml);
 
-    expect(configMap.keys, unorderedEquals(generatorConfigDefaultPgSql.keys),
-        reason: 'All supported keys are documented.');
+    expect(
+      configMap.keys,
+      unorderedEquals(generatorConfigDefaultPgSql.keys),
+      reason: 'All supported keys are documented. '
+          'Did you forget to change README.md?',
+    );
 
     expect(
       PgSqlSerializable.fromPgSql(configMap).toPgSql(),
@@ -98,7 +103,8 @@ void main() {
     );
 
     expect(
-        () => pgsqlSerializable(const BuilderOptions({'unsupported': 'config'})),
+        () =>
+            pgsqlSerializable(const BuilderOptions({'unsupported': 'config'})),
         throwsA(matcher));
   });
 
@@ -111,10 +117,21 @@ void main() {
         final config = Map<String, dynamic>.from(generatorConfigDefaultPgSql);
         config[entry.key] = entry.value;
 
-        final lastLine = entry.key == 'field_rename'
-            ? '`42` is not one of the supported values: none, kebab, snake, '
-                'pascal'
-            : "type 'int' is not a subtype of type 'bool?' in type cast";
+        String lastLine;
+        switch (entry.key) {
+          case 'field_rename':
+            lastLine =
+                '`42` is not one of the supported values: none, kebab, snake, '
+                'pascal';
+            break;
+          case 'constructor':
+            lastLine = "type 'int' is not a subtype of type 'String?' in type "
+                'cast';
+            break;
+          default:
+            lastLine =
+                "type 'int' is not a subtype of type 'bool?' in type cast";
+        }
 
         final matcher = isA<StateError>().having(
           (v) => v.message,
@@ -131,9 +148,11 @@ $lastLine''',
   });
 }
 
+// #CHANGE WHEN UPDATING pgsql_annotation
 const _invalidConfig = {
   'any_map': 42,
   'checked': 42,
+  'constructor': 42,
   'create_factory': 42,
   'create_to_pgsql': 42,
   'disallow_unrecognized_keys': 42,

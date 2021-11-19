@@ -2,12 +2,17 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 @PgSqlSerializable()
 class ConfigurationImplicitDefaults {
+  ConfigurationImplicitDefaults();
+  ConfigurationImplicitDefaults.something();
+
   int? field;
 }
 
+// #CHANGE WHEN UPDATING pgsql_annotation
 @PgSqlSerializable(
   anyMap: false,
   checked: false,
+  constructor: '',
   createFactory: true,
   createToPgSql: true,
   disallowUnrecognizedKeys: false,

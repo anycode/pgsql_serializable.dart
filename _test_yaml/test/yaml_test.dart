@@ -167,7 +167,7 @@ T roundTripObject<T>(
 }) {
   final data = loudEncode(object);
 
-  final object2 = factory(pgsql.decode(data) as Map<String, dynamic>);
+  final object2 = factory(json.decode(data) as Map<String, dynamic>);
 
   if (!skipObjectEquals) {
     expect(object2, equals(object));
@@ -182,7 +182,7 @@ T roundTripObject<T>(
 /// Prints out nested causes before throwing `PgSqlUnsupportedObjectError`.
 String loudEncode(Object object) {
   try {
-    return const PgSqlEncoder.withIndent(' ').convert(object);
+    return const JsonEncoder.withIndent(' ').convert(object);
   } on PgSqlUnsupportedObjectError catch (e) // ignore: avoid_catching_errors
   {
     var error = e;

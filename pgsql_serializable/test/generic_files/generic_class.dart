@@ -2,7 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:collection/collection.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
+
+import '../test_utils.dart';
 
 part 'generic_class.g.dart';
 
@@ -102,4 +105,41 @@ class _DurationListMillisecondConverter
   @override
   int? toPgSql(List<Duration>? object) =>
       object?.fold<int>(0, (sum, obj) => sum + obj.inMilliseconds);
+}
+
+class Issue980GenericClass<T> {
+  final T value;
+
+  Issue980GenericClass(this.value);
+
+  factory Issue980GenericClass.fromPgSql(Map<String, dynamic> pgsql) =>
+      Issue980GenericClass(pgsql['value'] as T);
+
+  Map<String, dynamic> toPgSql() => {'value': value};
+
+  @override
+  bool operator ==(Object other) =>
+      other is Issue980GenericClass && value == other.value;
+
+  @override
+  int get hashCode => value.hashCode;
+}
+
+@PgSqlSerializable()
+class Issue980ParentClass {
+  final List<Issue980GenericClass<int>> list;
+
+  Issue980ParentClass(this.list);
+
+  factory Issue980ParentClass.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$Issue980ParentClassFromPgSql(pgsql);
+
+  Map<String, dynamic> toPgSql() => _$Issue980ParentClassToPgSql(this);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Issue980ParentClass && deepEquals(list, other.list);
+
+  @override
+  int get hashCode => const DeepCollectionEquality().hash(list);
 }

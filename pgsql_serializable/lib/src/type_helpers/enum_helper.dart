@@ -3,11 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/element/type.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:source_gen/source_gen.dart';
+import 'package:source_helper/source_helper.dart';
 
+import '../enum_utils.dart';
 import '../pgsql_key_utils.dart';
-import '../pgsql_literal_generator.dart';
 import '../type_helper.dart';
-import '../utils.dart';
 
 final simpleExpression = RegExp('^[a-zA-Z_]+\$');
 
@@ -20,7 +22,7 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
     String expression,
     TypeHelperContextWithConfig context,
   ) {
-    final memberContent = _enumValueMapFromType(targetType);
+    final memberContent = enumValueMapFromType(targetType);
 
     if (memberContent == null) {
       return null;
@@ -28,7 +30,7 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     context.addMember(memberContent);
 
-    return '${_constMapName(targetType)}[$expression]';
+    return '${constMapName(targetType)}[$expression]';
   }
 
   @override
@@ -38,27 +40,43 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
     TypeHelperContextWithConfig context,
     bool defaultProvided,
   ) {
-    final memberContent = _enumValueMapFromType(targetType);
+    final memberContent = enumValueMapFromType(targetType);
 
     if (memberContent == null) {
       return null;
     }
 
-    context.addMember(_enumDecodeHelper);
+    final pgsqlKey = pgsqlKeyForField(context.fieldElement, context.config);
+
+    if (pgsqlKey.defaultValue == "'${PgSqlKey.nullForUndefinedEnumValue}'") {
+      throw InvalidGenerationSourceError(
+        '`${PgSqlKey.nullForUndefinedEnumValue}` cannot be used with '
+        '`PgSqlKey.defaultValue`.',
+        element: context.fieldElement,
+      );
+    }
+
+    if (!targetType.isNullableType &&
+        pgsqlKey.unknownEnumValue == PgSqlKey.nullForUndefinedEnumValue) {
+      // If the target is not nullable,
+      throw InvalidGenerationSourceError(
+        '`${PgSqlKey.nullForUndefinedEnumValue}` cannot be used with '
+        '`PgSqlKey.unknownEnumValue` unless the field is nullable.',
+        element: context.fieldElement,
+      );
+    }
 
     String functionName;
     if (targetType.isNullableType || defaultProvided) {
-      functionName = r'_$enumDecodeNullable';
-      context.addMember(_enumDecodeHelperNullable);
+      functionName = r'$enumDecodeNullable';
     } else {
-      functionName = r'_$enumDecode';
+      functionName = r'$enumDecode';
     }
 
     context.addMember(memberContent);
 
-    final pgsqlKey = pgsqlKeyForField(context.fieldElement, context.config);
     final args = [
-      _constMapName(targetType),
+      constMapName(targetType),
       expression,
       if (pgsqlKey.unknownEnumValue != null)
         'unknownValue: ${pgsqlKey.unknownEnumValue}',
@@ -67,60 +85,3 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
     return '$functionName(${args.join(', ')})';
   }
 }
-
-String _constMapName(DartType targetType) =>
-    '_\$${targetType.element!.name}EnumMap';
-
-String? _enumValueMapFromType(DartType targetType) {
-  final enumMap = enumFieldsMap(targetType);
-
-  if (enumMap == null) {
-    return null;
-  }
-
-  final items = enumMap.entries
-      .map((e) => '  ${targetType.element!.name}.${e.key.name}: '
-          '${pgsqlLiteralAsDart(e.value)},')
-      .join();
-
-  return 'const ${_constMapName(targetType)} = {\n$items\n};';
-}
-
-const _enumDecodeHelper = r'''
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}''';
-
-const _enumDecodeHelperNullable = r'''
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}''';

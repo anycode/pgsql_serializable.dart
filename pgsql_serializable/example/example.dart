@@ -8,10 +8,20 @@ part 'example.g.dart';
 
 @PgSqlSerializable()
 class Person {
-  final String firstName;
-  final String lastName;
+  /// The generated code assumes these values exist in JSON.
+  final String firstName, lastName;
+
+  /// The generated code below handles if the corresponding JSON value doesn't
+  /// exist or is empty.
   final DateTime? dateOfBirth;
+
   Person({required this.firstName, required this.lastName, this.dateOfBirth});
-  factory Person.fromPgSql(Map<String, dynamic> pgsql) => _$PersonFromPgSql(pgsql);
+
+  /// Connect the generated [_$PersonFromPgSql] function to the `fromPgSql`
+  /// factory.
+  factory Person.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$PersonFromPgSql(pgsql);
+
+  /// Connect the generated [_$PersonToPgSql] function to the `toPgSql` method.
   Map<String, dynamic> toPgSql() => _$PersonToPgSql(this);
 }

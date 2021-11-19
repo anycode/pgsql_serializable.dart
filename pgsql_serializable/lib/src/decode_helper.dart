@@ -6,6 +6,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:source_helper/source_helper.dart';
 
 import 'helper_core.dart';
 import 'pgsql_literal_generator.dart';
@@ -46,7 +47,9 @@ abstract class DecodeHelper implements HelperCore {
       }
     }
 
-    buffer.write(') {\n');
+    buffer.write(')');
+
+    final fromPgSqlLines = <String>[];
 
     String deserializeFun(String paramOrFieldName,
             {ParameterElement? ctorParam}) =>
@@ -55,46 +58,44 @@ abstract class DecodeHelper implements HelperCore {
 
     final data = _writeConstructorInvocation(
       element,
+      config.constructor,
       accessibleFields.keys,
       accessibleFields.values
-          .where((fe) =>
-              !fe.isFinal ||
-              // Handle the case where `fe` defines a getter in `element`
-              // and there is a setter in a super class
-              // See google/pgsql_serializable.dart#613
-              element.lookUpSetter(fe.name, element.library) != null)
+          .where((fe) => element.lookUpSetter(fe.name, element.library) != null)
           .map((fe) => fe.name)
           .toList(),
       unavailableReasons,
       deserializeFun,
     );
 
-    final checks = _checkKeys(accessibleFields.values
-        .where((fe) => data.usedCtorParamsAndFields.contains(fe.name)));
+    final checks = _checkKeys(
+      accessibleFields.values
+          .where((fe) => data.usedCtorParamsAndFields.contains(fe.name)),
+    ).toList();
 
     if (config.checked) {
       final classLiteral = escapeDartString(element.name);
 
-      buffer..write('''
-  return \$checkedNew(
+      final sectionBuffer = StringBuffer()..write('''
+  \$checkedCreate(
     $classLiteral,
     pgsql,
-    () {\n''')..write(checks)..write('''
+    (\$checkedConvert) {\n''')..write(checks.join())..write('''
     final val = ${data.content};''');
 
       for (final field in data.fieldsToSet) {
-        buffer.writeln();
+        sectionBuffer.writeln();
         final safeName = safeNameAccess(accessibleFields[field]!);
-        buffer
+        sectionBuffer
           ..write('''
-    \$checkedConvert(pgsql, $safeName, (v) => ''')
+    \$checkedConvert($safeName, (v) => ''')
           ..write('val.$field = ')
           ..write(_deserializeForField(accessibleFields[field]!,
               checkedProperty: true))
           ..write(');');
       }
 
-      buffer.write('''\n    return val;
+      sectionBuffer.write('''\n    return val;
   }''');
 
       final fieldKeyMap = Map.fromEntries(data.usedCtorParamsAndFields
@@ -109,23 +110,38 @@ abstract class DecodeHelper implements HelperCore {
         fieldKeyMapArg = ', fieldKeyMap: const $mapLiteral';
       }
 
-      buffer..write(fieldKeyMapArg)..write(')');
+      sectionBuffer..write(fieldKeyMapArg)..write(',);');
+      fromPgSqlLines.add(sectionBuffer.toString());
     } else {
-      buffer..write(checks)..write('''
-  return ${data.content}''');
+      fromPgSqlLines.addAll(checks);
+
+      final sectionBuffer = StringBuffer()..write('''
+  ${data.content}''');
       for (final field in data.fieldsToSet) {
-        buffer
+        sectionBuffer
           ..writeln()
           ..write('    ..$field = ')
           ..write(deserializeFun(field));
       }
+      sectionBuffer.writeln(';');
+      fromPgSqlLines.add(sectionBuffer.toString());
     }
-    buffer..writeln(';\n}')..writeln();
+
+    if (fromPgSqlLines.length == 1) {
+      buffer..write('=>')..write(fromPgSqlLines.single);
+    } else {
+      buffer
+        ..write('{')
+        ..writeAll(fromPgSqlLines.take(fromPgSqlLines.length - 1))
+        ..write('return ')
+        ..write(fromPgSqlLines.last)
+        ..write('}');
+    }
 
     return CreateFactoryResult(buffer.toString(), data.usedCtorParamsAndFields);
   }
 
-  String _checkKeys(Iterable<FieldElement> accessibleFields) {
+  Iterable<String> _checkKeys(Iterable<FieldElement> accessibleFields) sync* {
     final args = <String>[];
 
     String constantList(Iterable<FieldElement> things) =>
@@ -154,10 +170,8 @@ abstract class DecodeHelper implements HelperCore {
       args.add('disallowNullValues: $disallowNullKeyLiteral');
     }
 
-    if (args.isEmpty) {
-      return '';
-    } else {
-      return '\$checkKeys(pgsql, ${args.join(', ')});\n';
+    if (args.isNotEmpty) {
+      yield '\$checkKeys(pgsql, ${args.map((e) => '$e, ').join()});\n';
     }
   }
 
@@ -169,53 +183,42 @@ abstract class DecodeHelper implements HelperCore {
     final pgsqlKeyName = safeNameAccess(field);
     final targetType = ctorParam?.type ?? field.type;
     final contextHelper = getHelperContext(field);
-    final defaultProvided = pgsqlKeyFor(field).defaultValue != null;
+    final pgsqlKey = pgsqlKeyFor(field);
+    final defaultValue = pgsqlKey.defaultValue;
+
+    String deserialize(String expression) => contextHelper
+        .deserialize(
+          targetType,
+          expression,
+          defaultValue: defaultValue,
+        )
+        .toString();
 
     String value;
     try {
       if (config.checked) {
-        value = contextHelper
-            .deserialize(
-              targetType,
-              'v',
-              defaultProvided: defaultProvided,
-            )
-            .toString();
+        value = deserialize('v');
         if (!checkedProperty) {
-          value = '\$checkedConvert(pgsql, $pgsqlKeyName, (v) => $value)';
+          value = '\$checkedConvert($pgsqlKeyName, (v) => $value)';
         }
       } else {
-        assert(!checkedProperty,
-            'should only be true if `_generator.checked` is true.');
-
-        value = contextHelper
-            .deserialize(
-              targetType,
-              'pgsql[$pgsqlKeyName]',
-              defaultProvided: defaultProvided,
-            )
-            .toString();
+        assert(
+          !checkedProperty,
+          'should only be true if `_generator.checked` is true.',
+        );
+        value = deserialize('pgsql[$pgsqlKeyName]');
       }
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
       throw createInvalidGenerationError('fromPgSql', field, e);
     }
 
-    final pgsqlKey = pgsqlKeyFor(field);
-    final defaultValue = pgsqlKey.defaultValue;
     if (defaultValue != null) {
       if (pgsqlKey.disallowNullValue && pgsqlKey.required) {
         log.warning('The `defaultValue` on field `${field.name}` will have no '
             'effect because both `disallowNullValue` and `required` are set to '
             '`true`.');
       }
-      if (contextHelper.deserializeConvertData != null) {
-        log.warning('The field `${field.name}` has both `defaultValue` and '
-            '`fromPgSql` defined which likely won\'t work for your scenario.\n'
-            'Instead of using `defaultValue`, set `nullable: false` and handle '
-            '`null` in the `fromPgSql` function.');
-      }
-      value = '$value ?? $defaultValue';
     }
     return value;
   }
@@ -233,6 +236,7 @@ abstract class DecodeHelper implements HelperCore {
 /// been defined by a constructor parameter with the same name.
 _ConstructorData _writeConstructorInvocation(
   ClassElement classElement,
+  String constructorName,
   Iterable<String> availableConstructorParameters,
   Iterable<String> writableFields,
   Map<String, String> unavailableReasons,
@@ -241,13 +245,7 @@ _ConstructorData _writeConstructorInvocation(
 ) {
   final className = classElement.name;
 
-  final ctor = classElement.unnamedConstructor;
-  if (ctor == null) {
-    // TODO: support using another ctor - google/pgsql_serializable.dart#50
-    throw InvalidGenerationSourceError(
-        'The class `$className` has no default constructor.',
-        element: classElement);
-  }
+  final ctor = constructorByName(classElement, constructorName);
 
   final usedCtorParamsAndFields = <String>{};
   final constructorArguments = <ParameterElement>[];
@@ -284,8 +282,14 @@ _ConstructorData _writeConstructorInvocation(
   final remainingFieldsForInvocationBody =
       writableFields.toSet().difference(usedCtorParamsAndFields);
 
+  final constructorExtra = constructorName.isEmpty ? '' : '.$constructorName';
+
   final buffer = StringBuffer()
-    ..write('$className${genericClassArguments(classElement, false)}(');
+    ..write(
+      '$className'
+      '${genericClassArguments(classElement, false)}'
+      '$constructorExtra(',
+    );
   if (constructorArguments.isNotEmpty) {
     buffer
       ..writeln()

@@ -6,7 +6,7 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 /// Represents values from [PgSqlKey] when merged with local configuration.
 class KeyConfig {
-  final Object? defaultValue;
+  final String? defaultValue;
 
   final bool disallowNullValue;
 
@@ -18,7 +18,7 @@ class KeyConfig {
 
   final bool required;
 
-  final Object? unknownEnumValue;
+  final String? unknownEnumValue;
 
   KeyConfig({
     required this.defaultValue,
@@ -41,6 +41,9 @@ class ClassConfig implements PgSqlSerializable {
 
   @override
   final bool checked;
+
+  @override
+  final String constructor;
 
   @override
   final bool createFactory;
@@ -66,9 +69,12 @@ class ClassConfig implements PgSqlSerializable {
   @override
   final bool includeIfNull;
 
+  final Map<String, String> ctorParamDefaults;
+
   const ClassConfig({
     required this.anyMap,
     required this.checked,
+    required this.constructor,
     required this.createFactory,
     required this.createToPgSql,
     required this.disallowUnrecognizedKeys,
@@ -77,6 +83,7 @@ class ClassConfig implements PgSqlSerializable {
     required this.genericArgumentFactories,
     required this.ignoreUnannotated,
     required this.includeIfNull,
+    this.ctorParamDefaults = const {},
   });
 
   /// An instance of [PgSqlSerializable] with all fields set to their default
@@ -84,6 +91,7 @@ class ClassConfig implements PgSqlSerializable {
   static const defaults = ClassConfig(
     anyMap: false,
     checked: false,
+    constructor: '',
     createFactory: true,
     createToPgSql: true,
     disallowUnrecognizedKeys: false,
@@ -108,10 +116,12 @@ const _$FieldRenameEnumMap = {
   FieldRename.pascal: 'pascal',
 };
 
+// #CHANGE WHEN UPDATING pgsql_annotation
 Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
     <String, dynamic>{
       'any_map': instance.anyMap,
       'checked': instance.checked,
+      'constructor': instance.constructor,
       'create_factory': instance.createFactory,
       'create_to_pgsql': instance.createToPgSql,
       'disallow_unrecognized_keys': instance.disallowUnrecognizedKeys,

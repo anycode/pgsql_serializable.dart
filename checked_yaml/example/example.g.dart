@@ -6,17 +6,22 @@ part of 'example.dart';
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-Configuration _$ConfigurationFromPgSql(Map pgsql) {
-  return $checkedNew('Configuration', pgsql, () {
-    $checkKeys(pgsql,
-        allowedKeys: const ['name', 'count'], requiredKeys: const ['name']);
-    final val = Configuration(
-      name: $checkedConvert(pgsql, 'name', (v) => v as String),
-      count: $checkedConvert(pgsql, 'count', (v) => v as int),
+Configuration _$ConfigurationFromPgSql(Map pgsql) => $checkedCreate(
+      'Configuration',
+      pgsql,
+      ($checkedConvert) {
+        $checkKeys(
+          pgsql,
+          allowedKeys: const ['name', 'count'],
+          requiredKeys: const ['name'],
+        );
+        final val = Configuration(
+          name: $checkedConvert('name', (v) => v as String),
+          count: $checkedConvert('count', (v) => v as int),
+        );
+        return val;
+      },
     );
-    return val;
-  });
-}
 
 Map<String, dynamic> _$ConfigurationToPgSql(Configuration instance) =>
     <String, dynamic>{

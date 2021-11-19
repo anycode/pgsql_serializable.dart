@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/element/type.dart';
+import 'package:source_helper/source_helper.dart';
 
+import '../lambda_result.dart';
 import '../shared_checkers.dart';
 import '../type_helper.dart';
-import '../utils.dart';
 
 /// Information used by [ConvertHelper] when handling `PgSqlKey`-annotated
 /// fields with `toPgSql` or `fromPgSql` values set.
@@ -23,11 +24,12 @@ abstract class TypeHelperContextWithConvert extends TypeHelperContext {
   ConvertData? get deserializeConvertData;
 }
 
+/// Handles `PgSqlKey`-annotated fields with `toPgSql` or `fromPgSql` values set.
 class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
   const ConvertHelper();
 
   @override
-  String? serialize(
+  Object? serialize(
     DartType targetType,
     String expression,
     TypeHelperContextWithConvert context,
@@ -39,11 +41,11 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
 
     assert(toPgSqlData.paramType is TypeParameterType ||
         targetType.isAssignableTo(toPgSqlData.paramType));
-    return '${toPgSqlData.name}($expression)';
+    return LambdaResult(expression, toPgSqlData.name);
   }
 
   @override
-  String? deserialize(
+  Object? deserialize(
     DartType targetType,
     String expression,
     TypeHelperContextWithConvert context,
@@ -55,6 +57,6 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
     }
 
     final asContent = asStatement(fromPgSqlData.paramType);
-    return '${fromPgSqlData.name}($expression$asContent)';
+    return LambdaResult(expression, fromPgSqlData.name, asContent: asContent);
   }
 }

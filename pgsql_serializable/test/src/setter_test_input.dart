@@ -2,15 +2,12 @@ part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(
   r'''
-JustSetter _$JustSetterFromPgSql(Map<String, dynamic> pgsql) {
-  return JustSetter();
-}
+JustSetter _$JustSetterFromPgSql(Map<String, dynamic> pgsql) => JustSetter();
 
 Map<String, dynamic> _$JustSetterToPgSql(JustSetter instance) =>
     <String, dynamic>{};
 ''',
   expectedLogItems: ['Setters are ignored: JustSetter.someSetter'],
-  configurations: ['default'],
 )
 @PgSqlSerializable()
 class JustSetter {
@@ -19,12 +16,10 @@ class JustSetter {
 
 @ShouldGenerate(
   r'''
-JustSetterNoToPgSql _$JustSetterNoToPgSqlFromPgSql(Map<String, dynamic> pgsql) {
-  return JustSetterNoToPgSql();
-}
+JustSetterNoToPgSql _$JustSetterNoToPgSqlFromPgSql(Map<String, dynamic> pgsql) =>
+    JustSetterNoToPgSql();
 ''',
   expectedLogItems: ['Setters are ignored: JustSetterNoToPgSql.someSetter'],
-  configurations: ['default'],
 )
 @PgSqlSerializable(createToPgSql: false)
 class JustSetterNoToPgSql {
@@ -38,7 +33,6 @@ Map<String, dynamic> _$JustSetterNoFromPgSqlToPgSql(
     <String, dynamic>{};
 ''',
   expectedLogItems: ['Setters are ignored: JustSetterNoFromPgSql.someSetter'],
-  configurations: ['default'],
 )
 @PgSqlSerializable(createFactory: false)
 class JustSetterNoFromPgSql {

@@ -1,6 +1,8 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // @dart=2.12
 
+// ignore_for_file: lines_longer_than_80_chars
+
 part of 'generic_argument_factories_nullable.dart';
 
 // **************************************************************************
@@ -12,17 +14,16 @@ GenericClassWithHelpersNullable<T, S>
   Map<String, dynamic> pgsql,
   T Function(Object? pgsql) fromPgSqlT,
   S Function(Object? pgsql) fromPgSqlS,
-) {
-  return GenericClassWithHelpersNullable<T, S>(
-    value: _$nullableGenericFromPgSql(pgsql['value'], fromPgSqlT),
-    list: (pgsql['list'] as List<dynamic>?)
-        ?.map((e) => _$nullableGenericFromPgSql(e, fromPgSqlT))
-        .toList(),
-    someSet: (pgsql['someSet'] as List<dynamic>?)
-        ?.map((e) => _$nullableGenericFromPgSql(e, fromPgSqlS))
-        .toSet(),
-  );
-}
+) =>
+        GenericClassWithHelpersNullable<T, S>(
+          value: _$nullableGenericFromPgSql(pgsql['value'], fromPgSqlT),
+          list: (pgsql['list'] as List<dynamic>?)
+              ?.map((e) => _$nullableGenericFromPgSql(e, fromPgSqlT))
+              .toList(),
+          someSet: (pgsql['someSet'] as List<dynamic>?)
+              ?.map((e) => _$nullableGenericFromPgSql(e, fromPgSqlS))
+              .toSet(),
+        );
 
 Map<String, dynamic> _$GenericClassWithHelpersNullableToPgSql<T, S>(
   GenericClassWithHelpersNullable<T, S> instance,
@@ -52,22 +53,21 @@ Object? _$nullableGenericToPgSql<T>(
     input == null ? null : toPgSql(input);
 
 ConcreteClassNullable _$ConcreteClassNullableFromPgSql(
-    Map<String, dynamic> pgsql) {
-  return ConcreteClassNullable(
-    GenericClassWithHelpersNullable.fromPgSql(
-        pgsql['value'] as Map<String, dynamic>,
-        (value) => value as int,
-        (value) => value as String),
-    GenericClassWithHelpersNullable.fromPgSql(
-        pgsql['value2'] as Map<String, dynamic>,
-        (value) => (value as num).toDouble(),
-        (value) => BigInt.parse(value as String)),
-    GenericClassWithHelpersNullable.fromPgSql(
-        pgsql['value3'] as Map<String, dynamic>,
-        (value) => (value as num?)?.toDouble(),
-        (value) => value == null ? null : BigInt.parse(value as String)),
-  );
-}
+        Map<String, dynamic> pgsql) =>
+    ConcreteClassNullable(
+      GenericClassWithHelpersNullable<int, String>.fromPgSql(
+          pgsql['value'] as Map<String, dynamic>,
+          (value) => value as int,
+          (value) => value as String),
+      GenericClassWithHelpersNullable<double, BigInt>.fromPgSql(
+          pgsql['value2'] as Map<String, dynamic>,
+          (value) => (value as num).toDouble(),
+          (value) => BigInt.parse(value as String)),
+      GenericClassWithHelpersNullable<double?, BigInt?>.fromPgSql(
+          pgsql['value3'] as Map<String, dynamic>,
+          (value) => (value as num?)?.toDouble(),
+          (value) => value == null ? null : BigInt.parse(value as String)),
+    );
 
 Map<String, dynamic> _$ConcreteClassNullableToPgSql(
         ConcreteClassNullable instance) =>

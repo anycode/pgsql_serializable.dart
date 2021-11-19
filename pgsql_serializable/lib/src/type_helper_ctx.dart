@@ -5,7 +5,9 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:source_helper/source_helper.dart';
 
+import 'default_container.dart';
 import 'helper_core.dart';
 import 'type_helper.dart';
 import 'type_helpers/config_types.dart';
@@ -14,7 +16,9 @@ import 'unsupported_type_error.dart';
 import 'utils.dart';
 
 TypeHelperCtx typeHelperContext(
-        HelperCore helperCore, FieldElement fieldElement) =>
+  HelperCore helperCore,
+  FieldElement fieldElement,
+) =>
     TypeHelperCtx._(helperCore, fieldElement);
 
 class TypeHelperCtx
@@ -30,15 +34,15 @@ class TypeHelperCtx
   @override
   ClassConfig get config => _helperCore.config;
 
-  TypeHelperCtx._(this._helperCore, this.fieldElement);
-
   @override
   ConvertData? get serializeConvertData => _pairFromContext.toPgSql;
 
   @override
   ConvertData? get deserializeConvertData => _pairFromContext.fromPgSql;
 
-  _ConvertPair get _pairFromContext => _ConvertPair(fieldElement);
+  late final _pairFromContext = _ConvertPair(fieldElement);
+
+  TypeHelperCtx._(this._helperCore, this.fieldElement);
 
   @override
   void addMember(String memberContent) {
@@ -53,21 +57,28 @@ class TypeHelperCtx
       );
 
   @override
-  Object? deserialize(
+  Object deserialize(
     DartType targetType,
     String expression, {
-    bool defaultProvided = false,
-  }) =>
-      _run(
+    String? defaultValue,
+  }) {
+    final value = _run(
+      targetType,
+      expression,
+      (TypeHelper th) => th.deserialize(
         targetType,
         expression,
-        (TypeHelper th) => th.deserialize(
-          targetType,
-          expression,
-          this,
-          defaultProvided,
-        ),
-      );
+        this,
+        defaultValue != null,
+      ),
+    );
+
+    return DefaultContainer.deserialize(
+      value,
+      nullable: targetType.isNullableType,
+      defaultValue: defaultValue,
+    );
+  }
 
   Object _run(
     DartType targetType,
@@ -126,6 +137,9 @@ ConvertData? _convertData(DartObject obj, FieldElement element, bool isFrom) {
 
   final argType = executableElement.parameters.first.type;
   if (isFrom) {
+    final hasDefaultValue =
+        !pgsqlKeyAnnotation(element).read('defaultValue').isNull;
+
     final returnType = executableElement.returnType;
 
     if (returnType is TypeParameterType) {
@@ -133,13 +147,18 @@ ConvertData? _convertData(DartObject obj, FieldElement element, bool isFrom) {
       // to the `fromPgSql` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!returnType.isAssignableTo(element.type)) {
-      final returnTypeCode = typeToCode(returnType);
-      final elementTypeCode = typeToCode(element.type);
-      throwUnsupported(
-          element,
-          'The `$paramName` function `${executableElement.name}` return type '
-          '`$returnTypeCode` is not compatible with field type '
-          '`$elementTypeCode`.');
+      if (returnType.promoteNonNullable().isAssignableTo(element.type) &&
+          hasDefaultValue) {
+        // noop
+      } else {
+        final returnTypeCode = typeToCode(returnType);
+        final elementTypeCode = typeToCode(element.type);
+        throwUnsupported(
+            element,
+            'The `$paramName` function `${executableElement.name}` return type '
+            '`$returnTypeCode` is not compatible with field type '
+            '`$elementTypeCode`.');
+      }
     }
   } else {
     if (argType is TypeParameterType) {

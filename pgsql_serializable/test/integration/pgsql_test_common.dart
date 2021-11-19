@@ -4,9 +4,9 @@
 
 import 'dart:collection';
 
-import 'package:collection/collection.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
+@PgSqlEnum(fieldRename: FieldRename.kebab)
 enum Category {
   top,
   bottom,
@@ -14,6 +14,7 @@ enum Category {
   charmed,
   up,
   down,
+  // NOTE: this should override the kebab bits below!
   @PgSqlValue('not_discovered_yet')
   notDiscoveredYet
 }
@@ -41,8 +42,6 @@ DateTime? dateTimeFromEpochUs(int? us) =>
     us == null ? null : DateTime.fromMicrosecondsSinceEpoch(us);
 
 int? dateTimeToEpochUs(DateTime? dateTime) => dateTime?.microsecondsSinceEpoch;
-
-bool deepEquals(a, b) => const DeepCollectionEquality().equals(a, b);
 
 class Platform {
   final String description;

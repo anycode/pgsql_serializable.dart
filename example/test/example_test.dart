@@ -15,7 +15,7 @@ void main() {
     final personPgSql = _encode(person);
 
     final person2 =
-        Person.fromPgSql(pgsql.decode(personPgSql) as Map<String, dynamic>);
+        Person.fromPgSql(json.decode(personPgSql) as Map<String, dynamic>);
 
     expect(person.firstName, person2.firstName);
     expect(person.lastName, person2.lastName);
@@ -32,4 +32,4 @@ void main() {
 }
 
 String _encode(Object object) =>
-    const PgSqlEncoder.withIndent(' ').convert(object);
+    const JsonEncoder.withIndent(' ').convert(object);

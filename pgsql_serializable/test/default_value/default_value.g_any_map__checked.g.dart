@@ -1,54 +1,75 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: lines_longer_than_80_chars
+
 part of 'default_value.g_any_map__checked.dart';
 
 // **************************************************************************
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-DefaultValue _$DefaultValueFromPgSql(Map pgsql) {
-  return $checkedNew('DefaultValue', pgsql, () {
-    final val = DefaultValue(
-      $checkedConvert(pgsql, 'fieldBool', (v) => v as bool?) ?? true,
-      $checkedConvert(pgsql, 'fieldString', (v) => v as String?) ?? 'string',
-      $checkedConvert(pgsql, 'fieldInt', (v) => v as int?) ?? 42,
-      $checkedConvert(pgsql, 'fieldDouble', (v) => (v as num?)?.toDouble()) ??
-          3.14,
-      $checkedConvert(pgsql, 'fieldListEmpty', (v) => v as List<dynamic>?) ?? [],
-      $checkedConvert(
-              pgsql, 'fieldSetEmpty', (v) => (v as List<dynamic>?)?.toSet()) ??
-          {},
-      $checkedConvert(pgsql, 'fieldMapEmpty', (v) => v as Map?) ?? {},
-      $checkedConvert(pgsql, 'fieldListSimple',
-              (v) => (v as List<dynamic>?)?.map((e) => e as int).toList()) ??
-          [1, 2, 3],
-      $checkedConvert(pgsql, 'fieldSetSimple',
-              (v) => (v as List<dynamic>?)?.map((e) => e as String).toSet()) ??
-          {'entry1', 'entry2'},
-      $checkedConvert(
-              pgsql,
+DefaultValue _$DefaultValueFromPgSql(Map pgsql) => $checkedCreate(
+      'DefaultValue',
+      pgsql,
+      ($checkedConvert) {
+        final val = DefaultValue(
+          $checkedConvert('fieldBool', (v) => v as bool? ?? true),
+          $checkedConvert('fieldString', (v) => v as String? ?? 'string'),
+          $checkedConvert('fieldInt', (v) => v as int? ?? 42),
+          $checkedConvert(
+              'fieldDouble', (v) => (v as num?)?.toDouble() ?? 3.14),
+          $checkedConvert('fieldListEmpty', (v) => v as List<dynamic>? ?? []),
+          $checkedConvert(
+              'fieldSetEmpty', (v) => (v as List<dynamic>?)?.toSet() ?? {}),
+          $checkedConvert('fieldMapEmpty', (v) => v as Map? ?? {}),
+          $checkedConvert(
+              'fieldListSimple',
+              (v) =>
+                  (v as List<dynamic>?)?.map((e) => e as int).toList() ??
+                  [1, 2, 3]),
+          $checkedConvert(
+              'fieldSetSimple',
+              (v) =>
+                  (v as List<dynamic>?)?.map((e) => e as String).toSet() ??
+                  {'entry1', 'entry2'}),
+          $checkedConvert(
               'fieldMapSimple',
-              (v) => (v as Map?)?.map(
+              (v) =>
+                  (v as Map?)?.map(
                     (k, e) => MapEntry(k as String, e as int),
-                  )) ??
-          {'answer': 42},
-      $checkedConvert(
-              pgsql,
+                  ) ??
+                  {'answer': 42}),
+          $checkedConvert(
               'fieldMapListString',
-              (v) => (v as Map?)?.map(
+              (v) =>
+                  (v as Map?)?.map(
                     (k, e) => MapEntry(k as String,
                         (e as List<dynamic>).map((e) => e as String).toList()),
-                  )) ??
-          {
-            'root': ['child']
-          },
-      $checkedConvert(pgsql, 'fieldEnum',
-              (v) => _$enumDecodeNullable(_$GreekEnumMap, v)) ??
-          Greek.beta,
+                  ) ??
+                  {
+                    'root': ['child']
+                  }),
+          $checkedConvert('fieldEnum',
+              (v) => $enumDecodeNullable(_$GreekEnumMap, v) ?? Greek.beta),
+          constClass: $checkedConvert(
+              'constClass',
+              (v) => v == null
+                  ? const ConstClass('value')
+                  : ConstClass.fromPgSql(Map<String, dynamic>.from(v as Map))),
+          valueFromConverter: $checkedConvert(
+              'valueFromConverter',
+              (v) => v == null
+                  ? const ConstClass('value')
+                  : const ConstClassConverter().fromPgSql(v as String)),
+          valueFromFunction: $checkedConvert(
+              'valueFromFunction',
+              (v) => v == null
+                  ? const ConstClass('value')
+                  : constClassFromPgSql(v as String)),
+        );
+        return val;
+      },
     );
-    return val;
-  });
-}
 
 Map<String, dynamic> _$DefaultValueToPgSql(DefaultValue instance) =>
     <String, dynamic>{
@@ -64,44 +85,11 @@ Map<String, dynamic> _$DefaultValueToPgSql(DefaultValue instance) =>
       'fieldMapSimple': instance.fieldMapSimple,
       'fieldMapListString': instance.fieldMapListString,
       'fieldEnum': _$GreekEnumMap[instance.fieldEnum],
+      'constClass': instance.constClass,
+      'valueFromConverter':
+          const ConstClassConverter().toPgSql(instance.valueFromConverter),
+      'valueFromFunction': constClassToPgSql(instance.valueFromFunction),
     };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}
 
 const _$GreekEnumMap = {
   Greek.alpha: 'alpha',

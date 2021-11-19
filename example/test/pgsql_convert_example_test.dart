@@ -82,8 +82,8 @@ void main() {
       _throwsTypeError,
     );
 
-    final collection2 =
-        GenericCollection.fromPgSql(pgsqlDecode(encoded) as Map<String, dynamic>);
+    final collection2 = GenericCollection.fromPgSql(
+        pgsqlDecode(encoded) as Map<String, dynamic>);
 
     expect(collection2.results, [
       1,
@@ -102,4 +102,4 @@ void main() {
 final _throwsTypeError = throwsA(isA<TypeError>());
 
 String _encode(Object object) =>
-    const PgSqlEncoder.withIndent(' ').convert(object);
+    const JsonEncoder.withIndent(' ').convert(object);

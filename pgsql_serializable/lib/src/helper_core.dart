@@ -6,6 +6,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:meta/meta.dart';
 import 'package:source_gen/source_gen.dart';
+import 'package:source_helper/source_helper.dart';
 
 import 'constants.dart';
 import 'pgsql_key_utils.dart';
@@ -37,7 +38,7 @@ abstract class HelperCore {
       escapeDartString(nameAccess(field));
 
   @protected
-  String get prefix => '_\$${element.name}';
+  String get prefix => '_\$${element.name.nonPrivate}';
 
   /// Returns a [String] representing the type arguments that exist on
   /// [element].
@@ -65,7 +66,8 @@ InvalidGenerationSourceError createInvalidGenerationError(
   String? todo;
   if (error.type is TypeParameterType) {
     message = '$message because of type '
-        '`${error.type.getDisplayString(withNullability: false)}` (type parameter)';
+        '`${error.type.getDisplayString(withNullability: false)}` '
+        '(type parameter)';
 
     todo = '''
 To support type parameters (generic types) you can:
@@ -125,29 +127,4 @@ String genericClassArguments(ClassElement element, bool? withConstraints) {
     }
   }).join(', ');
   return '<$values>';
-}
-
-/// Return the Dart code presentation for the given [type].
-///
-/// This function is intentionally limited, and does not support all possible
-/// types and locations of these files in code. Specifically, it supports
-/// only [InterfaceType]s, with optional type arguments that are also should
-/// be [InterfaceType]s.
-String typeToCode(
-  DartType type, {
-  bool forceNullable = false,
-}) {
-  if (type.isDynamic) {
-    return 'dynamic';
-  } else if (type is InterfaceType) {
-    final typeArguments = type.typeArguments;
-    if (typeArguments.isEmpty) {
-      final nullablePostfix = (type.isNullableType || forceNullable) ? '?' : '';
-      return '${type.element.name}$nullablePostfix';
-    } else {
-      final typeArgumentsCode = typeArguments.map(typeToCode).join(', ');
-      return '${type.element.name}<$typeArgumentsCode>';
-    }
-  }
-  throw UnimplementedError('(${type.runtimeType}) $type');
 }

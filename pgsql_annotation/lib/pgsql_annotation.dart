@@ -12,7 +12,9 @@ library pgsql_annotation;
 
 export 'src/allowed_keys_helpers.dart';
 export 'src/checked_helpers.dart';
+export 'src/enum_helpers.dart';
 export 'src/pgsql_converter.dart';
+export 'src/pgsql_enum.dart';
 export 'src/pgsql_key.dart';
 export 'src/pgsql_literal.dart';
 export 'src/pgsql_serializable.dart';
