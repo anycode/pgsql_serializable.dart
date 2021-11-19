@@ -16,7 +16,11 @@ dependencies:
   # Use a tight version constraint to ensure that a constraint on
   # `pgsql_annotation` properly constrains all features it provides.
   pgsql_annotation: #'>=4.2.0 <4.3.0'
-    path: ../pgsql_annotation
+    #path: ../pgsql_annotation
+    git:
+      url: git@github.com:anycode/pgsql_serializable.dart.git
+      ref: pgsql_annotation-v4.2.0
+      path: pgsql_annotation
   meta: ^1.3.0
   path: ^1.8.0
   source_gen: ^1.0.0
