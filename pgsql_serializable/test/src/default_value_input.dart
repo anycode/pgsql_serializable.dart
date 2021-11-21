@@ -156,6 +156,27 @@ class CtorDefaultValueAndPgSqlKeyDefaultValue {
   CtorDefaultValueAndPgSqlKeyDefaultValue([this.theField = 6]);
 }
 
+@ShouldGenerate(
+  r'''
+SameCtorAndPgSqlKeyDefaultValue _$SameCtorAndPgSqlKeyDefaultValueFromPgSql(
+        Map<String, dynamic> pgsql) =>
+    SameCtorAndPgSqlKeyDefaultValue(
+      pgsql['theField'] as int? ?? 3,
+    );
+''',
+  expectedLogItems: [
+    'The default value `3` for `theField` is defined twice '
+        'in the constructor and in the `PgSqlKey.defaultValue`.',
+  ],
+)
+@PgSqlSerializable(createToPgSql: false)
+class SameCtorAndPgSqlKeyDefaultValue {
+  @PgSqlKey(defaultValue: 3)
+  final int theField;
+
+  SameCtorAndPgSqlKeyDefaultValue([this.theField = 3]);
+}
+
 @ShouldGenerate(r'''
 DefaultDoubleConstants _$DefaultDoubleConstantsFromPgSql(
         Map<String, dynamic> pgsql) =>

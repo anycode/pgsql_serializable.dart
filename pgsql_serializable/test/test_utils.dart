@@ -30,7 +30,7 @@ void validateRoundTrip<T>(
   expect(pgsql2, equals(data));
 }
 
-/// Prints out nested causes before throwing `PgSqlUnsupportedObjectError`.
+/// Prints out nested causes before throwing `JsonUnsupportedObjectError`.
 String loudEncode(Object? object) {
   try {
     return const JsonEncoder.withIndent(' ').convert(object);

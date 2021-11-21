@@ -67,16 +67,6 @@ class UnknownEnumValueWrongEnumType {
 }
 
 @ShouldThrow(
-  'Error with `@PgSqlKey` on the `value` field. The value provided '
-  'for `unknownEnumValue` must be a matching enum.',
-)
-@PgSqlSerializable()
-class UnknownEnumValueNotEnumValue {
-  @PgSqlKey(unknownEnumValue: 'not enum value')
-  UnknownEnumValueItems? value;
-}
-
-@ShouldThrow(
   'Error with `@PgSqlKey` on the `value` field. `unknownEnumValue` can only be '
   'set on fields of type enum or on Iterable, List, or Set instances of an '
   'enum type.',
@@ -85,24 +75,4 @@ class UnknownEnumValueNotEnumValue {
 class UnknownEnumValueNotEnumField {
   @PgSqlKey(unknownEnumValue: UnknownEnumValueItems.vUnknown)
   int? value;
-}
-
-@ShouldThrow(
-  '`PgSqlKey.nullForUndefinedEnumValue` cannot be used with '
-  '`PgSqlKey.unknownEnumValue` unless the field is nullable.',
-)
-@PgSqlSerializable()
-class NullForUndefinedEnumValueOnNonNullableField {
-  @PgSqlKey(unknownEnumValue: PgSqlKey.nullForUndefinedEnumValue)
-  late UnknownEnumValueItems value;
-}
-
-@ShouldThrow(
-  'Error with `@PgSqlKey` on the `value` field. `unknownEnumValue` is '
-  '`PgSqlSerializable`, it must be a literal.',
-)
-@PgSqlSerializable()
-class WeirdValueForUnknownEnumValue {
-  @PgSqlKey(unknownEnumValue: PgSqlSerializable())
-  late UnknownEnumValueItems value;
 }

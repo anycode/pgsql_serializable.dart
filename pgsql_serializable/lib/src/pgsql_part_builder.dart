@@ -6,6 +6,7 @@ import 'package:build/build.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
+import 'check_dependencies.dart';
 import 'pgsql_enum_generator.dart';
 import 'pgsql_literal_generator.dart';
 import 'pgsql_serializable_generator.dart';
@@ -56,6 +57,8 @@ class _UnifiedGenerator extends Generator {
     for (var generator in _generators) {
       for (var annotatedElement
           in library.annotatedWith(generator.typeChecker)) {
+        await pubspecHasRightVersion(buildStep);
+
         final generatedValue = generator.generateForAnnotatedElement(
             annotatedElement.element, annotatedElement.annotation, buildStep);
         for (var value in _normalizeGeneratorOutput(generatedValue)) {

@@ -94,8 +94,8 @@ class PgSqlKey {
   ///
   /// If you want to use the value `null` when encountering an unknown value,
   /// use the value of [PgSqlKey.nullForUndefinedEnumValue] instead. This is only
-  /// valid on an nullable enum field.
-  final Object? unknownEnumValue;
+  /// valid on a nullable enum field.
+  final Enum? unknownEnumValue;
 
   /// Creates a new [PgSqlKey] instance.
   ///
@@ -116,6 +116,7 @@ class PgSqlKey {
   /// Sentinel value for use with [unknownEnumValue].
   ///
   /// Read the documentation on [unknownEnumValue] for more details.
-  static const Object nullForUndefinedEnumValue =
-      r'PgSqlKey.nullForUndefinedEnumValue';
+  static const Enum nullForUndefinedEnumValue = _NullAsDefault.value;
 }
+
+enum _NullAsDefault { value }

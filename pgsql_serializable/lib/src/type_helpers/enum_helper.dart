@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/element/type.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
@@ -48,19 +47,12 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     final pgsqlKey = pgsqlKeyForField(context.fieldElement, context.config);
 
-    if (pgsqlKey.defaultValue == "'${PgSqlKey.nullForUndefinedEnumValue}'") {
-      throw InvalidGenerationSourceError(
-        '`${PgSqlKey.nullForUndefinedEnumValue}` cannot be used with '
-        '`PgSqlKey.defaultValue`.',
-        element: context.fieldElement,
-      );
-    }
-
     if (!targetType.isNullableType &&
-        pgsqlKey.unknownEnumValue == PgSqlKey.nullForUndefinedEnumValue) {
+        pgsqlKey.unknownEnumValue ==
+            pgsqlKeyNullForUndefinedEnumValueFieldName) {
       // If the target is not nullable,
       throw InvalidGenerationSourceError(
-        '`${PgSqlKey.nullForUndefinedEnumValue}` cannot be used with '
+        '`$pgsqlKeyNullForUndefinedEnumValueFieldName` cannot be used with '
         '`PgSqlKey.unknownEnumValue` unless the field is nullable.',
         element: context.fieldElement,
       );

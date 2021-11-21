@@ -126,10 +126,11 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   /// [fieldName] is not an `enum` value.
   String? _annotationValue(String fieldName, {bool mustBeEnum = false}) {
     final annotationValue = obj.read(fieldName);
+    late final DartType annotationType;
 
     final enumFields = annotationValue.isNull
         ? null
-        : iterateEnumFields(annotationValue.objectValue.type!);
+        : iterateEnumFields(annotationType = annotationValue.objectValue.type!);
     if (enumFields != null) {
       if (mustBeEnum) {
         late DartType targetEnumType;
@@ -144,16 +145,26 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
             'Iterable, List, or Set instances of an enum type.',
           );
         }
-        final annotatedEnumType = annotationValue.objectValue.type!;
-        if (!_interfaceTypesEqual(annotatedEnumType, targetEnumType)) {
+
+        if (_nullAsUnknownChecker.isExactlyType(annotationType)) {
+          return pgsqlKeyNullForUndefinedEnumValueFieldName;
+        } else if (!_interfaceTypesEqual(annotationType, targetEnumType)) {
           throwUnsupported(
             element,
             '`$fieldName` has type '
             '`${targetEnumType.getDisplayString(withNullability: false)}`, but '
             'the provided unknownEnumValue is of type '
-            '`${annotatedEnumType.getDisplayString(withNullability: false)}`.',
+            '`${annotationType.getDisplayString(withNullability: false)}`.',
           );
         }
+      }
+
+      if (_nullAsUnknownChecker.isExactlyType(annotationType)) {
+        throw InvalidGenerationSourceError(
+          '`$pgsqlKeyNullForUndefinedEnumValueFieldName` cannot be used with '
+          '`PgSqlKey.defaultValue`.',
+          element: element,
+        );
       }
 
       final enumValueNames =
@@ -162,7 +173,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
       final enumValueName = enumValueForDartObject<String>(
           annotationValue.objectValue, enumValueNames, (n) => n);
 
-      return '${annotationValue.objectValue.type!.element!.name}'
+      return '${annotationType.element!.name}'
           '.$enumValueName';
     } else {
       final defaultValueLiteral = annotationValue.isNull
@@ -172,9 +183,6 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
         return null;
       }
       if (mustBeEnum) {
-        if (defaultValueLiteral == PgSqlKey.nullForUndefinedEnumValue) {
-          return defaultValueLiteral as String;
-        }
         throwUnsupported(
           element,
           'The value provided for `$fieldName` must be a matching enum.',
@@ -186,12 +194,19 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
 
   final defaultValue = _annotationValue('defaultValue');
   if (defaultValue != null && ctorParamDefault != null) {
-    log.warning(
-      'The constructor parameter for `${element.name}` has a default value '
-      '`$ctorParamDefault`, but the `PgSqlKey.defaultValue` value '
-      '`$defaultValue` will be used for missing or `null` values in JSON '
-      'decoding.',
-    );
+    if (defaultValue == ctorParamDefault) {
+      log.info(
+        'The default value `$defaultValue` for `${element.name}` is defined '
+        'twice in the constructor and in the `PgSqlKey.defaultValue`.',
+      );
+    } else {
+      log.warning(
+        'The constructor parameter for `${element.name}` has a default value '
+        '`$ctorParamDefault`, but the `PgSqlKey.defaultValue` value '
+        '`$defaultValue` will be used for missing or `null` values in JSON '
+        'decoding.',
+      );
+    }
   }
 
   return _populatePgSqlKey(
@@ -258,3 +273,9 @@ bool _interfaceTypesEqual(DartType a, DartType b) {
   }
   return a == b;
 }
+
+const pgsqlKeyNullForUndefinedEnumValueFieldName =
+    'PgSqlKey.nullForUndefinedEnumValue';
+
+final _nullAsUnknownChecker =
+    TypeChecker.fromRuntime(PgSqlKey.nullForUndefinedEnumValue.runtimeType);
