@@ -18,8 +18,7 @@ Config _$ConfigFromPgSql(Map pgsql) => $checkedCreate(
           builders: $checkedConvert(
               'builders',
               (v) => (v as Map).map(
-                    (k, e) =>
-                        MapEntry(k as String, Builder.fromPgSql(e as Map)),
+                    (k, e) => MapEntry(k as String, Builder.fromPgSql(e as Map)),
                   )),
         );
         $checkedConvert(

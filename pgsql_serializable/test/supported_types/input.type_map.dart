@@ -84,8 +84,7 @@ class SimpleClassOfDateTimeToBigInt {
   factory SimpleClassOfDateTimeToBigInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToBigIntFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDateTimeToBigIntToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDateTimeToBigIntToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -145,8 +144,7 @@ class SimpleClassOfEnumTypeToBigInt {
   factory SimpleClassOfEnumTypeToBigInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToBigIntFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfEnumTypeToBigIntToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfEnumTypeToBigIntToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -683,12 +681,10 @@ class SimpleClassNullableOfIntToBool {
     this.value,
   );
 
-  factory SimpleClassNullableOfIntToBool.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassNullableOfIntToBool.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfIntToBoolFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfIntToBoolToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfIntToBoolToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -773,12 +769,10 @@ class SimpleClassNullableOfUriToBool {
     this.value,
   );
 
-  factory SimpleClassNullableOfUriToBool.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassNullableOfUriToBool.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfUriToBoolFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfUriToBoolToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfUriToBoolToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -917,12 +911,10 @@ class SimpleClassOfIntToBoolNullable {
     this.value,
   );
 
-  factory SimpleClassOfIntToBoolNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfIntToBoolNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfIntToBoolNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfIntToBoolNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfIntToBoolNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -1013,12 +1005,10 @@ class SimpleClassOfUriToBoolNullable {
     this.value,
   );
 
-  factory SimpleClassOfUriToBoolNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfUriToBoolNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfUriToBoolNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfUriToBoolNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfUriToBoolNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -1048,8 +1038,7 @@ class SimpleClassOfBigIntToDateTime {
   factory SimpleClassOfBigIntToDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfBigIntToDateTimeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfBigIntToDateTimeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfBigIntToDateTimeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -1076,8 +1065,7 @@ class SimpleClassOfDateTimeToDateTime {
     this.value,
   );
 
-  factory SimpleClassOfDateTimeToDateTime.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfDateTimeToDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToDateTimeFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
@@ -1108,12 +1096,10 @@ class SimpleClassOfDynamicToDateTime {
     this.value,
   );
 
-  factory SimpleClassOfDynamicToDateTime.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfDynamicToDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDynamicToDateTimeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDynamicToDateTimeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDynamicToDateTimeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -1140,8 +1126,7 @@ class SimpleClassOfEnumTypeToDateTime {
     this.value,
   );
 
-  factory SimpleClassOfEnumTypeToDateTime.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfEnumTypeToDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToDateTimeFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
@@ -1205,8 +1190,7 @@ class SimpleClassOfObjectToDateTime {
   factory SimpleClassOfObjectToDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfObjectToDateTimeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfObjectToDateTimeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfObjectToDateTimeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -1236,8 +1220,7 @@ class SimpleClassOfStringToDateTime {
   factory SimpleClassOfStringToDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfStringToDateTimeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfStringToDateTimeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfStringToDateTimeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -1583,8 +1566,7 @@ class SimpleClassOfDateTimeToDouble {
   factory SimpleClassOfDateTimeToDouble.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToDoubleFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDateTimeToDoubleToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDateTimeToDoubleToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -1644,8 +1626,7 @@ class SimpleClassOfEnumTypeToDouble {
   factory SimpleClassOfEnumTypeToDouble.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToDoubleFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfEnumTypeToDoubleToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfEnumTypeToDoubleToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2051,8 +2032,7 @@ class SimpleClassOfBigIntToDuration {
   factory SimpleClassOfBigIntToDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfBigIntToDurationFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfBigIntToDurationToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfBigIntToDurationToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2079,8 +2059,7 @@ class SimpleClassOfDateTimeToDuration {
     this.value,
   );
 
-  factory SimpleClassOfDateTimeToDuration.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfDateTimeToDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToDurationFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
@@ -2111,12 +2090,10 @@ class SimpleClassOfDynamicToDuration {
     this.value,
   );
 
-  factory SimpleClassOfDynamicToDuration.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfDynamicToDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDynamicToDurationFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDynamicToDurationToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDynamicToDurationToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2143,8 +2120,7 @@ class SimpleClassOfEnumTypeToDuration {
     this.value,
   );
 
-  factory SimpleClassOfEnumTypeToDuration.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfEnumTypeToDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToDurationFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
@@ -2208,8 +2184,7 @@ class SimpleClassOfObjectToDuration {
   factory SimpleClassOfObjectToDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfObjectToDurationFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfObjectToDurationToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfObjectToDurationToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2239,8 +2214,7 @@ class SimpleClassOfStringToDuration {
   factory SimpleClassOfStringToDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfStringToDurationFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfStringToDurationToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfStringToDurationToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2583,12 +2557,10 @@ class SimpleClassOfDateTimeToDynamic {
     this.value,
   );
 
-  factory SimpleClassOfDateTimeToDynamic.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfDateTimeToDynamic.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToDynamicFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDateTimeToDynamicToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDateTimeToDynamicToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2618,8 +2590,7 @@ class SimpleClassOfDynamicToDynamic {
   factory SimpleClassOfDynamicToDynamic.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDynamicToDynamicFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDynamicToDynamicToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDynamicToDynamicToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2646,12 +2617,10 @@ class SimpleClassOfEnumTypeToDynamic {
     this.value,
   );
 
-  factory SimpleClassOfEnumTypeToDynamic.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfEnumTypeToDynamic.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToDynamicFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfEnumTypeToDynamicToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfEnumTypeToDynamicToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2801,8 +2770,7 @@ class SimpleClassOfBigIntToEnumType {
   factory SimpleClassOfBigIntToEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfBigIntToEnumTypeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfBigIntToEnumTypeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfBigIntToEnumTypeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2829,8 +2797,7 @@ class SimpleClassOfDateTimeToEnumType {
     this.value,
   );
 
-  factory SimpleClassOfDateTimeToEnumType.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfDateTimeToEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToEnumTypeFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
@@ -2861,12 +2828,10 @@ class SimpleClassOfDynamicToEnumType {
     this.value,
   );
 
-  factory SimpleClassOfDynamicToEnumType.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfDynamicToEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDynamicToEnumTypeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDynamicToEnumTypeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDynamicToEnumTypeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2893,8 +2858,7 @@ class SimpleClassOfEnumTypeToEnumType {
     this.value,
   );
 
-  factory SimpleClassOfEnumTypeToEnumType.fromPgSql(
-          Map<String, Object?> pgsql) =>
+  factory SimpleClassOfEnumTypeToEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToEnumTypeFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
@@ -2958,8 +2922,7 @@ class SimpleClassOfObjectToEnumType {
   factory SimpleClassOfObjectToEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfObjectToEnumTypeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfObjectToEnumTypeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfObjectToEnumTypeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -2989,8 +2952,7 @@ class SimpleClassOfStringToEnumType {
   factory SimpleClassOfStringToEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfStringToEnumTypeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfStringToEnumTypeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfStringToEnumTypeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -3440,8 +3402,7 @@ class SimpleClassNullableOfIntToInt {
   factory SimpleClassNullableOfIntToInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfIntToIntFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfIntToIntToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfIntToIntToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -3529,8 +3490,7 @@ class SimpleClassNullableOfUriToInt {
   factory SimpleClassNullableOfUriToInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfUriToIntFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfUriToIntToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfUriToIntToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -3672,8 +3632,7 @@ class SimpleClassOfIntToIntNullable {
   factory SimpleClassOfIntToIntNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfIntToIntNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfIntToIntNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfIntToIntNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -3767,8 +3726,7 @@ class SimpleClassOfUriToIntNullable {
   factory SimpleClassOfUriToIntNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfUriToIntNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfUriToIntNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfUriToIntNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -3932,8 +3890,7 @@ class SimpleClassNullableOfIntToNum {
   factory SimpleClassNullableOfIntToNum.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfIntToNumFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfIntToNumToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfIntToNumToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -4021,8 +3978,7 @@ class SimpleClassNullableOfUriToNum {
   factory SimpleClassNullableOfUriToNum.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfUriToNumFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfUriToNumToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfUriToNumToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -4164,8 +4120,7 @@ class SimpleClassOfIntToNumNullable {
   factory SimpleClassOfIntToNumNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfIntToNumNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfIntToNumNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfIntToNumNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -4259,8 +4214,7 @@ class SimpleClassOfUriToNumNullable {
   factory SimpleClassOfUriToNumNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfUriToNumNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfUriToNumNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfUriToNumNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -4320,8 +4274,7 @@ class SimpleClassOfDateTimeToObject {
   factory SimpleClassOfDateTimeToObject.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToObjectFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDateTimeToObjectToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDateTimeToObjectToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -4381,8 +4334,7 @@ class SimpleClassOfEnumTypeToObject {
   factory SimpleClassOfEnumTypeToObject.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToObjectFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfEnumTypeToObjectToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfEnumTypeToObjectToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -4818,8 +4770,7 @@ class SimpleClassOfDateTimeToString {
   factory SimpleClassOfDateTimeToString.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeToStringFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDateTimeToStringToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDateTimeToStringToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -4879,8 +4830,7 @@ class SimpleClassOfEnumTypeToString {
   factory SimpleClassOfEnumTypeToString.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeToStringFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfEnumTypeToStringToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfEnumTypeToStringToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -5420,8 +5370,7 @@ class SimpleClassNullableOfIntToUri {
   factory SimpleClassNullableOfIntToUri.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfIntToUriFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfIntToUriToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfIntToUriToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -5509,8 +5458,7 @@ class SimpleClassNullableOfUriToUri {
   factory SimpleClassNullableOfUriToUri.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfUriToUriFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfUriToUriToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfUriToUriToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -5652,8 +5600,7 @@ class SimpleClassOfIntToUriNullable {
   factory SimpleClassOfIntToUriNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfIntToUriNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfIntToUriNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfIntToUriNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -5747,8 +5694,7 @@ class SimpleClassOfUriToUriNullable {
   factory SimpleClassOfUriToUriNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfUriToUriNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfUriToUriNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfUriToUriNullableToPgSql(this);
 }
 
 @PgSqlSerializable()

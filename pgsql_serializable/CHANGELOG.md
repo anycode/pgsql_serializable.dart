@@ -1,18 +1,39 @@
+## 6.1.3
+
+- Allow latest `package:analyzer`.
+
+## 6.1.2
+
+- Fix issue with nested generics and `genericArgumentFactories: true`.
+  ([#1047](https://github.com/google/json_serializable.dart/issues/1047))
+
+## 6.1.1
+
+- Fix `JsonKey.readValue` support to allow static functions.
+
+## 6.1.0
+
+- Support `JsonKey.readValue` to allow customized reading of values from source
+  JSON map objects.
+- The check to make sure there is a correctly constrained dependency on
+  `package:json_annotation` is now a warning and doesn't fail the build.
+- Require `json_annotation` `'>=4.4.0 <4.5.0'`.
+
 ## 6.0.1
 
 - Don't require `json_annotation` in `dependencies` if it's just used in tests.
 
 ## 6.0.0
 
-- Added support for `JsonSerializable.constructor` to allow specifying an 
+- Added support for `JsonSerializable.constructor` to allow specifying an
   alternative constructor to invoke when creating a `fromJson` helper.
 - Support the new `@JsonEnum` annotation in `package:json_annotation`.
 - Support `JsonKey.nullForUndefinedEnumValue` as a value for
   `JsonKey.unknownEnumValue` when you want to use `null` as the unknown value.
 - Use the new `$enumDecodeNullable` and `$enumDecode` in `json_annotation'
-  instead of generating these for each library.
-  **NOTE**: This is a potential breaking change if any user code relies on
-  the previously generated private functions.
+  instead of generating these for each library. **NOTE**: This is a potential
+  breaking change if any user code relies on the previously generated private
+  functions.
 - The builder now checks to make sure there is a correctly constrained
   dependency on `package:json_annotation`.
 - Require Dart SDK `>=2.14.0`.
@@ -20,8 +41,8 @@
 
 ## 5.0.2
 
-- Include type arguments when invoking `fromJson` on custom types.
-  This fixes an edge case where the generic arguments could not be inferred.
+- Include type arguments when invoking `fromJson` on custom types. This fixes an
+  edge case where the generic arguments could not be inferred.
 
 ## 5.0.1
 
@@ -176,7 +197,7 @@
 
 ## 3.2.3
 
-- Bug fix for analyzer 0.38.5.
+- Fixed bug related to `package:analyzer` 0.38.5.
 
 ## 3.2.2
 
@@ -265,12 +286,12 @@ future feature work.
 ## 2.0.3
 
 - When invoking a `fromJson` constructor on a field type, generate a conversion
-  expression derived from the the constructor parameter type.
+  expression derived from the constructor parameter type.
 
 - Be more strict about the supported `List`, `Set`, or `Map` types. This may
-  causes errors to be raised in cases where invalid code was generated before.
-  It also allows implementations of these types to add a `fromJson` constructor
-  to support custom decoding.
+  cause errors to be raised in cases where invalid code was generated before. It
+  also allows implementations of these types to add a `fromJson` constructor to
+  support custom decoding.
 
 - Small change to the whitespace around converted maps to improve a very slow
   path when formatting generated code.
@@ -313,8 +334,7 @@ future feature work.
 
   - **BREAKING** `JsonSerializableGenerator` now exposes a `config` property of
     type `JsonSerializable` instead of individual properties for `checked`,
-    `anyMay`, etc. This will affect anyone creating or using this class via
-    code.
+    `anyMay`, etc. This will affect creating or using this class via code.
 
 - `type_helper.dart`
 
@@ -445,7 +465,7 @@ future feature work.
 - Added `JsonKey.disallowNullValue`.
 
   - When `true`, generated code throws a `DisallowedNullValueException` if the
-    corresponding keys exist in in the JSON map, but it's value is null.
+    corresponding keys exist in the JSON map, but its value is `null`.
   - Will be captured and wrapped in a `CheckedFromJsonException` if `checked` is
     enabled in `json_serializable`.
 
@@ -635,7 +655,7 @@ future feature work.
 - Moved the annotations in `annotations.dart` to `package:json_annotations`.
 
   - Allows package authors to release code that has the corresponding
-    annotations without requiring package users to inherit all of the transitive
+    annotations without requiring package users to inherit all the transitive
     dependencies.
 
 - Deprecated `annotations.dart`.
@@ -681,7 +701,7 @@ future feature work.
     and related helpers which allow custom generation for specific types.
 
 - **BREAKING** Generation fails for types that are not a JSON primitive or that
-  do not explicitly supports JSON serialization.
+  do not explicitly support JSON serialization.
 
 - **BREAKING** `TypeHelper`:
 

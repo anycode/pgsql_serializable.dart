@@ -14,7 +14,11 @@ KitchenSink _$KitchenSinkFromPgSql(Map pgsql) => $checkedCreate(
       ($checkedConvert) {
         final val = KitchenSink(
           ctorValidatedNo42: $checkedConvert('no-42', (v) => v as int?),
-          iterable: $checkedConvert('iterable', (v) => v as List<dynamic>?),
+          iterable: $checkedConvert(
+            'iterable',
+            (v) => v as List<dynamic>?,
+            readValue: _valueAccessor,
+          ),
           dynamicIterable:
               $checkedConvert('dynamicIterable', (v) => v as List<dynamic>?),
           objectIterable: $checkedConvert('objectIterable',
@@ -106,7 +110,11 @@ KitchenSink _$KitchenSinkFromPgSql(Map pgsql) => $checkedCreate(
         $checkedConvert(
             'val', (v) => val.val = Map<String, bool>.from(v as Map));
         $checkedConvert('writeNotNull', (v) => val.writeNotNull = v as bool?);
-        $checkedConvert(r'$string', (v) => val.string = v as String?);
+        $checkedConvert(
+          r'$string',
+          (v) => val.string = v as String?,
+          readValue: KitchenSink._trickyValueAccessor,
+        );
         $checkedConvert('simpleObject',
             (v) => val.simpleObject = SimpleObject.fromPgSql(v as Map));
         $checkedConvert('strictKeysObject',
@@ -229,15 +237,13 @@ PgSqlConverterGeneric<S, T, U> _$PgSqlConverterGenericFromPgSql<S, T, U>(
       pgsql,
       ($checkedConvert) {
         final val = PgSqlConverterGeneric<S, T, U>(
-          $checkedConvert(
-              'item',
-              (v) =>
-                  GenericConverter<S>().fromPgSql(v as Map<String, dynamic>)),
+          $checkedConvert('item',
+              (v) => GenericConverter<S>().fromPgSql(v as Map<String, dynamic>)),
           $checkedConvert(
               'itemList',
               (v) => (v as List<dynamic>)
-                  .map((e) => GenericConverter<T>()
-                      .fromPgSql(e as Map<String, dynamic>))
+                  .map((e) =>
+                      GenericConverter<T>().fromPgSql(e as Map<String, dynamic>))
                   .toList()),
           $checkedConvert(
               'itemMap',

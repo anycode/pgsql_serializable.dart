@@ -561,3 +561,21 @@ class ExtraParamToPgSql {
 
   Map<String, dynamic> toPgSql(int bob) => throw UnimplementedError();
 }
+
+@ShouldGenerate(r'''
+Map<String, dynamic> _$Issue1038RegressionTestToPgSql(
+        Issue1038RegressionTest instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'ean': instance.ean,
+    };
+''')
+@PgSqlSerializable(createFactory: false)
+class Issue1038RegressionTest {
+  final String? id;
+  final String? ean;
+
+  Issue1038RegressionTest.id(this.id) : ean = null;
+
+  Issue1038RegressionTest.ean(this.ean) : id = null;
+}

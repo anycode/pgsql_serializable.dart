@@ -13,7 +13,7 @@ done
 find . -name '*.dart' -o -name '*.yaml' | \
 while read file
 do
-	perl -pi'*.orig' -e "s/json/pgsql/g;" -e "s/Json/PgSql/g;" $file
+	perl -pi'*.orig' -e "s/json/pgsql/g;" -e "s/Json/PgSql/g;" -e "s/JSON/PgSQL/g;" $file
 	perl -pi -e "s/pgsql.decode/json.decode/g;" -e "s/pgsql.encode/json.encode/g;" $file
 	perl -pi -e "s/PgSqlDecode/JsonDecode/g;" -e "s/PgSqlEncode/JsonEncode/g;" $file
 	perl -pi -e "s/pgsqlDecode/jsonDecode/g;" -e "s/pgsqlEncode/jsonEncode/g;" $file

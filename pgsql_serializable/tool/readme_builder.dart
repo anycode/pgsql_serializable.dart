@@ -162,8 +162,7 @@ extension on BuildStep {
         loadYaml(lockFileContent, sourceUrl: lockFileAssetId.uri) as YamlMap;
     final pkgMap = lockFileYaml['packages'] as YamlMap;
     final pgsqlAnnotationMap = pkgMap['pgsql_annotation'] as YamlMap;
-    final pgsqlAnnotationVersionString =
-        pgsqlAnnotationMap['version'] as String;
+    final pgsqlAnnotationVersionString = pgsqlAnnotationMap['version'] as String;
 
     final pgsqlAnnotationVersion =
         Version.parse(pgsqlAnnotationVersionString.trim());

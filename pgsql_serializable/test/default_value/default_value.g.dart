@@ -8,8 +8,7 @@ part of 'default_value.dart';
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-DefaultValue _$DefaultValueFromPgSql(Map<String, dynamic> pgsql) =>
-    DefaultValue(
+DefaultValue _$DefaultValueFromPgSql(Map<String, dynamic> pgsql) => DefaultValue(
       pgsql['fieldBool'] as bool? ?? true,
       pgsql['fieldString'] as String? ?? 'string',
       pgsql['fieldInt'] as int? ?? 42,

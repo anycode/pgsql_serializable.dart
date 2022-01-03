@@ -17,8 +17,8 @@ import 'package:test_process/test_process.dart';
 
 void main() {
   test('validate pubspec constraint', () {
-    final annotationConstraint = _pgsqlSerialPubspec
-        .dependencies['pgsql_annotation'] as HostedDependency;
+    final annotationConstraint =
+        _pgsqlSerialPubspec.dependencies['pgsql_annotation'] as HostedDependency;
     final versionRange = annotationConstraint.version as VersionRange;
 
     expect(versionRange.includeMin, isTrue);
@@ -172,10 +172,8 @@ class SomeClass{}
   }
 
   expect(lines.toString(), contains('''
-[SEVERE] pgsql_serializable:pgsql_serializable on $sourceDirectory/sample.dart:
+[WARNING] pgsql_serializable:pgsql_serializable on $sourceDirectory/sample.dart:
+$message'''));
 
-$message
-'''));
-
-  await proc.shouldExit(1);
+  await proc.shouldExit(0);
 }

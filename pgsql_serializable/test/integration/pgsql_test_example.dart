@@ -30,8 +30,7 @@ class Person {
   Person(this.firstName, this.lastName, this.house,
       {this.middleName, this.dateOfBirth});
 
-  factory Person.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PersonFromPgSql(pgsql);
+  factory Person.fromPgSql(Map<String, dynamic> pgsql) => _$PersonFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$PersonToPgSql(this);
 
@@ -86,8 +85,7 @@ class Order {
       : items = UnmodifiableListView<Item>(
             List<Item>.unmodifiable(items ?? const <Item>[]));
 
-  factory Order.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$OrderFromPgSql(pgsql);
+  factory Order.fromPgSql(Map<String, dynamic> pgsql) => _$OrderFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$OrderToPgSql(this);
 

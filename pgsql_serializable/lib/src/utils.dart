@@ -50,8 +50,7 @@ T enumValueForDartObject<T>(
 /// Return an instance of [PgSqlSerializable] corresponding to a the provided
 /// [reader].
 // #CHANGE WHEN UPDATING pgsql_annotation
-PgSqlSerializable _valueForAnnotation(ConstantReader reader) =>
-    PgSqlSerializable(
+PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializable(
       anyMap: reader.read('anyMap').literalValue as bool?,
       checked: reader.read('checked').literalValue as bool?,
       constructor: reader.read('constructor').literalValue as String?,
@@ -85,10 +84,12 @@ ClassConfig mergeConfig(
   assert(config.ctorParamDefaults.isEmpty);
 
   final constructor = annotation.constructor ?? config.constructor;
-  final constructorInstance = constructorByName(classElement, constructor);
+  final constructorInstance =
+      _constructorByNameOrNull(classElement, constructor);
 
-  final paramDefaultValueMap = Map<String, String>.fromEntries(
-      constructorInstance.parameters
+  final paramDefaultValueMap = constructorInstance == null
+      ? <String, String>{}
+      : Map<String, String>.fromEntries(constructorInstance.parameters
           .where((element) => element.hasDefaultValue)
           .map((e) => MapEntry(e.name, e.defaultValueCode!)));
 
@@ -109,6 +110,18 @@ ClassConfig mergeConfig(
     includeIfNull: annotation.includeIfNull ?? config.includeIfNull,
     ctorParamDefaults: paramDefaultValueMap,
   );
+}
+
+ConstructorElement? _constructorByNameOrNull(
+  ClassElement classElement,
+  String name,
+) {
+  try {
+    return constructorByName(classElement, name);
+    // ignore: avoid_catching_errors
+  } on InvalidGenerationSourceError {
+    return null;
+  }
 }
 
 ConstructorElement constructorByName(ClassElement classElement, String name) {
@@ -192,5 +205,27 @@ String typeToCode(
       (type.isNullableType || forceNullable) ? '?' : '',
     ].join();
   }
+
+  if (type is TypeParameterType) {
+    return type.getDisplayString(withNullability: false);
+  }
   throw UnimplementedError('(${type.runtimeType}) $type');
+}
+
+extension ExecutableElementExtension on ExecutableElement {
+  /// Returns the name of `this` qualified with the class name if it's a
+  /// [MethodElement].
+  String get qualifiedName {
+    if (this is FunctionElement) {
+      return name;
+    }
+
+    if (this is MethodElement) {
+      return '${enclosingElement.name}.$name';
+    }
+
+    throw UnsupportedError(
+      'Not sure how to support typeof $runtimeType',
+    );
+  }
 }

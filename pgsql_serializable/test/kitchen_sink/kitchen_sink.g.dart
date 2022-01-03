@@ -10,7 +10,7 @@ part of 'kitchen_sink.dart';
 
 KitchenSink _$KitchenSinkFromPgSql(Map<String, dynamic> pgsql) => KitchenSink(
       ctorValidatedNo42: pgsql['no-42'] as int?,
-      iterable: pgsql['iterable'] as List<dynamic>?,
+      iterable: _valueAccessor(pgsql, 'iterable') as List<dynamic>?,
       dynamicIterable: pgsql['dynamicIterable'] as List<dynamic>?,
       objectIterable:
           (pgsql['objectIterable'] as List<dynamic>?)?.map((e) => e as Object),
@@ -22,9 +22,8 @@ KitchenSink _$KitchenSinkFromPgSql(Map<String, dynamic> pgsql) => KitchenSink(
       ..dateTime = pgsql['dateTime'] == null
           ? null
           : DateTime.parse(pgsql['dateTime'] as String)
-      ..bigInt = pgsql['bigInt'] == null
-          ? null
-          : BigInt.parse(pgsql['bigInt'] as String)
+      ..bigInt =
+          pgsql['bigInt'] == null ? null : BigInt.parse(pgsql['bigInt'] as String)
       ..set = (pgsql['set'] as List<dynamic>).toSet()
       ..dynamicSet = (pgsql['dynamicSet'] as List<dynamic>).toSet()
       ..objectSet =
@@ -35,9 +34,8 @@ KitchenSink _$KitchenSinkFromPgSql(Map<String, dynamic> pgsql) => KitchenSink(
           .toSet()
       ..list = pgsql['list'] as List<dynamic>
       ..dynamicList = pgsql['dynamicList'] as List<dynamic>
-      ..objectList = (pgsql['objectList'] as List<dynamic>)
-          .map((e) => e as Object)
-          .toList()
+      ..objectList =
+          (pgsql['objectList'] as List<dynamic>).map((e) => e as Object).toList()
       ..intList =
           (pgsql['intList'] as List<dynamic>).map((e) => e as int).toList()
       ..dateTimeList = (pgsql['dateTimeList'] as List<dynamic>)
@@ -82,7 +80,7 @@ KitchenSink _$KitchenSinkFromPgSql(Map<String, dynamic> pgsql) => KitchenSink(
           .toList()
       ..val = Map<String, bool>.from(pgsql['val'] as Map)
       ..writeNotNull = pgsql['writeNotNull'] as bool?
-      ..string = pgsql[r'$string'] as String?
+      ..string = KitchenSink._trickyValueAccessor(pgsql, r'$string') as String?
       ..simpleObject =
           SimpleObject.fromPgSql(pgsql['simpleObject'] as Map<String, dynamic>)
       ..strictKeysObject = StrictKeysObject.fromPgSql(
@@ -177,8 +175,7 @@ PgSqlConverterGeneric<S, T, U> _$PgSqlConverterGenericFromPgSql<S, T, U>(
     PgSqlConverterGeneric<S, T, U>(
       GenericConverter<S>().fromPgSql(pgsql['item'] as Map<String, dynamic>),
       (pgsql['itemList'] as List<dynamic>)
-          .map(
-              (e) => GenericConverter<T>().fromPgSql(e as Map<String, dynamic>))
+          .map((e) => GenericConverter<T>().fromPgSql(e as Map<String, dynamic>))
           .toList(),
       (pgsql['itemMap'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(

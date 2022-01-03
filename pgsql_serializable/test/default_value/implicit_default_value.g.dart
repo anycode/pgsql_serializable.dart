@@ -18,8 +18,7 @@ DefaultValueImplicit _$DefaultValueImplicitFromPgSql(
       fieldListEmpty: pgsql['fieldListEmpty'] as List<dynamic>? ?? const [],
       fieldSetEmpty:
           (pgsql['fieldSetEmpty'] as List<dynamic>?)?.toSet() ?? const {},
-      fieldMapEmpty:
-          pgsql['fieldMapEmpty'] as Map<String, dynamic>? ?? const {},
+      fieldMapEmpty: pgsql['fieldMapEmpty'] as Map<String, dynamic>? ?? const {},
       fieldListSimple: (pgsql['fieldListSimple'] as List<dynamic>?)
               ?.map((e) => e as int)
               .toList() ??

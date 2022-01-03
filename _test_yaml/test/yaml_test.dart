@@ -179,17 +179,17 @@ T roundTripObject<T>(
   return object2;
 }
 
-/// Prints out nested causes before throwing `PgSqlUnsupportedObjectError`.
+/// Prints out nested causes before throwing `JsonUnsupportedObjectError`.
 String loudEncode(Object object) {
   try {
     return const JsonEncoder.withIndent(' ').convert(object);
-  } on PgSqlUnsupportedObjectError catch (e) // ignore: avoid_catching_errors
+  } on JsonUnsupportedObjectError catch (e) // ignore: avoid_catching_errors
   {
     var error = e;
     do {
       final cause = error.cause;
       print(cause);
-      error = (cause is PgSqlUnsupportedObjectError) ? cause : null;
+      error = (cause is JsonUnsupportedObjectError) ? cause : null;
     } while (error != null);
     rethrow;
   }

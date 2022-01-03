@@ -52,8 +52,7 @@ class Settings {
         constructor: _config.constructor ?? ClassConfig.defaults.constructor,
         createFactory:
             _config.createFactory ?? ClassConfig.defaults.createFactory,
-        createToPgSql:
-            _config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
+        createToPgSql: _config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
         ignoreUnannotated:
             _config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
         explicitToPgSql:

@@ -40,7 +40,7 @@ class BaseResponse<T> {
     } else if (pgsql is List) {
       // NOTE: this logic assumes the ONLY valid value for a `List` in this case
       // is a List<Author>. If that assumption changes, then it will be
-      // necessary to "peak" into non-empty lists to determine the type!
+      // necessary to "peek" into non-empty lists to determine the type!
 
       return pgsql
           .map((e) => Article.fromPgSql(e as Map<String, dynamic>))

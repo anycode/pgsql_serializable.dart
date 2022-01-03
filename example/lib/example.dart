@@ -30,8 +30,7 @@ class Person {
     List<Order>? orders,
   }) : orders = orders ?? <Order>[];
 
-  factory Person.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PersonFromPgSql(pgsql);
+  factory Person.fromPgSql(Map<String, dynamic> pgsql) => _$PersonFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$PersonToPgSql(this);
 }
@@ -54,8 +53,7 @@ class Order {
 
   Order(this.date);
 
-  factory Order.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$OrderFromPgSql(pgsql);
+  factory Order.fromPgSql(Map<String, dynamic> pgsql) => _$OrderFromPgSql(pgsql);
 
   Map<String, dynamic> toPgSql() => _$OrderToPgSql(this);
 

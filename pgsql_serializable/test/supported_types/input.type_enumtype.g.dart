@@ -27,8 +27,7 @@ const _$EnumTypeEnumMap = {
   EnumType.delta: 'delta',
 };
 
-SimpleClassNullable _$SimpleClassNullableFromPgSql(
-        Map<String, dynamic> pgsql) =>
+SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =>
     SimpleClassNullable(
       $enumDecodeNullable(_$EnumTypeEnumMap, pgsql['value']),
       $enumDecodeNullable(_$EnumTypeEnumMap, pgsql['withDefault']) ??

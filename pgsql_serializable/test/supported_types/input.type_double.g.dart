@@ -19,8 +19,7 @@ Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
       'withDefault': instance.withDefault,
     };
 
-SimpleClassNullable _$SimpleClassNullableFromPgSql(
-        Map<String, dynamic> pgsql) =>
+SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =>
     SimpleClassNullable(
       (pgsql['value'] as num?)?.toDouble(),
       (pgsql['withDefault'] as num?)?.toDouble() ?? 3.14,

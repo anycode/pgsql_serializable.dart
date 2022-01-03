@@ -19,7 +19,7 @@ void main() {
 }''');
 
     final copy =
-        DateTimeExample.fromPgSql(pgsqlDecode(pgsql) as Map<String, dynamic>);
+        DateTimeExample.fromPgSql(jsonDecode(pgsql) as Map<String, dynamic>);
     expect(copy.when, epochDateTime);
   });
 
@@ -29,7 +29,7 @@ void main() {
 
     final encoded = _encode(collection);
     final collection2 = GenericCollection<int>.fromPgSql(
-        pgsqlDecode(encoded) as Map<String, dynamic>);
+        jsonDecode(encoded) as Map<String, dynamic>);
 
     expect(collection2.results, [1, 2, 3]);
 
@@ -45,7 +45,7 @@ void main() {
 
     final encoded = _encode(collection);
     final collection2 = GenericCollection<CustomResult>.fromPgSql(
-        pgsqlDecode(encoded) as Map<String, dynamic>);
+        jsonDecode(encoded) as Map<String, dynamic>);
 
     expect(collection2.results, [CustomResult('bob', 42)]);
 
@@ -68,22 +68,22 @@ void main() {
 
     expect(
       () => GenericCollection<CustomResult>.fromPgSql(
-          pgsqlDecode(encoded) as Map<String, dynamic>),
+          jsonDecode(encoded) as Map<String, dynamic>),
       _throwsTypeError,
     );
     expect(
       () => GenericCollection<int>.fromPgSql(
-          pgsqlDecode(encoded) as Map<String, dynamic>),
+          jsonDecode(encoded) as Map<String, dynamic>),
       _throwsTypeError,
     );
     expect(
       () => GenericCollection<String>.fromPgSql(
-          pgsqlDecode(encoded) as Map<String, dynamic>),
+          jsonDecode(encoded) as Map<String, dynamic>),
       _throwsTypeError,
     );
 
-    final collection2 = GenericCollection.fromPgSql(
-        pgsqlDecode(encoded) as Map<String, dynamic>);
+    final collection2 =
+        GenericCollection.fromPgSql(jsonDecode(encoded) as Map<String, dynamic>);
 
     expect(collection2.results, [
       1,

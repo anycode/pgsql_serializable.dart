@@ -147,7 +147,7 @@ class TestTypeData {
 
       expect(encoded, loudEncode(_nullableDefaultOutput));
       final object2 = SimpleClass.fromPgSql(
-        pgsqlDecode(encoded) as Map<String, Object?>,
+        jsonDecode(encoded) as Map<String, Object?>,
       );
       expect(loudEncode(object2), encoded);''',
       '''

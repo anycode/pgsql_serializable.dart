@@ -48,8 +48,7 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
     final pgsqlKey = pgsqlKeyForField(context.fieldElement, context.config);
 
     if (!targetType.isNullableType &&
-        pgsqlKey.unknownEnumValue ==
-            pgsqlKeyNullForUndefinedEnumValueFieldName) {
+        pgsqlKey.unknownEnumValue == pgsqlKeyNullForUndefinedEnumValueFieldName) {
       // If the target is not nullable,
       throw InvalidGenerationSourceError(
         '`$pgsqlKeyNullForUndefinedEnumValueFieldName` cannot be used with '

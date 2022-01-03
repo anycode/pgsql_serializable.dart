@@ -70,9 +70,16 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
         DateTime.fromMillisecondsSinceEpoch(0),
       );
 
-  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(
-          Map<String, dynamic> pgsql) =>
+  k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) =>
       PgSqlConverterTestClass.fromPgSql(pgsql);
+}
+
+Object? _valueAccessor(Map pgsql, String key) {
+  if (key == 'iterable') {
+    return pgsql['iterable'] ?? pgsql['theIterable'];
+  }
+
+  return pgsql[key];
 }
 
 @PgSqlSerializable(
@@ -117,6 +124,7 @@ class KitchenSink implements k.KitchenSink {
 
   BigInt? bigInt;
 
+  @PgSqlKey(readValue: _valueAccessor)
   Iterable? get iterable => _iterable;
 
   Iterable<dynamic> get dynamicIterable => _dynamicIterable;
@@ -154,7 +162,7 @@ class KitchenSink implements k.KitchenSink {
   // Handle fields with names that collide with helper names
   Map<String, bool> val = _defaultMap();
   bool? writeNotNull;
-  @PgSqlKey(name: r'$string')
+  @PgSqlKey(name: k.trickyKeyName, readValue: _trickyValueAccessor)
   String? string;
 
   SimpleObject simpleObject = _defaultSimpleObject();
@@ -173,6 +181,14 @@ class KitchenSink implements k.KitchenSink {
   }
 
   bool operator ==(Object other) => k.sinkEquals(this, other);
+
+  static Object? _trickyValueAccessor(Map pgsql, String key) {
+    if (key == k.trickyKeyName) {
+      return pgsql[k.trickyKeyName] ?? pgsql['STRING'];
+    }
+
+    return pgsql[key];
+  }
 }
 
 @PgSqlSerializable(

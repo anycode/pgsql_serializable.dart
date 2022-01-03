@@ -326,4 +326,33 @@ void main() {
       (pgsql) => Issue980ParentClass.fromPgSql(pgsql),
     );
   });
+
+  test('issue 1047 regression', () {
+    _roundTrip(
+      sourcePgSql: {
+        'edges': [
+          {'node': '42'}
+        ]
+      },
+      genericEncode: (o) => o.toString(),
+      genericDecode: (o) => int.parse(o as String),
+    );
+  });
+}
+
+void _roundTrip<T>({
+  required Map<String, dynamic> sourcePgSql,
+  required Object? Function(T) genericEncode,
+  required T Function(Object?) genericDecode,
+}) {
+  final pgsql = jsonEncode(sourcePgSql);
+
+  final instance2 = Issue1047ParentClass<T>.fromPgSql(
+    jsonDecode(pgsql) as Map<String, dynamic>,
+    genericDecode,
+  );
+
+  final pgsql2 = jsonEncode(instance2.toPgSql(genericEncode));
+
+  expect(pgsql2, pgsql);
 }

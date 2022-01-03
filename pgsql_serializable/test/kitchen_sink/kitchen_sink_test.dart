@@ -72,8 +72,7 @@ void _nonNullableTests(KitchenSinkFactory factory) {
   });
 
   test('nullable values are not allowed in non-nullable version', () {
-    final instance =
-        factory.pgsqlConverterFromPgSql(_pgsqlConverterValidValues);
+    final instance = factory.pgsqlConverterFromPgSql(_pgsqlConverterValidValues);
     final pgsql = instance.toPgSql();
     expect(pgsql, _pgsqlConverterValidValues);
     expect(pgsql.values, everyElement(isNotNull));
@@ -163,6 +162,22 @@ void _nullableTests(KitchenSinkFactory factory) {
 }
 
 void _sharedTests(KitchenSinkFactory factory) {
+  test('other names', () {
+    final originalName = factory.fromPgSql(validValues);
+
+    final aliasName = factory.fromPgSql(
+      <String, dynamic>{
+        ...validValues,
+        'theIterable': validValues['iterable'],
+        'STRING': validValues[trickyKeyName]
+      }
+        ..remove('iterable')
+        ..remove(trickyKeyName),
+    );
+
+    expect(loudEncode(aliasName), loudEncode(originalName));
+  });
+
   test('empty', () {
     final item = factory.ctor();
     validateRoundTrip(item, factory.fromPgSql);

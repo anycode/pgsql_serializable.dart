@@ -30,7 +30,7 @@ void main() {
 
     expect(encoded, expected);
     final decoded = ConcreteClass.fromPgSql(
-      pgsqlDecode(encoded) as Map<String, dynamic>,
+      jsonDecode(encoded) as Map<String, dynamic>,
     );
     final encoded2 = _encode(decoded);
     expect(encoded2, encoded);

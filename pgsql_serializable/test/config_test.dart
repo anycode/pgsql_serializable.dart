@@ -46,8 +46,7 @@ void main() {
     expect(builder, isNotNull);
   });
 
-  test('config is null-protected when passed to PgSqlSerializableGenerator',
-      () {
+  test('config is null-protected when passed to PgSqlSerializableGenerator', () {
     final nullValueMap = Map.fromEntries(
         generatorConfigDefaultPgSql.entries.map((e) => MapEntry(e.key, null)));
     final config = PgSqlSerializable.fromPgSql(nullValueMap);
@@ -103,8 +102,7 @@ void main() {
     );
 
     expect(
-        () =>
-            pgsqlSerializable(const BuilderOptions({'unsupported': 'config'})),
+        () => pgsqlSerializable(const BuilderOptions({'unsupported': 'config'})),
         throwsA(matcher));
   });
 

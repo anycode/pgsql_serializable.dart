@@ -15,8 +15,7 @@ Issue559Regression _$Issue559RegressionFromPgSql(Map<String, dynamic> pgsql) {
     disallowNullValues: const ['status'],
   );
   return Issue559Regression(
-    status: $enumDecodeNullable(
-        _$Issue559RegressionEnumEnumMap, pgsql['status'],
+    status: $enumDecodeNullable(_$Issue559RegressionEnumEnumMap, pgsql['status'],
         unknownValue: PgSqlKey.nullForUndefinedEnumValue),
   );
 }

@@ -1,3 +1,10 @@
+## 4.4.0
+
+- Added `JsonKey.readValue`.
+- Non-breaking updates to `checkedCreate` and `checkedConvert` to support
+  `JsonKey.readValue`.
+- Improved `toString` in included exceptions.
+
 ## 4.3.0
 
 - Changed the type of `JsonKey.unknownEnumValue` from `Object?` to `Enum?`.

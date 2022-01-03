@@ -184,8 +184,7 @@ class SimpleClassNullableOfDateTime {
   factory SimpleClassNullableOfDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfDateTimeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfDateTimeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfDateTimeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -199,8 +198,7 @@ class SimpleClassOfDateTimeNullable {
   factory SimpleClassOfDateTimeNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDateTimeNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDateTimeNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -302,8 +300,7 @@ class SimpleClassNullableOfDuration {
   factory SimpleClassNullableOfDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfDurationFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfDurationToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfDurationToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -317,8 +314,7 @@ class SimpleClassOfDurationNullable {
   factory SimpleClassOfDurationNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDurationNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfDurationNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDurationNullableToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -390,8 +386,7 @@ class SimpleClassNullableOfEnumType {
   factory SimpleClassNullableOfEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfEnumTypeFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassNullableOfEnumTypeToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfEnumTypeToPgSql(this);
 }
 
 @PgSqlSerializable()
@@ -405,8 +400,7 @@ class SimpleClassOfEnumTypeNullable {
   factory SimpleClassOfEnumTypeNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeNullableFromPgSql(pgsql);
 
-  Map<String, Object?> toPgSql() =>
-      _$SimpleClassOfEnumTypeNullableToPgSql(this);
+  Map<String, Object?> toPgSql() => _$SimpleClassOfEnumTypeNullableToPgSql(this);
 }
 
 @PgSqlSerializable()

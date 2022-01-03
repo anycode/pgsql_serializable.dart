@@ -28,8 +28,7 @@ Person _$PersonFromPgSql(Map<String, dynamic> pgsql) => Person(
       ..houseMap = (pgsql['houseMap'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, $enumDecode(_$CategoryEnumMap, e)),
       )
-      ..categoryCounts =
-          (pgsql['categoryCounts'] as Map<String, dynamic>?)?.map(
+      ..categoryCounts = (pgsql['categoryCounts'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry($enumDecode(_$CategoryEnumMap, k), e as int),
       );
 
@@ -78,11 +77,9 @@ Order _$OrderFromPgSql(Map<String, dynamic> pgsql) {
     ..altPlatforms = (pgsql['altPlatforms'] as Map<String, dynamic>?)?.map(
       (k, e) => MapEntry(k, Platform.fromPgSql(e as String)),
     )
-    ..homepage = pgsql['homepage'] == null
-        ? null
-        : Uri.parse(pgsql['homepage'] as String)
-    ..statusCode = $enumDecodeNullable(
-            _$StatusCodeEnumMap, pgsql['status_code'],
+    ..homepage =
+        pgsql['homepage'] == null ? null : Uri.parse(pgsql['homepage'] as String)
+    ..statusCode = $enumDecodeNullable(_$StatusCodeEnumMap, pgsql['status_code'],
             unknownValue: StatusCode.unknown) ??
         StatusCode.success;
 }
@@ -122,10 +119,8 @@ Item _$ItemFromPgSql(Map<String, dynamic> pgsql) => Item(
       ..saleDates = (pgsql['saleDates'] as List<dynamic>?)
           ?.map((e) => DateTime.parse(e as String))
           .toList()
-      ..rates =
-          (pgsql['rates'] as List<dynamic>?)?.map((e) => e as int).toList()
-      ..geoPoint =
-          _fromPgSqlGeoPoint(pgsql['geoPoint'] as Map<String, dynamic>?);
+      ..rates = (pgsql['rates'] as List<dynamic>?)?.map((e) => e as int).toList()
+      ..geoPoint = _fromPgSqlGeoPoint(pgsql['geoPoint'] as Map<String, dynamic>?);
 
 Map<String, dynamic> _$ItemToPgSql(Item instance) {
   final val = <String, dynamic>{
@@ -175,8 +170,7 @@ MapKeyVariety _$MapKeyVarietyFromPgSql(Map<String, dynamic> pgsql) =>
       ..uriIntMap = (pgsql['uriIntMap'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(Uri.parse(k), e as int),
       )
-      ..dateTimeIntMap =
-          (pgsql['dateTimeIntMap'] as Map<String, dynamic>?)?.map(
+      ..dateTimeIntMap = (pgsql['dateTimeIntMap'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(DateTime.parse(k), e as int),
       )
       ..bigIntMap = (pgsql['bigIntMap'] as Map<String, dynamic>?)?.map(

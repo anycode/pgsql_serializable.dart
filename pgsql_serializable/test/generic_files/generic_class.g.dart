@@ -56,14 +56,13 @@ Map<String, dynamic> _$GenericClassWithConverterToPgSql<T extends num, S>(
       'fieldInt': instance.fieldInt,
       'fieldT': _SimpleConverter<T?>().toPgSql(instance.fieldT),
       'fieldS': _SimpleConverter<S?>().toPgSql(instance.fieldS),
-      'duration': const _DurationMillisecondConverter.named()
-          .toPgSql(instance.duration),
+      'duration':
+          const _DurationMillisecondConverter.named().toPgSql(instance.duration),
       'listDuration': const _DurationListMillisecondConverter()
           .toPgSql(instance.listDuration),
     };
 
-Issue980ParentClass _$Issue980ParentClassFromPgSql(
-        Map<String, dynamic> pgsql) =>
+Issue980ParentClass _$Issue980ParentClassFromPgSql(Map<String, dynamic> pgsql) =>
     Issue980ParentClass(
       (pgsql['list'] as List<dynamic>)
           .map((e) =>
@@ -75,4 +74,43 @@ Map<String, dynamic> _$Issue980ParentClassToPgSql(
         Issue980ParentClass instance) =>
     <String, dynamic>{
       'list': instance.list,
+    };
+
+Issue1047ParentClass<T> _$Issue1047ParentClassFromPgSql<T>(
+  Map<String, dynamic> pgsql,
+  T Function(Object? pgsql) fromPgSqlT,
+) =>
+    Issue1047ParentClass<T>(
+      edges: (pgsql['edges'] as List<dynamic>)
+          .map((e) => Issue1047Class<T>.fromPgSql(
+              e as Map<String, dynamic>, (value) => fromPgSqlT(value)))
+          .toList(),
+    );
+
+Map<String, dynamic> _$Issue1047ParentClassToPgSql<T>(
+  Issue1047ParentClass<T> instance,
+  Object? Function(T value) toPgSqlT,
+) =>
+    <String, dynamic>{
+      'edges': instance.edges
+          .map((e) => e.toPgSql(
+                (value) => toPgSqlT(value),
+              ))
+          .toList(),
+    };
+
+Issue1047Class<T> _$Issue1047ClassFromPgSql<T>(
+  Map<String, dynamic> pgsql,
+  T Function(Object? pgsql) fromPgSqlT,
+) =>
+    Issue1047Class<T>(
+      node: fromPgSqlT(pgsql['node']),
+    );
+
+Map<String, dynamic> _$Issue1047ClassToPgSql<T>(
+  Issue1047Class<T> instance,
+  Object? Function(T value) toPgSqlT,
+) =>
+    <String, dynamic>{
+      'node': toPgSqlT(instance.node),
     };

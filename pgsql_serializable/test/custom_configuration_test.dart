@@ -107,8 +107,7 @@ Future<void> main() async {
         final expected =
             Map<String, dynamic>.from(generatorConfigNonDefaultPgSql);
         for (var pgsqlSerialKey in pgsqlSerializableFields) {
-          expected[pgsqlSerialKey] =
-              generatorConfigDefaultPgSql[pgsqlSerialKey];
+          expected[pgsqlSerialKey] = generatorConfigDefaultPgSql[pgsqlSerialKey];
         }
 
         expect(
@@ -121,8 +120,7 @@ Future<void> main() async {
   });
 }
 
-Future<String> _runForElementNamed(
-    PgSqlSerializable config, String name) async {
+Future<String> _runForElementNamed(PgSqlSerializable config, String name) async {
   final generator = PgSqlSerializableGenerator(config: config);
   return generateForElement(generator, _libraryReader, name);
 }

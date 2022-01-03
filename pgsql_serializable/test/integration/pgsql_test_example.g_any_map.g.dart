@@ -77,11 +77,9 @@ Order _$OrderFromPgSql(Map pgsql) {
     ..altPlatforms = (pgsql['altPlatforms'] as Map?)?.map(
       (k, e) => MapEntry(k as String, Platform.fromPgSql(e as String)),
     )
-    ..homepage = pgsql['homepage'] == null
-        ? null
-        : Uri.parse(pgsql['homepage'] as String)
-    ..statusCode = $enumDecodeNullable(
-            _$StatusCodeEnumMap, pgsql['status_code'],
+    ..homepage =
+        pgsql['homepage'] == null ? null : Uri.parse(pgsql['homepage'] as String)
+    ..statusCode = $enumDecodeNullable(_$StatusCodeEnumMap, pgsql['status_code'],
             unknownValue: StatusCode.unknown) ??
         StatusCode.success;
 }
@@ -121,10 +119,8 @@ Item _$ItemFromPgSql(Map pgsql) => Item(
       ..saleDates = (pgsql['saleDates'] as List<dynamic>?)
           ?.map((e) => DateTime.parse(e as String))
           .toList()
-      ..rates =
-          (pgsql['rates'] as List<dynamic>?)?.map((e) => e as int).toList()
-      ..geoPoint =
-          _fromPgSqlGeoPoint(pgsql['geoPoint'] as Map<String, dynamic>?);
+      ..rates = (pgsql['rates'] as List<dynamic>?)?.map((e) => e as int).toList()
+      ..geoPoint = _fromPgSqlGeoPoint(pgsql['geoPoint'] as Map<String, dynamic>?);
 
 Map<String, dynamic> _$ItemToPgSql(Item instance) {
   final val = <String, dynamic>{

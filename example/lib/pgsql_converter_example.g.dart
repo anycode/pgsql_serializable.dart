@@ -36,8 +36,7 @@ Map<String, dynamic> _$GenericCollectionToPgSql<T>(
       'results': instance.results?.map(_Converter<T>().toPgSql).toList(),
     };
 
-CustomResult _$CustomResultFromPgSql(Map<String, dynamic> pgsql) =>
-    CustomResult(
+CustomResult _$CustomResultFromPgSql(Map<String, dynamic> pgsql) => CustomResult(
       pgsql['name'] as String,
       pgsql['size'] as int,
     );

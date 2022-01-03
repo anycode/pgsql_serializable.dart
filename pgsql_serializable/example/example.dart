@@ -19,8 +19,7 @@ class Person {
 
   /// Connect the generated [_$PersonFromPgSql] function to the `fromPgSql`
   /// factory.
-  factory Person.fromPgSql(Map<String, dynamic> pgsql) =>
-      _$PersonFromPgSql(pgsql);
+  factory Person.fromPgSql(Map<String, dynamic> pgsql) => _$PersonFromPgSql(pgsql);
 
   /// Connect the generated [_$PersonToPgSql] function to the `toPgSql` method.
   Map<String, dynamic> toPgSql() => _$PersonToPgSql(this);

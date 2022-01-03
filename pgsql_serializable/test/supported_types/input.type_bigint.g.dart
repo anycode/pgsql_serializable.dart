@@ -17,8 +17,7 @@ Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
       'value': instance.value.toString(),
     };
 
-SimpleClassNullable _$SimpleClassNullableFromPgSql(
-        Map<String, dynamic> pgsql) =>
+SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =>
     SimpleClassNullable(
       pgsql['value'] == null ? null : BigInt.parse(pgsql['value'] as String),
     );

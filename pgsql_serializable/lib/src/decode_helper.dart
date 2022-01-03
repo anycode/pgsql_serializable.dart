@@ -76,23 +76,34 @@ abstract class DecodeHelper implements HelperCore {
     if (config.checked) {
       final classLiteral = escapeDartString(element.name);
 
-      final sectionBuffer = StringBuffer()..write('''
+      final sectionBuffer = StringBuffer()
+        ..write('''
   \$checkedCreate(
     $classLiteral,
     pgsql,
-    (\$checkedConvert) {\n''')..write(checks.join())..write('''
+    (\$checkedConvert) {\n''')
+        ..write(checks.join())
+        ..write('''
     final val = ${data.content};''');
 
-      for (final field in data.fieldsToSet) {
+      for (final fieldName in data.fieldsToSet) {
         sectionBuffer.writeln();
-        final safeName = safeNameAccess(accessibleFields[field]!);
+        final fieldValue = accessibleFields[fieldName]!;
+        final safeName = safeNameAccess(fieldValue);
         sectionBuffer
           ..write('''
     \$checkedConvert($safeName, (v) => ''')
-          ..write('val.$field = ')
-          ..write(_deserializeForField(accessibleFields[field]!,
-              checkedProperty: true))
-          ..write(');');
+          ..write('val.$fieldName = ')
+          ..write(
+            _deserializeForField(fieldValue, checkedProperty: true),
+          );
+
+        final readValueFunc = pgsqlKeyFor(fieldValue).readValueFunctionName;
+        if (readValueFunc != null) {
+          sectionBuffer.writeln(',readValue: $readValueFunc,');
+        }
+
+        sectionBuffer.write(');');
       }
 
       sectionBuffer.write('''\n    return val;
@@ -110,7 +121,9 @@ abstract class DecodeHelper implements HelperCore {
         fieldKeyMapArg = ', fieldKeyMap: const $mapLiteral';
       }
 
-      sectionBuffer..write(fieldKeyMapArg)..write(',);');
+      sectionBuffer
+        ..write(fieldKeyMapArg)
+        ..write(',);');
       fromPgSqlLines.add(sectionBuffer.toString());
     } else {
       fromPgSqlLines.addAll(checks);
@@ -128,7 +141,9 @@ abstract class DecodeHelper implements HelperCore {
     }
 
     if (fromPgSqlLines.length == 1) {
-      buffer..write('=>')..write(fromPgSqlLines.single);
+      buffer
+        ..write('=>')
+        ..write(fromPgSqlLines.single);
     } else {
       buffer
         ..write('{')
@@ -175,6 +190,8 @@ abstract class DecodeHelper implements HelperCore {
     }
   }
 
+  /// If [checkedProperty] is `true`, we're using this function to write to a
+  /// setter.
   String _deserializeForField(
     FieldElement field, {
     ParameterElement? ctorParam,
@@ -185,6 +202,7 @@ abstract class DecodeHelper implements HelperCore {
     final contextHelper = getHelperContext(field);
     final pgsqlKey = pgsqlKeyFor(field);
     final defaultValue = pgsqlKey.defaultValue;
+    final readValueFunc = pgsqlKey.readValueFunctionName;
 
     String deserialize(String expression) => contextHelper
         .deserialize(
@@ -199,14 +217,21 @@ abstract class DecodeHelper implements HelperCore {
       if (config.checked) {
         value = deserialize('v');
         if (!checkedProperty) {
-          value = '\$checkedConvert($pgsqlKeyName, (v) => $value)';
+          final readValueBit =
+              readValueFunc == null ? '' : ',readValue: $readValueFunc,';
+          value = '\$checkedConvert($pgsqlKeyName, (v) => $value$readValueBit)';
         }
       } else {
         assert(
           !checkedProperty,
           'should only be true if `_generator.checked` is true.',
         );
-        value = deserialize('pgsql[$pgsqlKeyName]');
+
+        value = deserialize(
+          readValueFunc == null
+              ? 'pgsql[$pgsqlKeyName]'
+              : '$readValueFunc(pgsql, $pgsqlKeyName)',
+        );
       }
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
