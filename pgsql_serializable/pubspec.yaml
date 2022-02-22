@@ -1,11 +1,12 @@
 name: pgsql_serializable
 version: 6.1.3
 description: >-
-  Automatically generate code for converting to and from JSON by annotating
+  Automatically generate code for converting to and from PgSQL by annotating
   Dart classes.
 repository: https://github.com/google/pgsql_serializable.dart/tree/master/pgsql_serializable
 environment:
   sdk: '>=2.14.0 <3.0.0'
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 dependencies:
   analyzer: '>=2.0.0 <4.0.0'
