@@ -145,7 +145,7 @@ CtorDefaultValueAndPgSqlKeyDefaultValue
   expectedLogItems: [
     'The constructor parameter for `theField` has a default value `6`, but the '
         '`PgSqlKey.defaultValue` value `7` will be used for missing or `null` '
-        'values in JSON decoding.',
+        'values in PgSQL decoding.',
   ],
 )
 @PgSqlSerializable(createToPgSql: false)

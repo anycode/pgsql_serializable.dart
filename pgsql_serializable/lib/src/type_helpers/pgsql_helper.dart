@@ -24,7 +24,7 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
   /// Simply returns the [expression] provided.
   ///
-  /// By default, JSON encoding in from `dart:convert` calls `toPgSql()` on
+  /// By default, PgSQL encoding in from `dart:convert` calls `toPgSql()` on
   /// provided objects.
   @override
   String? serialize(

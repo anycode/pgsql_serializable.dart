@@ -5,12 +5,12 @@
 import 'package:meta/meta_meta.dart';
 
 /// An annotation used to generate a private field containing the contents of a
-/// JSON file.
+/// PgSQL file.
 ///
 /// The annotation can be applied to any member, but usually it's applied to
 /// top-level getter.
 ///
-/// In this example, the JSON content of `data.pgsql` is populated into a
+/// In this example, the PgSQL content of `data.pgsql` is populated into a
 /// top-level, final field `_$glossaryDataPgSqlLiteral` in the generated file.
 ///
 /// ```dart
@@ -20,10 +20,10 @@ import 'package:meta/meta_meta.dart';
 @Target({TargetKind.getter})
 class PgSqlLiteral {
   /// The relative path from the Dart file with the annotation to the file
-  /// containing the source JSON.
+  /// containing the source PgSQL.
   final String path;
 
-  /// `true` if the JSON literal should be written as a constant.
+  /// `true` if the PgSQL literal should be written as a constant.
   final bool asConst;
 
   /// Creates a new [PgSqlLiteral] instance.

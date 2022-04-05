@@ -2,60 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
-
 import 'package:collection/collection.dart';
-import 'package:stack_trace/stack_trace.dart';
-import 'package:test/test.dart';
 
-final throwsTypeError = throwsA(isTypeError);
-
-final isTypeError = isA<TypeError>();
+export 'package:_pgsql_serial_shared_test/shared_test.dart';
 
 bool deepEquals(dynamic a, dynamic b) =>
     const DeepCollectionEquality().equals(a, b);
-
-void validateRoundTrip<T>(
-  T object,
-  T Function(Map<String, dynamic> pgsql) factory,
-) {
-  final data = loudEncode(object);
-
-  final object2 = factory(json.decode(data) as Map<String, dynamic>);
-
-  expect(object2, equals(object));
-
-  final pgsql2 = loudEncode(object2);
-
-  expect(pgsql2, equals(data));
-}
-
-/// Prints out nested causes before throwing `JsonUnsupportedObjectError`.
-String loudEncode(Object? object) {
-  try {
-    return const JsonEncoder.withIndent(' ').convert(object);
-  } catch (e) {
-    if (e is JsonUnsupportedObjectError) {
-      Object? error = e;
-
-      var count = 1;
-
-      while (error is JsonUnsupportedObjectError) {
-        print(
-          '(${count++}) $error ${error.unsupportedObject} '
-          '(${error.unsupportedObject.runtimeType}) !!!',
-        );
-        print(Trace.from(error.stackTrace!).terse);
-        error = error.cause;
-      }
-
-      if (error != null) {
-        print('(${count++}) $error ???');
-        if (error is Error) {
-          print(Trace.from(error.stackTrace!).terse);
-        }
-      }
-    }
-    rethrow;
-  }
-}

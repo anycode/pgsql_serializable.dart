@@ -15,13 +15,13 @@ enum FieldRename {
   /// Use the field name without changes.
   none,
 
-  /// Encodes a field named `kebabCase` with a JSON key `kebab-case`.
+  /// Encodes a field named `kebabCase` with a PgSQL key `kebab-case`.
   kebab,
 
-  /// Encodes a field named `snakeCase` with a JSON key `snake_case`.
+  /// Encodes a field named `snakeCase` with a PgSQL key `snake_case`.
   snake,
 
-  /// Encodes a field named `pascalCase` with a JSON key `PascalCase`.
+  /// Encodes a field named `pascalCase` with a PgSQL key `PascalCase`.
   pascal
 }
 
@@ -34,7 +34,7 @@ enum FieldRename {
 @Target({TargetKind.classType})
 class PgSqlSerializable {
   /// If `true`, [Map] types are *not* assumed to be [Map<String, dynamic>]
-  /// – which is the default type of [Map] instances return by JSON decode in
+  /// – which is the default type of [Map] instances return by PgSQL decode in
   /// `dart:convert`.
   ///
   /// This will increase the code size, but allows [Map] types returned
@@ -86,7 +86,7 @@ class PgSqlSerializable {
   final bool? createToPgSql;
 
   /// If `false` (the default), then the generated `FromPgSql` function will
-  /// ignore unrecognized keys in the provided JSON [Map].
+  /// ignore unrecognized keys in the provided PgSQL [Map].
   ///
   /// If `true`, unrecognized keys will cause an [UnrecognizedKeysException] to
   /// be thrown.
@@ -95,7 +95,7 @@ class PgSqlSerializable {
   /// If `true`, generated `toPgSql` methods will explicitly call `toPgSql` on
   /// nested objects.
   ///
-  /// When using JSON encoding support in `dart:convert`, `toPgSql` is
+  /// When using PgSQL encoding support in `dart:convert`, `toPgSql` is
   /// automatically called on objects, so the default behavior
   /// (`explicitToPgSql: false`) is to omit the `toPgSql` call.
   ///
@@ -113,7 +113,7 @@ class PgSqlSerializable {
   final bool? explicitToPgSql;
 
   /// Defines the automatic naming strategy when converting class field names
-  /// into JSON map keys.
+  /// into PgSQL map keys.
   ///
   /// With a value [FieldRename.none] (the default), the name of the field is
   /// used without modification.
@@ -179,7 +179,7 @@ class PgSqlSerializable {
   /// Whether the generator should include fields with `null` values in the
   /// serialized output.
   ///
-  /// If `true` (the default), all fields are written to JSON, even if they are
+  /// If `true` (the default), all fields are written to PgSQL, even if they are
   /// `null`.
   ///
   /// If a field is annotated with `PgSqlKey` with a non-`null` value for

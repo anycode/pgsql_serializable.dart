@@ -26,7 +26,7 @@ class IterableHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     final itemType = coreIterableGenericType(targetType);
 
-    // This block will yield a regular list, which works fine for JSON
+    // This block will yield a regular list, which works fine for PgSQL
     // Although it's possible that child elements may be marked unsafe
 
     var isList = _coreListChecker.isAssignableFromType(targetType);
@@ -34,7 +34,7 @@ class IterableHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     var optionalQuestion = targetType.isNullableType ? '?' : '';
 
-    // In the case of trivial JSON types (int, String, etc), `subField`
+    // In the case of trivial PgSQL types (int, String, etc), `subField`
     // will be identical to `substitute` – so no explicit mapping is needed.
     // If they are not equal, then we to write out the substitution.
     if (subField != closureArg) {

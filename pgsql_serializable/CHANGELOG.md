@@ -1,3 +1,11 @@
+## 6.1.5
+
+- Fix enum support for upcoming enhanced enums in Dart 2.17.
+
+## 6.1.4
+
+- Fix issues with latest `package:analyzer` related to enums and annotations.
+
 ## 6.1.3
 
 - Allow latest `package:analyzer`.
@@ -115,6 +123,10 @@
     determined by the Dart type system.
 - **BREAKING** `bool defaultProvided` arg added to `TypeHelper.deserialize`.
   _Only applies to code using `TypeHelper` directly._
+
+## 3.5.2
+
+- Widen `package:analyzer` range to allow v1.x.
 
 ## 3.5.1
 

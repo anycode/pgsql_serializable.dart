@@ -91,7 +91,7 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
           .toSet();
     }
 
-    // Check for duplicate JSON keys due to colliding annotations.
+    // Check for duplicate PgSQL keys due to colliding annotations.
     // We do this now, since we have a final field list after any pruning done
     // by `_writeCtor`.
     accessibleFieldSet.fold(
@@ -100,7 +100,7 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
         final pgsqlKey = nameAccess(fe);
         if (!set.add(pgsqlKey)) {
           throw InvalidGenerationSourceError(
-            'More than one field has the JSON key for name "$pgsqlKey".',
+            'More than one field has the PgSQL key for name "$pgsqlKey".',
             element: fe,
           );
         }

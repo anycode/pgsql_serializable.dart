@@ -69,13 +69,13 @@ class _Converter<T> implements PgSqlConverter<T, Object?> {
         pgsql.containsKey('size')) {
       return CustomResult.fromPgSql(pgsql) as T;
     }
-    // This will only work if `pgsql` is a native JSON type:
+    // This will only work if `pgsql` is a native PgSQL type:
     //   num, String, bool, null, etc
     // *and* is assignable to `T`.
     return pgsql as T;
   }
 
-  // This will only work if `object` is a native JSON type:
+  // This will only work if `object` is a native PgSQL type:
   //   num, String, bool, null, etc
   // Or if it has a `toPgSql()` function`.
   @override

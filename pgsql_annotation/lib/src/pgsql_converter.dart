@@ -6,7 +6,7 @@
 ///
 /// [T] is the data type you'd like to convert to and from.
 ///
-/// [S] is the type of the value stored in JSON. It must be a valid JSON type
+/// [S] is the type of the value stored in PgSQL. It must be a valid PgSQL type
 /// such as [String], [int], or [Map<String, dynamic>].
 abstract class PgSqlConverter<T, S> {
   const PgSqlConverter();

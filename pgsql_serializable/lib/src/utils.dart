@@ -45,7 +45,7 @@ T enumValueForDartObject<T>(
   List<T> items,
   String Function(T) name,
 ) =>
-    items.singleWhere((v) => source.getField(name(v)) != null);
+    items[source.getField('index')!.toIntValue()!];
 
 /// Return an instance of [PgSqlSerializable] corresponding to a the provided
 /// [reader].
@@ -156,7 +156,7 @@ ConstructorElement constructorByName(ClassElement classElement, String name) {
 /// Otherwise, `null`.
 Iterable<FieldElement>? iterateEnumFields(DartType targetType) {
   if (targetType is InterfaceType && targetType.element.isEnum) {
-    return targetType.element.fields.where((element) => !element.isSynthetic);
+    return targetType.element.fields.where((element) => element.isEnumConstant);
   }
   return null;
 }

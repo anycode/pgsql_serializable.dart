@@ -8,10 +8,10 @@ part 'example.g.dart';
 
 @PgSqlSerializable()
 class Person {
-  /// The generated code assumes these values exist in JSON.
+  /// The generated code assumes these values exist in PgSQL.
   final String firstName, lastName;
 
-  /// The generated code below handles if the corresponding JSON value doesn't
+  /// The generated code below handles if the corresponding PgSQL value doesn't
   /// exist or is empty.
   final DateTime? dateOfBirth;
 

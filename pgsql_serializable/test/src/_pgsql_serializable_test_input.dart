@@ -26,7 +26,7 @@ const theAnswer = 42;
 
 @ShouldThrow('`@PgSqlSerializable` can only be used on classes.')
 @PgSqlSerializable() // ignore: invalid_annotation_target
-enum unsupportedEnum { not, valid }
+enum UnsupportedEnum { not, valid }
 
 @ShouldThrow('`@PgSqlSerializable` can only be used on classes.')
 @PgSqlSerializable() // ignore: invalid_annotation_target
@@ -261,7 +261,7 @@ class WrongConstructorNameClass {
 }
 
 @ShouldThrow(
-  'More than one field has the JSON key for name "str".',
+  'More than one field has the PgSQL key for name "str".',
   element: 'str',
 )
 @PgSqlSerializable(createFactory: false)
@@ -273,7 +273,7 @@ class KeyDupesField {
 }
 
 @ShouldThrow(
-  'More than one field has the JSON key for name "a".',
+  'More than one field has the PgSQL key for name "a".',
   element: 'str',
 )
 @PgSqlSerializable(createFactory: false)

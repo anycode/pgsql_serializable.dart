@@ -7,7 +7,7 @@ import 'package:meta/meta_meta.dart';
 import 'pgsql_serializable.dart';
 import 'pgsql_value.dart';
 
-/// Allows configuration of how `enum` elements are treated as JSON.
+/// Allows configuration of how `enum` elements are treated as PgSQL.
 @Target({TargetKind.enumType})
 class PgSqlEnum {
   const PgSqlEnum({
@@ -23,7 +23,7 @@ class PgSqlEnum {
   /// unless it is used by a class annotated with [PgSqlSerializable].
   final bool alwaysCreate;
 
-  /// Defines the naming strategy when converting enum entry names to JSON
+  /// Defines the naming strategy when converting enum entry names to PgSQL
   /// values.
   ///
   /// With a value [FieldRename.none] (the default), the name of the enum entry

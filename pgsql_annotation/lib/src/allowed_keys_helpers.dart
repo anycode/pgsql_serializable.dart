@@ -44,7 +44,7 @@ void $checkKeys(
   }
 }
 
-/// A base class for exceptions thrown when decoding JSON.
+/// A base class for exceptions thrown when decoding PgSQL.
 abstract class BadKeyException implements Exception {
   BadKeyException._(this.map);
 
@@ -58,7 +58,7 @@ abstract class BadKeyException implements Exception {
   String toString() => '$runtimeType: $message';
 }
 
-/// Exception thrown if there are unrecognized keys in a JSON map that was
+/// Exception thrown if there are unrecognized keys in a PgSQL map that was
 /// provided during deserialization.
 class UnrecognizedKeysException extends BadKeyException {
   /// The allowed keys for [map].
@@ -76,7 +76,7 @@ class UnrecognizedKeysException extends BadKeyException {
       : super._(map);
 }
 
-/// Exception thrown if there are missing required keys in a JSON map that was
+/// Exception thrown if there are missing required keys in a PgSQL map that was
 /// provided during deserialization.
 class MissingRequiredKeysException extends BadKeyException {
   /// The keys that [map] is missing.
@@ -90,7 +90,7 @@ class MissingRequiredKeysException extends BadKeyException {
         super._(map);
 }
 
-/// Exception thrown if there are keys with disallowed `null` values in a JSON
+/// Exception thrown if there are keys with disallowed `null` values in a PgSQL
 /// map that was provided during deserialization.
 class DisallowedNullValueException extends BadKeyException {
   final List<String> keysWithNullValues;

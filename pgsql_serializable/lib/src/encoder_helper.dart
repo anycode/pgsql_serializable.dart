@@ -137,7 +137,7 @@ abstract class EncodeHelper implements HelperCore {
     }
   }
 
-  /// Returns `true` if the field can be written to JSON 'naively' – meaning
+  /// Returns `true` if the field can be written to PgSQL 'naively' – meaning
   /// we can avoid checking for `null`.
   bool _writePgSqlValueNaive(FieldElement field) {
     final pgsqlKey = pgsqlKeyFor(field);

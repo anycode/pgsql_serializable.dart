@@ -10,14 +10,14 @@ import 'pgsql_serializable.dart';
 /// An annotation used to specify how a field is serialized.
 @Target({TargetKind.field, TargetKind.getter})
 class PgSqlKey {
-  /// The value to use if the source JSON does not contain this key or if the
+  /// The value to use if the source PgSQL does not contain this key or if the
   /// value is `null`.
   final Object? defaultValue;
 
   /// If `true`, generated code will throw a [DisallowedNullValueException] if
   /// the corresponding key exists, but the value is `null`.
   ///
-  /// Note: this value does not affect the behavior of a JSON map *without* the
+  /// Note: this value does not affect the behavior of a PgSQL map *without* the
   /// associated key.
   ///
   /// If [disallowNullValue] is `true`, [includeIfNull] will be treated as
@@ -27,11 +27,11 @@ class PgSqlKey {
   /// same field, an exception will be thrown during code generation.
   final bool? disallowNullValue;
 
-  /// A [Function] to use when decoding the associated JSON value to the
+  /// A [Function] to use when decoding the associated PgSQL value to the
   /// annotated field.
   ///
   /// Must be a top-level or static [Function] that takes one argument mapping
-  /// a JSON literal to a value compatible with the type of the annotated field.
+  /// a PgSQL literal to a value compatible with the type of the annotated field.
   ///
   /// When creating a class that supports both `toPgSql` and `fromPgSql`
   /// (the default), you should also set [toPgSql] if you set [fromPgSql].
@@ -61,16 +61,16 @@ class PgSqlKey {
   /// same field, an exception will be thrown during code generation.
   final bool? includeIfNull;
 
-  /// The key in a JSON map to use when reading and writing values corresponding
+  /// The key in a PgSQL map to use when reading and writing values corresponding
   /// to the annotated fields.
   ///
   /// If `null`, the field name is used.
   final String? name;
 
-  /// Specialize how a value is read from the source JSON map.
+  /// Specialize how a value is read from the source PgSQL map.
   ///
   /// Typically, the value corresponding to a given key is read directly from
-  /// the JSON map using `map[key]`. At times it's convenient to customize this
+  /// the PgSQL map using `map[key]`. At times it's convenient to customize this
   /// behavior to support alternative names or to support logic that requires
   /// accessing multiple values at once.
   ///
@@ -83,7 +83,7 @@ class PgSqlKey {
   final Object? Function(Map, String)? readValue;
 
   /// When `true`, generated code for `fromPgSql` will verify that the source
-  /// JSON map contains the associated key.
+  /// PgSQL map contains the associated key.
   ///
   /// If the key does not exist, a [MissingRequiredKeysException] exception is
   /// thrown.
@@ -92,10 +92,10 @@ class PgSqlKey {
   /// is considered valid.
   final bool? required;
 
-  /// A [Function] to use when encoding the annotated field to JSON.
+  /// A [Function] to use when encoding the annotated field to PgSQL.
   ///
   /// Must be a top-level or static [Function] with one parameter compatible
-  /// with the field being serialized that returns a JSON-compatible value.
+  /// with the field being serialized that returns a PgSQL-compatible value.
   ///
   /// When creating a class that supports both `toPgSql` and `fromPgSql`
   /// (the default), you should also set [fromPgSql] if you set [toPgSql].

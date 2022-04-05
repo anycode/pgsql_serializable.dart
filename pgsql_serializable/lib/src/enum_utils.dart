@@ -12,7 +12,7 @@ import 'pgsql_literal_generator.dart';
 import 'utils.dart';
 
 String constMapName(DartType targetType) =>
-    '_\$pg${targetType.element!.name}EnumMap';
+    '_\$${targetType.element!.name}EnumMap';
 
 String? enumValueMapFromType(
   DartType targetType, {

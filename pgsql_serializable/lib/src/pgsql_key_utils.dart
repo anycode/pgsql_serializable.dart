@@ -203,7 +203,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
       log.warning(
         'The constructor parameter for `${element.name}` has a default value '
         '`$ctorParamDefault`, but the `PgSqlKey.defaultValue` value '
-        '`$defaultValue` will be used for missing or `null` values in JSON '
+        '`$defaultValue` will be used for missing or `null` values in PgSQL '
         'decoding.',
       );
     }

@@ -55,15 +55,15 @@ abstract class TypeHelper<T extends TypeHelperContext> {
   /// ```.
   Object? serialize(DartType targetType, String expression, T context);
 
-  /// Returns Dart code that deserializes an [expression] representing a JSON
+  /// Returns Dart code that deserializes an [expression] representing a PgSQL
   /// literal to into [targetType].
   ///
   /// If [targetType] is not supported, returns `null`.
   ///
   /// Let's say you want to deserialize a class `Foo` by taking an `int` stored
-  /// in a JSON literal and calling the `Foo.fromInt` constructor.
+  /// in a PgSQL literal and calling the `Foo.fromInt` constructor.
   ///
-  /// Treating [expression] as a opaque Dart expression representing a JSON
+  /// Treating [expression] as a opaque Dart expression representing a PgSQL
   /// literal, the [deserialize] implementation could be a simple as:
   ///
   /// ```dart

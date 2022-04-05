@@ -16,7 +16,7 @@ Matcher _throwsArgumentError(matcher) =>
 void main() {
   group('Person', () {
     void roundTripPerson(Person p) {
-      validateRoundTrip(p, (pgsql) => Person.fromPgSql(pgsql));
+      roundTripObject(p, (pgsql) => Person.fromPgSql(pgsql));
     }
 
     test('now', () {
@@ -50,7 +50,7 @@ void main() {
 
   group('Order', () {
     void roundTripOrder(Order p) {
-      validateRoundTrip(p, (pgsql) => Order.fromPgSql(pgsql));
+      roundTripObject(p, (pgsql) => Order.fromPgSql(pgsql));
     }
 
     test('null', () {
@@ -190,7 +190,7 @@ void main() {
 
   group('Item', () {
     void roundTripItem(Item p) {
-      validateRoundTrip(p, (pgsql) => Item.fromPgSql(pgsql));
+      roundTripObject(p, (pgsql) => Item.fromPgSql(pgsql));
     }
 
     test('empty pgsql', () {
@@ -210,7 +210,7 @@ void main() {
       );
     });
 
-    test('set itemNumber - with custom JSON key', () {
+    test('set itemNumber - with custom PgSQL key', () {
       final item = Item.fromPgSql({'item-number': 42});
       expect(item.itemNumber, 42);
       roundTripItem(item);
@@ -231,7 +231,7 @@ void main() {
 
   group('Numbers', () {
     void roundTripNumber(Numbers p) {
-      validateRoundTrip(p, (pgsql) => Numbers.fromPgSql(pgsql));
+      roundTripObject(p, (pgsql) => Numbers.fromPgSql(pgsql));
     }
 
     test('simple', () {
@@ -276,7 +276,7 @@ void main() {
       ..intIntMap = {3: 3}
       ..uriIntMap = {Uri.parse('https://example.com'): 4};
 
-    validateRoundTrip(instance, (j) => MapKeyVariety.fromPgSql(j));
+    roundTripObject(instance, (j) => MapKeyVariety.fromPgSql(j));
   });
 
   test('UnknownEnumValue', () {
@@ -296,7 +296,7 @@ void main() {
   test('PrivateConstructor', () {
     final value = PrivateConstructor('test');
 
-    validateRoundTrip(value, (pgsql) => PrivateConstructor.fromPgSql(pgsql));
+    roundTripObject(value, (pgsql) => PrivateConstructor.fromPgSql(pgsql));
   });
 
   test('enum helpers', () {
