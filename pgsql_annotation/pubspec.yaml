@@ -8,7 +8,7 @@ environment:
   sdk: '>=2.14.0 <3.0.0'
 
 dependencies:
-  meta: ^1.4.0
+  meta: ^1.7.0
 
 # When changing PgSqlSerializable class.
 # dev_dependencies:
