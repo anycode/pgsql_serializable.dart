@@ -3,7 +3,8 @@ version: 4.4.0
 description: >-
   Classes and helper functions that support PgSQL code generation via the
   `pgsql_serializable` package.
-repository: https://github.com/google/pgsql_serializable.dart
+repository: https://github.com/anycode/pgsql_serializable.dart/tree/main/pgsql_annotation
+
 environment:
   sdk: '>=2.14.0 <3.0.0'
 
