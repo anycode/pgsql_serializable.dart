@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import '../test_utils.dart';
+import 'pgsql_converters.dart';
 import 'simple_object.dart';
 
 /// A key name that requires special encoding
@@ -41,6 +42,8 @@ abstract class KitchenSinkFactory<K, V> {
 }
 
 abstract class PgSqlConverterTestClass {
+  TrivialNumber? nullableNumberSilly;
+
   Map<String, dynamic> toPgSql();
 }
 

@@ -32,6 +32,24 @@ class PgSqlConverterHelper extends TypeHelper {
       return null;
     }
 
+    if (!converter.fieldType.isNullableType && targetType.isNullableType) {
+      const converterToPgSqlName = r'_$PgSqlConverterToPgSql';
+      context.addMember('''
+PgSql? $converterToPgSqlName<PgSql, Value>(
+  Value? value,
+  PgSql? Function(Value value) toPgSql,
+) => ${ifNullOrElse('value', 'null', 'toPgSql(value)')};
+''');
+
+      return _nullablePgSqlConverterLambdaResult(
+        converter,
+        name: converterToPgSqlName,
+        targetType: targetType,
+        expression: expression,
+        callback: '${converter.accessString}.toPgSql',
+      );
+    }
+
     return LambdaResult(expression, '${converter.accessString}.toPgSql');
   }
 
@@ -49,6 +67,24 @@ class PgSqlConverterHelper extends TypeHelper {
 
     final asContent = asStatement(converter.pgsqlType);
 
+    if (!converter.pgsqlType.isNullableType && targetType.isNullableType) {
+      const converterFromPgSqlName = r'_$PgSqlConverterFromPgSql';
+      context.addMember('''
+Value? $converterFromPgSqlName<PgSql, Value>(
+  Object? pgsql,
+  Value? Function(PgSql pgsql) fromPgSql,
+) => ${ifNullOrElse('pgsql', 'null', 'fromPgSql(pgsql as PgSql)')};
+''');
+
+      return _nullablePgSqlConverterLambdaResult(
+        converter,
+        name: converterFromPgSqlName,
+        targetType: targetType,
+        expression: expression,
+        callback: '${converter.accessString}.fromPgSql',
+      );
+    }
+
     return LambdaResult(
       expression,
       '${converter.accessString}.fromPgSql',
@@ -57,24 +93,51 @@ class PgSqlConverterHelper extends TypeHelper {
   }
 }
 
+String _nullablePgSqlConverterLambdaResult(
+  _PgSqlConvertData converter, {
+  required String name,
+  required DartType targetType,
+  required String expression,
+  required String callback,
+}) {
+  final pgsqlDisplayString = typeToCode(converter.pgsqlType);
+  final fieldTypeDisplayString = converter.isGeneric
+      ? typeToCode(targetType)
+      : typeToCode(converter.fieldType);
+
+  return '$name<$pgsqlDisplayString, $fieldTypeDisplayString>('
+      '$expression, $callback)';
+}
+
 class _PgSqlConvertData {
   final String accessString;
   final DartType pgsqlType;
+  final DartType fieldType;
+  final bool isGeneric;
 
   _PgSqlConvertData.className(
     String className,
     String accessor,
     this.pgsqlType,
-  ) : accessString = 'const $className${_withAccessor(accessor)}()';
+    this.fieldType,
+  )   : accessString = 'const $className${_withAccessor(accessor)}()',
+        isGeneric = false;
 
   _PgSqlConvertData.genericClass(
     String className,
     String genericTypeArg,
     String accessor,
     this.pgsqlType,
-  ) : accessString = '$className<$genericTypeArg>${_withAccessor(accessor)}()';
+    this.fieldType,
+  )   : accessString =
+            '$className<$genericTypeArg>${_withAccessor(accessor)}()',
+        isGeneric = true;
 
-  _PgSqlConvertData.propertyAccess(this.accessString, this.pgsqlType);
+  _PgSqlConvertData.propertyAccess(
+    this.accessString,
+    this.pgsqlType,
+    this.fieldType,
+  ) : isGeneric = false;
 
   static String _withAccessor(String accessor) =>
       accessor.isEmpty ? '' : '.$accessor';
@@ -127,7 +190,11 @@ _PgSqlConvertData? _typeConverterFrom(
       accessString = '${enclosing.name}.$accessString';
     }
 
-    return _PgSqlConvertData.propertyAccess(accessString, match.pgsqlType);
+    return _PgSqlConvertData.propertyAccess(
+      accessString,
+      match.pgsqlType,
+      match.fieldType,
+    );
   }
 
   final reviver = ConstantReader(match.annotation).revive();
@@ -145,6 +212,7 @@ _PgSqlConvertData? _typeConverterFrom(
       match.genericTypeArg!,
       reviver.accessor,
       match.pgsqlType,
+      match.fieldType,
     );
   }
 
@@ -152,11 +220,13 @@ _PgSqlConvertData? _typeConverterFrom(
     match.annotation.type!.element!.name!,
     reviver.accessor,
     match.pgsqlType,
+    match.fieldType,
   );
 }
 
 class _ConverterMatch {
   final DartObject annotation;
+  final DartType fieldType;
   final DartType pgsqlType;
   final ElementAnnotation elementAnnotation;
   final String? genericTypeArg;
@@ -166,6 +236,7 @@ class _ConverterMatch {
     this.annotation,
     this.pgsqlType,
     this.genericTypeArg,
+    this.fieldType,
   );
 }
 
@@ -191,9 +262,15 @@ _ConverterMatch? _compatibleMatch(
 
   final fieldType = pgsqlConverterSuper.typeArguments[0];
 
-  if (fieldType == targetType) {
+  // Allow assigning T to T?
+  if (fieldType == targetType || fieldType == targetType.promoteNonNullable()) {
     return _ConverterMatch(
-        annotation, constantValue, pgsqlConverterSuper.typeArguments[1], null);
+      annotation,
+      constantValue,
+      pgsqlConverterSuper.typeArguments[1],
+      null,
+      fieldType,
+    );
   }
 
   if (fieldType is TypeParameterType && targetType is TypeParameterType) {
@@ -212,6 +289,7 @@ _ConverterMatch? _compatibleMatch(
       constantValue,
       pgsqlConverterSuper.typeArguments[1],
       '${targetType.element.name}${targetType.isNullableType ? '?' : ''}',
+      fieldType,
     );
   }
 

@@ -39,10 +39,10 @@ GenericClassWithConverter<T, S>
           ..fieldObject = pgsql['fieldObject']
           ..fieldDynamic = pgsql['fieldDynamic']
           ..fieldInt = pgsql['fieldInt'] as int?
-          ..fieldT = _SimpleConverter<T?>()
-              .fromPgSql(pgsql['fieldT'] as Map<String, dynamic>)
-          ..fieldS = _SimpleConverter<S?>()
-              .fromPgSql(pgsql['fieldS'] as Map<String, dynamic>)
+          ..fieldT = _$PgSqlConverterFromPgSql<Map<String, dynamic>, T>(
+              pgsql['fieldT'], _SimpleConverter<T?>().fromPgSql)
+          ..fieldS = _$PgSqlConverterFromPgSql<Map<String, dynamic>, S>(
+              pgsql['fieldS'], _SimpleConverter<S?>().fromPgSql)
           ..duration = const _DurationMillisecondConverter.named()
               .fromPgSql(pgsql['duration'] as int?)
           ..listDuration = const _DurationListMillisecondConverter()
@@ -54,13 +54,27 @@ Map<String, dynamic> _$GenericClassWithConverterToPgSql<T extends num, S>(
       'fieldObject': instance.fieldObject,
       'fieldDynamic': instance.fieldDynamic,
       'fieldInt': instance.fieldInt,
-      'fieldT': _SimpleConverter<T?>().toPgSql(instance.fieldT),
-      'fieldS': _SimpleConverter<S?>().toPgSql(instance.fieldS),
+      'fieldT': _$PgSqlConverterToPgSql<Map<String, dynamic>, T>(
+          instance.fieldT, _SimpleConverter<T?>().toPgSql),
+      'fieldS': _$PgSqlConverterToPgSql<Map<String, dynamic>, S>(
+          instance.fieldS, _SimpleConverter<S?>().toPgSql),
       'duration':
           const _DurationMillisecondConverter.named().toPgSql(instance.duration),
       'listDuration': const _DurationListMillisecondConverter()
           .toPgSql(instance.listDuration),
     };
+
+Value? _$PgSqlConverterFromPgSql<PgSql, Value>(
+  Object? pgsql,
+  Value? Function(PgSql pgsql) fromPgSql,
+) =>
+    pgsql == null ? null : fromPgSql(pgsql as PgSql);
+
+PgSql? _$PgSqlConverterToPgSql<PgSql, Value>(
+  Value? value,
+  PgSql? Function(Value value) toPgSql,
+) =>
+    value == null ? null : toPgSql(value);
 
 Issue980ParentClass _$Issue980ParentClassFromPgSql(Map<String, dynamic> pgsql) =>
     Issue980ParentClass(

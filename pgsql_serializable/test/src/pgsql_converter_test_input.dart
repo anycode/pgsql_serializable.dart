@@ -189,3 +189,25 @@ class _NeedsConversionConverter
   @override
   int toPgSql(_NeedsConversion object) => 0;
 }
+
+@ShouldThrow(
+  '''
+Could not generate `fromPgSql` code for `value`.
+To support the type `_NeedsConversion` you can:
+$converterOrKeyInstructions''',
+)
+@_NullableConverter()
+@PgSqlSerializable()
+class PgSqlConverterNullableToNonNullable {
+  late _NeedsConversion value;
+}
+
+class _NullableConverter implements PgSqlConverter<_NeedsConversion?, Object?> {
+  const _NullableConverter();
+
+  @override
+  _NeedsConversion? fromPgSql(Object? pgsql) => null;
+
+  @override
+  Object? toPgSql(_NeedsConversion? object) => null;
+}

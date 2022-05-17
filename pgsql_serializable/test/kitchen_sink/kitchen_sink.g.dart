@@ -146,11 +146,24 @@ PgSqlConverterTestClass _$PgSqlConverterTestClassFromPgSql(
         (k, e) =>
             MapEntry(k, const BigIntStringConverter().fromPgSql(e as String)),
       ),
+      _$PgSqlConverterFromPgSql<String, BigInt>(
+          pgsql['nullableBigInt'], const BigIntStringConverter().fromPgSql),
+      (pgsql['nullableBigIntMap'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(
+            k,
+            _$PgSqlConverterFromPgSql<String, BigInt>(
+                e, const BigIntStringConverter().fromPgSql)),
+      ),
       TrivialNumberConverter.instance.fromPgSql(pgsql['numberSilly'] as int?),
       (pgsql['numberSillySet'] as List<dynamic>)
           .map((e) => TrivialNumberConverter.instance.fromPgSql(e as int?))
           .toSet(),
       const EpochDateTimeConverter().fromPgSql(pgsql['dateTime'] as int?),
+      TrivialNumberConverter.instance
+          .fromPgSql(pgsql['nullableNumberSilly'] as int?),
+      (pgsql['nullableNumberSillySet'] as List<dynamic>)
+          .map((e) => TrivialNumberConverter.instance.fromPgSql(e as int?))
+          .toSet(),
     );
 
 Map<String, dynamic> _$PgSqlConverterTestClassToPgSql(
@@ -162,13 +175,37 @@ Map<String, dynamic> _$PgSqlConverterTestClassToPgSql(
       'bigInt': const BigIntStringConverter().toPgSql(instance.bigInt),
       'bigIntMap': instance.bigIntMap
           .map((k, e) => MapEntry(k, const BigIntStringConverter().toPgSql(e))),
+      'nullableBigInt': _$PgSqlConverterToPgSql<String, BigInt>(
+          instance.nullableBigInt, const BigIntStringConverter().toPgSql),
+      'nullableBigIntMap': instance.nullableBigIntMap.map((k, e) => MapEntry(
+          k,
+          _$PgSqlConverterToPgSql<String, BigInt>(
+              e, const BigIntStringConverter().toPgSql))),
       'numberSilly':
           TrivialNumberConverter.instance.toPgSql(instance.numberSilly),
       'numberSillySet': instance.numberSillySet
           .map(TrivialNumberConverter.instance.toPgSql)
           .toList(),
       'dateTime': const EpochDateTimeConverter().toPgSql(instance.dateTime),
+      'nullableNumberSilly': _$PgSqlConverterToPgSql<int?, TrivialNumber>(
+          instance.nullableNumberSilly, TrivialNumberConverter.instance.toPgSql),
+      'nullableNumberSillySet': instance.nullableNumberSillySet
+          .map((e) => _$PgSqlConverterToPgSql<int?, TrivialNumber>(
+              e, TrivialNumberConverter.instance.toPgSql))
+          .toList(),
     };
+
+Value? _$PgSqlConverterFromPgSql<PgSql, Value>(
+  Object? pgsql,
+  Value? Function(PgSql pgsql) fromPgSql,
+) =>
+    pgsql == null ? null : fromPgSql(pgsql as PgSql);
+
+PgSql? _$PgSqlConverterToPgSql<PgSql, Value>(
+  Value? value,
+  PgSql? Function(Value value) toPgSql,
+) =>
+    value == null ? null : toPgSql(value);
 
 PgSqlConverterGeneric<S, T, U> _$PgSqlConverterGenericFromPgSql<S, T, U>(
         Map<String, dynamic> pgsql) =>

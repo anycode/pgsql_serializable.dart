@@ -65,9 +65,13 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
         [],
         BigInt.zero,
         {},
+        BigInt.zero,
+        {},
         TrivialNumber(0),
         {},
         DateTime.fromMillisecondsSinceEpoch(0),
+        TrivialNumber(0),
+        {},
       );
 
   k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) =>
@@ -205,9 +209,13 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
     this.durationList,
     this.bigInt,
     this.bigIntMap,
+    this.nullableBigInt,
+    this.nullableBigIntMap,
     this.numberSilly,
     this.numberSillySet,
     this.dateTime,
+    this.nullableNumberSilly,
+    this.nullableNumberSillySet,
   );
 
   factory PgSqlConverterTestClass.fromPgSql(Map<String, dynamic> pgsql) =>
@@ -221,10 +229,16 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
   BigInt bigInt;
   Map<String, BigInt> bigIntMap;
 
+  BigInt? nullableBigInt;
+  Map<String, BigInt?> nullableBigIntMap;
+
   TrivialNumber numberSilly;
   Set<TrivialNumber> numberSillySet;
 
   DateTime? dateTime;
+
+  TrivialNumber? nullableNumberSilly;
+  Set<TrivialNumber?> nullableNumberSillySet;
 }
 
 @PgSqlSerializable(

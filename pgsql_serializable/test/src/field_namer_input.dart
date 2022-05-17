@@ -59,3 +59,19 @@ class FieldNamerSnake {
   @PgSqlKey(name: 'NAME_OVERRIDE')
   late String nameOverride;
 }
+
+@ShouldGenerate(r'''
+Map<String, dynamic> _$FieldNamerScreamingSnakeToPgSql(
+        FieldNamerScreamingSnake instance) =>
+    <String, dynamic>{
+      'THE_FIELD': instance.theField,
+      'nameOverride': instance.nameOverride,
+    };
+''')
+@PgSqlSerializable(fieldRename: FieldRename.screamingSnake, createFactory: false)
+class FieldNamerScreamingSnake {
+  late String theField;
+
+  @PgSqlKey(name: 'nameOverride')
+  late String nameOverride;
+}
