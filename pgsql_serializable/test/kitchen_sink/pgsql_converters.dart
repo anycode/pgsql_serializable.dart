@@ -55,6 +55,25 @@ class DurationMillisecondConverter implements PgSqlConverter<Duration?, int?> {
   int? toPgSql(Duration? object) => object?.inMilliseconds;
 }
 
+class TrivialString {
+  TrivialString(this.value);
+
+  final String? value;
+}
+
+const trivialStringConverter = TrivialStringConverter();
+
+class TrivialStringConverter implements PgSqlConverter<TrivialString?, String?> {
+  const TrivialStringConverter();
+
+  @override
+  TrivialString? fromPgSql(String? pgsql) =>
+      pgsql == null ? null : TrivialString(pgsql);
+
+  @override
+  String? toPgSql(TrivialString? object) => object?.value;
+}
+
 class EpochDateTimeConverter implements PgSqlConverter<DateTime?, int?> {
   const EpochDateTimeConverter();
 

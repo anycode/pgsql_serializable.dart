@@ -8,6 +8,37 @@
 ///
 /// [S] is the type of the value stored in PgSQL. It must be a valid PgSQL type
 /// such as [String], [int], or [Map<String, dynamic>].
+///
+///
+/// [PgSqlConverter]s can be placed either on the class:
+///
+/// ```dart
+/// class MyConverter extends PgSqlConverter<Value, PgSQL> {
+///   // TODO
+/// }
+///
+/// @PgSqlSerializable()
+/// @MyPgSqlConverter()
+/// class Example {}
+/// ```
+///
+/// or on a property:
+///
+/// ```dart
+/// @PgSqlSerializable()
+/// @MyPgSqlConverter()
+/// class Example {
+///   @MyPgSqlConverter()
+///   final Value property;
+/// }
+/// ```
+///
+/// Or finally, passed to the annotation:
+///
+///```dart
+/// @PgSqlSerializable(converters: [MyConverter()])
+/// class Example {}
+/// ```
 abstract class PgSqlConverter<T, S> {
   const PgSqlConverter();
 

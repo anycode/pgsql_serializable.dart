@@ -32,7 +32,7 @@ Future<void> main() async {
   );
 
   group('without wrappers', () {
-    _registerTests(ClassConfig.defaults);
+    _registerTests(ClassConfig.defaults.toPgSqlSerializable());
   });
 
   group('configuration', () {
@@ -61,8 +61,10 @@ Future<void> main() async {
                 nullConfig ? null : const PgSqlSerializable(), className);
 
             expect(_ConfigLogger.configurations, hasLength(2));
-            expect(_ConfigLogger.configurations.first,
-                same(_ConfigLogger.configurations.last));
+            expect(
+              _ConfigLogger.configurations.first.toPgSql(),
+              _ConfigLogger.configurations.last.toPgSql(),
+            );
             expect(_ConfigLogger.configurations.first.toPgSql(),
                 generatorConfigDefaultPgSql);
           });
@@ -98,8 +100,10 @@ Future<void> main() async {
             'ConfigurationExplicitDefaults');
 
         expect(_ConfigLogger.configurations, hasLength(2));
-        expect(_ConfigLogger.configurations.first,
-            same(_ConfigLogger.configurations.last));
+        expect(
+          _ConfigLogger.configurations.first.toPgSql(),
+          _ConfigLogger.configurations.last.toPgSql(),
+        );
 
         // The effective configuration should be non-Default configuration, but
         // with all fields set from PgSqlSerializable as the defaults
@@ -225,14 +229,14 @@ class _ConfigLogger implements TypeHelper<TypeHelperContextWithConfig> {
     TypeHelperContextWithConfig context,
     bool defaultProvided,
   ) {
-    configurations.add(context.config);
+    configurations.add(context.config.toPgSqlSerializable());
     return null;
   }
 
   @override
   Object? serialize(DartType targetType, String expression,
       TypeHelperContextWithConfig context) {
-    configurations.add(context.config);
+    configurations.add(context.config.toPgSqlSerializable());
     return null;
   }
 }

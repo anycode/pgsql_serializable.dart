@@ -145,9 +145,9 @@ Map<String, dynamic> _$KitchenSinkToPgSql(KitchenSink instance) {
 PgSqlConverterTestClass _$PgSqlConverterTestClassFromPgSql(
         Map<String, dynamic> pgsql) =>
     PgSqlConverterTestClass(
-      durationConverter.fromPgSql(pgsql['duration'] as int?),
+      const DurationMillisecondConverter().fromPgSql(pgsql['duration'] as int?),
       (pgsql['durationList'] as List<dynamic>)
-          .map((e) => durationConverter.fromPgSql(e as int?))
+          .map((e) => const DurationMillisecondConverter().fromPgSql(e as int?))
           .toList(),
       const BigIntStringConverter().fromPgSql(pgsql['bigInt'] as String),
       (pgsql['bigIntMap'] as Map<String, dynamic>).map(
@@ -167,6 +167,7 @@ PgSqlConverterTestClass _$PgSqlConverterTestClassFromPgSql(
           .map((e) => TrivialNumberConverter.instance.fromPgSql(e as int?))
           .toSet(),
       const EpochDateTimeConverter().fromPgSql(pgsql['dateTime'] as int?),
+      trivialStringConverter.fromPgSql(pgsql['trivialString'] as String?),
       TrivialNumberConverter.instance
           .fromPgSql(pgsql['nullableNumberSilly'] as int?),
       (pgsql['nullableNumberSillySet'] as List<dynamic>)
@@ -184,9 +185,11 @@ Map<String, dynamic> _$PgSqlConverterTestClassToPgSql(
     }
   }
 
-  writeNotNull('duration', durationConverter.toPgSql(instance.duration));
-  val['durationList'] =
-      instance.durationList.map(durationConverter.toPgSql).toList();
+  writeNotNull('duration',
+      const DurationMillisecondConverter().toPgSql(instance.duration));
+  val['durationList'] = instance.durationList
+      .map(const DurationMillisecondConverter().toPgSql)
+      .toList();
   writeNotNull('bigInt', const BigIntStringConverter().toPgSql(instance.bigInt));
   val['bigIntMap'] = instance.bigIntMap
       .map((k, e) => MapEntry(k, const BigIntStringConverter().toPgSql(e)));
@@ -205,6 +208,8 @@ Map<String, dynamic> _$PgSqlConverterTestClassToPgSql(
       .toList();
   writeNotNull(
       'dateTime', const EpochDateTimeConverter().toPgSql(instance.dateTime));
+  writeNotNull(
+      'trivialString', trivialStringConverter.toPgSql(instance.trivialString));
   writeNotNull(
       'nullableNumberSilly',
       _$PgSqlConverterToPgSql<int?, TrivialNumber>(instance.nullableNumberSilly,

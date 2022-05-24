@@ -17,14 +17,14 @@ import '../utils.dart';
 
 /// A [TypeHelper] that supports classes annotated with implementations of
 /// [PgSqlConverter].
-class PgSqlConverterHelper extends TypeHelper {
+class PgSqlConverterHelper extends TypeHelper<TypeHelperContextWithConfig> {
   const PgSqlConverterHelper();
 
   @override
   Object? serialize(
     DartType targetType,
     String expression,
-    TypeHelperContext context,
+    TypeHelperContextWithConfig context,
   ) {
     final converter = _typeConverter(targetType, context);
 
@@ -57,7 +57,7 @@ PgSql? $converterToPgSqlName<PgSql, Value>(
   Object? deserialize(
     DartType targetType,
     String expression,
-    TypeHelperContext context,
+    TypeHelperContextWithConfig context,
     bool defaultProvided,
   ) {
     final converter = _typeConverter(targetType, context);
@@ -143,9 +143,18 @@ class _PgSqlConvertData {
       accessor.isEmpty ? '' : '.$accessor';
 }
 
-_PgSqlConvertData? _typeConverter(DartType targetType, TypeHelperContext ctx) {
+_PgSqlConvertData? _typeConverter(
+  DartType targetType,
+  TypeHelperContextWithConfig ctx,
+) {
   List<_ConverterMatch> converterMatches(List<ElementAnnotation> items) => items
-      .map((annotation) => _compatibleMatch(targetType, annotation))
+      .map(
+        (annotation) => _compatibleMatch(
+          targetType,
+          annotation,
+          annotation.computeConstantValue()!,
+        ),
+      )
       .whereType<_ConverterMatch>()
       .toList();
 
@@ -157,6 +166,13 @@ _PgSqlConvertData? _typeConverter(DartType targetType, TypeHelperContext ctx) {
 
     if (matchingAnnotations.isEmpty) {
       matchingAnnotations = converterMatches(ctx.classElement.metadata);
+
+      if (matchingAnnotations.isEmpty) {
+        matchingAnnotations = ctx.config.converters
+            .map((e) => _compatibleMatch(targetType, null, e))
+            .whereType<_ConverterMatch>()
+            .toList();
+      }
     }
   }
 
@@ -174,13 +190,14 @@ _PgSqlConvertData? _typeConverterFrom(
   if (matchingAnnotations.length > 1) {
     final targetTypeCode = typeToCode(targetType);
     throw InvalidGenerationSourceError(
-        'Found more than one matching converter for `$targetTypeCode`.',
-        element: matchingAnnotations[1].elementAnnotation.element);
+      'Found more than one matching converter for `$targetTypeCode`.',
+      element: matchingAnnotations[1].elementAnnotation?.element,
+    );
   }
 
   final match = matchingAnnotations.single;
 
-  final annotationElement = match.elementAnnotation.element;
+  final annotationElement = match.elementAnnotation?.element;
   if (annotationElement is PropertyAccessorElement) {
     final enclosing = annotationElement.enclosingElement;
 
@@ -202,8 +219,9 @@ _PgSqlConvertData? _typeConverterFrom(
   if (reviver.namedArguments.isNotEmpty ||
       reviver.positionalArguments.isNotEmpty) {
     throw InvalidGenerationSourceError(
-        'Generators with constructor arguments are not supported.',
-        element: match.elementAnnotation.element);
+      'Generators with constructor arguments are not supported.',
+      element: match.elementAnnotation?.element,
+    );
   }
 
   if (match.genericTypeArg != null) {
@@ -228,7 +246,7 @@ class _ConverterMatch {
   final DartObject annotation;
   final DartType fieldType;
   final DartType pgsqlType;
-  final ElementAnnotation elementAnnotation;
+  final ElementAnnotation? elementAnnotation;
   final String? genericTypeArg;
 
   _ConverterMatch(
@@ -242,10 +260,9 @@ class _ConverterMatch {
 
 _ConverterMatch? _compatibleMatch(
   DartType targetType,
-  ElementAnnotation annotation,
+  ElementAnnotation? annotation,
+  DartObject constantValue,
 ) {
-  final constantValue = annotation.computeConstantValue()!;
-
   final converterClassElement = constantValue.type!.element as ClassElement;
 
   final pgsqlConverterSuper =
@@ -274,7 +291,7 @@ _ConverterMatch? _compatibleMatch(
   }
 
   if (fieldType is TypeParameterType && targetType is TypeParameterType) {
-    assert(annotation.element is! PropertyAccessorElement);
+    assert(annotation?.element is! PropertyAccessorElement);
     assert(converterClassElement.typeParameters.isNotEmpty);
     if (converterClassElement.typeParameters.length > 1) {
       throw InvalidGenerationSourceError(

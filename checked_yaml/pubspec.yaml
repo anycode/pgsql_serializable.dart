@@ -22,5 +22,7 @@ dev_dependencies:
   test_process: ^2.0.0
 
 dependency_overrides:
+  pgsql_annotation:
+    path: ../pgsql_annotation
   pgsql_serializable:
     path: ../pgsql_serializable

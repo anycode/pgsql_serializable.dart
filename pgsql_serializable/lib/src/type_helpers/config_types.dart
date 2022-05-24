@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 /// Represents values from [PgSqlKey] when merged with local configuration.
@@ -38,41 +39,20 @@ class KeyConfig {
 /// configuration.
 ///
 /// Values are all known, so types are non-nullable.
-class ClassConfig implements PgSqlSerializable {
-  @override
+class ClassConfig {
   final bool anyMap;
-
-  @override
   final bool checked;
-
-  @override
   final String constructor;
-
-  @override
   final bool createFactory;
-
-  @override
   final bool createToPgSql;
-
-  @override
   final bool disallowUnrecognizedKeys;
-
-  @override
   final bool explicitToPgSql;
-
-  @override
   final FieldRename fieldRename;
-
-  @override
   final bool genericArgumentFactories;
-
-  @override
   final bool ignoreUnannotated;
-
-  @override
   final bool includeIfNull;
-
   final Map<String, String> ctorParamDefaults;
+  final List<DartObject> converters;
 
   const ClassConfig({
     required this.anyMap,
@@ -86,8 +66,32 @@ class ClassConfig implements PgSqlSerializable {
     required this.genericArgumentFactories,
     required this.ignoreUnannotated,
     required this.includeIfNull,
+    this.converters = const [],
     this.ctorParamDefaults = const {},
   });
+
+  factory ClassConfig.fromPgSqlSerializable(PgSqlSerializable config) =>
+      // #CHANGE WHEN UPDATING pgsql_annotation
+      ClassConfig(
+        checked: config.checked ?? ClassConfig.defaults.checked,
+        anyMap: config.anyMap ?? ClassConfig.defaults.anyMap,
+        constructor: config.constructor ?? ClassConfig.defaults.constructor,
+        createFactory:
+            config.createFactory ?? ClassConfig.defaults.createFactory,
+        createToPgSql: config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
+        ignoreUnannotated:
+            config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
+        explicitToPgSql:
+            config.explicitToPgSql ?? ClassConfig.defaults.explicitToPgSql,
+        includeIfNull:
+            config.includeIfNull ?? ClassConfig.defaults.includeIfNull,
+        genericArgumentFactories: config.genericArgumentFactories ??
+            ClassConfig.defaults.genericArgumentFactories,
+        fieldRename: config.fieldRename ?? ClassConfig.defaults.fieldRename,
+        disallowUnrecognizedKeys: config.disallowUnrecognizedKeys ??
+            ClassConfig.defaults.disallowUnrecognizedKeys,
+        // TODO typeConverters = []
+      );
 
   /// An instance of [PgSqlSerializable] with all fields set to their default
   /// values.
@@ -105,33 +109,18 @@ class ClassConfig implements PgSqlSerializable {
     includeIfNull: true,
   );
 
-  @override
-  Map<String, dynamic> toPgSql() => _$PgSqlSerializableToPgSql(this);
-
-  @override
-  PgSqlSerializable withDefaults() => this;
+  PgSqlSerializable toPgSqlSerializable() => PgSqlSerializable(
+        checked: checked,
+        anyMap: anyMap,
+        constructor: constructor,
+        createFactory: createFactory,
+        createToPgSql: createToPgSql,
+        ignoreUnannotated: ignoreUnannotated,
+        explicitToPgSql: explicitToPgSql,
+        includeIfNull: includeIfNull,
+        genericArgumentFactories: genericArgumentFactories,
+        fieldRename: fieldRename,
+        disallowUnrecognizedKeys: disallowUnrecognizedKeys,
+        // TODO typeConverters = []
+      );
 }
-
-const _$FieldRenameEnumMap = {
-  FieldRename.none: 'none',
-  FieldRename.kebab: 'kebab',
-  FieldRename.snake: 'snake',
-  FieldRename.pascal: 'pascal',
-  FieldRename.screamingSnake: 'screamingSnake',
-};
-
-// #CHANGE WHEN UPDATING pgsql_annotation
-Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
-    <String, dynamic>{
-      'any_map': instance.anyMap,
-      'checked': instance.checked,
-      'constructor': instance.constructor,
-      'create_factory': instance.createFactory,
-      'create_to_pgsql': instance.createToPgSql,
-      'disallow_unrecognized_keys': instance.disallowUnrecognizedKeys,
-      'explicit_to_pgsql': instance.explicitToPgSql,
-      'field_rename': _$FieldRenameEnumMap[instance.fieldRename],
-      'generic_argument_factories': instance.genericArgumentFactories,
-      'ignore_unannotated': instance.ignoreUnannotated,
-      'include_if_null': instance.includeIfNull,
-    };

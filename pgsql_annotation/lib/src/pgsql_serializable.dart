@@ -6,6 +6,7 @@ import 'package:meta/meta_meta.dart';
 
 import 'allowed_keys_helpers.dart';
 import 'checked_helpers.dart';
+import 'pgsql_converter.dart';
 import 'pgsql_key.dart';
 
 part 'pgsql_serializable.g.dart';
@@ -190,6 +191,40 @@ class PgSqlSerializable {
   /// `includeIfNull`, that value takes precedent.
   final bool? includeIfNull;
 
+  /// A list of [PgSqlConverter] to apply to this class.
+  ///
+  /// Writing:
+  ///
+  /// ```dart
+  /// @PgSqlSerializable(converters: [MyPgSqlConverter()])
+  /// class Example {...}
+  /// ```
+  ///
+  /// is equivalent to writing:
+  ///
+  /// ```dart
+  /// @PgSqlSerializable()
+  /// @MyPgSqlConverter()
+  /// class Example {...}
+  /// ```
+  ///
+  /// The main difference is that this allows reusing a custom
+  /// [PgSqlSerializable] over multiple classes:
+  ///
+  /// ```dart
+  /// const myCustomAnnotation = PgSqlSerializable(
+  ///   converters: [MyPgSqlConverter()],
+  /// );
+  ///
+  /// @myCustomAnnotation
+  /// class Example {...}
+  ///
+  /// @myCustomAnnotation
+  /// class Another {...}
+  /// ```
+  @PgSqlKey(ignore: true)
+  final List<PgSqlConverter>? converters;
+
   /// Creates a new [PgSqlSerializable] instance.
   const PgSqlSerializable({
     @Deprecated('Has no effect') bool? nullable,
@@ -203,6 +238,7 @@ class PgSqlSerializable {
     this.fieldRename,
     this.ignoreUnannotated,
     this.includeIfNull,
+    this.converters,
     this.genericArgumentFactories,
   });
 

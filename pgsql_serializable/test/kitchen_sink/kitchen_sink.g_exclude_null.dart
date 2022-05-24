@@ -71,6 +71,7 @@ class _Factory implements k.KitchenSinkFactory<String, dynamic> {
         TrivialNumber(0),
         {},
         DateTime.fromMillisecondsSinceEpoch(0),
+        TrivialString(''),
         TrivialNumber(0),
         {},
       );
@@ -196,13 +197,14 @@ class KitchenSink implements k.KitchenSink {
   }
 }
 
-@PgSqlSerializable(
-  includeIfNull: false,
-)
+@PgSqlSerializable(includeIfNull: false, converters: [
+  // referencing a top-level field should work
+  durationConverter,
+  // referencing via a const constructor should work
+  BigIntStringConverter(),
+])
 // referencing a top-level field should work
-@durationConverter
-// referencing via a const constructor should work
-@BigIntStringConverter()
+@trivialStringConverter
 @TrivialNumberConverter.instance
 @EpochDateTimeConverter()
 class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
@@ -216,6 +218,7 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
     this.numberSilly,
     this.numberSillySet,
     this.dateTime,
+    this.trivialString,
     this.nullableNumberSilly,
     this.nullableNumberSillySet,
   );
@@ -238,6 +241,8 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
   Set<TrivialNumber> numberSillySet;
 
   DateTime? dateTime;
+
+  TrivialString? trivialString;
 
   TrivialNumber? nullableNumberSilly;
   Set<TrivialNumber?> nullableNumberSillySet;

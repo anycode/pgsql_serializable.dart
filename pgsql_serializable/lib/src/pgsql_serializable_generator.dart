@@ -20,7 +20,7 @@ class PgSqlSerializableGenerator
     extends GeneratorForAnnotation<PgSqlSerializable> {
   final Settings _settings;
 
-  PgSqlSerializable get config => _settings.config;
+  PgSqlSerializable get config => _settings.config.toPgSqlSerializable();
 
   PgSqlSerializableGenerator.fromSettings(this._settings);
 

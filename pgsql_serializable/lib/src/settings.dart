@@ -43,38 +43,19 @@ class Settings {
         GenericFactoryHelper(),
       ].followedBy(_typeHelpers).followedBy(_coreHelpers);
 
-  final PgSqlSerializable _config;
-
-  // #CHANGE WHEN UPDATING pgsql_annotation
-  ClassConfig get config => ClassConfig(
-        checked: _config.checked ?? ClassConfig.defaults.checked,
-        anyMap: _config.anyMap ?? ClassConfig.defaults.anyMap,
-        constructor: _config.constructor ?? ClassConfig.defaults.constructor,
-        createFactory:
-            _config.createFactory ?? ClassConfig.defaults.createFactory,
-        createToPgSql: _config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
-        ignoreUnannotated:
-            _config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
-        explicitToPgSql:
-            _config.explicitToPgSql ?? ClassConfig.defaults.explicitToPgSql,
-        includeIfNull:
-            _config.includeIfNull ?? ClassConfig.defaults.includeIfNull,
-        genericArgumentFactories: _config.genericArgumentFactories ??
-            ClassConfig.defaults.genericArgumentFactories,
-        fieldRename: _config.fieldRename ?? ClassConfig.defaults.fieldRename,
-        disallowUnrecognizedKeys: _config.disallowUnrecognizedKeys ??
-            ClassConfig.defaults.disallowUnrecognizedKeys,
-      );
+  final ClassConfig config;
 
   /// Creates an instance of [Settings].
   ///
   /// If [typeHelpers] is not provided, the built-in helpers are used:
   /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
   /// [UriHelper].
-  const Settings({
+  Settings({
     PgSqlSerializable? config,
     List<TypeHelper>? typeHelpers,
-  })  : _config = config ?? ClassConfig.defaults,
+  })  : config = config != null
+            ? ClassConfig.fromPgSqlSerializable(config)
+            : ClassConfig.defaults,
         _typeHelpers = typeHelpers ?? defaultHelpers;
 
   /// Creates an instance of [Settings].
