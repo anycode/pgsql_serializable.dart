@@ -5,19 +5,19 @@
 import 'package:example/generic_response_class_example.dart';
 import 'package:test/test.dart';
 
-const _jsonUser = {
+const _pgsqlUser = {
   'status': 200,
   'msg': 'success',
   'data': {'id': 1, 'email': 'test@test.com'}
 };
 
-final _jsonArticle = {
+final _pgsqlArticle = {
   'status': 200,
   'msg': 'success',
   'data': {
     'id': 2,
     'title': 'title1',
-    'author': _jsonUser['data'],
+    'author': _pgsqlUser['data'],
     'comments': [
       {'content': 'comment context', 'id': 1},
       {'content': 'comment context', 'id': 2},
@@ -25,12 +25,12 @@ final _jsonArticle = {
   }
 };
 
-final _jsonArticleList = {
+final _pgsqlArticleList = {
   'status': 200,
   'msg': 'success',
   'data': [
     {'id': 1, 'title': 'title1'},
-    _jsonArticle['data'],
+    _pgsqlArticle['data'],
   ]
 };
 
@@ -59,24 +59,24 @@ void _testArticleList(List<Article> articles) {
 
 void main() {
   test('user', () {
-    _testResponse(BaseResponse<User>.fromJson(_jsonUser), _testUser);
+    _testResponse(BaseResponse<User>.fromPgSql(_pgsqlUser), _testUser);
     // without generic
-    _testResponse(BaseResponse.fromJson(_jsonUser), _testUser);
+    _testResponse(BaseResponse.fromPgSql(_pgsqlUser), _testUser);
   });
 
   test('article', () {
-    _testResponse(BaseResponse<Article>.fromJson(_jsonArticle), _testArticle);
+    _testResponse(BaseResponse<Article>.fromPgSql(_pgsqlArticle), _testArticle);
     // without generic
-    _testResponse(BaseResponse.fromJson(_jsonArticle), _testArticle);
+    _testResponse(BaseResponse.fromPgSql(_pgsqlArticle), _testArticle);
   });
 
   test('article list', () {
     _testResponse(
-      BaseResponse<List<Article>>.fromJson(_jsonArticleList),
+      BaseResponse<List<Article>>.fromPgSql(_pgsqlArticleList),
       _testArticleList,
     );
 
     // without generic
-    _testResponse(BaseResponse.fromJson(_jsonArticleList), _testArticleList);
+    _testResponse(BaseResponse.fromPgSql(_pgsqlArticleList), _testArticleList);
   });
 }

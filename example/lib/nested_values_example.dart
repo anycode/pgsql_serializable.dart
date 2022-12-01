@@ -1,35 +1,35 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'nested_values_example.g.dart';
 
 /// An example work-around for
-/// https://github.com/google/json_serializable.dart/issues/490
-@JsonSerializable()
+/// https://github.com/google/pgsql_serializable.dart/issues/490
+@PgSqlSerializable()
 class NestedValueExample {
   NestedValueExample(this.nestedValues);
 
-  factory NestedValueExample.fromJson(Map<String, dynamic> json) =>
-      _$NestedValueExampleFromJson(json);
+  factory NestedValueExample.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$NestedValueExampleFromPgSql(pgsql);
 
   @_NestedListConverter()
-  @JsonKey(name: 'root_items')
+  @PgSqlKey(name: 'root_items')
   final List<String> nestedValues;
 
-  Map<String, dynamic> toJson() => _$NestedValueExampleToJson(this);
+  Map<String, dynamic> toPgSql() => _$NestedValueExampleToPgSql(this);
 }
 
 class _NestedListConverter
-    extends JsonConverter<List<String>, Map<String, dynamic>> {
+    extends PgSqlConverter<List<String>, Map<String, dynamic>> {
   const _NestedListConverter();
 
   @override
-  List<String> fromJson(Map<String, dynamic> json) => [
-        for (var e in json['items'] as List)
+  List<String> fromPgSql(Map<String, dynamic> pgsql) => [
+        for (var e in pgsql['items'] as List)
           (e as Map<String, dynamic>)['name'] as String
       ];
 
   @override
-  Map<String, dynamic> toJson(List<String> object) => {
+  Map<String, dynamic> toPgSql(List<String> object) => {
         'items': [
           for (var item in object) {'name': item}
         ]

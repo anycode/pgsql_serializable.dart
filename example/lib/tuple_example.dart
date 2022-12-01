@@ -2,11 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'tuple_example.g.dart';
 
-@JsonSerializable(genericArgumentFactories: true)
+@PgSqlSerializable(genericArgumentFactories: true)
 class Tuple<T, S> {
   final T value1;
 
@@ -14,21 +14,21 @@ class Tuple<T, S> {
 
   Tuple(this.value1, this.value2);
 
-  factory Tuple.fromJson(
-    Map<String, dynamic> json,
-    T Function(Object? json) fromJsonT,
-    S Function(Object? json) fromJsonS,
+  factory Tuple.fromPgSql(
+    Map<String, dynamic> pgsql,
+    T Function(Object? pgsql) fromPgSqlT,
+    S Function(Object? pgsql) fromPgSqlS,
   ) =>
-      _$TupleFromJson(json, fromJsonT, fromJsonS);
+      _$TupleFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
 
-  Map<String, dynamic> toJson(
-    Object Function(T value) toJsonT,
-    Object Function(S value) toJsonS,
+  Map<String, dynamic> toPgSql(
+    Object Function(T value) toPgSqlT,
+    Object Function(S value) toPgSqlS,
   ) =>
-      _$TupleToJson(this, toJsonT, toJsonS);
+      _$TupleToPgSql(this, toPgSqlT, toPgSqlS);
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class ConcreteClass {
   final Tuple<int, DateTime> tuple1;
 
@@ -36,8 +36,8 @@ class ConcreteClass {
 
   ConcreteClass(this.tuple1, this.tuple2);
 
-  factory ConcreteClass.fromJson(Map<String, dynamic> json) =>
-      _$ConcreteClassFromJson(json);
+  factory ConcreteClass.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$ConcreteClassFromPgSql(pgsql);
 
-  Map<String, dynamic> toJson() => _$ConcreteClassToJson(this);
+  Map<String, dynamic> toPgSql() => _$ConcreteClassToPgSql(this);
 }
