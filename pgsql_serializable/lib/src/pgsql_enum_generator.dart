@@ -8,9 +8,18 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'enum_utils.dart';
+import 'settings.dart';
 
 class PgSqlEnumGenerator extends GeneratorForAnnotation<PgSqlEnum> {
-  const PgSqlEnumGenerator();
+  final Settings _settings;
+
+  PgSqlEnumGenerator.fromSettings(this._settings);
+  factory PgSqlEnumGenerator({
+    PgSqlSerializable? config,
+  }) =>
+      PgSqlEnumGenerator.fromSettings(Settings(
+        config: config,
+      ));
 
   @override
   List<String> generateForAnnotatedElement(
@@ -26,7 +35,8 @@ class PgSqlEnumGenerator extends GeneratorForAnnotation<PgSqlEnum> {
     }
 
     final value =
-        enumValueMapFromType(element.thisType, nullWithNoAnnotation: true);
+        enumValueMapFromType(element.thisType, _settings.config.enumMapPrefix,
+            nullWithNoAnnotation: true);
 
     return [
       if (value != null) value,

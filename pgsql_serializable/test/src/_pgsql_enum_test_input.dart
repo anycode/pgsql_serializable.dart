@@ -6,7 +6,7 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen_test/annotations.dart';
 
 @ShouldGenerate(r'''
-const _$EnumValueIssue1147EnumMap = {
+const _$pgEnumValueIssue1147EnumMap = {
   EnumValueIssue1147.success: 200,
   EnumValueIssue1147.weird: 601,
 };

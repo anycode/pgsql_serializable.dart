@@ -12,8 +12,8 @@ import 'package:source_helper/source_helper.dart';
 import 'pgsql_literal_generator.dart';
 import 'utils.dart';
 
-String constMapName(DartType targetType) =>
-    '_\$${targetType.element!.name}EnumMap';
+String constMapName(DartType targetType, String prefix) =>
+    '_\$$prefix${targetType.element!.name}EnumMap';
 
 /// If [targetType] is not an enum, return `null`.
 ///
@@ -32,7 +32,8 @@ bool? enumFieldWithNullInEncodeMap(DartType targetType) {
 }
 
 String? enumValueMapFromType(
-  DartType targetType, {
+  DartType targetType,
+  String prefix, {
   bool nullWithNoAnnotation = false,
 }) {
   final enumMap =
@@ -45,7 +46,7 @@ String? enumValueMapFromType(
           '${pgsqlLiteralAsDart(e.value)},')
       .join();
 
-  return 'const ${constMapName(targetType)} = {\n$items\n};';
+  return 'const ${constMapName(targetType, prefix)} = {\n$items\n};';
 }
 
 Map<FieldElement, Object?>? _enumMap(

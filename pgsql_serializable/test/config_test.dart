@@ -125,6 +125,7 @@ void main() {
                 'pascal, screamingSnake';
             break;
           case 'constructor':
+          case 'enum_map_prefix':
             lastLine = "type 'int' is not a subtype of type 'String?' in type "
                 'cast';
             break;
@@ -162,6 +163,7 @@ const _invalidConfig = {
   'create_per_field_to_pgsql': 42,
   'create_to_pgsql': 42,
   'disallow_unrecognized_keys': 42,
+  'enum_map_prefix': 42,
   'explicit_to_pgsql': 42,
   'field_rename': 42,
   'generic_argument_factories': 42,

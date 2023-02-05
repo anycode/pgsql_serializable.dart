@@ -382,7 +382,7 @@ enum BadEnum {
   value
 }
 
-@ShouldGenerate(r'''const _$GoodEnumEnumMap = {
+@ShouldGenerate(r'''const _$pgGoodEnumEnumMap = {
   GoodEnum.noAnnotation: 'noAnnotation',
   GoodEnum.stringAnnotation: 'string annotation',
   GoodEnum.stringAnnotationWeird: r"string annotation with $ funky 'values'",
@@ -408,15 +408,17 @@ enum GoodEnum {
 }
 
 @ShouldGenerate(r'''
-FieldWithFromPgSqlCtorAndTypeParams _$FieldWithFromPgSqlCtorAndTypeParamsFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    FieldWithFromPgSqlCtorAndTypeParams()
-      ..customOrders = pgsql['customOrders'] == null
-          ? null
-          : MyList<GeneralTestClass2, int>.fromPgSql((pgsql['customOrders']
-                  as List<dynamic>)
-              .map((e) => GeneralTestClass2.fromPgSql(e as Map<String, dynamic>))
-              .toList());
+FieldWithFromPgSqlCtorAndTypeParams
+    _$FieldWithFromPgSqlCtorAndTypeParamsFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        FieldWithFromPgSqlCtorAndTypeParams()
+          ..customOrders = pgsql['customOrders'] == null
+              ? null
+              : MyList<GeneralTestClass2, int>.fromPgSql((pgsql['customOrders']
+                      as List<dynamic>)
+                  .map((e) =>
+                      GeneralTestClass2.fromPgSql(e as Map<String, dynamic>))
+                  .toList());
 ''')
 @PgSqlSerializable(createToPgSql: false)
 class FieldWithFromPgSqlCtorAndTypeParams {

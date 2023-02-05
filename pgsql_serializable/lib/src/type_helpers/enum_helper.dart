@@ -21,7 +21,7 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
     String expression,
     TypeHelperContextWithConfig context,
   ) {
-    final memberContent = enumValueMapFromType(targetType);
+    final memberContent = enumValueMapFromType(targetType, context.config.enumMapPrefix);
 
     if (memberContent == null) {
       return null;
@@ -31,9 +31,9 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
     if (targetType.isNullableType ||
         enumFieldWithNullInEncodeMap(targetType) == true) {
-      return '${constMapName(targetType)}[$expression]';
+      return '${constMapName(targetType, context.config.enumMapPrefix)}[$expression]';
     } else {
-      return '${constMapName(targetType)}[$expression]!';
+      return '${constMapName(targetType, context.config.enumMapPrefix)}[$expression]!';
     }
   }
 
@@ -44,7 +44,7 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
     TypeHelperContextWithConfig context,
     bool defaultProvided,
   ) {
-    final memberContent = enumValueMapFromType(targetType);
+    final memberContent = enumValueMapFromType(targetType, context.config.enumMapPrefix);
 
     if (memberContent == null) {
       return null;
@@ -72,7 +72,7 @@ class EnumHelper extends TypeHelper<TypeHelperContextWithConfig> {
     context.addMember(memberContent);
 
     final args = [
-      constMapName(targetType),
+      constMapName(targetType, context.config.enumMapPrefix),
       expression,
       if (pgsqlKey.unknownEnumValue != null)
         'unknownValue: ${pgsqlKey.unknownEnumValue}',

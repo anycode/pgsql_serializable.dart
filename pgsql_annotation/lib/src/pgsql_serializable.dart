@@ -87,8 +87,15 @@ class PgSqlSerializable {
   /// such as [fieldRename].
   final bool? createFieldMap;
 
+  /// Optional prefix for enum maps
+  /// If set, a private, static constant map named `_${prefix}FieldNameEnumMap`
+  /// is created in the generated part file.
+  ///
+  /// Default prefix is 'pg'
+  final String? enumMapPrefix;
+
   /// If `true` (defaults to false), a private, static `_$ExamplePerFieldToPgSql`
-  /// abstract class will be geenrated in the part file.
+  /// abstract class will be generated in the part file.
   ///
   /// This abstract class will contain one static function per property,
   /// exposing a way to encode only this property instead of the entire object.
@@ -247,6 +254,7 @@ class PgSqlSerializable {
     this.checked,
     this.constructor,
     this.createFieldMap,
+    this.enumMapPrefix,
     this.createFactory,
     this.createToPgSql,
     this.disallowUnrecognizedKeys,
@@ -293,6 +301,7 @@ class PgSqlSerializable {
         createToPgSql: createToPgSql ?? defaults.createToPgSql,
         disallowUnrecognizedKeys:
             disallowUnrecognizedKeys ?? defaults.disallowUnrecognizedKeys,
+        enumMapPrefix: enumMapPrefix ?? defaults.enumMapPrefix,
         explicitToPgSql: explicitToPgSql ?? defaults.explicitToPgSql,
         fieldRename: fieldRename ?? defaults.fieldRename,
         ignoreUnannotated: ignoreUnannotated ?? defaults.ignoreUnannotated,

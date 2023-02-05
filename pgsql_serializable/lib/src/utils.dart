@@ -58,6 +58,7 @@ PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializabl
       createFactory: reader.read('createFactory').literalValue as bool?,
       createToPgSql: reader.read('createToPgSql').literalValue as bool?,
       createFieldMap: reader.read('createFieldMap').literalValue as bool?,
+      enumMapPrefix: reader.read('enumMapPrefix').literalValue as String?,
       createPerFieldToPgSql:
           reader.read('createPerFieldToPgSql').literalValue as bool?,
       disallowUnrecognizedKeys:
@@ -106,6 +107,7 @@ ClassConfig mergeConfig(
     createFactory: annotation.createFactory ?? config.createFactory,
     createToPgSql: annotation.createToPgSql ?? config.createToPgSql,
     createFieldMap: annotation.createFieldMap ?? config.createFieldMap,
+    enumMapPrefix: annotation.enumMapPrefix ?? config.enumMapPrefix,
     createPerFieldToPgSql:
         annotation.createPerFieldToPgSql ?? config.createPerFieldToPgSql,
     disallowUnrecognizedKeys:

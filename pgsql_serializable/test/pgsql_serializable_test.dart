@@ -30,7 +30,7 @@ Future<void> main() async {
 
   testAnnotatedElements(
     pgsqlEnumTestReader,
-    const PgSqlEnumGenerator(),
+    PgSqlEnumGenerator(),
     expectedAnnotatedTests: {
       'EnumValueIssue1147',
       'EnumValueNotAField',

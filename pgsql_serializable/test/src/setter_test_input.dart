@@ -16,7 +16,8 @@ class JustSetter {
 
 @ShouldGenerate(
   r'''
-JustSetterNoToPgSql _$JustSetterNoToPgSqlFromPgSql(Map<String, dynamic> pgsql) =>
+JustSetterNoToPgSql _$JustSetterNoToPgSqlFromPgSql(
+        Map<String, dynamic> pgsql) =>
     JustSetterNoToPgSql();
 ''',
   expectedLogItems: ['Setters are ignored: JustSetterNoToPgSql.someSetter'],

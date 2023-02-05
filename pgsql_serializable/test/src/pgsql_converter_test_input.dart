@@ -12,8 +12,8 @@ PgSqlConverterNamedCtor<E> _$PgSqlConverterNamedCtorFromPgSql<E>(
           .fromPgSql(pgsql['value'] as int)
       ..genericValue =
           _GenericConverter<E>.named().fromPgSql(pgsql['genericValue'] as int)
-      ..keyAnnotationFirst =
-          PgSqlConverterNamedCtor._fromPgSql(pgsql['keyAnnotationFirst'] as int);
+      ..keyAnnotationFirst = PgSqlConverterNamedCtor._fromPgSql(
+          pgsql['keyAnnotationFirst'] as int);
 
 Map<String, dynamic> _$PgSqlConverterNamedCtorToPgSql<E>(
         PgSqlConverterNamedCtor<E> instance) =>
@@ -58,8 +58,8 @@ PgSqlConvertOnField<E> _$PgSqlConvertOnFieldFromPgSql<E>(
 Map<String, dynamic> _$PgSqlConvertOnFieldToPgSql<E>(
         PgSqlConvertOnField<E> instance) =>
     <String, dynamic>{
-      'annotatedField':
-          const _DurationMillisecondConverter().toPgSql(instance.annotatedField),
+      'annotatedField': const _DurationMillisecondConverter()
+          .toPgSql(instance.annotatedField),
       'annotatedWithNamedCtor': const _DurationMillisecondConverter.named()
           .toPgSql(instance.annotatedWithNamedCtor),
       'classAnnotatedWithField':

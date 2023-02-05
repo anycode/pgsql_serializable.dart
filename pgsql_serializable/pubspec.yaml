@@ -40,7 +40,8 @@ dev_dependencies:
 
 dependency_overrides:
   pgsql_annotation:
-    git:
-      url: git@github.com:anycode/pgsql_serializable.dart.git
-      ref: pgsql_annotation-v4.8.0
-      path: pgsql_annotation
+    path: ../pgsql_annotation
+    #git:
+    #  url: git@github.com:anycode/pgsql_serializable.dart.git
+    #  ref: pgsql_annotation-v4.8.0
+    #  path: pgsql_annotation

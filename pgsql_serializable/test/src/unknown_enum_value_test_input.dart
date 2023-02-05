@@ -5,11 +5,11 @@ part of '_pgsql_serializable_test_input.dart';
 UnknownEnumValue _$UnknownEnumValueFromPgSql(Map<String, dynamic> pgsql) =>
     UnknownEnumValue()
       ..value = $enumDecodeNullable(
-              _$UnknownEnumValueItemsEnumMap, pgsql['value'],
+              _$pgUnknownEnumValueItemsEnumMap, pgsql['value'],
               unknownValue: UnknownEnumValueItems.vUnknown) ??
           UnknownEnumValueItems.vNull;
 
-const _$UnknownEnumValueItemsEnumMap = {
+const _$pgUnknownEnumValueItemsEnumMap = {
   UnknownEnumValueItems.v0: 'v0',
   UnknownEnumValueItems.v1: 'v1',
   UnknownEnumValueItems.v2: 'v2',

@@ -21,7 +21,8 @@ int _function() => 42;
 
 @ShouldGenerate(
   r'''
-DefaultWithFunction _$DefaultWithFunctionFromPgSql(Map<String, dynamic> pgsql) =>
+DefaultWithFunction _$DefaultWithFunctionFromPgSql(
+        Map<String, dynamic> pgsql) =>
     DefaultWithFunction()..field = pgsql['field'] ?? _function();
 
 Map<String, dynamic> _$DefaultWithFunctionToPgSql(
@@ -130,7 +131,8 @@ class DefaultWithToPgSqlClass {
 @ShouldGenerate(
   r'''
 DefaultWithDisallowNullRequiredClass
-    _$DefaultWithDisallowNullRequiredClassFromPgSql(Map<String, dynamic> pgsql) {
+    _$DefaultWithDisallowNullRequiredClassFromPgSql(
+        Map<String, dynamic> pgsql) {
   $checkKeys(
     pgsql,
     requiredKeys: const ['theField'],

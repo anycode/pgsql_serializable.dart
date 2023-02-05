@@ -51,6 +51,7 @@ class ClassConfig {
   final bool createFieldMap;
   final bool createPerFieldToPgSql;
   final bool disallowUnrecognizedKeys;
+  final String enumMapPrefix;
   final bool explicitToPgSql;
   final FieldRename fieldRename;
   final bool genericArgumentFactories;
@@ -68,6 +69,7 @@ class ClassConfig {
     required this.createFieldMap,
     required this.createPerFieldToPgSql,
     required this.disallowUnrecognizedKeys,
+    required this.enumMapPrefix,
     required this.explicitToPgSql,
     required this.fieldRename,
     required this.genericArgumentFactories,
@@ -92,6 +94,8 @@ class ClassConfig {
         createToPgSql: config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
         ignoreUnannotated:
             config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
+        enumMapPrefix:
+            config.enumMapPrefix ?? ClassConfig.defaults.enumMapPrefix,
         explicitToPgSql:
             config.explicitToPgSql ?? ClassConfig.defaults.explicitToPgSql,
         includeIfNull:
@@ -115,6 +119,7 @@ class ClassConfig {
     createFieldMap: false,
     createPerFieldToPgSql: false,
     disallowUnrecognizedKeys: false,
+    enumMapPrefix: 'pg',
     explicitToPgSql: false,
     fieldRename: FieldRename.none,
     genericArgumentFactories: false,
@@ -131,6 +136,7 @@ class ClassConfig {
         createFieldMap: createFieldMap,
         createPerFieldToPgSql: createPerFieldToPgSql,
         ignoreUnannotated: ignoreUnannotated,
+        enumMapPrefix: enumMapPrefix,
         explicitToPgSql: explicitToPgSql,
         includeIfNull: includeIfNull,
         genericArgumentFactories: genericArgumentFactories,

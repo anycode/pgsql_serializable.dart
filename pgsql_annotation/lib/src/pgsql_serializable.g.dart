@@ -22,6 +22,7 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) =>
             'create_per_field_to_pgsql',
             'create_to_pgsql',
             'disallow_unrecognized_keys',
+            'enum_map_prefix',
             'explicit_to_pgsql',
             'field_rename',
             'generic_argument_factories',
@@ -39,6 +40,8 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) =>
           createToPgSql: $checkedConvert('create_to_pgsql', (v) => v as bool?),
           disallowUnrecognizedKeys:
               $checkedConvert('disallow_unrecognized_keys', (v) => v as bool?),
+          enumMapPrefix:
+              $checkedConvert('enum_map_prefix', (v) => v as String?),
           explicitToPgSql:
               $checkedConvert('explicit_to_pgsql', (v) => v as bool?),
           fieldRename: $checkedConvert('field_rename',
@@ -59,6 +62,7 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) =>
         'createFactory': 'create_factory',
         'createToPgSql': 'create_to_pgsql',
         'disallowUnrecognizedKeys': 'disallow_unrecognized_keys',
+        'enumMapPrefix': 'enum_map_prefix',
         'explicitToPgSql': 'explicit_to_pgsql',
         'fieldRename': 'field_rename',
         'ignoreUnannotated': 'ignore_unannotated',
@@ -78,6 +82,7 @@ Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
       'create_per_field_to_pgsql': instance.createPerFieldToPgSql,
       'create_to_pgsql': instance.createToPgSql,
       'disallow_unrecognized_keys': instance.disallowUnrecognizedKeys,
+      'enum_map_prefix': instance.enumMapPrefix,
       'explicit_to_pgsql': instance.explicitToPgSql,
       'field_rename': _$FieldRenameEnumMap[instance.fieldRename],
       'generic_argument_factories': instance.genericArgumentFactories,

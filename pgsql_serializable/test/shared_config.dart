@@ -22,6 +22,7 @@ final generatorConfigNonDefaultPgSql =
   createFieldMap: true,
   createPerFieldToPgSql: true,
   disallowUnrecognizedKeys: true,
+  enumMapPrefix: 'pg',
   explicitToPgSql: true,
   fieldRename: FieldRename.kebab,
   ignoreUnannotated: true,

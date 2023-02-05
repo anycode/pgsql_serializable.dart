@@ -41,7 +41,8 @@ class InvalidFromFunc2Args {
 ValidToFromFuncClassStatic _$ValidToFromFuncClassStaticFromPgSql(
         Map<String, dynamic> pgsql) =>
     ValidToFromFuncClassStatic()
-      ..field = ValidToFromFuncClassStatic._staticFunc(pgsql['field'] as String);
+      ..field =
+          ValidToFromFuncClassStatic._staticFunc(pgsql['field'] as String);
 
 Map<String, dynamic> _$ValidToFromFuncClassStaticToPgSql(
         ValidToFromFuncClassStatic instance) =>
@@ -321,7 +322,8 @@ _BetterPrivateNames _$BetterPrivateNamesFromPgSql(Map<String, dynamic> pgsql) =>
       name: pgsql['name'] as String,
     );
 
-Map<String, dynamic> _$BetterPrivateNamesToPgSql(_BetterPrivateNames instance) =>
+Map<String, dynamic> _$BetterPrivateNamesToPgSql(
+        _BetterPrivateNames instance) =>
     <String, dynamic>{
       'name': instance.name,
     };

@@ -27,7 +27,7 @@ Builder pgsqlPartBuilder({
     [
       _UnifiedGenerator([
         PgSqlSerializableGenerator.fromSettings(settings),
-        const PgSqlEnumGenerator(),
+        PgSqlEnumGenerator.fromSettings(settings),
       ]),
       const PgSqlLiteralGenerator(),
     ],
