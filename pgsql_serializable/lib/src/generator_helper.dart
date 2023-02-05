@@ -151,5 +151,5 @@ extension on KeyConfig {
 
   bool get explicitYesToPgSql => includeToPgSql == true;
 
-  bool get explicitNoToPgSql => includeFromPgSql == false;
+  bool get explicitNoToPgSql => includeToPgSql == false;
 }

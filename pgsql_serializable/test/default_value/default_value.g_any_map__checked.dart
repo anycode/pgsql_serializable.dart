@@ -9,9 +9,9 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'default_value_interface.dart' as dvi hide Greek;
 import 'default_value_interface.dart'
     show
-        Greek,
         ConstClass,
         ConstClassConverter,
+        Greek,
         constClassFromPgSql,
         constClassToPgSql,
         intDefaultValueFunction;

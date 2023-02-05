@@ -91,6 +91,7 @@ Map<String, dynamic> _$ToPgSqlTrueFromPgSqlFalsePublicToPgSql(
         ToPgSqlTrueFromPgSqlFalsePublic instance) =>
     <String, dynamic>{
       'aField': instance.aField,
+      'field': instance.field,
       'zField': instance.zField,
     };
 
@@ -105,7 +106,6 @@ Map<String, dynamic> _$ToPgSqlFalseFromPgSqlNullPublicToPgSql(
         ToPgSqlFalseFromPgSqlNullPublic instance) =>
     <String, dynamic>{
       'aField': instance.aField,
-      'field': instance.field,
       'zField': instance.zField,
     };
 
@@ -120,7 +120,6 @@ Map<String, dynamic> _$ToPgSqlFalseFromPgSqlTruePublicToPgSql(
         ToPgSqlFalseFromPgSqlTruePublic instance) =>
     <String, dynamic>{
       'aField': instance.aField,
-      'field': instance.field,
       'zField': instance.zField,
     };
 
@@ -217,6 +216,7 @@ Map<String, dynamic> _$ToPgSqlTrueFromPgSqlFalsePrivateToPgSql(
         ToPgSqlTrueFromPgSqlFalsePrivate instance) =>
     <String, dynamic>{
       'aField': instance.aField,
+      'field': instance._field,
       'zField': instance.zField,
     };
 
@@ -244,7 +244,6 @@ Map<String, dynamic> _$ToPgSqlFalseFromPgSqlTruePrivateToPgSql(
         ToPgSqlFalseFromPgSqlTruePrivate instance) =>
     <String, dynamic>{
       'aField': instance.aField,
-      'field': instance._field,
       'zField': instance.zField,
     };
 

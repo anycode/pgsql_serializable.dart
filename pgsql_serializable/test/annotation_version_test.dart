@@ -4,6 +4,9 @@
 
 @TestOn('vm')
 @Tags(['presubmit-only'])
+@Timeout.factor(2)
+library test;
+
 import 'dart:io';
 
 import 'package:pgsql_serializable/src/check_dependencies.dart';

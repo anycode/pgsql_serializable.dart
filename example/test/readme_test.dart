@@ -25,9 +25,9 @@ void _expect(String fileName) {
 
 const _pubspecContent = r'''
 dependencies:
-  pgsql_annotation: ^4.7.0
+  pgsql_annotation: ^4.8.0
 
 dev_dependencies:
-  build_runner: ^2.0.0
-  pgsql_serializable: ^6.0.0
+  build_runner: ^2.3.3
+  pgsql_serializable: ^6.6.0
 ''';

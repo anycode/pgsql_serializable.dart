@@ -40,16 +40,16 @@ const _expectedResult = {
     'without': {'aField': null, 'field': null, 'zField': null}
   },
   'ToPgSqlTrueFromPgSqlFalsePublic: field: null': {
+    'with': {'aField': null, 'field': null, 'zField': null},
+    'without': {'aField': null, 'field': null, 'zField': null}
+  },
+  'ToPgSqlFalseFromPgSqlNullPublic: field: 42': {
     'with': {'aField': null, 'zField': null},
     'without': {'aField': null, 'zField': null}
   },
-  'ToPgSqlFalseFromPgSqlNullPublic: field: 42': {
-    'with': {'aField': null, 'field': 42, 'zField': null},
-    'without': {'aField': null, 'field': null, 'zField': null}
-  },
   'ToPgSqlFalseFromPgSqlTruePublic: field: 42': {
-    'with': {'aField': null, 'field': 42, 'zField': null},
-    'without': {'aField': null, 'field': null, 'zField': null}
+    'with': {'aField': null, 'zField': null},
+    'without': {'aField': null, 'zField': null}
   },
   'ToPgSqlFalseFromPgSqlFalsePublic: field: null': {
     'with': {'aField': null, 'zField': null},
@@ -76,16 +76,16 @@ const _expectedResult = {
     'without': {'aField': null, 'field': null, 'zField': null}
   },
   'ToPgSqlTrueFromPgSqlFalsePrivate: _field: null': {
-    'with': {'aField': null, 'zField': null},
-    'without': {'aField': null, 'zField': null}
+    'with': {'aField': null, 'field': null, 'zField': null},
+    'without': {'aField': null, 'field': null, 'zField': null}
   },
   'ToPgSqlFalseFromPgSqlNullPrivate: _field: null': {
     'with': {'aField': null, 'zField': null},
     'without': {'aField': null, 'zField': null}
   },
   'ToPgSqlFalseFromPgSqlTruePrivate: _field: 42': {
-    'with': {'aField': null, 'field': 42, 'zField': null},
-    'without': {'aField': null, 'field': null, 'zField': null}
+    'with': {'aField': null, 'zField': null},
+    'without': {'aField': null, 'zField': null}
   },
   'ToPgSqlFalseFromPgSqlFalsePrivate: _field: null': {
     'with': {'aField': null, 'zField': null},

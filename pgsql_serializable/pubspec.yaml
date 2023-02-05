@@ -1,5 +1,5 @@
 name: pgsql_serializable
-version: 6.6.0-dev
+version: 6.6.1
 description: >-
   Automatically generate code for converting to and from PgSQL by annotating
   Dart classes.
