@@ -9,10 +9,10 @@ environment:
   sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
-  meta: ^1.4.0
+  meta: ^1.9.1
 
 dev_dependencies:
-  lints: ^2.0.0
+  lints: ^2.0.1
 # When changing PgSqlSerializable class.
 #  build_runner: ^2.0.0
 #  pgsql_serializable: any
