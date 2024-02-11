@@ -23,7 +23,7 @@ Annotate your code with classes defined in
 Run `dart run build_runner build` to generate files into your source directory.
 
 ```console
-> dart pub run build_runner build
+> dart run build_runner build
 [INFO] ensureBuildScript: Generating build script completed, took 368ms
 [INFO] BuildDefinition: Reading cached asset graph completed, took 54ms
 [INFO] BuildDefinition: Checking for updates since last build completed, took 663ms
@@ -31,9 +31,6 @@ Run `dart run build_runner build` to generate files into your source directory.
 [INFO] Build: Caching finalized dependency graph completed, took 44ms
 [INFO] Build: Succeeded after 4687ms with 1 outputs
 ```
-
-_NOTE_: If you're using Flutter, replace `dart run` with
-`flutter pub run`.
 
 [example]: lib/example.dart
 [example_g]: lib/example.g.dart

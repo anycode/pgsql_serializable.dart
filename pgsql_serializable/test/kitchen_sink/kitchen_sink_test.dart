@@ -12,7 +12,7 @@ import 'kitchen_sink_interface.dart';
 import 'kitchen_sink_test_shared.dart';
 import 'strict_keys_object.dart';
 
-Matcher _isMissingKeyException(expectedMessage) =>
+Matcher _isMissingKeyException(String expectedMessage) =>
     isA<MissingRequiredKeysException>()
         .having((e) => e.message, 'message', expectedMessage);
 
@@ -99,17 +99,17 @@ void _nullableTests(KitchenSinkFactory factory) {
 
     expect(pgsql, const {
       'duration': 0,
-      'durationList': [],
+      'durationList': <dynamic>[],
       'bigInt': '0',
-      'bigIntMap': {},
+      'bigIntMap': <String, dynamic>{},
       'nullableBigInt': '0',
-      'nullableBigIntMap': {},
+      'nullableBigIntMap': <String, dynamic>{},
       'numberSilly': 0,
-      'numberSillySet': [],
+      'numberSillySet': <dynamic>[],
       'dateTime': 0,
       'trivialString': '',
       'nullableNumberSilly': 0,
-      'nullableNumberSillySet': [],
+      'nullableNumberSillySet': <dynamic>[],
     });
 
     expect(pgsql.keys, unorderedEquals(_pgsqlConverterValidValues.keys));
@@ -294,7 +294,11 @@ const _nonNullableFields = {
   'strictKeysObject'
 };
 
-const _encodedAsMapKeys = {'simpleObject', 'strictKeysObject'};
+const _encodedAsMapKeys = {
+  'simpleObject',
+  'strictKeysObject',
+  'recordField',
+};
 
 const _iterableMapKeys = {
   'bigIntMap',

@@ -75,10 +75,7 @@ Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
 Once you have added the annotations to your code you then need to run the code
 generator to generate the missing `.g.dart` generated dart files.
 
-With a Dart package, run `dart run build_runner build` in the package directory.
-
-With a Flutter package, run `flutter pub run build_runner build` in your package
-directory.
+Run `dart run build_runner build` in the package directory.
 
 # Annotation values
 
@@ -152,11 +149,11 @@ Out of the box, `json_serializable` supports many common types in the
 [dart:core](https://api.dart.dev/stable/dart-core/dart-core-library.html)
 library: 
 [`BigInt`], [`bool`], [`DateTime`], [`double`], [`Duration`], [`Enum`], [`int`],
-[`Iterable`], [`List`], [`Map`], [`num`], [`Object`], [`Set`], [`String`],
-[`Uri`]
+[`Iterable`], [`List`], [`Map`], [`num`], [`Object`], [`Record`], [`Set`],
+[`String`], [`Uri`]
 
 The collection types –
-[`Iterable`], [`List`], [`Map`], [`Set`]
+[`Iterable`], [`List`], [`Map`], [`Record`], [`Set`]
 – can contain values of all the above types.
 
 For [`Map`], the key value must be one of
@@ -300,19 +297,20 @@ targets:
 [`Enum`]: https://api.dart.dev/stable/dart-core/Enum-class.html
 [`int`]: https://api.dart.dev/stable/dart-core/int-class.html
 [`Iterable`]: https://api.dart.dev/stable/dart-core/Iterable-class.html
-[`JsonConverter`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonConverter-class.html
-[`JsonEnum.valueField`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonEnum/valueField.html
-[`JsonEnum`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonEnum-class.html
-[`JsonKey.fromJson`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonKey/fromJson.html
-[`JsonKey.toJson`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonKey/toJson.html
-[`JsonKey`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonKey-class.html
-[`JsonLiteral`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonLiteral-class.html
-[`JsonSerializable`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonSerializable-class.html
-[`JsonValue`]: https://pub.dev/documentation/json_annotation/4.8.0/json_annotation/JsonValue-class.html
+[`JsonConverter`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonConverter-class.html
+[`JsonEnum.valueField`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonEnum/valueField.html
+[`JsonEnum`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonEnum-class.html
+[`JsonKey.fromJson`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonKey/fromJson.html
+[`JsonKey.toJson`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonKey/toJson.html
+[`JsonKey`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonKey-class.html
+[`JsonLiteral`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonLiteral-class.html
+[`JsonSerializable`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonSerializable-class.html
+[`JsonValue`]: https://pub.dev/documentation/json_annotation/4.8.1/json_annotation/JsonValue-class.html
 [`List`]: https://api.dart.dev/stable/dart-core/List-class.html
 [`Map`]: https://api.dart.dev/stable/dart-core/Map-class.html
 [`num`]: https://api.dart.dev/stable/dart-core/num-class.html
 [`Object`]: https://api.dart.dev/stable/dart-core/Object-class.html
+[`Record`]: https://api.dart.dev/stable/dart-core/Record-class.html
 [`Set`]: https://api.dart.dev/stable/dart-core/Set-class.html
 [`String`]: https://api.dart.dev/stable/dart-core/String-class.html
 [`Uri`]: https://api.dart.dev/stable/dart-core/Uri-class.html

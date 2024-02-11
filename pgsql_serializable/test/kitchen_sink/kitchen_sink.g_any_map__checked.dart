@@ -185,6 +185,8 @@ class KitchenSink implements k.KitchenSink {
     _validatedPropertyNo42 = value;
   }
 
+  k.RecordSample? recordField;
+
   bool operator ==(Object other) => k.sinkEquals(this, other);
 
   static Object? _trickyValueAccessor(Map pgsql, String key) {
@@ -251,6 +253,7 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
   checked: true,
   anyMap: true,
 )
+// ignore: inference_failure_on_instance_creation
 @GenericConverter()
 class PgSqlConverterGeneric<S, T, U> {
   S item;

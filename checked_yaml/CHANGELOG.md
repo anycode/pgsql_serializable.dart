@@ -1,3 +1,12 @@
+## 2.0.4-wip
+
+- Require Dart 3.0
+
+## 2.0.3
+
+- Require Dart 2.19
+- Add topics
+
 ## 2.0.2
 
 - Require `json_annotation` `^4.3.0`

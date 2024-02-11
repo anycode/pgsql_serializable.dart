@@ -153,8 +153,7 @@ class PgSqlKey {
   ///
   /// Only required when the default behavior is not desired.
   const PgSqlKey({
-    @Deprecated('Has no effect')
-        bool? nullable,
+    @Deprecated('Has no effect') bool? nullable,
     this.defaultValue,
     this.disallowNullValue,
     this.fromPgSql,
@@ -162,7 +161,7 @@ class PgSqlKey {
       'Use `includeFromPgSql` and `includeToPgSql` with a value of `false` '
       'instead.',
     )
-        this.ignore,
+    this.ignore,
     this.includeFromPgSql,
     this.includeIfNull,
     this.includeToPgSql,

@@ -1,3 +1,12 @@
+## 4.8.2-wip
+
+- Require Dart 3.0
+
+## 4.8.1
+
+- Require Dart 2.19
+- Add topics.
+
 ## 4.8.0
 
 - DEPRECATED `JsonKey.ignore`. Replaced by...

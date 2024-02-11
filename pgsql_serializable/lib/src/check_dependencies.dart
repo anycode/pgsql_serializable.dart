@@ -10,7 +10,7 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 
 const _productionDirectories = {'lib', 'bin'};
 const _annotationPkgName = 'pgsql_annotation';
-final requiredPgSqlAnnotationMinVersion = Version.parse('4.8.0');
+final requiredPgSqlAnnotationMinVersion = Version.parse('4.8.1');
 
 Future<void> pubspecHasRightVersion(BuildStep buildStep) async {
   final segments = buildStep.inputId.pathSegments;

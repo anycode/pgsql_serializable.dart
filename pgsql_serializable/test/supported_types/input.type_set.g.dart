@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: lines_longer_than_80_chars, text_direction_code_point_in_literal
+// ignore_for_file: lines_longer_than_80_chars, text_direction_code_point_in_literal, inference_failure_on_function_invocation, inference_failure_on_collection_literal
 
 part of 'input.type_set.dart';
 
@@ -392,6 +392,94 @@ Map<String, dynamic> _$SimpleClassNullableOfEnumTypeNullableToPgSql(
       'value': instance.value?.map((e) => _$EnumTypeEnumMap[e]).toList(),
     };
 
+SimpleClassOfFromPgSqlDynamicParam _$SimpleClassOfFromPgSqlDynamicParamFromPgSql(
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfFromPgSqlDynamicParam(
+      (pgsql['value'] as List<dynamic>)
+          .map(FromPgSqlDynamicParam.fromPgSql)
+          .toSet(),
+    );
+
+Map<String, dynamic> _$SimpleClassOfFromPgSqlDynamicParamToPgSql(
+        SimpleClassOfFromPgSqlDynamicParam instance) =>
+    <String, dynamic>{
+      'value': instance.value.toList(),
+    };
+
+SimpleClassNullableOfFromPgSqlDynamicParam
+    _$SimpleClassNullableOfFromPgSqlDynamicParamFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfFromPgSqlDynamicParam(
+          (pgsql['value'] as List<dynamic>?)
+              ?.map(FromPgSqlDynamicParam.fromPgSql)
+              .toSet(),
+        );
+
+Map<String, dynamic> _$SimpleClassNullableOfFromPgSqlDynamicParamToPgSql(
+        SimpleClassNullableOfFromPgSqlDynamicParam instance) =>
+    <String, dynamic>{
+      'value': instance.value?.toList(),
+    };
+
+SimpleClassOfFromPgSqlNullableObjectParam
+    _$SimpleClassOfFromPgSqlNullableObjectParamFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassOfFromPgSqlNullableObjectParam(
+          (pgsql['value'] as List<dynamic>)
+              .map(FromPgSqlNullableObjectParam.fromPgSql)
+              .toSet(),
+        );
+
+Map<String, dynamic> _$SimpleClassOfFromPgSqlNullableObjectParamToPgSql(
+        SimpleClassOfFromPgSqlNullableObjectParam instance) =>
+    <String, dynamic>{
+      'value': instance.value.toList(),
+    };
+
+SimpleClassNullableOfFromPgSqlNullableObjectParam
+    _$SimpleClassNullableOfFromPgSqlNullableObjectParamFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfFromPgSqlNullableObjectParam(
+          (pgsql['value'] as List<dynamic>?)
+              ?.map(FromPgSqlNullableObjectParam.fromPgSql)
+              .toSet(),
+        );
+
+Map<String, dynamic> _$SimpleClassNullableOfFromPgSqlNullableObjectParamToPgSql(
+        SimpleClassNullableOfFromPgSqlNullableObjectParam instance) =>
+    <String, dynamic>{
+      'value': instance.value?.toList(),
+    };
+
+SimpleClassOfFromPgSqlObjectParam _$SimpleClassOfFromPgSqlObjectParamFromPgSql(
+        Map<String, dynamic> pgsql) =>
+    SimpleClassOfFromPgSqlObjectParam(
+      (pgsql['value'] as List<dynamic>)
+          .map((e) => FromPgSqlObjectParam.fromPgSql(e as Object))
+          .toSet(),
+    );
+
+Map<String, dynamic> _$SimpleClassOfFromPgSqlObjectParamToPgSql(
+        SimpleClassOfFromPgSqlObjectParam instance) =>
+    <String, dynamic>{
+      'value': instance.value.toList(),
+    };
+
+SimpleClassNullableOfFromPgSqlObjectParam
+    _$SimpleClassNullableOfFromPgSqlObjectParamFromPgSql(
+            Map<String, dynamic> pgsql) =>
+        SimpleClassNullableOfFromPgSqlObjectParam(
+          (pgsql['value'] as List<dynamic>?)
+              ?.map((e) => FromPgSqlObjectParam.fromPgSql(e as Object))
+              .toSet(),
+        );
+
+Map<String, dynamic> _$SimpleClassNullableOfFromPgSqlObjectParamToPgSql(
+        SimpleClassNullableOfFromPgSqlObjectParam instance) =>
+    <String, dynamic>{
+      'value': instance.value?.toList(),
+    };
+
 SimpleClassOfInt _$SimpleClassOfIntFromPgSql(Map<String, dynamic> pgsql) =>
     SimpleClassOfInt(
       (pgsql['value'] as List<dynamic>).map((e) => e as int).toSet(),
@@ -529,6 +617,65 @@ Map<String, dynamic> _$SimpleClassNullableOfObjectNullableToPgSql(
         SimpleClassNullableOfObjectNullable instance) =>
     <String, dynamic>{
       'value': instance.value?.toList(),
+    };
+
+SimpleClassOfRecord _$SimpleClassOfRecordFromPgSql(Map<String, dynamic> pgsql) =>
+    SimpleClassOfRecord(
+      (pgsql['value'] as List<dynamic>)
+          .map((e) => _$recordConvert(
+                e,
+                ($pgsqlValue) => (
+                  $pgsqlValue[r'$1'] as int,
+                  $pgsqlValue[r'$2'] as String,
+                  truth: $pgsqlValue['truth'] as bool,
+                ),
+              ))
+          .toSet(),
+    );
+
+Map<String, dynamic> _$SimpleClassOfRecordToPgSql(
+        SimpleClassOfRecord instance) =>
+    <String, dynamic>{
+      'value': instance.value
+          .map((e) => <String, dynamic>{
+                r'$1': e.$1,
+                r'$2': e.$2,
+                'truth': e.truth,
+              })
+          .toList(),
+    };
+
+$Rec _$recordConvert<$Rec>(
+  Object? value,
+  $Rec Function(Map) convert,
+) =>
+    convert(value as Map<String, dynamic>);
+
+SimpleClassNullableOfRecord _$SimpleClassNullableOfRecordFromPgSql(
+        Map<String, dynamic> pgsql) =>
+    SimpleClassNullableOfRecord(
+      (pgsql['value'] as List<dynamic>?)
+          ?.map((e) => _$recordConvert(
+                e,
+                ($pgsqlValue) => (
+                  $pgsqlValue[r'$1'] as int,
+                  $pgsqlValue[r'$2'] as String,
+                  truth: $pgsqlValue['truth'] as bool,
+                ),
+              ))
+          .toSet(),
+    );
+
+Map<String, dynamic> _$SimpleClassNullableOfRecordToPgSql(
+        SimpleClassNullableOfRecord instance) =>
+    <String, dynamic>{
+      'value': instance.value
+          ?.map((e) => <String, dynamic>{
+                r'$1': e.$1,
+                r'$2': e.$2,
+                'truth': e.truth,
+              })
+          .toList(),
     };
 
 SimpleClassOfString _$SimpleClassOfStringFromPgSql(Map<String, dynamic> pgsql) =>

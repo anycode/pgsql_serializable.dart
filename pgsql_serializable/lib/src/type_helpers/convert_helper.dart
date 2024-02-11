@@ -6,7 +6,6 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:source_helper/source_helper.dart';
 
 import '../lambda_result.dart';
-import '../shared_checkers.dart';
 import '../type_helper.dart';
 
 /// Information used by [ConvertHelper] when handling `PgSqlKey`-annotated
@@ -57,7 +56,10 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
       return null;
     }
 
-    final asContent = asStatement(fromPgSqlData.paramType);
-    return LambdaResult(expression, fromPgSqlData.name, asContent: asContent);
+    return LambdaResult(
+      expression,
+      fromPgSqlData.name,
+      asContent: fromPgSqlData.paramType,
+    );
   }
 }

@@ -1,18 +1,23 @@
 name: pgsql_annotation
-version: 4.8.0
+version: 4.8.2-wip
 description: >-
   Classes and helper functions that support PgSQL code generation via the
   `pgsql_serializable` package.
 repository: https://github.com/google/pgsql_serializable.dart/tree/master/pgsql_annotation
+topics:
+ - pgsql
+ - build-runner
+ - pgsql-serializable
+ - codegen
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: ^3.0.0
 
 dependencies:
-  meta: ^1.9.1
+  meta: ^1.4.0
 
 dev_dependencies:
-  lints: ^2.0.1
+  dart_flutter_team_lints: ^2.0.0
 # When changing PgSqlSerializable class.
 #  build_runner: ^2.0.0
 #  pgsql_serializable: any

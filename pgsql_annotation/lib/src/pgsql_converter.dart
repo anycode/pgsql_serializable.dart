@@ -19,7 +19,9 @@
 ///
 /// @PgSqlSerializable()
 /// @MyPgSqlConverter()
-/// class Example {}
+/// class Example {
+///   final Value property;
+/// }
 /// ```
 ///
 /// or on a property:
@@ -36,7 +38,9 @@
 ///
 /// ```dart
 /// @PgSqlSerializable(converters: [MyPgSqlConverter()])
-/// class Example {}
+/// class Example {
+///   final Value property;
+/// }
 /// ```
 abstract class PgSqlConverter<T, S> {
   const PgSqlConverter();

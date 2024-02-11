@@ -48,7 +48,7 @@ T enumValueForDartObject<T>(
 ) =>
     items[source.getField('index')!.toIntValue()!];
 
-/// Return an instance of [PgSqlSerializable] corresponding to a the provided
+/// Return an instance of [PgSqlSerializable] corresponding to the provided
 /// [reader].
 // #CHANGE WHEN UPDATING pgsql_annotation
 PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializable(
@@ -184,20 +184,14 @@ String ifNullOrElse(String test, String ifNull, String ifNotNull) =>
 String encodedFieldName(
   FieldRename fieldRename,
   String declaredName,
-) {
-  switch (fieldRename) {
-    case FieldRename.none:
-      return declaredName;
-    case FieldRename.snake:
-      return declaredName.snake;
-    case FieldRename.screamingSnake:
-      return declaredName.snake.toUpperCase();
-    case FieldRename.kebab:
-      return declaredName.kebab;
-    case FieldRename.pascal:
-      return declaredName.pascal;
-  }
-}
+) =>
+    switch (fieldRename) {
+      FieldRename.none => declaredName,
+      FieldRename.snake => declaredName.snake,
+      FieldRename.screamingSnake => declaredName.snake.toUpperCase(),
+      FieldRename.kebab => declaredName.kebab,
+      FieldRename.pascal => declaredName.pascal
+    };
 
 /// Return the Dart code presentation for the given [type].
 ///
@@ -209,7 +203,7 @@ String typeToCode(
   DartType type, {
   bool forceNullable = false,
 }) {
-  if (type.isDynamic) {
+  if (type is DynamicType) {
     return 'dynamic';
   } else if (type is InterfaceType) {
     return [

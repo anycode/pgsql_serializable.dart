@@ -11,7 +11,6 @@ import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
 import '../lambda_result.dart';
-import '../shared_checkers.dart';
 import '../type_helper.dart';
 import '../utils.dart';
 
@@ -65,8 +64,6 @@ PgSql? $converterToPgSqlName<PgSql, Value>(
       return null;
     }
 
-    final asContent = asStatement(converter.pgsqlType);
-
     if (!converter.pgsqlType.isNullableType && targetType.isNullableType) {
       const converterFromPgSqlName = r'_$PgSqlConverterFromPgSql';
       context.addMember('''
@@ -88,7 +85,7 @@ Value? $converterFromPgSqlName<PgSql, Value>(
     return LambdaResult(
       expression,
       '${converter.accessString}.fromPgSql',
-      asContent: asContent,
+      asContent: converter.pgsqlType,
     );
   }
 }

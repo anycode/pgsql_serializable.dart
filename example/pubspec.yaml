@@ -2,7 +2,7 @@ name: example
 publish_to: none
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: ^3.0.0
 
 dependencies:
   pgsql_annotation: ^4.8.0
@@ -18,11 +18,13 @@ dev_dependencies:
   # Used by tests. Not required to use `pgsql_serializable`.
   build_verify: ^3.0.0
 
+  # Not required to use `pgsql_serializable`.
+  dart_flutter_team_lints: ^2.0.0
+
   # REQUIRED!
   pgsql_serializable: ^6.6.0
 
   # Not required to use `pgsql_serializable`.
-  lints: ^2.0.0
   path: ^1.8.0
   test: ^1.16.0
 

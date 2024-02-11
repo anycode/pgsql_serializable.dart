@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: lines_longer_than_80_chars, text_direction_code_point_in_literal
+// ignore_for_file: lines_longer_than_80_chars, text_direction_code_point_in_literal, inference_failure_on_function_invocation, inference_failure_on_collection_literal
 
 part of 'kitchen_sink.g_any_map__checked.dart';
 
@@ -121,6 +121,16 @@ KitchenSink _$KitchenSinkFromPgSql(Map pgsql) => $checkedCreate(
             (v) => val.strictKeysObject = StrictKeysObject.fromPgSql(v as Map));
         $checkedConvert('validatedPropertyNo42',
             (v) => val.validatedPropertyNo42 = v as int?);
+        $checkedConvert(
+            'recordField',
+            (v) => val.recordField = _$recordConvertAnyNullable(
+                  v,
+                  ($pgsqlValue) => (
+                    $pgsqlValue[r'$1'] as int,
+                    $pgsqlValue[r'$2'] as String,
+                    truth: $pgsqlValue['truth'] as bool,
+                  ),
+                ));
         return val;
       },
       fieldKeyMap: const {
@@ -175,7 +185,20 @@ Map<String, dynamic> _$KitchenSinkToPgSql(KitchenSink instance) =>
       'simpleObject': instance.simpleObject,
       'strictKeysObject': instance.strictKeysObject,
       'validatedPropertyNo42': instance.validatedPropertyNo42,
+      'recordField': instance.recordField == null
+          ? null
+          : <String, dynamic>{
+              r'$1': instance.recordField!.$1,
+              r'$2': instance.recordField!.$2,
+              'truth': instance.recordField!.truth,
+            },
     };
+
+$Rec? _$recordConvertAnyNullable<$Rec>(
+  Object? value,
+  $Rec Function(Map) convert,
+) =>
+    value == null ? null : convert(value as Map);
 
 PgSqlConverterTestClass _$PgSqlConverterTestClassFromPgSql(Map pgsql) =>
     $checkedCreate(

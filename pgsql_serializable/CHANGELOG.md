@@ -1,3 +1,22 @@
+## 6.7.2-wip
+
+- Add type arguments to `Map` literals used for `Record` serialization.
+
+## 6.7.1
+
+- Support the latest `package:analyzer`.
+
+## 6.7.0
+
+- Support `Record` types.
+- Require Dart 3.0
+- Require `analyzer: ^5.12.0`
+
+## 6.6.2
+
+- Better handling of `Object?` or `dynamic` as `fromJson` constructor param.
+- Require Dart 2.19
+
 ## 6.6.1
 
 - Fix bug when `JsonKey.includeToJson` is `false`.

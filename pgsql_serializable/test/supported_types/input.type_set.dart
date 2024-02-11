@@ -420,6 +420,102 @@ class SimpleClassNullableOfEnumTypeNullable {
 }
 
 @PgSqlSerializable()
+class SimpleClassOfFromPgSqlDynamicParam {
+  final Set<FromPgSqlDynamicParam> value;
+
+  SimpleClassOfFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfFromPgSqlDynamicParam {
+  final Set<FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfFromPgSqlNullableObjectParam {
+  final Set<FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfFromPgSqlNullableObjectParam {
+  final Set<FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfFromPgSqlObjectParam {
+  final Set<FromPgSqlObjectParam> value;
+
+  SimpleClassOfFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfFromPgSqlObjectParam {
+  final Set<FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
 class SimpleClassOfInt {
   final Set<int> value;
 
@@ -591,6 +687,34 @@ class SimpleClassNullableOfObjectNullable {
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfObjectNullableToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfRecord {
+  final Set<(int, String, {bool truth})> value;
+
+  SimpleClassOfRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfRecord {
+  final Set<(int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassNullableOfRecordToPgSql(this);
 }
 
 @PgSqlSerializable()

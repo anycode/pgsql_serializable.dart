@@ -42,7 +42,7 @@ void _testBadValue(String key, Object? badValue, KitchenSinkFactory factory,
   for (final isPgSql in [true, false]) {
     test('`$key` fails with value `$badValue`- ${isPgSql ? 'pgsql' : 'yaml'}',
         () {
-      var copy = Map.from(validValues);
+      var copy = Map<dynamic, dynamic>.of(validValues);
       copy[key] = badValue;
 
       if (!isPgSql) {
@@ -74,30 +74,21 @@ Matcher _getMatcher(bool checked, String? expectedKey, bool checkedAssignment) {
     );
 
     if (checkedAssignment) {
-      switch (expectedKey) {
-        case 'validatedPropertyNo42':
-          innerMatcher = isStateError;
-          break;
-        case 'no-42':
-          innerMatcher = isArgumentError;
-          break;
-        case 'strictKeysObject':
-          innerMatcher = _isAUnrecognizedKeysException('bob');
-          break;
-        case 'intIterable':
-        case 'datetime-iterable':
-          innerMatcher = isTypeError;
-          break;
-        default:
-          throw StateError('Not expected! - $expectedKey');
-      }
+      innerMatcher = switch (expectedKey) {
+        'validatedPropertyNo42' => isStateError,
+        'no-42' => isArgumentError,
+        'strictKeysObject' => _isAUnrecognizedKeysException('bob'),
+        'intIterable' => isTypeError,
+        'datetime-iterable' => isTypeError,
+        _ => throw StateError('Not expected! - $expectedKey')
+      };
     }
   }
 
   return throwsA(innerMatcher);
 }
 
-Matcher _isAUnrecognizedKeysException(expectedMessage) =>
+Matcher _isAUnrecognizedKeysException(String expectedMessage) =>
     isA<UnrecognizedKeysException>()
         .having((e) => e.message, 'message', expectedMessage);
 

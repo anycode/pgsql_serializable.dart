@@ -3258,6 +3258,776 @@ class SimpleClassNullableOfUriToEnumTypeNullable {
 }
 
 @PgSqlSerializable()
+class SimpleClassOfBigIntToFromPgSqlDynamicParam {
+  final Map<BigInt, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfBigIntToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfBigIntToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfBigIntToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfBigIntToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfBigIntToFromPgSqlDynamicParam {
+  final Map<BigInt, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfBigIntToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfBigIntToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfBigIntToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfBigIntToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDateTimeToFromPgSqlDynamicParam {
+  final Map<DateTime, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfDateTimeToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfDateTimeToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDateTimeToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfDateTimeToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDateTimeToFromPgSqlDynamicParam {
+  final Map<DateTime, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfDateTimeToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDateTimeToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDateTimeToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDateTimeToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDynamicToFromPgSqlDynamicParam {
+  final Map<dynamic, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfDynamicToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfDynamicToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDynamicToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfDynamicToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDynamicToFromPgSqlDynamicParam {
+  final Map<dynamic, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfDynamicToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDynamicToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDynamicToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDynamicToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfEnumTypeToFromPgSqlDynamicParam {
+  final Map<EnumType, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfEnumTypeToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfEnumTypeToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfEnumTypeToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfEnumTypeToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfEnumTypeToFromPgSqlDynamicParam {
+  final Map<EnumType, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfEnumTypeToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfEnumTypeToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfEnumTypeToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfEnumTypeToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfIntToFromPgSqlDynamicParam {
+  final Map<int, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfIntToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfIntToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfIntToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfIntToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfIntToFromPgSqlDynamicParam {
+  final Map<int, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfIntToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfIntToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfIntToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfIntToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfObjectToFromPgSqlDynamicParam {
+  final Map<Object, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfObjectToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfObjectToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfObjectToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfObjectToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfObjectToFromPgSqlDynamicParam {
+  final Map<Object, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfObjectToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfObjectToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfObjectToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfObjectToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfStringToFromPgSqlDynamicParam {
+  final Map<String, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfStringToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfStringToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfStringToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfStringToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfStringToFromPgSqlDynamicParam {
+  final Map<String, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfStringToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfStringToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfStringToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfStringToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfUriToFromPgSqlDynamicParam {
+  final Map<Uri, FromPgSqlDynamicParam> value;
+
+  SimpleClassOfUriToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassOfUriToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfUriToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfUriToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfUriToFromPgSqlDynamicParam {
+  final Map<Uri, FromPgSqlDynamicParam>? value;
+
+  SimpleClassNullableOfUriToFromPgSqlDynamicParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfUriToFromPgSqlDynamicParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfUriToFromPgSqlDynamicParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfUriToFromPgSqlDynamicParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfBigIntToFromPgSqlNullableObjectParam {
+  final Map<BigInt, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfBigIntToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfBigIntToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfBigIntToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfBigIntToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfBigIntToFromPgSqlNullableObjectParam {
+  final Map<BigInt, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfBigIntToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfBigIntToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfBigIntToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfBigIntToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDateTimeToFromPgSqlNullableObjectParam {
+  final Map<DateTime, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfDateTimeToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfDateTimeToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDateTimeToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfDateTimeToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDateTimeToFromPgSqlNullableObjectParam {
+  final Map<DateTime, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfDateTimeToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDateTimeToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDateTimeToFromPgSqlNullableObjectParamFromPgSql(
+          pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDateTimeToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDynamicToFromPgSqlNullableObjectParam {
+  final Map<dynamic, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfDynamicToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfDynamicToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDynamicToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfDynamicToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDynamicToFromPgSqlNullableObjectParam {
+  final Map<dynamic, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfDynamicToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDynamicToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDynamicToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDynamicToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfEnumTypeToFromPgSqlNullableObjectParam {
+  final Map<EnumType, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfEnumTypeToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfEnumTypeToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfEnumTypeToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfEnumTypeToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfEnumTypeToFromPgSqlNullableObjectParam {
+  final Map<EnumType, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfEnumTypeToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfEnumTypeToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfEnumTypeToFromPgSqlNullableObjectParamFromPgSql(
+          pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfEnumTypeToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfIntToFromPgSqlNullableObjectParam {
+  final Map<int, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfIntToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfIntToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfIntToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfIntToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfIntToFromPgSqlNullableObjectParam {
+  final Map<int, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfIntToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfIntToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfIntToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfIntToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfObjectToFromPgSqlNullableObjectParam {
+  final Map<Object, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfObjectToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfObjectToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfObjectToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfObjectToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfObjectToFromPgSqlNullableObjectParam {
+  final Map<Object, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfObjectToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfObjectToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfObjectToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfObjectToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfStringToFromPgSqlNullableObjectParam {
+  final Map<String, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfStringToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfStringToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfStringToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfStringToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfStringToFromPgSqlNullableObjectParam {
+  final Map<String, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfStringToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfStringToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfStringToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfStringToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfUriToFromPgSqlNullableObjectParam {
+  final Map<Uri, FromPgSqlNullableObjectParam> value;
+
+  SimpleClassOfUriToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfUriToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfUriToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfUriToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfUriToFromPgSqlNullableObjectParam {
+  final Map<Uri, FromPgSqlNullableObjectParam>? value;
+
+  SimpleClassNullableOfUriToFromPgSqlNullableObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfUriToFromPgSqlNullableObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfUriToFromPgSqlNullableObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfUriToFromPgSqlNullableObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfBigIntToFromPgSqlObjectParam {
+  final Map<BigInt, FromPgSqlObjectParam> value;
+
+  SimpleClassOfBigIntToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfBigIntToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfBigIntToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfBigIntToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfBigIntToFromPgSqlObjectParam {
+  final Map<BigInt, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfBigIntToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfBigIntToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfBigIntToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfBigIntToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDateTimeToFromPgSqlObjectParam {
+  final Map<DateTime, FromPgSqlObjectParam> value;
+
+  SimpleClassOfDateTimeToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfDateTimeToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDateTimeToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfDateTimeToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDateTimeToFromPgSqlObjectParam {
+  final Map<DateTime, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfDateTimeToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDateTimeToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDateTimeToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDateTimeToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDynamicToFromPgSqlObjectParam {
+  final Map<dynamic, FromPgSqlObjectParam> value;
+
+  SimpleClassOfDynamicToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfDynamicToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDynamicToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfDynamicToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDynamicToFromPgSqlObjectParam {
+  final Map<dynamic, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfDynamicToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDynamicToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDynamicToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDynamicToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfEnumTypeToFromPgSqlObjectParam {
+  final Map<EnumType, FromPgSqlObjectParam> value;
+
+  SimpleClassOfEnumTypeToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfEnumTypeToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfEnumTypeToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfEnumTypeToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfEnumTypeToFromPgSqlObjectParam {
+  final Map<EnumType, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfEnumTypeToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfEnumTypeToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfEnumTypeToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfEnumTypeToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfIntToFromPgSqlObjectParam {
+  final Map<int, FromPgSqlObjectParam> value;
+
+  SimpleClassOfIntToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfIntToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfIntToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfIntToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfIntToFromPgSqlObjectParam {
+  final Map<int, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfIntToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfIntToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfIntToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfIntToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfObjectToFromPgSqlObjectParam {
+  final Map<Object, FromPgSqlObjectParam> value;
+
+  SimpleClassOfObjectToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfObjectToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfObjectToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfObjectToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfObjectToFromPgSqlObjectParam {
+  final Map<Object, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfObjectToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfObjectToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfObjectToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfObjectToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfStringToFromPgSqlObjectParam {
+  final Map<String, FromPgSqlObjectParam> value;
+
+  SimpleClassOfStringToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfStringToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfStringToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfStringToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfStringToFromPgSqlObjectParam {
+  final Map<String, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfStringToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfStringToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfStringToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfStringToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfUriToFromPgSqlObjectParam {
+  final Map<Uri, FromPgSqlObjectParam> value;
+
+  SimpleClassOfUriToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassOfUriToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassOfUriToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassOfUriToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfUriToFromPgSqlObjectParam {
+  final Map<Uri, FromPgSqlObjectParam>? value;
+
+  SimpleClassNullableOfUriToFromPgSqlObjectParam(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfUriToFromPgSqlObjectParam.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfUriToFromPgSqlObjectParamFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfUriToFromPgSqlObjectParamToPgSql(this);
+}
+
+@PgSqlSerializable()
 class SimpleClassOfBigIntToInt {
   final Map<BigInt, int> value;
 
@@ -4727,6 +5497,246 @@ class SimpleClassNullableOfUriToObjectNullable {
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfUriToObjectNullableToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfBigIntToRecord {
+  final Map<BigInt, (int, String, {bool truth})> value;
+
+  SimpleClassOfBigIntToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfBigIntToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfBigIntToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfBigIntToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfBigIntToRecord {
+  final Map<BigInt, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfBigIntToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfBigIntToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfBigIntToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfBigIntToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDateTimeToRecord {
+  final Map<DateTime, (int, String, {bool truth})> value;
+
+  SimpleClassOfDateTimeToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfDateTimeToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDateTimeToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDateTimeToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDateTimeToRecord {
+  final Map<DateTime, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfDateTimeToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDateTimeToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDateTimeToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDateTimeToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfDynamicToRecord {
+  final Map<dynamic, (int, String, {bool truth})> value;
+
+  SimpleClassOfDynamicToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfDynamicToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfDynamicToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfDynamicToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfDynamicToRecord {
+  final Map<dynamic, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfDynamicToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfDynamicToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfDynamicToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfDynamicToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfEnumTypeToRecord {
+  final Map<EnumType, (int, String, {bool truth})> value;
+
+  SimpleClassOfEnumTypeToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfEnumTypeToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfEnumTypeToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfEnumTypeToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfEnumTypeToRecord {
+  final Map<EnumType, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfEnumTypeToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfEnumTypeToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfEnumTypeToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfEnumTypeToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfIntToRecord {
+  final Map<int, (int, String, {bool truth})> value;
+
+  SimpleClassOfIntToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfIntToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfIntToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfIntToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfIntToRecord {
+  final Map<int, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfIntToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfIntToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfIntToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfIntToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfObjectToRecord {
+  final Map<Object, (int, String, {bool truth})> value;
+
+  SimpleClassOfObjectToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfObjectToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfObjectToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfObjectToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfObjectToRecord {
+  final Map<Object, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfObjectToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfObjectToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfObjectToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfObjectToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfStringToRecord {
+  final Map<String, (int, String, {bool truth})> value;
+
+  SimpleClassOfStringToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfStringToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfStringToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfStringToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfStringToRecord {
+  final Map<String, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfStringToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfStringToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfStringToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfStringToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassOfUriToRecord {
+  final Map<Uri, (int, String, {bool truth})> value;
+
+  SimpleClassOfUriToRecord(
+    this.value,
+  );
+
+  factory SimpleClassOfUriToRecord.fromPgSql(Map<String, Object?> pgsql) =>
+      _$SimpleClassOfUriToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() => _$SimpleClassOfUriToRecordToPgSql(this);
+}
+
+@PgSqlSerializable()
+class SimpleClassNullableOfUriToRecord {
+  final Map<Uri, (int, String, {bool truth})>? value;
+
+  SimpleClassNullableOfUriToRecord(
+    this.value,
+  );
+
+  factory SimpleClassNullableOfUriToRecord.fromPgSql(
+          Map<String, Object?> pgsql) =>
+      _$SimpleClassNullableOfUriToRecordFromPgSql(pgsql);
+
+  Map<String, Object?> toPgSql() =>
+      _$SimpleClassNullableOfUriToRecordToPgSql(this);
 }
 
 @PgSqlSerializable()

@@ -53,7 +53,9 @@ Map<FieldElement, Object?>? _enumMap(
   DartType targetType, {
   bool nullWithNoAnnotation = false,
 }) {
-  final annotation = _pgsqlEnumChecker.firstAnnotationOf(targetType.element!);
+  final targetTypeElement = targetType.element;
+  if (targetTypeElement == null) return null;
+  final annotation = _pgsqlEnumChecker.firstAnnotationOf(targetTypeElement);
   final pgsqlEnum = _fromAnnotation(annotation);
 
   final enumFields = iterateEnumFields(targetType);

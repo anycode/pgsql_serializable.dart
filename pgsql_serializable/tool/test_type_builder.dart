@@ -59,7 +59,7 @@ const _trivialTypesToTest = {
   ),
 };
 
-Iterable<String> supportedTypes() => _typesToTest.keys;
+Iterable<String> supportedTypes() => _allTypes.keys;
 
 Iterable<String> collectionTypes() => _collectionTypes.keys;
 
@@ -87,12 +87,18 @@ final _collectionTypes = {
     altPgSqlExpression: '[$_altCollectionExpressions]',
     genericArgs: _iterableGenericArgs,
   ),
+  recordType: TestTypeData(
+    altPgSqlExpression: '{}',
+    genericArgs: _iterableGenericArgs,
+  )
 };
 
-final _typesToTest = {
+final _allTypes = {
   ..._trivialTypesToTest,
   ..._collectionTypes,
 };
+
+final _typesToTest = Map.of(_allTypes)..remove(recordType);
 
 Iterable<String> get mapKeyTypes =>
     allowedMapKeyTypes.map((e) => e == 'enum' ? customEnumType : e).toList()
@@ -101,7 +107,11 @@ Iterable<String> get mapKeyTypes =>
 final _iterableGenericArgs = ([
   ..._trivialTypesToTest.keys,
   ..._trivialTypesToTest.keys.map((e) => '$e?'),
+  'FromPgSqlDynamicParam',
+  'FromPgSqlNullableObjectParam',
+  'FromPgSqlObjectParam',
   'dynamic',
+  recordType,
 ]..sort(compareAsciiLowerCase))
     .toSet();
 
@@ -119,7 +129,7 @@ class _TypeBuilder implements Builder {
 
     final sourceContent = await buildStep.readAsString(inputId);
 
-    for (var entry in _typesToTest.entries) {
+    for (var entry in _allTypes.entries) {
       final type = entry.key;
       final newId = buildStep.inputId.changeExtension(toTypeExtension(type));
 
@@ -131,9 +141,8 @@ class _TypeBuilder implements Builder {
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => {
-        '.dart': _typesToTest.keys.map(toTypeExtension).toSet().toList()..sort()
-      };
+  Map<String, List<String>> get buildExtensions =>
+      {'.dart': _allTypes.keys.map(toTypeExtension).toSet().toList()..sort()};
 }
 
 Builder typeTestBuilder([_]) =>
