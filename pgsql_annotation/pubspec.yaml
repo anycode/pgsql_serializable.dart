@@ -3,7 +3,7 @@ version: 4.8.2-wip
 description: >-
   Classes and helper functions that support PgSQL code generation via the
   `pgsql_serializable` package.
-repository: https://github.com/google/pgsql_serializable.dart/tree/master/pgsql_annotation
+repository: https://github.com/anycode/pgsql_serializable.dart/tree/master/pgsql_annotation
 topics:
  - pgsql
  - build-runner

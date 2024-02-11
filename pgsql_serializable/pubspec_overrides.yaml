@@ -1,0 +1,3 @@
+dependency_overrides:
+  pgsql_annotation:
+    path: ../pgsql_annotation
