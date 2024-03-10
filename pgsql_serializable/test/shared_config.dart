@@ -20,6 +20,7 @@ final generatorConfigNonDefaultPgSql =
   createFactory: false,
   createToPgSql: false,
   createFieldMap: true,
+  createPgSqlKeys: true,
   createPerFieldToPgSql: true,
   disallowUnrecognizedKeys: true,
   enumMapPrefix: 'pg',

@@ -17,9 +17,9 @@ void main() {
 
 void _anyMapTests(KitchenSinkFactory factory) {
   test('valid values round-trip - yaml', () {
-    final jsonEncoded = loudEncode(validValues);
-    final yaml = loadYaml(jsonEncoded);
-    expect(jsonEncoded, loudEncode(factory.fromPgSql(yaml as YamlMap)));
+    final pgsqlEncoded = loudEncode(validValues);
+    final yaml = loadYaml(pgsqlEncoded);
+    expect(pgsqlEncoded, loudEncode(factory.fromPgSql(yaml as YamlMap)));
   });
 
   group('a bad value for', () {

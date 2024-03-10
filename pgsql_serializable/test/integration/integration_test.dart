@@ -10,6 +10,7 @@ import 'converter_examples.dart';
 import 'create_per_field_to_pgsql_example.dart';
 import 'field_map_example.dart';
 import 'pgsql_enum_example.dart';
+import 'pgsql_keys_example.dart' as pg_keys;
 import 'pgsql_test_common.dart' show Category, Platform, StatusCode;
 import 'pgsql_test_example.dart';
 
@@ -470,5 +471,9 @@ void main() {
 
   test('value field index fun', () {
     expect(enumValueFieldIndexValues, [0, 701, 2]);
+  });
+
+  test('ModelPgSqlKeys', () {
+    expect(pg_keys.keys, {'first-name', 'LAST_NAME'});
   });
 }

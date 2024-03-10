@@ -4,7 +4,7 @@ version: 2.0.4-wip
 description: >-
   Generate more helpful exceptions when decoding YAML documents using
   package:pgsql_serializable and package:yaml.
-repository: https://github.com/google/pgsql_serializable.dart/tree/master/checked_yaml
+repository: https://github.com/anycode/pgsql_serializable.dart/tree/master/checked_yaml
 topics:
  - yaml
  - pgsql

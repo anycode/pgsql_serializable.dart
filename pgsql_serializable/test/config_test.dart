@@ -153,6 +153,7 @@ const _invalidConfig = {
   'constructor': 42,
   'create_factory': 42,
   'create_field_map': 42,
+  'create_pgsql_keys': 42,
   'create_per_field_to_pgsql': 42,
   'create_to_pgsql': 42,
   'disallow_unrecognized_keys': 42,

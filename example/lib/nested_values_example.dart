@@ -3,7 +3,7 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 part 'nested_values_example.g.dart';
 
 /// An example work-around for
-/// https://github.com/google/pgsql_serializable.dart/issues/490
+/// https://github.com/anycode/pgsql_serializable.dart/issues/490
 @PgSqlSerializable()
 class NestedValueExample {
   NestedValueExample(this.nestedValues);

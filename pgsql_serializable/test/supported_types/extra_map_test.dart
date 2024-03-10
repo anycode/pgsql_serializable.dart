@@ -20,7 +20,7 @@ void main() {
       'value': {'key': 'value'}
     },
     {
-      // Regression case for https://github.com/google/pgsql_serializable.dart/issues/864
+      // Regression case for https://github.com/anycode/pgsql_serializable.dart/issues/864
       'value': {'key': null}
     },
   }) {

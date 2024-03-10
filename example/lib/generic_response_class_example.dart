@@ -7,8 +7,8 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 part 'generic_response_class_example.g.dart';
 
 // An example highlighting the problem outlined in
-// https://github.com/google/pgsql_serializable.dart/issues/646
-// https://github.com/google/pgsql_serializable.dart/issues/671
+// https://github.com/anycode/pgsql_serializable.dart/issues/646
+// https://github.com/anycode/pgsql_serializable.dart/issues/671
 
 @PgSqlSerializable(createToPgSql: false)
 class BaseResponse<T> {

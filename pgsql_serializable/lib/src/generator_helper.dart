@@ -132,6 +132,10 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
       yield createFieldMap(accessibleFieldSet);
     }
 
+    if (config.createPgSqlKeys) {
+      yield createPgSqlKeys(accessibleFieldSet);
+    }
+
     if (config.createPerFieldToPgSql) {
       yield createPerFieldToPgSql(accessibleFieldSet);
     }

@@ -16,6 +16,7 @@ class ConfigurationImplicitDefaults {
   createFactory: true,
   createToPgSql: true,
   createFieldMap: false,
+  createPgSqlKeys: false,
   createPerFieldToPgSql: false,
   disallowUnrecognizedKeys: false,
   explicitToPgSql: false,

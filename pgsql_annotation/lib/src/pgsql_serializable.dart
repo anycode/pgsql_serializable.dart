@@ -94,6 +94,21 @@ class PgSqlSerializable {
   /// Default prefix is 'pg'
   final String? enumMapPrefix;
 
+  /// If `true` (defaults to false), a private class `_$ExamplePgSqlKeys`
+  /// constant is created in the generated part file.
+  ///
+  /// This class will contain every property, with the pgsql key as value,
+  /// exposing a secured way to access the pgsql key from the property.
+  ///
+  /// ```dart
+  /// @PgSqlSerializable(createPgSqlKeys: true)
+  /// class Example {
+  ///   // ...
+  ///   static const pgsqlKeys = _$PublicationImplPgSqlKeys();
+  /// }
+  /// ```
+  final bool? createPgSqlKeys;
+
   /// If `true` (defaults to false), a private, static `_$ExamplePerFieldToPgSql`
   /// abstract class will be generated in the part file.
   ///
@@ -255,6 +270,7 @@ class PgSqlSerializable {
     this.constructor,
     this.createFieldMap,
     this.enumMapPrefix,
+    this.createPgSqlKeys,
     this.createFactory,
     this.createToPgSql,
     this.disallowUnrecognizedKeys,

@@ -19,6 +19,7 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) =>
             'constructor',
             'create_factory',
             'create_field_map',
+            'create_pgsql_keys',
             'create_per_field_to_pgsql',
             'create_to_pgsql',
             'disallow_unrecognized_keys',
@@ -36,6 +37,8 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) =>
           constructor: $checkedConvert('constructor', (v) => v as String?),
           createFieldMap:
               $checkedConvert('create_field_map', (v) => v as bool?),
+          createPgSqlKeys:
+              $checkedConvert('create_pgsql_keys', (v) => v as bool?),
           createFactory: $checkedConvert('create_factory', (v) => v as bool?),
           createToPgSql: $checkedConvert('create_to_pgsql', (v) => v as bool?),
           disallowUnrecognizedKeys:
@@ -59,6 +62,7 @@ PgSqlSerializable _$PgSqlSerializableFromPgSql(Map<String, dynamic> pgsql) =>
       fieldKeyMap: const {
         'anyMap': 'any_map',
         'createFieldMap': 'create_field_map',
+        'createPgSqlKeys': 'create_pgsql_keys',
         'createFactory': 'create_factory',
         'createToPgSql': 'create_to_pgsql',
         'disallowUnrecognizedKeys': 'disallow_unrecognized_keys',
@@ -79,6 +83,7 @@ Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
       'constructor': instance.constructor,
       'create_factory': instance.createFactory,
       'create_field_map': instance.createFieldMap,
+      'create_pgsql_keys': instance.createPgSqlKeys,
       'create_per_field_to_pgsql': instance.createPerFieldToPgSql,
       'create_to_pgsql': instance.createToPgSql,
       'disallow_unrecognized_keys': instance.disallowUnrecognizedKeys,

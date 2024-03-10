@@ -129,7 +129,7 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
     }
 
     // TODO: the type could be imported from a library with a prefix!
-    // https://github.com/google/pgsql_serializable.dart/issues/19
+    // https://github.com/anycode/pgsql_serializable.dart/issues/19
     final lambda = LambdaResult(
       output,
       '${typeToCode(targetType.promoteNonNullable())}.fromPgSql',

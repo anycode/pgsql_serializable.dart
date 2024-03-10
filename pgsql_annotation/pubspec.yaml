@@ -1,5 +1,5 @@
 name: pgsql_annotation
-version: 4.8.2-wip
+version: 4.9.0-wip
 description: >-
   Classes and helper functions that support PgSQL code generation via the
   `pgsql_serializable` package.

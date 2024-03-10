@@ -49,6 +49,7 @@ class ClassConfig {
   final bool createFactory;
   final bool createToPgSql;
   final bool createFieldMap;
+  final bool createPgSqlKeys;
   final bool createPerFieldToPgSql;
   final bool disallowUnrecognizedKeys;
   final String enumMapPrefix;
@@ -67,6 +68,7 @@ class ClassConfig {
     required this.createFactory,
     required this.createToPgSql,
     required this.createFieldMap,
+    required this.createPgSqlKeys,
     required this.createPerFieldToPgSql,
     required this.disallowUnrecognizedKeys,
     required this.enumMapPrefix,
@@ -87,6 +89,8 @@ class ClassConfig {
         constructor: config.constructor ?? ClassConfig.defaults.constructor,
         createFieldMap:
             config.createFieldMap ?? ClassConfig.defaults.createFieldMap,
+        createPgSqlKeys:
+            config.createPgSqlKeys ?? ClassConfig.defaults.createPgSqlKeys,
         createPerFieldToPgSql: config.createPerFieldToPgSql ??
             ClassConfig.defaults.createPerFieldToPgSql,
         createFactory:
@@ -117,6 +121,7 @@ class ClassConfig {
     createFactory: true,
     createToPgSql: true,
     createFieldMap: false,
+    createPgSqlKeys: false,
     createPerFieldToPgSql: false,
     disallowUnrecognizedKeys: false,
     enumMapPrefix: 'pg',
@@ -134,6 +139,7 @@ class ClassConfig {
         createFactory: createFactory,
         createToPgSql: createToPgSql,
         createFieldMap: createFieldMap,
+        createPgSqlKeys: createPgSqlKeys,
         createPerFieldToPgSql: createPerFieldToPgSql,
         ignoreUnannotated: ignoreUnannotated,
         enumMapPrefix: enumMapPrefix,

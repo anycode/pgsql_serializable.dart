@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// ignore_for_file: inference_failure_on_instance_creation
+
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(r'''
@@ -12,8 +14,8 @@ PgSqlConverterNamedCtor<E> _$PgSqlConverterNamedCtorFromPgSql<E>(
           .fromPgSql(pgsql['value'] as int)
       ..genericValue =
           _GenericConverter<E>.named().fromPgSql(pgsql['genericValue'] as int)
-      ..keyAnnotationFirst = PgSqlConverterNamedCtor._fromPgSql(
-          pgsql['keyAnnotationFirst'] as int);
+      ..keyAnnotationFirst =
+          PgSqlConverterNamedCtor._fromPgSql(pgsql['keyAnnotationFirst'] as int);
 
 Map<String, dynamic> _$PgSqlConverterNamedCtorToPgSql<E>(
         PgSqlConverterNamedCtor<E> instance) =>
@@ -58,8 +60,8 @@ PgSqlConvertOnField<E> _$PgSqlConvertOnFieldFromPgSql<E>(
 Map<String, dynamic> _$PgSqlConvertOnFieldToPgSql<E>(
         PgSqlConvertOnField<E> instance) =>
     <String, dynamic>{
-      'annotatedField': const _DurationMillisecondConverter()
-          .toPgSql(instance.annotatedField),
+      'annotatedField':
+          const _DurationMillisecondConverter().toPgSql(instance.annotatedField),
       'annotatedWithNamedCtor': const _DurationMillisecondConverter.named()
           .toPgSql(instance.annotatedWithNamedCtor),
       'classAnnotatedWithField':

@@ -46,7 +46,7 @@ abstract class DefaultValue {
 
 enum Greek { alpha, beta, gamma, delta }
 
-// Regression for https://github.com/google/pgsql_serializable.dart/issues/903
+// Regression for https://github.com/anycode/pgsql_serializable.dart/issues/903
 class ConstClass {
   final String field;
 

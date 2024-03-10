@@ -24,7 +24,7 @@ KeyConfig pgsqlKeyForField(FieldElement field, ClassConfig classAnnotation) =>
 KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   // If an annotation exists on `element` the source is a 'real' field.
   // If the result is `null`, check the getter – it is a property.
-  // TODO: setters: github.com/google/pgsql_serializable.dart/issues/24
+  // TODO: setters: github.com/anycode/pgsql_serializable.dart/issues/24
   final obj = pgsqlKeyAnnotation(element);
 
   final ctorParamDefault = classAnnotation.ctorParamDefaults[element.name];

@@ -105,7 +105,7 @@ class Item extends ItemCore {
   List<DateTime>? saleDates;
   List<int>? rates;
 
-  // Regression test for https://github.com/google/pgsql_serializable.dart/issues/896
+  // Regression test for https://github.com/anycode/pgsql_serializable.dart/issues/896
   @PgSqlKey(fromPgSql: _fromPgSqlGeoPoint, toPgSql: _toPgSqlGeoPoint)
   GeoPoint? geoPoint;
 

@@ -237,7 +237,7 @@ class IncludeIfNullOverride {
   String? str;
 }
 
-// https://github.com/google/pgsql_serializable.dart/issues/7 regression
+// https://github.com/anycode/pgsql_serializable.dart/issues/7 regression
 @ShouldThrow(
   'The class `NoCtorClass` has no default constructor.',
 )
@@ -250,7 +250,7 @@ class NoCtorClass {
       throw UnimplementedError();
 }
 
-// https://github.com/google/pgsql_serializable.dart/issues/7 regression
+// https://github.com/anycode/pgsql_serializable.dart/issues/7 regression
 @ShouldThrow(
   'The class `WrongConstructorNameClass` does not have a constructor with the '
   'name `bob`.',
@@ -408,17 +408,15 @@ enum GoodEnum {
 }
 
 @ShouldGenerate(r'''
-FieldWithFromPgSqlCtorAndTypeParams
-    _$FieldWithFromPgSqlCtorAndTypeParamsFromPgSql(
-            Map<String, dynamic> pgsql) =>
-        FieldWithFromPgSqlCtorAndTypeParams()
-          ..customOrders = pgsql['customOrders'] == null
-              ? null
-              : MyList<GeneralTestClass2, int>.fromPgSql((pgsql['customOrders']
-                      as List<dynamic>)
-                  .map((e) =>
-                      GeneralTestClass2.fromPgSql(e as Map<String, dynamic>))
-                  .toList());
+FieldWithFromPgSqlCtorAndTypeParams _$FieldWithFromPgSqlCtorAndTypeParamsFromPgSql(
+        Map<String, dynamic> pgsql) =>
+    FieldWithFromPgSqlCtorAndTypeParams()
+      ..customOrders = pgsql['customOrders'] == null
+          ? null
+          : MyList<GeneralTestClass2, int>.fromPgSql((pgsql['customOrders']
+                  as List<dynamic>)
+              .map((e) => GeneralTestClass2.fromPgSql(e as Map<String, dynamic>))
+              .toList());
 ''')
 @PgSqlSerializable(createToPgSql: false)
 class FieldWithFromPgSqlCtorAndTypeParams {

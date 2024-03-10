@@ -1,4 +1,4 @@
-# See https://github.com/google/mono_repo.dart for details on this file
+# See https://github.com/anycode/mono_repo.dart for details on this file
 self_validate: analyzer_and_format
 
 github:
