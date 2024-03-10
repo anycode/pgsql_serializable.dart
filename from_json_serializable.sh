@@ -13,13 +13,13 @@ cp -rf -t pgsql_annotation/ json_annotation/*
 rm -rf json_annotation/
 
 echo "-------------------"
-echo "3. rename files - change 'json' to 'pgsql', Enter to continue, CTRL-C to quit"
+echo "3. rename '*json*' files to '*pgsql*', Enter to continue, CTRL-C to quit"
 read x
 find pgsql* exam* -name '*json*' | \
 grep -v '\.json' | \
 while read file
 do
-	mv $file $(echo $file | sed 's/json/pgsql/g')
+	mv "$file" "${$file//json/pgsql}"
 done
 
 echo "-------------------"
