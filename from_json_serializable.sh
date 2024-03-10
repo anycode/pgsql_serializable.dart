@@ -30,8 +30,10 @@ while read file
 do
 	perl -pi'*.orig' -e "s/json/pgsql/g;" -e "s/Json/PgSql/g;" -e "s/JSON/PgSQL/g;" $file
 	perl -pi -e "s/pgsql.decode/json.decode/g;" -e "s/pgsql.encode/json.encode/g;" $file
-	perl -pi -e "s/PgSqlDecode[^d]/JsonDecode/g;" -e "s/PgSqlEncode[^d]/JsonEncode/g;" $file
-	perl -pi -e "s/pgsqlDecode[^d]/jsonDecode/g;" -e "s/pgsqlEncode[^d]/jsonEncode/g;" $file
+	perl -pi -e "s/PgSqlDecode/JsonDecode/g;" -e "s/PgSqlEncode/JsonEncode/g;" $file
+	perl -pi -e "s/pgsqlDecode/jsonDecode/g;" -e "s/pgsqlEncode/jsonEncode/g;" $file
+	perl -pi -e "s/JsonDecoded/PgSqlDecoded/g;" -e "s/JsonEncoded/PgSqlEncoded/g;" $file
+	perl -pi -e "s/jsonDecoded/pgsqlDecoded/g;" -e "s/jsonEncoded/pgsqlEncoded/g;" $file
 	perl -pi -e "s/PgSqlUnsupportedObjectError/JsonUnsupportedObjectError/g;" $file
 	perl -pi -e "s|github.com/google|github.com/anycode|g;" $file
 done
