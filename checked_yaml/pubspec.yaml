@@ -3,20 +3,20 @@ version: 2.0.4-wip
 
 description: >-
   Generate more helpful exceptions when decoding YAML documents using
-  package:json_serializable and package:yaml.
-repository: https://github.com/google/json_serializable.dart/tree/master/checked_yaml
+  package:pgsql_serializable and package:yaml.
+repository: https://github.com/anycode/pgsql_serializable.dart/tree/master/checked_yaml
 topics:
  - yaml
- - json
+ - pgsql
  - build-runner
- - json-serializable
+ - pgsql-serializable
  - codegen
 
 environment:
   sdk: ^3.0.0
 
 dependencies:
-  json_annotation: ^4.3.0
+  pgsql_annotation: ^4.3.0
   source_span: ^1.8.0
   yaml: ^3.0.0
 
@@ -24,13 +24,13 @@ dev_dependencies:
   build_runner: ^2.0.0
   build_verify: ^3.0.0
   dart_flutter_team_lints: ^2.0.0
-  json_serializable: ^6.0.0
+  pgsql_serializable: ^6.0.0
   path: ^1.0.0
   test: ^1.16.0
   test_process: ^2.0.0
 
 #dependency_overrides:
-#  json_annotation:
-#    path: ../json_annotation
-#  json_serializable:
-#    path: ../json_serializable
+#  pgsql_annotation:
+#    path: ../pgsql_annotation
+#  pgsql_serializable:
+#    path: ../pgsql_serializable

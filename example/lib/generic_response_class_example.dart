@@ -2,20 +2,20 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'generic_response_class_example.g.dart';
 
 // An example highlighting the problem outlined in
-// https://github.com/google/json_serializable.dart/issues/646
-// https://github.com/google/json_serializable.dart/issues/671
+// https://github.com/anycode/pgsql_serializable.dart/issues/646
+// https://github.com/anycode/pgsql_serializable.dart/issues/671
 
-@JsonSerializable(createToJson: false)
+@PgSqlSerializable(createToPgSql: false)
 class BaseResponse<T> {
   final int? status;
   final String? msg;
 
-  @JsonKey(fromJson: _dataFromJson)
+  @PgSqlKey(fromPgSql: _dataFromPgSql)
   final T? data;
 
   const BaseResponse({
@@ -24,38 +24,38 @@ class BaseResponse<T> {
     this.data,
   });
 
-  factory BaseResponse.fromJson(Map<String, dynamic> json) =>
-      _$BaseResponseFromJson(json);
+  factory BaseResponse.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$BaseResponseFromPgSql(pgsql);
 
-  /// Decodes [json] by "inspecting" its contents.
-  static T _dataFromJson<T>(Object json) {
-    if (json is Map<String, dynamic>) {
-      if (json.containsKey('email')) {
-        return User.fromJson(json) as T;
+  /// Decodes [pgsql] by "inspecting" its contents.
+  static T _dataFromPgSql<T>(Object pgsql) {
+    if (pgsql is Map<String, dynamic>) {
+      if (pgsql.containsKey('email')) {
+        return User.fromPgSql(pgsql) as T;
       }
 
-      if (json.containsKey('title')) {
-        return Article.fromJson(json) as T;
+      if (pgsql.containsKey('title')) {
+        return Article.fromPgSql(pgsql) as T;
       }
-    } else if (json is List) {
+    } else if (pgsql is List) {
       // NOTE: this logic assumes the ONLY valid value for a `List` in this case
       // is a List<Author>. If that assumption changes, then it will be
       // necessary to "peek" into non-empty lists to determine the type!
 
-      return json
-          .map((e) => Article.fromJson(e as Map<String, dynamic>))
+      return pgsql
+          .map((e) => Article.fromPgSql(e as Map<String, dynamic>))
           .toList() as T;
     }
 
     throw ArgumentError.value(
-      json,
-      'json',
+      pgsql,
+      'pgsql',
       'Cannot convert the provided data.',
     );
   }
 }
 
-@JsonSerializable(createToJson: false)
+@PgSqlSerializable(createToPgSql: false)
 class Article {
   final int id;
   final String title;
@@ -71,11 +71,11 @@ class Article {
     this.comments,
   });
 
-  factory Article.fromJson(Map<String, dynamic> json) =>
-      _$ArticleFromJson(json);
+  factory Article.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$ArticleFromPgSql(pgsql);
 }
 
-@JsonSerializable(createToJson: false)
+@PgSqlSerializable(createToPgSql: false)
 class User {
   final int? id;
   final String? email;
@@ -85,10 +85,10 @@ class User {
     this.email,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromPgSql(Map<String, dynamic> pgsql) => _$UserFromPgSql(pgsql);
 }
 
-@JsonSerializable(createToJson: false)
+@PgSqlSerializable(createToPgSql: false)
 class Comment {
   final String? content;
   final int? id;
@@ -98,6 +98,6 @@ class Comment {
     this.content,
   });
 
-  factory Comment.fromJson(Map<String, dynamic> json) =>
-      _$CommentFromJson(json);
+  factory Comment.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$CommentFromPgSql(pgsql);
 }

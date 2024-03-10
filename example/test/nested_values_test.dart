@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:_json_serial_shared_test/shared_test.dart';
+import 'package:_pgsql_serial_shared_test/shared_test.dart';
 import 'package:example/nested_values_example.dart';
 import 'package:test/test.dart';
 
@@ -13,7 +13,7 @@ void main() {
     final input = jsonDecode(_input) as Map<String, dynamic>;
     final normalizedOutput = loudEncode(input);
 
-    final instance = NestedValueExample.fromJson(input);
+    final instance = NestedValueExample.fromPgSql(input);
 
     expect(loudEncode(instance), normalizedOutput);
   });
