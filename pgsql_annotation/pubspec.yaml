@@ -4,6 +4,7 @@ description: >-
   Classes and helper functions that support PgSQL code generation via the
   `pgsql_serializable` package.
 repository: https://github.com/anycode/pgsql_serializable.dart/tree/master/pgsql_annotation
+publish_to: https://pub.anycode.dev
 topics:
  - pgsql
  - build-runner
@@ -14,10 +15,10 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  meta: ^1.4.0
+  meta: ^1.12.0
 
 dev_dependencies:
-  dart_flutter_team_lints: ^2.0.0
+  dart_flutter_team_lints: ^2.1.1
 # When changing PgSqlSerializable class.
 #  build_runner: ^2.0.0
 #  pgsql_serializable: any
