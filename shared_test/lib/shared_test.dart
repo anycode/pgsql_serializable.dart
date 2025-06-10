@@ -39,7 +39,7 @@ String loudEncode(Object? object) {
 
 T roundTripObject<T>(
   T object,
-  T Function(Map<String, dynamic> pgsql) factory, {
+  T Function(Map<String, dynamic> json) factory, {
   bool skipObjectEquals = false,
 }) {
   final data = loudEncode(object);
@@ -50,8 +50,8 @@ T roundTripObject<T>(
     expect(object2, equals(object));
   }
 
-  final pgsql2 = loudEncode(object2);
+  final json2 = loudEncode(object2);
 
-  expect(pgsql2, equals(data));
+  expect(json2, equals(data));
   return object2;
 }

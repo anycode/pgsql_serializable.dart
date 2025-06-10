@@ -4,6 +4,9 @@ include: package:dart_flutter_team_lints/analysis_options.yaml
 analyzer:
   language:
     strict-casts: true
+  errors:
+    # Analyzer v7.4.0 crazy
+    deprecated_member_use: ignore
 
 linter:
   rules:
@@ -19,12 +22,12 @@ linter:
     - literal_only_boolean_expressions
     - missing_whitespace_between_adjacent_strings
     - no_runtimeType_toString
-    - package_api_docs
     - prefer_const_declarations
     - prefer_expression_function_bodies
     - prefer_final_locals
     - sort_child_properties_last
     - unnecessary_breaks
-    - unsafe_html
+    - unnecessary_ignore
     - use_full_hex_values_for_flutter_colors
+    - use_null_aware_elements
     - use_string_buffers

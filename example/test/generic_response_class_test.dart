@@ -5,33 +5,33 @@
 import 'package:example/generic_response_class_example.dart';
 import 'package:test/test.dart';
 
-const _pgsqlUser = {
+const _jsonUser = {
   'status': 200,
   'msg': 'success',
-  'data': {'id': 1, 'email': 'test@test.com'}
+  'data': {'id': 1, 'email': 'test@test.com'},
 };
 
-final _pgsqlArticle = {
+final _jsonArticle = {
   'status': 200,
   'msg': 'success',
   'data': {
     'id': 2,
     'title': 'title1',
-    'author': _pgsqlUser['data'],
+    'author': _jsonUser['data'],
     'comments': [
       {'content': 'comment context', 'id': 1},
       {'content': 'comment context', 'id': 2},
-    ]
-  }
+    ],
+  },
 };
 
-final _pgsqlArticleList = {
+final _jsonArticleList = {
   'status': 200,
   'msg': 'success',
   'data': [
     {'id': 1, 'title': 'title1'},
-    _pgsqlArticle['data'],
-  ]
+    _jsonArticle['data'],
+  ],
 };
 
 void _testResponse<T>(BaseResponse response, void Function(T) testFunction) {
@@ -59,24 +59,24 @@ void _testArticleList(List<Article> articles) {
 
 void main() {
   test('user', () {
-    _testResponse(BaseResponse<User>.fromPgSql(_pgsqlUser), _testUser);
+    _testResponse(BaseResponse<User>.fromJson(_jsonUser), _testUser);
     // without generic
-    _testResponse(BaseResponse.fromPgSql(_pgsqlUser), _testUser);
+    _testResponse(BaseResponse.fromJson(_jsonUser), _testUser);
   });
 
   test('article', () {
-    _testResponse(BaseResponse<Article>.fromPgSql(_pgsqlArticle), _testArticle);
+    _testResponse(BaseResponse<Article>.fromJson(_jsonArticle), _testArticle);
     // without generic
-    _testResponse(BaseResponse.fromPgSql(_pgsqlArticle), _testArticle);
+    _testResponse(BaseResponse.fromJson(_jsonArticle), _testArticle);
   });
 
   test('article list', () {
     _testResponse(
-      BaseResponse<List<Article>>.fromPgSql(_pgsqlArticleList),
+      BaseResponse<List<Article>>.fromJson(_jsonArticleList),
       _testArticleList,
     );
 
     // without generic
-    _testResponse(BaseResponse.fromPgSql(_pgsqlArticleList), _testArticleList);
+    _testResponse(BaseResponse.fromJson(_jsonArticleList), _testArticleList);
   });
 }

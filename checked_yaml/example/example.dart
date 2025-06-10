@@ -5,17 +5,13 @@
 import 'dart:io';
 
 import 'package:checked_yaml/checked_yaml.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'example.g.dart';
 
-@PgSqlSerializable(
-  anyMap: true,
-  checked: true,
-  disallowUnrecognizedKeys: true,
-)
+@JsonSerializable(anyMap: true, checked: true, disallowUnrecognizedKeys: true)
 class Configuration {
-  @PgSqlKey(required: true)
+  @JsonKey(required: true)
   final String name;
   final int count;
 
@@ -25,12 +21,12 @@ class Configuration {
     }
   }
 
-  factory Configuration.fromPgSql(Map pgsql) => _$ConfigurationFromPgSql(pgsql);
+  factory Configuration.fromJson(Map json) => _$ConfigurationFromJson(json);
 
-  Map<String, dynamic> toPgSql() => _$ConfigurationToPgSql(this);
+  Map<String, dynamic> toJson() => _$ConfigurationToJson(this);
 
   @override
-  String toString() => 'Configuration: ${toPgSql()}';
+  String toString() => 'Configuration: ${toJson()}';
 }
 
 void main(List<String> arguments) {
@@ -47,7 +43,7 @@ void main(List<String> arguments) {
 
   final config = checkedYamlDecode(
     yamlContent,
-    (m) => Configuration.fromPgSql(m!),
+    (m) => Configuration.fromJson(m!),
     sourceUrl: sourceUri,
   );
   print(config);

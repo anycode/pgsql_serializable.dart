@@ -3,13 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-library test;
+library;
 
 import 'dart:io';
 
-import 'package:_pgsql_serial_shared_test/shared_test.dart';
+import 'package:_json_serial_shared_test/shared_test.dart';
 import 'package:checked_yaml/checked_yaml.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -27,15 +27,13 @@ void main() {
     for (final filePath in _tests) {
       test(p.basenameWithoutExtension(filePath), () {
         final content = File(filePath).readAsStringSync();
-        final yamlContent = loadYaml(
-          content,
-          sourceUrl: Uri.file(filePath),
-        ) as YamlMap;
+        final yamlContent =
+            loadYaml(content, sourceUrl: Uri.file(filePath)) as YamlMap;
 
         try {
-          final config = Config.fromPgSql(yamlContent);
+          final config = Config.fromJson(yamlContent);
           expect(config, isNotNull);
-        } on CheckedFromPgSqlException catch (e) {
+        } on CheckedFromJsonException catch (e) {
           if (e.message != null) {
             print(toParsedYamlException(e).formattedMessage);
           }
@@ -56,10 +54,10 @@ void main() {
         printOnFailure(entry.key);
 
         try {
-          final config = Config.fromPgSql(yamlContent);
+          final config = Config.fromJson(yamlContent);
           print(loudEncode(config));
           fail('parse should fail');
-        } on CheckedFromPgSqlException catch (e) {
+        } on CheckedFromJsonException catch (e) {
           final prettyOutput = toParsedYamlException(e).formattedMessage;
           printOnFailure("r'''\n$prettyOutput'''");
           expect(prettyOutput, entry.value);
@@ -157,5 +155,5 @@ line 4, column 21 of file.yaml: Unsupported value for "configLocation". Illegal 
   ╷
 4 │     configLocation: "user@host:invalid/uri"
   │                     ^^^^^^^^^^^^^^^^^^^^^^^
-  ╵'''
+  ╵''',
 };
