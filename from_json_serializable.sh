@@ -49,8 +49,7 @@ find . -name '*.orig' -exec rm \{\} \;
 
 
 echo "-------------------"
-echo "TODO - 6. merge to main branch, delete temp branch, Enter to continue, CTRL-C to quit"
-read x
-echo "...TODO"
-
+echo "You're on branch upstream2main. Test all changes and if everything works fine, "
+echo "merge upstream2main into main and then delete upstream2main."
+echo ""
 echo "Finished"
