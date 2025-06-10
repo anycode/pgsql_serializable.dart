@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "1. pull upstream changes, copy upstream to temp branch, Enter to continue, CTRL-C to quit"
+echo "1. merge upstream changes, copy upstream to temp branch, Enter to continue, CTRL-C to quit"
 read x
 git checkout upstream
-git pull upstream
+git merge upstream/master
 git checkout -b upstream2main upstream^0
 
 echo "-------------------"
