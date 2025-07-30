@@ -3,18 +3,18 @@
 part of 'build_config.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// PgSqlSerializableGenerator
 // **************************************************************************
 
-Config _$ConfigFromJson(Map json) => $checkedCreate('Config', json, (
+Config _$ConfigFromPgSql(Map pgsql) => $checkedCreate('Config', pgsql, (
   $checkedConvert,
 ) {
-  $checkKeys(json, requiredKeys: const ['builders']);
+  $checkKeys(pgsql, requiredKeys: const ['builders']);
   final val = Config(
     builders: $checkedConvert(
       'builders',
       (v) => (v as Map).map(
-        (k, e) => MapEntry(k as String, Builder.fromJson(e as Map)),
+        (k, e) => MapEntry(k as String, Builder.fromPgSql(e as Map)),
       ),
     ),
   );
@@ -28,7 +28,7 @@ Config _$ConfigFromJson(Map json) => $checkedCreate('Config', json, (
   return val;
 });
 
-Map<String, dynamic> _$ConfigToJson(Config instance) => <String, dynamic>{
+Map<String, dynamic> _$ConfigToPgSql(Config instance) => <String, dynamic>{
   'builders': instance.builders,
   'weights': instance.weights?.map(
     (k, e) => MapEntry(_$AutoApplyEnumMap[k]!, e),
@@ -42,12 +42,12 @@ const _$AutoApplyEnumMap = {
   AutoApply.rootPackage: 'root_package',
 };
 
-Builder _$BuilderFromJson(Map json) => $checkedCreate(
+Builder _$BuilderFromPgSql(Map pgsql) => $checkedCreate(
   'Builder',
-  json,
+  pgsql,
   ($checkedConvert) {
     $checkKeys(
-      json,
+      pgsql,
       allowedKeys: const [
         'target',
         'import',
@@ -118,7 +118,7 @@ Builder _$BuilderFromJson(Map json) => $checkedCreate(
   },
 );
 
-Map<String, dynamic> _$BuilderToJson(Builder instance) => <String, dynamic>{
+Map<String, dynamic> _$BuilderToPgSql(Builder instance) => <String, dynamic>{
   'target': ?instance.target,
   'import': ?instance.import,
   'is_optional': ?instance.isOptional,

@@ -1,4 +1,4 @@
-name: json_serial_workspace     # Can be anything
+name: pgsql_serial_workspace     # Can be anything
 environment:
   sdk: ^3.8.0
 
@@ -10,6 +10,6 @@ workspace:
   - _test_yaml
   - checked_yaml
   - example
-  - json_annotation
-  - json_serializable
+  - pgsql_annotation
+  - pgsql_serializable
   - shared_test

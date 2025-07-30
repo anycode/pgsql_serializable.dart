@@ -1,5 +1,5 @@
 import 'package:checked_yaml/checked_yaml.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
@@ -7,7 +7,7 @@ void main() {
   test('simple test', () {
     expect(
       () => checkedYamlDecode('{"innerMap": {}}', (m) {
-        throw CheckedFromJsonException(
+        throw CheckedFromPgSqlException(
           m!['innerMap'] as YamlMap,
           null,
           'nothing',
@@ -25,7 +25,7 @@ void main() {
             .having(
               (e) => e.innerError,
               'innerError',
-              isA<CheckedFromJsonException>(),
+              isA<CheckedFromPgSqlException>(),
             )
             .having((e) => e.formattedMessage, 'formattedMessage', '''
 line 1, column 14: There was an error parsing the map.

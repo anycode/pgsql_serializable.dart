@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-import 'package:_json_serial_shared_test/shared_test.dart';
+import 'package:_pgsql_serial_shared_test/shared_test.dart';
 import 'package:example/example.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('JsonSerializable', () {
+  test('PgSqlSerializable', () {
     final person = Person(
       'Inigo',
       'Montoya',
@@ -17,10 +17,10 @@ void main() {
       middleName: 'Bob',
     )..orders = [Order(DateTime.now())..item = (Item()..count = 42)];
 
-    final personJson = loudEncode(person);
+    final personPgSql = loudEncode(person);
 
-    final person2 = Person.fromJson(
-      json.decode(personJson) as Map<String, dynamic>,
+    final person2 = Person.fromPgSql(
+      json.decode(personPgSql) as Map<String, dynamic>,
     );
 
     expect(person.firstName, person2.firstName);
@@ -29,10 +29,10 @@ void main() {
     expect(person.orders.single.date, person2.orders.single.date);
     expect(person.orders.single.item!.count, 42);
 
-    expect(loudEncode(person2), equals(personJson));
+    expect(loudEncode(person2), equals(personPgSql));
   });
 
-  test('JsonLiteral', () {
+  test('PgSqlLiteral', () {
     expect(glossaryData, hasLength(1));
   });
 }

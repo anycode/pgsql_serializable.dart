@@ -3,13 +3,13 @@
 part of 'example.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// PgSqlSerializableGenerator
 // **************************************************************************
 
-Configuration _$ConfigurationFromJson(Map json) =>
-    $checkedCreate('Configuration', json, ($checkedConvert) {
+Configuration _$ConfigurationFromPgSql(Map pgsql) =>
+    $checkedCreate('Configuration', pgsql, ($checkedConvert) {
       $checkKeys(
-        json,
+        pgsql,
         allowedKeys: const ['name', 'count'],
         requiredKeys: const ['name'],
       );
@@ -20,5 +20,5 @@ Configuration _$ConfigurationFromJson(Map json) =>
       return val;
     });
 
-Map<String, dynamic> _$ConfigurationToJson(Configuration instance) =>
+Map<String, dynamic> _$ConfigurationToPgSql(Configuration instance) =>
     <String, dynamic>{'name': instance.name, 'count': instance.count};

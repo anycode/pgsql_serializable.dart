@@ -1,4 +1,4 @@
-name: _json_serial_shared_test
+name: _pgsql_serial_shared_test
 publish_to: none
 environment:
   sdk: ^3.8.0

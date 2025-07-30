@@ -1,0 +1,37 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// ignore_for_file: lines_longer_than_80_chars, text_direction_code_point_in_literal, inference_failure_on_function_invocation, inference_failure_on_collection_literal
+
+part of 'input.type_uri.dart';
+
+// **************************************************************************
+// PgSqlSerializableGenerator
+// **************************************************************************
+
+SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) => SimpleClass(
+  Uri.parse(pgsql['value'] as String),
+  pgsql['withDefault'] == null
+      ? _defaultValueFunc()
+      : Uri.parse(pgsql['withDefault'] as String),
+);
+
+Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
+    <String, dynamic>{
+      'value': instance.value.toString(),
+      'withDefault': instance.withDefault.toString(),
+    };
+
+SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =>
+    SimpleClassNullable(
+      pgsql['value'] == null ? null : Uri.parse(pgsql['value'] as String),
+      pgsql['withDefault'] == null
+          ? _defaultValueFunc()
+          : Uri.parse(pgsql['withDefault'] as String),
+    );
+
+Map<String, dynamic> _$SimpleClassNullableToPgSql(
+  SimpleClassNullable instance,
+) => <String, dynamic>{
+  'value': instance.value?.toString(),
+  'withDefault': instance.withDefault?.toString(),
+};

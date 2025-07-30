@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:_json_serial_shared_test/shared_test.dart';
+import 'package:_pgsql_serial_shared_test/shared_test.dart';
 import 'package:example/tuple_example.dart';
 import 'package:test/test.dart';
 
@@ -30,7 +30,7 @@ void main() {
 }''';
 
     expect(encoded, expected);
-    final decoded = ConcreteClass.fromJson(
+    final decoded = ConcreteClass.fromPgSql(
       jsonDecode(encoded) as Map<String, dynamic>,
     );
     final encoded2 = loudEncode(decoded);

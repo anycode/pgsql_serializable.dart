@@ -3,31 +3,31 @@
 part of 'generic_response_class_example.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// PgSqlSerializableGenerator
 // **************************************************************************
 
-BaseResponse<T> _$BaseResponseFromJson<T>(Map<String, dynamic> json) =>
+BaseResponse<T> _$BaseResponseFromPgSql<T>(Map<String, dynamic> pgsql) =>
     BaseResponse<T>(
-      status: (json['status'] as num?)?.toInt(),
-      msg: json['msg'] as String?,
-      data: BaseResponse._dataFromJson(json['data'] as Object),
+      status: (pgsql['status'] as num?)?.toInt(),
+      msg: pgsql['msg'] as String?,
+      data: BaseResponse._dataFromPgSql(pgsql['data'] as Object),
     );
 
-Article _$ArticleFromJson(Map<String, dynamic> json) => Article(
-  id: (json['id'] as num).toInt(),
-  title: json['title'] as String,
-  author: json['author'] == null
+Article _$ArticleFromPgSql(Map<String, dynamic> pgsql) => Article(
+  id: (pgsql['id'] as num).toInt(),
+  title: pgsql['title'] as String,
+  author: pgsql['author'] == null
       ? null
-      : User.fromJson(json['author'] as Map<String, dynamic>),
-  comments: (json['comments'] as List<dynamic>?)
-      ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
+      : User.fromPgSql(pgsql['author'] as Map<String, dynamic>),
+  comments: (pgsql['comments'] as List<dynamic>?)
+      ?.map((e) => Comment.fromPgSql(e as Map<String, dynamic>))
       .toList(),
 );
 
-User _$UserFromJson(Map<String, dynamic> json) =>
-    User(id: (json['id'] as num?)?.toInt(), email: json['email'] as String?);
+User _$UserFromPgSql(Map<String, dynamic> pgsql) =>
+    User(id: (pgsql['id'] as num?)?.toInt(), email: pgsql['email'] as String?);
 
-Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
-  id: (json['id'] as num?)?.toInt(),
-  content: json['content'] as String?,
+Comment _$CommentFromPgSql(Map<String, dynamic> pgsql) => Comment(
+  id: (pgsql['id'] as num?)?.toInt(),
+  content: pgsql['content'] as String?,
 );

@@ -7,9 +7,9 @@ library;
 
 import 'dart:io';
 
-import 'package:_json_serial_shared_test/shared_test.dart';
+import 'package:_pgsql_serial_shared_test/shared_test.dart';
 import 'package:checked_yaml/checked_yaml.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -31,9 +31,9 @@ void main() {
             loadYaml(content, sourceUrl: Uri.file(filePath)) as YamlMap;
 
         try {
-          final config = Config.fromJson(yamlContent);
+          final config = Config.fromPgSql(yamlContent);
           expect(config, isNotNull);
-        } on CheckedFromJsonException catch (e) {
+        } on CheckedFromPgSqlException catch (e) {
           if (e.message != null) {
             print(toParsedYamlException(e).formattedMessage);
           }
@@ -54,10 +54,10 @@ void main() {
         printOnFailure(entry.key);
 
         try {
-          final config = Config.fromJson(yamlContent);
+          final config = Config.fromPgSql(yamlContent);
           print(loudEncode(config));
           fail('parse should fail');
-        } on CheckedFromJsonException catch (e) {
+        } on CheckedFromPgSqlException catch (e) {
           final prettyOutput = toParsedYamlException(e).formattedMessage;
           printOnFailure("r'''\n$prettyOutput'''");
           expect(prettyOutput, entry.value);

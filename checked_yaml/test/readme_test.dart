@@ -39,7 +39,7 @@ $content
 
 void main() {
   test('class test', () {
-    _member('\n@JsonSerializable');
+    _member('\n@PgSqlSerializable');
   });
 
   test('main test', () {
