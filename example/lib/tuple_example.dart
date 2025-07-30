@@ -18,14 +18,12 @@ class Tuple<T, S> {
     Map<String, dynamic> pgsql,
     T Function(Object? pgsql) fromPgSqlT,
     S Function(Object? pgsql) fromPgSqlS,
-  ) =>
-      _$TupleFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
+  ) => _$TupleFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
 
   Map<String, dynamic> toPgSql(
     Object Function(T value) toPgSqlT,
     Object Function(S value) toPgSqlS,
-  ) =>
-      _$TupleToPgSql(this, toPgSqlT, toPgSqlS);
+  ) => _$TupleToPgSql(this, toPgSqlT, toPgSqlS);
 }
 
 @PgSqlSerializable()

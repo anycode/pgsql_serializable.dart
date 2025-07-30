@@ -7,7 +7,7 @@
 /// [T] is the data type you'd like to convert to and from.
 ///
 /// [S] is the type of the value stored in PgSQL. It must be a valid PgSQL type
-/// such as [String], [int], or [Map<String, dynamic>].
+/// such as [String], [int], or [Map]`<String, dynamic>`.
 ///
 ///
 /// [PgSqlConverter]s can be placed either on the class:

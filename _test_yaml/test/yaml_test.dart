@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-library test;
+library;
 
 import 'dart:io';
 
@@ -27,10 +27,8 @@ void main() {
     for (final filePath in _tests) {
       test(p.basenameWithoutExtension(filePath), () {
         final content = File(filePath).readAsStringSync();
-        final yamlContent = loadYaml(
-          content,
-          sourceUrl: Uri.file(filePath),
-        ) as YamlMap;
+        final yamlContent =
+            loadYaml(content, sourceUrl: Uri.file(filePath)) as YamlMap;
 
         try {
           final config = Config.fromPgSql(yamlContent);
@@ -157,5 +155,5 @@ line 4, column 21 of file.yaml: Unsupported value for "configLocation". Illegal 
   ╷
 4 │     configLocation: "user@host:invalid/uri"
   │                     ^^^^^^^^^^^^^^^^^^^^^^^
-  ╵'''
+  ╵''',
 };

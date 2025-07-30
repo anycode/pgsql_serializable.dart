@@ -1,3 +1,5 @@
+// @dart=3.8
+
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(r'''
@@ -62,11 +64,11 @@ class FieldNamerSnake {
 
 @ShouldGenerate(r'''
 Map<String, dynamic> _$FieldNamerScreamingSnakeToPgSql(
-        FieldNamerScreamingSnake instance) =>
-    <String, dynamic>{
-      'THE_FIELD': instance.theField,
-      'nameOverride': instance.nameOverride,
-    };
+  FieldNamerScreamingSnake instance,
+) => <String, dynamic>{
+  'THE_FIELD': instance.theField,
+  'nameOverride': instance.nameOverride,
+};
 ''')
 @PgSqlSerializable(fieldRename: FieldRename.screamingSnake, createFactory: false)
 class FieldNamerScreamingSnake {

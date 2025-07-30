@@ -8,7 +8,7 @@
 /// Also contains helper functions and classes – prefixed with `$` used by
 /// `pgsql_serializable` when the `use_wrappers` or `checked` options are
 /// enabled.
-library pgsql_annotation;
+library;
 
 export 'src/allowed_keys_helpers.dart';
 export 'src/checked_helpers.dart';

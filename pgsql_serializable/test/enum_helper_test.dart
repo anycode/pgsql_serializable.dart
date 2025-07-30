@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-library test;
+library;
 
 import 'package:pgsql_serializable/src/type_helpers/enum_helper.dart';
 import 'package:test/test.dart';
@@ -16,7 +16,7 @@ void main() {
         'HELLO',
         'hi_to',
         '_private',
-        'weird_'
+        'weird_',
       ]) {
         test(expression, () {
           expect(simpleExpression.hasMatch(expression), isTrue);

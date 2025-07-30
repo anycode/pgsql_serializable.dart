@@ -43,9 +43,10 @@ class Order {
   Item? item;
 
   @PgSqlKey(
-      name: 'prep-time',
-      fromPgSql: _durationFromMilliseconds,
-      toPgSql: _durationToMilliseconds)
+    name: 'prep-time',
+    fromPgSql: _durationFromMilliseconds,
+    toPgSql: _durationToMilliseconds,
+  )
   Duration? prepTime;
 
   @PgSqlKey(fromPgSql: _dateTimeFromEpochUs, toPgSql: _dateTimeToEpochUs)

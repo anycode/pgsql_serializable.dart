@@ -63,10 +63,7 @@ class Sample3 {
   factory Sample3.fromPgSql(Map<String, dynamic> pgsql) =>
       _$Sample3FromPgSql(pgsql);
 
-  @PgSqlKey(
-    toPgSql: _toPgSql,
-    fromPgSql: _fromPgSql,
-  )
+  @PgSqlKey(toPgSql: _toPgSql, fromPgSql: _fromPgSql)
   final DateTime value;
 
   Map<String, dynamic> toPgSql() => _$Sample3ToPgSql(this);

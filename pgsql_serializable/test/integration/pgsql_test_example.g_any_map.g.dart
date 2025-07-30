@@ -8,43 +8,51 @@ part of 'pgsql_test_example.g_any_map.dart';
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-Person _$PersonFromPgSql(Map pgsql) => Person(
-      pgsql['firstName'] as String,
-      pgsql['lastName'] as String,
-      $enumDecode(_$CategoryEnumMap, pgsql[r'$house']),
-      middleName: pgsql['middleName'] as String?,
-      dateOfBirth: pgsql['dateOfBirth'] == null
-          ? null
-          : DateTime.parse(pgsql['dateOfBirth'] as String),
-    )
+Person _$PersonFromPgSql(Map pgsql) =>
+    Person(
+        pgsql['firstName'] as String,
+        pgsql['lastName'] as String,
+        $enumDecode(_$CategoryEnumMap, pgsql[r'$house']),
+        middleName: pgsql['middleName'] as String?,
+        dateOfBirth: pgsql['dateOfBirth'] == null
+            ? null
+            : DateTime.parse(pgsql['dateOfBirth'] as String),
+      )
       ..order = pgsql['order'] == null
           ? null
           : Order.fromPgSql(Map<String, dynamic>.from(pgsql['order'] as Map))
       ..customOrders = pgsql['customOrders'] == null
           ? null
-          : MyList<Order>.fromPgSql((pgsql['customOrders'] as List<dynamic>)
-              .map((e) => Order.fromPgSql(Map<String, dynamic>.from(e as Map)))
-              .toList())
+          : MyList<Order>.fromPgSql(
+              (pgsql['customOrders'] as List<dynamic>)
+                  .map(
+                    (e) => Order.fromPgSql(Map<String, dynamic>.from(e as Map)),
+                  )
+                  .toList(),
+            )
       ..houseMap = (pgsql['houseMap'] as Map?)?.map(
         (k, e) => MapEntry(k as String, $enumDecode(_$CategoryEnumMap, e)),
       )
       ..categoryCounts = (pgsql['categoryCounts'] as Map?)?.map(
-        (k, e) => MapEntry($enumDecode(_$CategoryEnumMap, k), e as int),
+        (k, e) =>
+            MapEntry($enumDecode(_$CategoryEnumMap, k), (e as num).toInt()),
       );
 
 Map<String, dynamic> _$PersonToPgSql(Person instance) => <String, dynamic>{
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'middleName': instance.middleName,
-      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
-      r'$house': _$CategoryEnumMap[instance.house]!,
-      'order': instance.order,
-      'customOrders': instance.customOrders,
-      'houseMap':
-          instance.houseMap?.map((k, e) => MapEntry(k, _$CategoryEnumMap[e]!)),
-      'categoryCounts': instance.categoryCounts
-          ?.map((k, e) => MapEntry(_$CategoryEnumMap[k]!, e)),
-    };
+  'firstName': instance.firstName,
+  'lastName': instance.lastName,
+  'middleName': instance.middleName,
+  'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
+  r'$house': _$CategoryEnumMap[instance.house]!,
+  'order': instance.order,
+  'customOrders': instance.customOrders,
+  'houseMap': instance.houseMap?.map(
+    (k, e) => MapEntry(k, _$CategoryEnumMap[e]!),
+  ),
+  'categoryCounts': instance.categoryCounts?.map(
+    (k, e) => MapEntry(_$CategoryEnumMap[k]!, e),
+  ),
+};
 
 const _$CategoryEnumMap = {
   Category.top: 'top',
@@ -57,53 +65,47 @@ const _$CategoryEnumMap = {
 };
 
 Order _$OrderFromPgSql(Map pgsql) {
-  $checkKeys(
-    pgsql,
-    disallowNullValues: const ['count'],
-  );
+  $checkKeys(pgsql, disallowNullValues: const ['count']);
   return Order.custom(
-    $enumDecodeNullable(_$CategoryEnumMap, pgsql['category']),
-    (pgsql['items'] as List<dynamic>?)
-        ?.map((e) => Item.fromPgSql(Map<String, dynamic>.from(e as Map))),
-  )
-    ..count = pgsql['count'] as int?
+      $enumDecodeNullable(_$CategoryEnumMap, pgsql['category']),
+      (pgsql['items'] as List<dynamic>?)?.map(
+        (e) => Item.fromPgSql(Map<String, dynamic>.from(e as Map)),
+      ),
+    )
+    ..count = (pgsql['count'] as num?)?.toInt()
     ..isRushed = pgsql['isRushed'] as bool?
     ..duration = pgsql['duration'] == null
         ? null
-        : Duration(microseconds: pgsql['duration'] as int)
+        : Duration(microseconds: (pgsql['duration'] as num).toInt())
     ..platform = pgsql['platform'] == null
         ? null
         : Platform.fromPgSql(pgsql['platform'] as String)
     ..altPlatforms = (pgsql['altPlatforms'] as Map?)?.map(
       (k, e) => MapEntry(k as String, Platform.fromPgSql(e as String)),
     )
-    ..homepage =
-        pgsql['homepage'] == null ? null : Uri.parse(pgsql['homepage'] as String)
-    ..statusCode = $enumDecodeNullable(_$StatusCodeEnumMap, pgsql['status_code'],
-            unknownValue: StatusCode.unknown) ??
+    ..homepage = pgsql['homepage'] == null
+        ? null
+        : Uri.parse(pgsql['homepage'] as String)
+    ..statusCode =
+        $enumDecodeNullable(
+          _$StatusCodeEnumMap,
+          pgsql['status_code'],
+          unknownValue: StatusCode.unknown,
+        ) ??
         StatusCode.success;
 }
 
-Map<String, dynamic> _$OrderToPgSql(Order instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('count', instance.count);
-  val['isRushed'] = instance.isRushed;
-  val['duration'] = instance.duration?.inMicroseconds;
-  val['category'] = _$CategoryEnumMap[instance.category];
-  val['items'] = instance.items;
-  val['platform'] = instance.platform;
-  val['altPlatforms'] = instance.altPlatforms;
-  val['homepage'] = instance.homepage?.toString();
-  val['status_code'] = _$StatusCodeEnumMap[instance.statusCode];
-  return val;
-}
+Map<String, dynamic> _$OrderToPgSql(Order instance) => <String, dynamic>{
+  'count': ?instance.count,
+  'isRushed': instance.isRushed,
+  'duration': instance.duration?.inMicroseconds,
+  'category': _$CategoryEnumMap[instance.category],
+  'items': instance.items,
+  'platform': instance.platform,
+  'altPlatforms': instance.altPlatforms,
+  'homepage': instance.homepage?.toString(),
+  'status_code': _$StatusCodeEnumMap[instance.statusCode],
+};
 
 const _$StatusCodeEnumMap = {
   StatusCode.success: 200,
@@ -112,37 +114,28 @@ const _$StatusCodeEnumMap = {
   StatusCode.unknown: 'unknown',
 };
 
-Item _$ItemFromPgSql(Map pgsql) => Item(
-      pgsql['price'] as int?,
-    )
-      ..itemNumber = pgsql['item-number'] as int?
-      ..saleDates = (pgsql['saleDates'] as List<dynamic>?)
-          ?.map((e) => DateTime.parse(e as String))
-          .toList()
-      ..rates = (pgsql['rates'] as List<dynamic>?)?.map((e) => e as int).toList()
-      ..geoPoint = _fromPgSqlGeoPoint(pgsql['geoPoint'] as Map<String, dynamic>?);
+Item _$ItemFromPgSql(Map pgsql) => Item((pgsql['price'] as num?)?.toInt())
+  ..itemNumber = (pgsql['item-number'] as num?)?.toInt()
+  ..saleDates = (pgsql['saleDates'] as List<dynamic>?)
+      ?.map((e) => DateTime.parse(e as String))
+      .toList()
+  ..rates = (pgsql['rates'] as List<dynamic>?)
+      ?.map((e) => (e as num).toInt())
+      .toList()
+  ..geoPoint = _fromPgSqlGeoPoint(pgsql['geoPoint'] as Map<String, dynamic>?);
 
-Map<String, dynamic> _$ItemToPgSql(Item instance) {
-  final val = <String, dynamic>{
-    'price': instance.price,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('item-number', instance.itemNumber);
-  val['saleDates'] =
-      instance.saleDates?.map((e) => e.toIso8601String()).toList();
-  val['rates'] = instance.rates;
-  val['geoPoint'] = _toPgSqlGeoPoint(instance.geoPoint);
-  return val;
-}
+Map<String, dynamic> _$ItemToPgSql(Item instance) => <String, dynamic>{
+  'price': instance.price,
+  'item-number': ?instance.itemNumber,
+  'saleDates': instance.saleDates?.map((e) => e.toIso8601String()).toList(),
+  'rates': instance.rates,
+  'geoPoint': _toPgSqlGeoPoint(instance.geoPoint),
+};
 
 Numbers _$NumbersFromPgSql(Map pgsql) => Numbers()
-  ..ints = (pgsql['ints'] as List<dynamic>?)?.map((e) => e as int).toList()
+  ..ints = (pgsql['ints'] as List<dynamic>?)
+      ?.map((e) => (e as num).toInt())
+      .toList()
   ..nums = (pgsql['nums'] as List<dynamic>?)?.map((e) => e as num).toList()
   ..doubles = (pgsql['doubles'] as List<dynamic>?)
       ?.map((e) => (e as num).toDouble())
@@ -150,75 +143,87 @@ Numbers _$NumbersFromPgSql(Map pgsql) => Numbers()
   ..nnDoubles = (pgsql['nnDoubles'] as List<dynamic>?)
       ?.map((e) => (e as num).toDouble())
       .toList()
-  ..duration = durationFromInt(pgsql['duration'] as int?)
-  ..date = dateTimeFromEpochUs(pgsql['date'] as int?);
+  ..duration = durationFromInt((pgsql['duration'] as num?)?.toInt())
+  ..doubleAsString = stringFromDouble(
+    (pgsql['doubleAsString'] as num?)?.toDouble(),
+  )
+  ..date = dateTimeFromEpochUs((pgsql['date'] as num?)?.toInt());
 
 Map<String, dynamic> _$NumbersToPgSql(Numbers instance) => <String, dynamic>{
-      'ints': instance.ints,
-      'nums': instance.nums,
-      'doubles': instance.doubles,
-      'nnDoubles': instance.nnDoubles,
-      'duration': durationToInt(instance.duration),
-      'date': dateTimeToEpochUs(instance.date),
-    };
+  'ints': instance.ints,
+  'nums': instance.nums,
+  'doubles': instance.doubles,
+  'nnDoubles': instance.nnDoubles,
+  'duration': durationToInt(instance.duration),
+  'doubleAsString': stringToDouble(instance.doubleAsString),
+  'date': dateTimeToEpochUs(instance.date),
+};
 
 MapKeyVariety _$MapKeyVarietyFromPgSql(Map pgsql) => MapKeyVariety()
   ..intIntMap = (pgsql['intIntMap'] as Map?)?.map(
-    (k, e) => MapEntry(int.parse(k as String), e as int),
+    (k, e) => MapEntry(int.parse(k as String), (e as num).toInt()),
   )
   ..uriIntMap = (pgsql['uriIntMap'] as Map?)?.map(
-    (k, e) => MapEntry(Uri.parse(k as String), e as int),
+    (k, e) => MapEntry(Uri.parse(k as String), (e as num).toInt()),
   )
   ..dateTimeIntMap = (pgsql['dateTimeIntMap'] as Map?)?.map(
-    (k, e) => MapEntry(DateTime.parse(k as String), e as int),
+    (k, e) => MapEntry(DateTime.parse(k as String), (e as num).toInt()),
   )
   ..bigIntMap = (pgsql['bigIntMap'] as Map?)?.map(
-    (k, e) => MapEntry(BigInt.parse(k as String), e as int),
+    (k, e) => MapEntry(BigInt.parse(k as String), (e as num).toInt()),
   );
 
 Map<String, dynamic> _$MapKeyVarietyToPgSql(MapKeyVariety instance) =>
     <String, dynamic>{
       'intIntMap': instance.intIntMap?.map((k, e) => MapEntry(k.toString(), e)),
       'uriIntMap': instance.uriIntMap?.map((k, e) => MapEntry(k.toString(), e)),
-      'dateTimeIntMap': instance.dateTimeIntMap
-          ?.map((k, e) => MapEntry(k.toIso8601String(), e)),
+      'dateTimeIntMap': instance.dateTimeIntMap?.map(
+        (k, e) => MapEntry(k.toIso8601String(), e),
+      ),
       'bigIntMap': instance.bigIntMap?.map((k, e) => MapEntry(k.toString(), e)),
     };
 
 UnknownEnumValue _$UnknownEnumValueFromPgSql(Map pgsql) => UnknownEnumValue()
-  ..enumValue = $enumDecode(_$CategoryEnumMap, pgsql['enumValue'],
-      unknownValue: Category.notDiscoveredYet)
-  ..enumIterable = (pgsql['enumIterable'] as List<dynamic>).map((e) =>
-      $enumDecode(_$CategoryEnumMap, e,
-          unknownValue: Category.notDiscoveredYet))
+  ..enumValue = $enumDecode(
+    _$CategoryEnumMap,
+    pgsql['enumValue'],
+    unknownValue: Category.notDiscoveredYet,
+  )
+  ..enumIterable = (pgsql['enumIterable'] as List<dynamic>).map(
+    (e) => $enumDecode(
+      _$CategoryEnumMap,
+      e,
+      unknownValue: Category.notDiscoveredYet,
+    ),
+  )
   ..enumList = (pgsql['enumList'] as List<dynamic>)
-      .map((e) => $enumDecode(_$CategoryEnumMap, e,
-          unknownValue: Category.notDiscoveredYet))
+      .map(
+        (e) => $enumDecode(
+          _$CategoryEnumMap,
+          e,
+          unknownValue: Category.notDiscoveredYet,
+        ),
+      )
       .toList()
   ..enumSet = (pgsql['enumSet'] as List<dynamic>)
-      .map((e) => $enumDecode(_$CategoryEnumMap, e,
-          unknownValue: Category.notDiscoveredYet))
+      .map(
+        (e) => $enumDecode(
+          _$CategoryEnumMap,
+          e,
+          unknownValue: Category.notDiscoveredYet,
+        ),
+      )
       .toSet();
 
 PrivateConstructor _$PrivateConstructorFromPgSql(Map pgsql) =>
-    PrivateConstructor._(
-      pgsql['id'] as int,
-      pgsql['value'] as String,
-    );
+    PrivateConstructor._((pgsql['id'] as num).toInt(), pgsql['value'] as String);
 
 Map<String, dynamic> _$PrivateConstructorToPgSql(PrivateConstructor instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'value': instance.value,
-    };
+    <String, dynamic>{'id': instance.id, 'value': instance.value};
 
 RegressionTestIssue1210 _$RegressionTestIssue1210FromPgSql(Map pgsql) =>
-    RegressionTestIssue1210(
-      pgsql['field'] as String,
-    );
+    RegressionTestIssue1210(pgsql['field'] as String);
 
 Map<String, dynamic> _$RegressionTestIssue1210ToPgSql(
-        RegressionTestIssue1210 instance) =>
-    <String, dynamic>{
-      'field': instance.field,
-    };
+  RegressionTestIssue1210 instance,
+) => <String, dynamic>{'field': instance.field};

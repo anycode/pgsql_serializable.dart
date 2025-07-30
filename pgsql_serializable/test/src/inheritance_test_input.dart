@@ -1,29 +1,22 @@
+// @dart=3.8
+
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(r'''
-SubType _$SubTypeFromPgSql(Map<String, dynamic> pgsql) => SubType(
-      pgsql['subTypeViaCtor'] as int,
-      pgsql['super-final-field'] as int,
-    )
-      ..superReadWriteField = pgsql['superReadWriteField'] as int?
-      ..subTypeReadWrite = pgsql['subTypeReadWrite'] as int;
+SubType _$SubTypeFromPgSql(Map<String, dynamic> pgsql) =>
+    SubType(
+        (pgsql['subTypeViaCtor'] as num).toInt(),
+        (pgsql['super-final-field'] as num).toInt(),
+      )
+      ..superReadWriteField = (pgsql['superReadWriteField'] as num?)?.toInt()
+      ..subTypeReadWrite = (pgsql['subTypeReadWrite'] as num).toInt();
 
-Map<String, dynamic> _$SubTypeToPgSql(SubType instance) {
-  final val = <String, dynamic>{
-    'super-final-field': instance.superFinalField,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('superReadWriteField', instance.superReadWriteField);
-  val['subTypeViaCtor'] = instance.subTypeViaCtor;
-  val['subTypeReadWrite'] = instance.subTypeReadWrite;
-  return val;
-}
+Map<String, dynamic> _$SubTypeToPgSql(SubType instance) => <String, dynamic>{
+  'super-final-field': instance.superFinalField,
+  'superReadWriteField': ?instance.superReadWriteField,
+  'subTypeViaCtor': instance.subTypeViaCtor,
+  'subTypeReadWrite': instance.subTypeReadWrite,
+};
 ''')
 @PgSqlSerializable()
 class SubType extends SuperType {
@@ -54,21 +47,12 @@ class SuperType {
 
 @ShouldGenerate(r'''
 Map<String, dynamic> _$SubTypeWithAnnotatedFieldOverrideExtendsToPgSql(
-    SubTypeWithAnnotatedFieldOverrideExtends instance) {
-  final val = <String, dynamic>{
-    'super-final-field': instance.superFinalField,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('superReadWriteField', instance.superReadWriteField);
-  val['priceHalf'] = instance.priceHalf;
-  return val;
-}
+  SubTypeWithAnnotatedFieldOverrideExtends instance,
+) => <String, dynamic>{
+  'super-final-field': instance.superFinalField,
+  'superReadWriteField': ?instance.superReadWriteField,
+  'priceHalf': instance.priceHalf,
+};
 ''')
 @PgSqlSerializable(createFactory: false)
 class SubTypeWithAnnotatedFieldOverrideExtends extends SuperType {
@@ -77,18 +61,19 @@ class SubTypeWithAnnotatedFieldOverrideExtends extends SuperType {
 
 @ShouldGenerate(r'''
 Map<String, dynamic>
-    _$SubTypeWithAnnotatedFieldOverrideExtendsWithOverridesToPgSql(
-            SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides instance) =>
-        <String, dynamic>{
-          'priceHalf': instance.priceHalf,
-          'superReadWriteField': instance.superReadWriteField,
-          'super-final-field': instance.superFinalField,
-        };
+_$SubTypeWithAnnotatedFieldOverrideExtendsWithOverridesToPgSql(
+  SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides instance,
+) => <String, dynamic>{
+  'priceHalf': instance.priceHalf,
+  'superReadWriteField': instance.superReadWriteField,
+  'super-final-field': instance.superFinalField,
+};
 ''')
 @PgSqlSerializable(createFactory: false)
 class SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides extends SuperType {
   SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides(
-      int super.superTypeViaCtor);
+    int super.superTypeViaCtor,
+  );
 
   /// The annotation applied here overrides the annotation in [SuperType].
   @PgSqlKey(includeIfNull: true)
@@ -108,11 +93,11 @@ class SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides extends SuperType {
 
 @ShouldGenerate(r'''
 Map<String, dynamic> _$SubTypeWithAnnotatedFieldOverrideImplementsToPgSql(
-        SubTypeWithAnnotatedFieldOverrideImplements instance) =>
-    <String, dynamic>{
-      'superReadWriteField': instance.superReadWriteField,
-      'superFinalField': instance.superFinalField,
-    };
+  SubTypeWithAnnotatedFieldOverrideImplements instance,
+) => <String, dynamic>{
+  'superReadWriteField': instance.superReadWriteField,
+  'superFinalField': instance.superFinalField,
+};
 ''')
 @PgSqlSerializable(createFactory: false)
 class SubTypeWithAnnotatedFieldOverrideImplements implements SuperType {

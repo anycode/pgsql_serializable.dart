@@ -39,7 +39,7 @@ enum FieldRename {
 )
 @Target({TargetKind.classType})
 class PgSqlSerializable {
-  /// If `true`, [Map] types are *not* assumed to be [Map<String, dynamic>]
+  /// If `true`, [Map] types are *not* assumed to be [Map]`<String, dynamic>`
   /// – which is the default type of [Map] instances return by PgSQL decode in
   /// `dart:convert`.
   ///
@@ -95,16 +95,19 @@ class PgSqlSerializable {
   final String? enumMapPrefix;
 
   /// If `true` (defaults to false), a private class `_$ExamplePgSqlKeys`
-  /// constant is created in the generated part file.
+  /// class is created in the generated part file.
   ///
-  /// This class will contain every property, with the pgsql key as value,
-  /// exposing a secured way to access the pgsql key from the property.
+  /// This class will contain every property as a [String] field with the PgSQL
+  /// key as the value.
   ///
   /// ```dart
   /// @PgSqlSerializable(createPgSqlKeys: true)
   /// class Example {
-  ///   // ...
-  ///   static const pgsqlKeys = _$PublicationImplPgSqlKeys();
+  ///   @PgSqlKey(name: 'LAST_NAME')
+  ///   String? firstName;
+  ///
+  ///   // Will have the value `LAST_NAME`
+  ///   static const firstName = _$ExamplePgSqlKeys.firstName;
   /// }
   /// ```
   final bool? createPgSqlKeys;
@@ -188,7 +191,7 @@ class PgSqlSerializable {
   ///   T Function(Object pgsql) fromPgSqlT,
   /// ) {
   ///   return Response<T>()
-  ///     ..status = pgsql['status'] as int
+  ///     ..status = (pgsql['status'] as num).toInt()
   ///     ..value = fromPgSqlT(pgsql['value']);
   /// }
   ///
@@ -310,14 +313,14 @@ class PgSqlSerializable {
   /// [defaults].
   @Deprecated('Was only ever included to support builder infrastructure.')
   PgSqlSerializable withDefaults() => PgSqlSerializable(
-        anyMap: anyMap ?? defaults.anyMap,
-        checked: checked ?? defaults.checked,
-        constructor: constructor ?? defaults.constructor,
-        createFactory: createFactory ?? defaults.createFactory,
-        createToPgSql: createToPgSql ?? defaults.createToPgSql,
-        disallowUnrecognizedKeys:
-            disallowUnrecognizedKeys ?? defaults.disallowUnrecognizedKeys,
-        enumMapPrefix: enumMapPrefix ?? defaults.enumMapPrefix,
+    anyMap: anyMap ?? defaults.anyMap,
+    checked: checked ?? defaults.checked,
+    constructor: constructor ?? defaults.constructor,
+    createFactory: createFactory ?? defaults.createFactory,
+    createToPgSql: createToPgSql ?? defaults.createToPgSql,
+    disallowUnrecognizedKeys:
+        disallowUnrecognizedKeys ?? defaults.disallowUnrecognizedKeys,
+    enumMapPrefix: enumMapPrefix ?? defaults.enumMapPrefix,
         explicitToPgSql: explicitToPgSql ?? defaults.explicitToPgSql,
         fieldRename: fieldRename ?? defaults.fieldRename,
         ignoreUnannotated: ignoreUnannotated ?? defaults.ignoreUnannotated,

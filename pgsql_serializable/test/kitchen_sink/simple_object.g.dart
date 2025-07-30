@@ -8,11 +8,8 @@ part of 'simple_object.dart';
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-SimpleObject _$SimpleObjectFromPgSql(Map pgsql) => SimpleObject(
-      pgsql['value'] as int,
-    );
+SimpleObject _$SimpleObjectFromPgSql(Map pgsql) =>
+    SimpleObject((pgsql['value'] as num).toInt());
 
 Map<String, dynamic> _$SimpleObjectToPgSql(SimpleObject instance) =>
-    <String, dynamic>{
-      'value': instance.value,
-    };
+    <String, dynamic>{'value': instance.value};

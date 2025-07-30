@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 const _pgsqlUser = {
   'status': 200,
   'msg': 'success',
-  'data': {'id': 1, 'email': 'test@test.com'}
+  'data': {'id': 1, 'email': 'test@test.com'},
 };
 
 final _pgsqlArticle = {
@@ -21,8 +21,8 @@ final _pgsqlArticle = {
     'comments': [
       {'content': 'comment context', 'id': 1},
       {'content': 'comment context', 'id': 2},
-    ]
-  }
+    ],
+  },
 };
 
 final _pgsqlArticleList = {
@@ -31,7 +31,7 @@ final _pgsqlArticleList = {
   'data': [
     {'id': 1, 'title': 'title1'},
     _pgsqlArticle['data'],
-  ]
+  ],
 };
 
 void _testResponse<T>(BaseResponse response, void Function(T) testFunction) {

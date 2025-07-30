@@ -4,7 +4,6 @@
 
 // ignore_for_file: inference_failure_on_instance_creation
 
-import 'package:collection/collection.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 import '../test_utils.dart';
@@ -35,25 +34,32 @@ class GenericClass<T extends num, S> {
 
   Map<String, dynamic> toPgSql() => _$GenericClassToPgSql(this);
 
-  static T _dataFromPgSql<T, S, U>(Map<String, dynamic> input,
-          [S? other1, U? other2]) =>
-      input['value'] as T;
+  static T _dataFromPgSql<T, S, U>(
+    Map<String, dynamic> input, [
+    S? other1,
+    U? other2,
+  ]) => input['value'] as T;
 
-  static Map<String, dynamic> _dataToPgSql<T, S, U>(T input,
-          [S? other1, U? other2]) =>
-      {'value': input};
+  static Map<String, dynamic> _dataToPgSql<T, S, U>(
+    T input, [
+    S? other1,
+    U? other2,
+  ]) => {'value': input};
 }
 
 @PgSqlSerializable()
 @_DurationMillisecondConverter.named()
 @_DurationListMillisecondConverter()
 class GenericClassWithConverter<T extends num, S> {
+  // TODO: this annotation is a no-op. Need to figure out what to do about it!
   @_SimpleConverter()
   Object? fieldObject;
 
+  // TODO: this annotation is a no-op. Need to figure out what to do about it!
   @_SimpleConverter()
   dynamic fieldDynamic;
 
+  // TODO: this annotation is a no-op. Need to figure out what to do about it!
   @_SimpleConverter()
   int? fieldInt;
 
@@ -143,7 +149,7 @@ class Issue980ParentClass {
       other is Issue980ParentClass && deepEquals(list, other.list);
 
   @override
-  int get hashCode => const DeepCollectionEquality().hash(list);
+  int get hashCode => deepHash(list);
 }
 
 @PgSqlSerializable(genericArgumentFactories: true)
@@ -151,8 +157,9 @@ class Issue1047ParentClass<T> {
   Issue1047ParentClass({required this.edges});
 
   factory Issue1047ParentClass.fromPgSql(
-          Map<String, dynamic> pgsql, T Function(Object? pgsql) fromPgSqlT) =>
-      _$Issue1047ParentClassFromPgSql<T>(pgsql, fromPgSqlT);
+    Map<String, dynamic> pgsql,
+    T Function(Object? pgsql) fromPgSqlT,
+  ) => _$Issue1047ParentClassFromPgSql<T>(pgsql, fromPgSqlT);
 
   final List<Issue1047Class<T>> edges;
 
@@ -162,15 +169,12 @@ class Issue1047ParentClass<T> {
 
 @PgSqlSerializable(genericArgumentFactories: true)
 class Issue1047Class<T> {
-  Issue1047Class({
-    required this.node,
-  });
+  Issue1047Class({required this.node});
 
   factory Issue1047Class.fromPgSql(
     Map<String, dynamic> pgsql,
     T Function(Object? pgsql) fromPgSqlT,
-  ) =>
-      _$Issue1047ClassFromPgSql<T>(pgsql, fromPgSqlT);
+  ) => _$Issue1047ClassFromPgSql<T>(pgsql, fromPgSqlT);
 
   final T node;
 

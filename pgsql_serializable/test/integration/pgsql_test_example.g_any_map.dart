@@ -12,9 +12,7 @@ import 'pgsql_test_common.dart';
 
 part 'pgsql_test_example.g_any_map.g.dart';
 
-@PgSqlSerializable(
-  anyMap: true,
-)
+@PgSqlSerializable(anyMap: true)
 class Person {
   final String firstName, lastName;
   final String? middleName;
@@ -29,8 +27,13 @@ class Person {
   Map<String, Category>? houseMap;
   Map<Category, int>? categoryCounts;
 
-  Person(this.firstName, this.lastName, this.house,
-      {this.middleName, this.dateOfBirth});
+  Person(
+    this.firstName,
+    this.lastName,
+    this.house, {
+    this.middleName,
+    this.dateOfBirth,
+  });
 
   factory Person.fromPgSql(Map<String, dynamic> pgsql) => _$PersonFromPgSql(pgsql);
 
@@ -84,8 +87,9 @@ class Order {
   bool? shouldBeCached;
 
   Order.custom(this.category, [Iterable<Item>? items])
-      : items = UnmodifiableListView<Item>(
-            List<Item>.unmodifiable(items ?? const <Item>[]));
+    : items = UnmodifiableListView<Item>(
+        List<Item>.unmodifiable(items ?? const <Item>[]),
+      );
 
   factory Order.fromPgSql(Map<String, dynamic> pgsql) => _$OrderFromPgSql(pgsql);
 
@@ -100,9 +104,7 @@ class Order {
       deepEquals(altPlatforms, other.altPlatforms);
 }
 
-@PgSqlSerializable(
-  anyMap: true,
-)
+@PgSqlSerializable(anyMap: true)
 class Item extends ItemCore {
   @PgSqlKey(includeIfNull: false, name: 'item-number')
   int? itemNumber;
@@ -148,9 +150,7 @@ class GeoPoint {
   GeoPoint(this.latitude, this.longitude);
 }
 
-@PgSqlSerializable(
-  anyMap: true,
-)
+@PgSqlSerializable(anyMap: true)
 class Numbers {
   List<int>? ints;
   List<num>? nums;
@@ -160,6 +160,9 @@ class Numbers {
 
   @PgSqlKey(fromPgSql: durationFromInt, toPgSql: durationToInt)
   Duration? duration;
+
+  @PgSqlKey(fromPgSql: stringFromDouble, toPgSql: stringToDouble)
+  String? doubleAsString;
 
   @PgSqlKey(fromPgSql: dateTimeFromEpochUs, toPgSql: dateTimeToEpochUs)
   DateTime? date;
@@ -182,9 +185,7 @@ class Numbers {
       deepEquals(date, other.date);
 }
 
-@PgSqlSerializable(
-  anyMap: true,
-)
+@PgSqlSerializable(anyMap: true)
 class MapKeyVariety {
   Map<int, int>? intIntMap;
   Map<Uri, int>? uriIntMap;
@@ -255,9 +256,7 @@ mixin RegressionTestIssue1210Mixin {
   int get hashCode => identityHashCode(this);
 }
 
-@PgSqlSerializable(
-  anyMap: true,
-)
+@PgSqlSerializable(anyMap: true)
 class RegressionTestIssue1210 with RegressionTestIssue1210Mixin {
   const RegressionTestIssue1210(this.field);
 

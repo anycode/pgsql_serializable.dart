@@ -27,9 +27,7 @@ class ToPgSqlNullFromPgSqlTruePublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeFromPgSql: true,
-  )
+  @PgSqlKey(includeFromPgSql: true)
   int? field;
 
   int? zField;
@@ -49,9 +47,7 @@ class ToPgSqlNullFromPgSqlFalsePublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeFromPgSql: false,
-  )
+  @PgSqlKey(includeFromPgSql: false)
   int? field;
 
   int? zField;
@@ -71,9 +67,7 @@ class ToPgSqlTrueFromPgSqlNullPublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeToPgSql: true,
-  )
+  @PgSqlKey(includeToPgSql: true)
   int? field;
 
   int? zField;
@@ -93,10 +87,7 @@ class ToPgSqlTrueFromPgSqlTruePublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeFromPgSql: true,
-    includeToPgSql: true,
-  )
+  @PgSqlKey(includeFromPgSql: true, includeToPgSql: true)
   int? field;
 
   int? zField;
@@ -116,10 +107,7 @@ class ToPgSqlTrueFromPgSqlFalsePublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeFromPgSql: false,
-    includeToPgSql: true,
-  )
+  @PgSqlKey(includeFromPgSql: false, includeToPgSql: true)
   int? field;
 
   int? zField;
@@ -139,9 +127,7 @@ class ToPgSqlFalseFromPgSqlNullPublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeToPgSql: false,
-  )
+  @PgSqlKey(includeToPgSql: false)
   int? field;
 
   int? zField;
@@ -161,10 +147,7 @@ class ToPgSqlFalseFromPgSqlTruePublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeFromPgSql: true,
-    includeToPgSql: false,
-  )
+  @PgSqlKey(includeFromPgSql: true, includeToPgSql: false)
   int? field;
 
   int? zField;
@@ -184,10 +167,7 @@ class ToPgSqlFalseFromPgSqlFalsePublic {
 
   int? aField;
 
-  @PgSqlKey(
-    includeFromPgSql: false,
-    includeToPgSql: false,
-  )
+  @PgSqlKey(includeFromPgSql: false, includeToPgSql: false)
   int? field;
 
   int? zField;

@@ -17,11 +17,7 @@ enum StandAloneEnum {
 Iterable<String> get standAloneEnumValues => _$StandAloneEnumEnumMap.values;
 
 @PgSqlEnum(alwaysCreate: true, fieldRename: FieldRename.kebab)
-enum DayType {
-  noGood,
-  rotten,
-  veryBad,
-}
+enum DayType { noGood, rotten, veryBad }
 
 Iterable<String> get dayTypeEnumValues => _$DayTypeEnumMap.values;
 
@@ -55,13 +51,9 @@ enum EnumValueFieldIndex {
 Iterable<int> get enumValueFieldIndexValues =>
     _$EnumValueFieldIndexEnumMap.values;
 
-@PgSqlSerializable(
-  createToPgSql: false,
-)
+@PgSqlSerializable(createToPgSql: false)
 class Issue559Regression {
-  Issue559Regression({
-    required this.status,
-  });
+  Issue559Regression({required this.status});
 
   factory Issue559Regression.fromPgSql(Map<String, dynamic> pgsql) =>
       _$Issue559RegressionFromPgSql(pgsql);
@@ -74,34 +66,20 @@ class Issue559Regression {
   final Issue559RegressionEnum? status;
 }
 
-enum Issue559RegressionEnum {
-  alpha,
-  beta,
-  gamma,
-}
+enum Issue559RegressionEnum { alpha, beta, gamma }
 
-enum Issue1145RegressionEnum {
-  alpha,
-  beta,
-  gamma,
-}
+enum Issue1145RegressionEnum { alpha, beta, gamma }
 
-@PgSqlSerializable(
-  createFactory: false,
-)
+@PgSqlSerializable(createFactory: false)
 class Issue1145RegressionA {
-  Issue1145RegressionA({
-    required this.status,
-  });
+  Issue1145RegressionA({required this.status});
 
   Map<String, dynamic> toPgSql() => _$Issue1145RegressionAToPgSql(this);
 
   final Map<Issue1145RegressionEnum, bool> status;
 }
 
-@PgSqlSerializable(
-  createFactory: false,
-)
+@PgSqlSerializable(createFactory: false)
 class Issue1145RegressionB {
   Issue1145RegressionB({required this.status});
 

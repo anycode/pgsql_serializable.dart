@@ -15,8 +15,11 @@ Issue559Regression _$Issue559RegressionFromPgSql(Map<String, dynamic> pgsql) {
     disallowNullValues: const ['status'],
   );
   return Issue559Regression(
-    status: $enumDecodeNullable(_$Issue559RegressionEnumEnumMap, pgsql['status'],
-        unknownValue: PgSqlKey.nullForUndefinedEnumValue),
+    status: $enumDecodeNullable(
+      _$Issue559RegressionEnumEnumMap,
+      pgsql['status'],
+      unknownValue: PgSqlKey.nullForUndefinedEnumValue,
+    ),
   );
 }
 
@@ -27,11 +30,12 @@ const _$Issue559RegressionEnumEnumMap = {
 };
 
 Map<String, dynamic> _$Issue1145RegressionAToPgSql(
-        Issue1145RegressionA instance) =>
-    <String, dynamic>{
-      'status': instance.status
-          .map((k, e) => MapEntry(_$Issue1145RegressionEnumEnumMap[k]!, e)),
-    };
+  Issue1145RegressionA instance,
+) => <String, dynamic>{
+  'status': instance.status.map(
+    (k, e) => MapEntry(_$Issue1145RegressionEnumEnumMap[k]!, e),
+  ),
+};
 
 const _$Issue1145RegressionEnumEnumMap = {
   Issue1145RegressionEnum.alpha: 'alpha',
@@ -40,32 +44,26 @@ const _$Issue1145RegressionEnumEnumMap = {
 };
 
 Map<String, dynamic> _$Issue1145RegressionBToPgSql(
-        Issue1145RegressionB instance) =>
-    <String, dynamic>{
-      'status': instance.status
-          .map((e) => _$Issue1145RegressionEnumEnumMap[e])
-          .toList(),
-    };
+  Issue1145RegressionB instance,
+) => <String, dynamic>{
+  'status': instance.status
+      .map((e) => _$Issue1145RegressionEnumEnumMap[e])
+      .toList(),
+};
 
 Issue1226Regression _$Issue1226RegressionFromPgSql(Map<String, dynamic> pgsql) =>
     Issue1226Regression(
       durationType: $enumDecodeNullable(
-          _$Issue1145RegressionEnumEnumMap, pgsql['durationType']),
+        _$Issue1145RegressionEnumEnumMap,
+        pgsql['durationType'],
+      ),
     );
 
-Map<String, dynamic> _$Issue1226RegressionToPgSql(Issue1226Regression instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'durationType', _$Issue1145RegressionEnumEnumMap[instance.durationType]);
-  return val;
-}
+Map<String, dynamic> _$Issue1226RegressionToPgSql(
+  Issue1226Regression instance,
+) => <String, dynamic>{
+  'durationType': ?_$Issue1145RegressionEnumEnumMap[instance.durationType],
+};
 
 const _$StandAloneEnumEnumMap = {
   StandAloneEnum.alpha: 'a',

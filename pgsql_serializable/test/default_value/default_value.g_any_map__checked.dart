@@ -23,10 +23,7 @@ const _intValue = 42;
 dvi.DefaultValue fromPgSql(Map<String, dynamic> pgsql) =>
     _$DefaultValueFromPgSql(pgsql);
 
-@PgSqlSerializable(
-  checked: true,
-  anyMap: true,
-)
+@PgSqlSerializable(checked: true, anyMap: true)
 class DefaultValue implements dvi.DefaultValue {
   @PgSqlKey(defaultValue: true)
   bool fieldBool;
@@ -58,9 +55,11 @@ class DefaultValue implements dvi.DefaultValue {
   @PgSqlKey(defaultValue: {'answer': 42})
   Map<String, int> fieldMapSimple;
 
-  @PgSqlKey(defaultValue: {
-    'root': ['child']
-  })
+  @PgSqlKey(
+    defaultValue: {
+      'root': ['child'],
+    },
+  )
   Map<String, List<String>> fieldMapListString;
 
   Duration durationField;

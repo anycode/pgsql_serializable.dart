@@ -8,26 +8,24 @@ part of 'readme_examples.dart';
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-Sample1 _$Sample1FromPgSql(Map<String, dynamic> pgsql) => Sample1(
-      Sample2.fromPgSql(pgsql['value'] as int),
-    );
+Sample1 _$Sample1FromPgSql(Map<String, dynamic> pgsql) =>
+    Sample1(Sample2.fromPgSql((pgsql['value'] as num).toInt()));
 
 Map<String, dynamic> _$Sample1ToPgSql(Sample1 instance) => <String, dynamic>{
-      'value': instance.value,
-    };
+  'value': instance.value,
+};
 
-Sample3 _$Sample3FromPgSql(Map<String, dynamic> pgsql) => Sample3(
-      Sample3._fromPgSql(pgsql['value'] as int),
-    );
+Sample3 _$Sample3FromPgSql(Map<String, dynamic> pgsql) =>
+    Sample3(Sample3._fromPgSql((pgsql['value'] as num).toInt()));
 
 Map<String, dynamic> _$Sample3ToPgSql(Sample3 instance) => <String, dynamic>{
-      'value': Sample3._toPgSql(instance.value),
-    };
+  'value': Sample3._toPgSql(instance.value),
+};
 
 Sample4 _$Sample4FromPgSql(Map<String, dynamic> pgsql) => Sample4(
-      const EpochDateTimeConverter().fromPgSql(pgsql['value'] as int),
-    );
+  const EpochDateTimeConverter().fromPgSql((pgsql['value'] as num).toInt()),
+);
 
 Map<String, dynamic> _$Sample4ToPgSql(Sample4 instance) => <String, dynamic>{
-      'value': const EpochDateTimeConverter().toPgSql(instance.value),
-    };
+  'value': const EpochDateTimeConverter().toPgSql(instance.value),
+};

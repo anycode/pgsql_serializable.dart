@@ -9,9 +9,9 @@ part of 'pgsql_keys_example.dart';
 // **************************************************************************
 
 Model _$ModelFromPgSql(Map<String, dynamic> pgsql) => Model(
-      firstName: pgsql['first-name'] as String,
-      lastName: pgsql['LAST_NAME'] as String,
-    );
+  firstName: pgsql['first-name'] as String,
+  lastName: pgsql['LAST_NAME'] as String,
+);
 
 abstract final class _$ModelPgSqlKeys {
   static const String firstName = 'first-name';
@@ -19,6 +19,6 @@ abstract final class _$ModelPgSqlKeys {
 }
 
 Map<String, dynamic> _$ModelToPgSql(Model instance) => <String, dynamic>{
-      'first-name': instance.firstName,
-      'LAST_NAME': instance.lastName,
-    };
+  'first-name': instance.firstName,
+  'LAST_NAME': instance.lastName,
+};

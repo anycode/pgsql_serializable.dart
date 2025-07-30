@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-library test;
+library;
 
 import 'dart:io';
 
@@ -18,8 +18,10 @@ import 'shared_config.dart';
 
 void main() {
   test('fields in PgSqlSerializable are sorted', () {
-    expect(generatorConfigDefaultPgSql.keys,
-        orderedEquals(generatorConfigDefaultPgSql.keys.toList()..sort()));
+    expect(
+      generatorConfigDefaultPgSql.keys,
+      orderedEquals(generatorConfigDefaultPgSql.keys.toList()..sort()),
+    );
   });
 
   test('empty', () async {
@@ -28,29 +30,36 @@ void main() {
   });
 
   test('valid default config', () async {
-    final builder =
-        pgsqlSerializable(BuilderOptions(generatorConfigDefaultPgSql));
+    final builder = pgsqlSerializable(
+      BuilderOptions(generatorConfigDefaultPgSql),
+    );
     expect(builder, isNotNull);
   });
 
   test('valid, non-default config', () {
-    expect(generatorConfigNonDefaultPgSql.keys,
-        unorderedEquals(generatorConfigDefaultPgSql.keys));
+    expect(
+      generatorConfigNonDefaultPgSql.keys,
+      unorderedEquals(generatorConfigDefaultPgSql.keys),
+    );
 
     for (var entry in generatorConfigDefaultPgSql.entries) {
-      expect(generatorConfigNonDefaultPgSql,
-          containsPair(entry.key, isNot(entry.value)),
-          reason: 'should have values that are different than the defaults');
+      expect(
+        generatorConfigNonDefaultPgSql,
+        containsPair(entry.key, isNot(entry.value)),
+        reason: 'should have values that are different than the defaults',
+      );
     }
 
-    final builder =
-        pgsqlSerializable(BuilderOptions(generatorConfigNonDefaultPgSql));
+    final builder = pgsqlSerializable(
+      BuilderOptions(generatorConfigNonDefaultPgSql),
+    );
     expect(builder, isNotNull);
   });
 
   test('config is null-protected when passed to PgSqlSerializableGenerator', () {
     final nullValueMap = Map.fromEntries(
-        generatorConfigDefaultPgSql.entries.map((e) => MapEntry(e.key, null)));
+      generatorConfigDefaultPgSql.entries.map((e) => MapEntry(e.key, null)),
+    );
     final config = PgSqlSerializable.fromPgSql(nullValueMap);
     final generator = PgSqlSerializableGenerator(config: config);
     expect(generator.config.toPgSql(), generatorConfigDefaultPgSql);
@@ -71,7 +80,7 @@ void main() {
       r'$default',
       'builders',
       'pgsql_serializable',
-      'options'
+      'options',
     ]) {
       yaml = yaml[key] as YamlMap;
     }
@@ -81,7 +90,8 @@ void main() {
     expect(
       configMap.keys,
       unorderedEquals(generatorConfigDefaultPgSql.keys),
-      reason: 'All supported keys are documented. '
+      reason:
+          'All supported keys are documented. '
           'Did you forget to change README.md?',
     );
 
@@ -104,8 +114,9 @@ void main() {
     );
 
     expect(
-        () => pgsqlSerializable(const BuilderOptions({'unsupported': 'config'})),
-        throwsA(matcher));
+      () => pgsqlSerializable(const BuilderOptions({'unsupported': 'config'})),
+      throwsA(matcher),
+    );
   });
 
   group('invalid config', () {
@@ -128,7 +139,7 @@ void main() {
           'create_to_pgsql' =>
             "type 'int' is not a subtype of type 'bool?' in type "
                 'cast',
-          _ => "type 'int' is not a subtype of type 'bool?' in type cast"
+          _ => "type 'int' is not a subtype of type 'bool?' in type cast",
         };
 
         final matcher = isA<StateError>().having(
@@ -140,7 +151,9 @@ There is a problem with "${entry.key}".
 $lastLine''',
         );
         expect(
-            () => pgsqlSerializable(BuilderOptions(config)), throwsA(matcher));
+          () => pgsqlSerializable(BuilderOptions(config)),
+          throwsA(matcher),
+        );
       });
     }
   });

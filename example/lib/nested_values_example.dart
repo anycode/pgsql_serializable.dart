@@ -24,14 +24,14 @@ class _NestedListConverter
 
   @override
   List<String> fromPgSql(Map<String, dynamic> pgsql) => [
-        for (var e in pgsql['items'] as List)
-          (e as Map<String, dynamic>)['name'] as String
-      ];
+    for (var e in pgsql['items'] as List)
+      (e as Map<String, dynamic>)['name'] as String,
+  ];
 
   @override
   Map<String, dynamic> toPgSql(List<String> object) => {
-        'items': [
-          for (var item in object) {'name': item}
-        ]
-      };
+    'items': [
+      for (var item in object) {'name': item},
+    ],
+  };
 }

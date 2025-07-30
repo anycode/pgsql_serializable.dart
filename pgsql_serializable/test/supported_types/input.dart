@@ -13,10 +13,7 @@ class SimpleClass {
   @PgSqlKey(defaultValue: 42)
   dynamic withDefault;
 
-  SimpleClass(
-    this.value,
-    this.withDefault,
-  );
+  SimpleClass(this.value, this.withDefault);
 
   factory SimpleClass.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassFromPgSql(pgsql);

@@ -39,8 +39,10 @@ class ConvertHelper extends TypeHelper<TypeHelperContextWithConvert> {
       return null;
     }
 
-    assert(toPgSqlData.paramType is TypeParameterType ||
-        targetType.isAssignableTo(toPgSqlData.paramType));
+    assert(
+      toPgSqlData.paramType is TypeParameterType ||
+          targetType.isAssignableTo(toPgSqlData.paramType),
+    );
     return LambdaResult(expression, toPgSqlData.name);
   }
 

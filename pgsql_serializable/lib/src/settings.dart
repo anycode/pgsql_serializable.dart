@@ -40,10 +40,10 @@ class Settings {
   final List<TypeHelper> _typeHelpers;
 
   Iterable<TypeHelper> get allHelpers => const <TypeHelper>[
-        ConvertHelper(),
-        PgSqlConverterHelper(),
-        GenericFactoryHelper(),
-      ].followedBy(_typeHelpers).followedBy(_coreHelpers);
+    ConvertHelper(),
+    PgSqlConverterHelper(),
+    GenericFactoryHelper(),
+  ].followedBy(_typeHelpers).followedBy(_coreHelpers);
 
   final ClassConfig config;
 
@@ -52,13 +52,11 @@ class Settings {
   /// If [typeHelpers] is not provided, the built-in helpers are used:
   /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
   /// [UriHelper].
-  Settings({
-    PgSqlSerializable? config,
-    List<TypeHelper>? typeHelpers,
-  })  : config = config != null
-            ? ClassConfig.fromPgSqlSerializable(config)
-            : ClassConfig.defaults,
-        _typeHelpers = typeHelpers ?? defaultHelpers;
+  Settings({PgSqlSerializable? config, List<TypeHelper>? typeHelpers})
+    : config = config != null
+          ? ClassConfig.fromPgSqlSerializable(config)
+          : ClassConfig.defaults,
+      _typeHelpers = typeHelpers ?? defaultHelpers;
 
   /// Creates an instance of [Settings].
   ///
@@ -69,9 +67,8 @@ class Settings {
   factory Settings.withDefaultHelpers(
     Iterable<TypeHelper> typeHelpers, {
     PgSqlSerializable? config,
-  }) =>
-      Settings(
-        config: config,
-        typeHelpers: List.unmodifiable(typeHelpers.followedBy(defaultHelpers)),
-      );
+  }) => Settings(
+    config: config,
+    typeHelpers: List.unmodifiable(typeHelpers.followedBy(defaultHelpers)),
+  );
 }

@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
@@ -13,7 +13,7 @@ import 'pgsql_literal_generator.dart';
 import 'utils.dart';
 
 String constMapName(DartType targetType, String prefix) =>
-    '_\$$prefix${targetType.element!.name}EnumMap';
+    '_\$$prefix${targetType.element3!.name3}EnumMap';
 
 /// If [targetType] is not an enum, return `null`.
 ///
@@ -36,24 +36,29 @@ String? enumValueMapFromType(
   String prefix, {
   bool nullWithNoAnnotation = false,
 }) {
-  final enumMap =
-      _enumMap(targetType, nullWithNoAnnotation: nullWithNoAnnotation);
+  final enumMap = _enumMap(
+    targetType,
+    nullWithNoAnnotation: nullWithNoAnnotation,
+  );
 
   if (enumMap == null) return null;
 
   final items = enumMap.entries
-      .map((e) => '  ${targetType.element!.name}.${e.key.name}: '
-          '${pgsqlLiteralAsDart(e.value)},')
+      .map(
+        (e) =>
+            '  ${targetType.element3!.name3}.${e.key.name3}: '
+            '${pgsqlLiteralAsDart(e.value)},',
+      )
       .join();
 
   return 'const ${constMapName(targetType, prefix)} = {\n$items\n};';
 }
 
-Map<FieldElement, Object?>? _enumMap(
+Map<FieldElement2, Object?>? _enumMap(
   DartType targetType, {
   bool nullWithNoAnnotation = false,
 }) {
-  final targetTypeElement = targetType.element;
+  final targetTypeElement = targetType.element3;
   if (targetTypeElement == null) return null;
   final annotation = _pgsqlEnumChecker.firstAnnotationOf(targetTypeElement);
   final pgsqlEnum = _fromAnnotation(annotation);
@@ -75,24 +80,25 @@ Map<FieldElement, Object?>? _enumMap(
 }
 
 Object? _generateEntry({
-  required FieldElement field,
+  required FieldElement2 field,
   required PgSqlEnum pgsqlEnum,
   required DartType targetType,
 }) {
-  final annotation =
-      const TypeChecker.fromRuntime(PgSqlValue).firstAnnotationOfExact(field);
+  final annotation = const TypeChecker.fromRuntime(
+    PgSqlValue,
+  ).firstAnnotationOfExact(field);
 
   if (annotation == null) {
     final valueField = pgsqlEnum.valueField;
     if (valueField != null) {
       // TODO: fieldRename is pointless here!!! At least log a warning!
 
-      final fieldElementType = field.type.element as EnumElement;
+      final fieldElementType = field.type.element3 as EnumElement2;
 
-      final e = fieldElementType.getField(valueField);
+      final e = fieldElementType.getField2(valueField);
 
       if (e == null && valueField == 'index') {
-        return fieldElementType.fields
+        return fieldElementType.fields2
             .where((element) => element.isEnumConstant)
             .toList(growable: false)
             .indexOf(field);
@@ -103,7 +109,7 @@ Object? _generateEntry({
           '`PgSqlEnum.valueField` was set to "$valueField", but '
           'that is not a valid, instance field on '
           '`${typeToCode(targetType)}`.',
-          element: targetType.element,
+          element: targetType.element3,
         );
       }
 
@@ -115,11 +121,11 @@ Object? _generateEntry({
         throw InvalidGenerationSourceError(
           '`PgSqlEnum.valueField` was set to "$valueField", but '
           'that field does not have a type of String, int, or null.',
-          element: targetType.element,
+          element: targetType.element3,
         );
       }
     } else {
-      return encodedFieldName(pgsqlEnum.fieldRename, field.name);
+      return encodedFieldName(pgsqlEnum.fieldRename, field.name3!);
     }
   } else {
     final reader = ConstantReader(annotation);
@@ -131,7 +137,7 @@ Object? _generateEntry({
     } else {
       final targetTypeCode = typeToCode(targetType);
       throw InvalidGenerationSourceError(
-        'The `PgSqlValue` annotation on `$targetTypeCode.${field.name}` does '
+        'The `PgSqlValue` annotation on `$targetTypeCode.${field.name3}` does '
         'not have a value of type String, int, or null.',
         element: field,
       );

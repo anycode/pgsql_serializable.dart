@@ -15,7 +15,7 @@ StrictKeysObject _$StrictKeysObjectFromPgSql(Map pgsql) {
     requiredKeys: const ['value', 'custom_field'],
   );
   return StrictKeysObject(
-    pgsql['value'] as int,
+    (pgsql['value'] as num).toInt(),
     pgsql['custom_field'] as String,
   );
 }

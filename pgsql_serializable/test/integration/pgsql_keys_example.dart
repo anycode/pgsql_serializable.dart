@@ -4,11 +4,7 @@ part 'pgsql_keys_example.g.dart';
 
 @PgSqlSerializable(createPgSqlKeys: true, fieldRename: FieldRename.kebab)
 class Model {
-  Model({
-    required this.firstName,
-    required this.lastName,
-    this.ignoredName,
-  });
+  Model({required this.firstName, required this.lastName, this.ignoredName});
 
   factory Model.fromPgSql(Map<String, Object?> pgsql) => _$ModelFromPgSql(pgsql);
 

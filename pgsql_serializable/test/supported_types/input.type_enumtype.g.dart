@@ -9,10 +9,9 @@ part of 'input.type_enumtype.dart';
 // **************************************************************************
 
 SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) => SimpleClass(
-      $enumDecode(_$EnumTypeEnumMap, pgsql['value']),
-      $enumDecodeNullable(_$EnumTypeEnumMap, pgsql['withDefault']) ??
-          EnumType.alpha,
-    );
+  $enumDecode(_$EnumTypeEnumMap, pgsql['value']),
+  $enumDecodeNullable(_$EnumTypeEnumMap, pgsql['withDefault']) ?? EnumType.alpha,
+);
 
 Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
     <String, dynamic>{
@@ -35,8 +34,8 @@ SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =
     );
 
 Map<String, dynamic> _$SimpleClassNullableToPgSql(
-        SimpleClassNullable instance) =>
-    <String, dynamic>{
-      'value': _$EnumTypeEnumMap[instance.value],
-      'withDefault': _$EnumTypeEnumMap[instance.withDefault],
-    };
+  SimpleClassNullable instance,
+) => <String, dynamic>{
+  'value': _$EnumTypeEnumMap[instance.value],
+  'withDefault': _$EnumTypeEnumMap[instance.withDefault],
+};

@@ -19,15 +19,15 @@ T $checkedCreate<T>(
       S Function(Object?), {
       Object? Function(Map, String)? readValue,
     }),
-  ) constructor, {
+  )
+  constructor, {
   Map<String, String> fieldKeyMap = const {},
 }) {
   Q checkedConvert<Q>(
     String key,
     Q Function(Object?) convertFunction, {
     Object? Function(Map, String)? readValue,
-  }) =>
-      $checkedConvert<Q>(map, key, convertFunction, readValue: readValue);
+  }) => $checkedConvert<Q>(map, key, convertFunction, readValue: readValue);
 
   return $checkedNew(
     className,
@@ -137,9 +137,9 @@ class CheckedFromPgSqlException implements Exception {
     String className,
     this.message, {
     this.badKey = false,
-  })  : _className = className,
-        innerError = null,
-        innerStack = null;
+  }) : _className = className,
+       innerError = null,
+       innerStack = null;
 
   CheckedFromPgSqlException._(
     Object this.innerError,
@@ -147,9 +147,9 @@ class CheckedFromPgSqlException implements Exception {
     this.map,
     this.key, {
     String? className,
-  })  : _className = className,
-        badKey = innerError is BadKeyException,
-        message = _getMessage(innerError);
+  }) : _className = className,
+       badKey = innerError is BadKeyException,
+       message = _getMessage(innerError);
 
   static String _getMessage(Object error) {
     if (error is ArgumentError) {
@@ -173,12 +173,12 @@ class CheckedFromPgSqlException implements Exception {
 
   @override
   String toString() => <String>[
-        'CheckedFromPgSqlException',
-        if (_className != null) 'Could not create `$_className`.',
-        if (key != null) 'There is a problem with "$key".',
-        if (message != null)
-          message!
-        else if (innerError != null)
-          innerError.toString(),
-      ].join('\n');
+    'CheckedFromPgSqlException',
+    if (_className != null) 'Could not create `$_className`.',
+    if (key != null) 'There is a problem with "$key".',
+    if (message != null)
+      message!
+    else if (innerError != null)
+      innerError.toString(),
+  ].join('\n');
 }

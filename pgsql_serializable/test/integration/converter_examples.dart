@@ -110,9 +110,7 @@ class Regression1229 {
   @PgSqlKey(includeIfNull: false)
   final DateTime? date;
 
-  Regression1229({
-    this.date,
-  });
+  Regression1229({this.date});
 
   factory Regression1229.fromPgSql(Map<String, dynamic> pgsql) =>
       _$Regression1229FromPgSql(pgsql);

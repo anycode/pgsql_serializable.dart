@@ -10,7 +10,7 @@ class FromPgSqlDynamicParam {
   final int value;
 
   factory FromPgSqlDynamicParam.fromPgSql(dynamic pgsql) =>
-      FromPgSqlDynamicParam(value: pgsql as int);
+      FromPgSqlDynamicParam(value: (pgsql as num).toInt());
 
   dynamic toPgSql() => null;
 }
@@ -21,7 +21,7 @@ class FromPgSqlNullableObjectParam {
   final int value;
 
   factory FromPgSqlNullableObjectParam.fromPgSql(Object? pgsql) =>
-      FromPgSqlNullableObjectParam(value: pgsql as int);
+      FromPgSqlNullableObjectParam(value: (pgsql as num).toInt());
 
   Object? toPgSql() => null;
 }
@@ -32,7 +32,7 @@ class FromPgSqlObjectParam {
   final int value;
 
   factory FromPgSqlObjectParam.fromPgSql(Object pgsql) =>
-      FromPgSqlObjectParam(value: pgsql as int);
+      FromPgSqlObjectParam(value: (pgsql as num).toInt());
 
   dynamic toPgSql() => null;
 }

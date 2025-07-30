@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// @dart=3.8
+
 import 'dart:collection';
 
 import 'package:pgsql_annotation/pgsql_annotation.dart';
@@ -32,15 +34,13 @@ enum UnsupportedEnum { not, valid }
 @PgSqlSerializable() // ignore: invalid_annotation_target
 Object annotatedMethod() => throw UnimplementedError();
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 OnlyStaticMembers _$OnlyStaticMembersFromPgSql(Map<String, dynamic> pgsql) =>
     OnlyStaticMembers();
 
 Map<String, dynamic> _$OnlyStaticMembersToPgSql(OnlyStaticMembers instance) =>
     <String, dynamic>{};
-''',
-)
+''')
 @PgSqlSerializable()
 class OnlyStaticMembers {
   // To ensure static members are not considered for serialization.
@@ -55,12 +55,13 @@ GeneralTestClass1 _$GeneralTestClass1FromPgSql(Map<String, dynamic> pgsql) =>
     GeneralTestClass1()
       ..firstName = pgsql['firstName'] as String
       ..lastName = pgsql['lastName'] as String
-      ..height = pgsql['h'] as int
+      ..height = (pgsql['h'] as num).toInt()
       ..dateOfBirth = DateTime.parse(pgsql['dateOfBirth'] as String)
       ..dynamicType = pgsql['dynamicType']
       ..varType = pgsql['varType']
-      ..listOfInts =
-          (pgsql['listOfInts'] as List<dynamic>).map((e) => e as int).toList();
+      ..listOfInts = (pgsql['listOfInts'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList();
 
 Map<String, dynamic> _$GeneralTestClass1ToPgSql(GeneralTestClass1 instance) =>
     <String, dynamic>{
@@ -81,7 +82,7 @@ class GeneralTestClass1 {
   late DateTime dateOfBirth;
   dynamic dynamicType;
 
-  //ignore: prefer_typing_uninitialized_variables,type_annotate_public_apis,inference_failure_on_uninitialized_variable
+  //ignore: prefer_typing_uninitialized_variables,type_annotate_public_apis,inference_failure_on_uninitialized_variable, strict_top_level_inference
   var varType;
   late List<int> listOfInts;
 }
@@ -89,7 +90,7 @@ class GeneralTestClass1 {
 @ShouldGenerate(r'''
 GeneralTestClass2 _$GeneralTestClass2FromPgSql(Map<String, dynamic> pgsql) =>
     GeneralTestClass2(
-      pgsql['height'] as int,
+      (pgsql['height'] as num).toInt(),
       pgsql['firstName'] as String,
       pgsql['lastName'] as String?,
     )..dateOfBirth = DateTime.parse(pgsql['dateOfBirth'] as String);
@@ -110,20 +111,16 @@ class GeneralTestClass2 {
   late DateTime dateOfBirth;
 
   GeneralTestClass2(this.height, String firstName, [this.lastName])
-      :
-        // ignore: prefer_initializing_formals
-        firstName = firstName;
+    // ignore: prefer_initializing_formals
+    : firstName = firstName;
 }
 
 @ShouldGenerate(r'''
-FinalFields _$FinalFieldsFromPgSql(Map<String, dynamic> pgsql) => FinalFields(
-      pgsql['a'] as int,
-    );
+FinalFields _$FinalFieldsFromPgSql(Map<String, dynamic> pgsql) =>
+    FinalFields((pgsql['a'] as num).toInt());
 
 Map<String, dynamic> _$FinalFieldsToPgSql(FinalFields instance) =>
-    <String, dynamic>{
-      'a': instance.a,
-    };
+    <String, dynamic>{'a': instance.a};
 ''')
 @PgSqlSerializable()
 class FinalFields {
@@ -134,17 +131,15 @@ class FinalFields {
   FinalFields(this.a);
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 FinalFieldsNotSetInCtor _$FinalFieldsNotSetInCtorFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    FinalFieldsNotSetInCtor();
+  Map<String, dynamic> pgsql,
+) => FinalFieldsNotSetInCtor();
 
 Map<String, dynamic> _$FinalFieldsNotSetInCtorToPgSql(
-        FinalFieldsNotSetInCtor instance) =>
-    <String, dynamic>{};
-''',
-)
+  FinalFieldsNotSetInCtor instance,
+) => <String, dynamic>{};
+''')
 @PgSqlSerializable()
 class FinalFieldsNotSetInCtor {
   final int a = 1;
@@ -154,13 +149,11 @@ class FinalFieldsNotSetInCtor {
 
 @ShouldGenerate(r'''
 SetSupport _$SetSupportFromPgSql(Map<String, dynamic> pgsql) => SetSupport(
-      (pgsql['values'] as List<dynamic>).map((e) => e as int).toSet(),
-    );
+  (pgsql['values'] as List<dynamic>).map((e) => (e as num).toInt()).toSet(),
+);
 
 Map<String, dynamic> _$SetSupportToPgSql(SetSupport instance) =>
-    <String, dynamic>{
-      'values': instance.values.toList(),
-    };
+    <String, dynamic>{'values': instance.values.toList()};
 ''')
 @PgSqlSerializable()
 class SetSupport {
@@ -169,67 +162,45 @@ class SetSupport {
   SetSupport(this.values);
 }
 
-@ShouldThrow(
-  '''
+@ShouldThrow('''
 Could not generate `toPgSql` code for `watch`.
 To support the type `Stopwatch` you can:
-$converterOrKeyInstructions''',
-)
+$converterOrKeyInstructions''')
 @PgSqlSerializable(createFactory: false)
 class NoSerializeFieldType {
   Stopwatch? watch;
 }
 
-@ShouldThrow(
-  '''
+@ShouldThrow('''
 Could not generate `fromPgSql` code for `watch`.
 To support the type `Stopwatch` you can:
-$converterOrKeyInstructions''',
-)
+$converterOrKeyInstructions''')
 @PgSqlSerializable(createToPgSql: false)
 class NoDeserializeFieldType {
   Stopwatch? watch;
 }
 
-@ShouldThrow(
-  '''
+@ShouldThrow('''
 Could not generate `toPgSql` code for `durationDateTimeMap` because of type `Duration`.
-Map keys must be one of: Object, dynamic, enum, String, BigInt, DateTime, int, Uri.''',
-)
+Map keys must be one of: Object, dynamic, enum, String, BigInt, DateTime, int, Uri.''')
 @PgSqlSerializable(createFactory: false)
 class NoSerializeBadKey {
   late Map<Duration, DateTime> durationDateTimeMap;
 }
 
-@ShouldThrow(
-  '''
+@ShouldThrow('''
 Could not generate `fromPgSql` code for `durationDateTimeMap` because of type `Duration`.
-Map keys must be one of: Object, dynamic, enum, String, BigInt, DateTime, int, Uri.''',
-)
+Map keys must be one of: Object, dynamic, enum, String, BigInt, DateTime, int, Uri.''')
 @PgSqlSerializable(createToPgSql: false)
 class NoDeserializeBadKey {
   late Map<Duration, DateTime> durationDateTimeMap;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 Map<String, dynamic> _$IncludeIfNullOverrideToPgSql(
-    IncludeIfNullOverride instance) {
-  final val = <String, dynamic>{
-    'number': instance.number,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('str', instance.str);
-  return val;
-}
-''',
-)
+  IncludeIfNullOverride instance,
+) => <String, dynamic>{'number': instance.number, 'str': ?instance.str};
+''')
 @PgSqlSerializable(createFactory: false, includeIfNull: false)
 class IncludeIfNullOverride {
   @PgSqlKey(includeIfNull: true)
@@ -238,9 +209,7 @@ class IncludeIfNullOverride {
 }
 
 // https://github.com/anycode/pgsql_serializable.dart/issues/7 regression
-@ShouldThrow(
-  'The class `NoCtorClass` has no default constructor.',
-)
+@ShouldThrow('The class `NoCtorClass` has no default constructor.')
 @PgSqlSerializable()
 class NoCtorClass {
   late final int member;
@@ -308,7 +277,7 @@ class IgnoredFieldClass {
 @ShouldThrow(
   'Cannot populate the required constructor argument: ignoredTrueField. It is '
   'assigned to a field not meant to be used in fromPgSql.',
-  element: '',
+  element: 'new',
 )
 @PgSqlSerializable()
 class IgnoredFieldCtorClass {
@@ -345,7 +314,7 @@ class IgnoreAndIncludeFromPgSqlFieldCtorClass {
 @ShouldThrow(
   'Cannot populate the required constructor argument: '
   '_privateField. It is assigned to a private field.',
-  element: '',
+  element: 'new',
 )
 @PgSqlSerializable()
 class PrivateFieldCtorClass {
@@ -379,7 +348,7 @@ class PgSqlValueWithBool {
 
 enum BadEnum {
   @PgSqlValue(true)
-  value
+  value,
 }
 
 @ShouldGenerate(r'''const _$pgGoodEnumEnumMap = {
@@ -404,19 +373,20 @@ enum GoodEnum {
   @PgSqlValue(42)
   intValue,
   @PgSqlValue(null)
-  nullValue
+  nullValue,
 }
 
 @ShouldGenerate(r'''
 FieldWithFromPgSqlCtorAndTypeParams _$FieldWithFromPgSqlCtorAndTypeParamsFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    FieldWithFromPgSqlCtorAndTypeParams()
-      ..customOrders = pgsql['customOrders'] == null
-          ? null
-          : MyList<GeneralTestClass2, int>.fromPgSql((pgsql['customOrders']
-                  as List<dynamic>)
+  Map<String, dynamic> pgsql,
+) => FieldWithFromPgSqlCtorAndTypeParams()
+  ..customOrders = pgsql['customOrders'] == null
+      ? null
+      : MyList<GeneralTestClass2, int>.fromPgSql(
+          (pgsql['customOrders'] as List<dynamic>)
               .map((e) => GeneralTestClass2.fromPgSql(e as Map<String, dynamic>))
-              .toList());
+              .toList(),
+        );
 ''')
 @PgSqlSerializable(createToPgSql: false)
 class FieldWithFromPgSqlCtorAndTypeParams {
@@ -453,17 +423,17 @@ mixin _PropInMixinI448RegressionMixin {
 
 @ShouldGenerate(r'''
 PropInMixinI448Regression _$PropInMixinI448RegressionFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    PropInMixinI448Regression()
-      ..nullable = pgsql['nullable'] as int
-      ..notNullable = pgsql['notNullable'] as int;
+  Map<String, dynamic> pgsql,
+) => PropInMixinI448Regression()
+  ..nullable = (pgsql['nullable'] as num).toInt()
+  ..notNullable = (pgsql['notNullable'] as num).toInt();
 
 Map<String, dynamic> _$PropInMixinI448RegressionToPgSql(
-        PropInMixinI448Regression instance) =>
-    <String, dynamic>{
-      'nullable': instance.nullable,
-      'notNullable': instance.notNullable,
-    };
+  PropInMixinI448Regression instance,
+) => <String, dynamic>{
+  'nullable': instance.nullable,
+  'notNullable': instance.notNullable,
+};
 ''')
 @PgSqlSerializable()
 class PropInMixinI448Regression with _PropInMixinI448RegressionMixin {
@@ -471,17 +441,13 @@ class PropInMixinI448Regression with _PropInMixinI448RegressionMixin {
   late int notNullable;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 IgnoreUnannotated _$IgnoreUnannotatedFromPgSql(Map<String, dynamic> pgsql) =>
-    IgnoreUnannotated()..annotated = pgsql['annotated'] as int;
+    IgnoreUnannotated()..annotated = (pgsql['annotated'] as num).toInt();
 
 Map<String, dynamic> _$IgnoreUnannotatedToPgSql(IgnoreUnannotated instance) =>
-    <String, dynamic>{
-      'annotated': instance.annotated,
-    };
-''',
-)
+    <String, dynamic>{'annotated': instance.annotated};
+''')
 @PgSqlSerializable(ignoreUnannotated: true)
 class IgnoreUnannotated {
   @PgSqlKey()
@@ -490,17 +456,13 @@ class IgnoreUnannotated {
   late int unannotated;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 SubclassedPgSqlKey _$SubclassedPgSqlKeyFromPgSql(Map<String, dynamic> pgsql) =>
-    SubclassedPgSqlKey()..annotatedWithSubclass = pgsql['bob'] as int;
+    SubclassedPgSqlKey()..annotatedWithSubclass = (pgsql['bob'] as num).toInt();
 
 Map<String, dynamic> _$SubclassedPgSqlKeyToPgSql(SubclassedPgSqlKey instance) =>
-    <String, dynamic>{
-      'bob': instance.annotatedWithSubclass,
-    };
-''',
-)
+    <String, dynamic>{'bob': instance.annotatedWithSubclass};
+''')
 @PgSqlSerializable(ignoreUnannotated: true)
 class SubclassedPgSqlKey {
   @MyPgSqlKey()
@@ -511,19 +473,15 @@ class MyPgSqlKey extends PgSqlKey {
   const MyPgSqlKey() : super(name: 'bob');
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 OverrideGetterExampleI613 _$OverrideGetterExampleI613FromPgSql(
-        Map<String, dynamic> pgsql) =>
-    OverrideGetterExampleI613()..id = pgsql['id'] as String;
+  Map<String, dynamic> pgsql,
+) => OverrideGetterExampleI613()..id = pgsql['id'] as String;
 
 Map<String, dynamic> _$OverrideGetterExampleI613ToPgSql(
-        OverrideGetterExampleI613 instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
-''',
-)
+  OverrideGetterExampleI613 instance,
+) => <String, dynamic>{'id': instance.id};
+''')
 @PgSqlSerializable()
 class OverrideGetterExampleI613 extends OverrideGetterExampleI613Super {
   @override
@@ -590,11 +548,8 @@ class ExtraParamToPgSql {
 
 @ShouldGenerate(r'''
 Map<String, dynamic> _$Issue1038RegressionTestToPgSql(
-        Issue1038RegressionTest instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'ean': instance.ean,
-    };
+  Issue1038RegressionTest instance,
+) => <String, dynamic>{'id': instance.id, 'ean': instance.ean};
 ''')
 @PgSqlSerializable(createFactory: false)
 class Issue1038RegressionTest {
@@ -606,16 +561,14 @@ class Issue1038RegressionTest {
   Issue1038RegressionTest.ean(this.ean) : id = null;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 TearOffFromPgSqlClass _$TearOffFromPgSqlClassFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    TearOffFromPgSqlClass(
-      TearOffValueClass(pgsql['value'] as String),
-      TearOffValueClass.fromPgSql(pgsql['factoryValue'] as String),
-    );
-''',
-)
+  Map<String, dynamic> pgsql,
+) => TearOffFromPgSqlClass(
+  TearOffValueClass(pgsql['value'] as String),
+  TearOffValueClass.fromPgSql(pgsql['factoryValue'] as String),
+);
+''')
 @PgSqlSerializable(createToPgSql: false)
 class TearOffFromPgSqlClass {
   TearOffFromPgSqlClass(this.value, this.factoryValue);

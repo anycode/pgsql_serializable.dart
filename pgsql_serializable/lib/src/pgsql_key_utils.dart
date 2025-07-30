@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
@@ -17,17 +17,19 @@ import 'utils.dart';
 
 final _pgsqlKeyExpando = Expando<Map<ClassConfig, KeyConfig>>();
 
-KeyConfig pgsqlKeyForField(FieldElement field, ClassConfig classAnnotation) =>
-    (_pgsqlKeyExpando[field] ??= Map.identity())[classAnnotation] ??=
-        _from(field, classAnnotation);
+KeyConfig pgsqlKeyForField(FieldElement2 field, ClassConfig classAnnotation) =>
+    (_pgsqlKeyExpando[field] ??= Map.identity())[classAnnotation] ??= _from(
+      field,
+      classAnnotation,
+    );
 
-KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
+KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
   // If an annotation exists on `element` the source is a 'real' field.
   // If the result is `null`, check the getter – it is a property.
   // TODO: setters: github.com/anycode/pgsql_serializable.dart/issues/24
   final obj = pgsqlKeyAnnotation(element);
 
-  final ctorParamDefault = classAnnotation.ctorParamDefaults[element.name];
+  final ctorParamDefault = classAnnotation.ctorParamDefaults[element.name3];
 
   if (obj.isNull) {
     return _populatePgSqlKey(
@@ -64,7 +66,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
       // literal, which is NOT supported!
       badType = 'Function';
     } else if (!reader.isLiteral) {
-      badType = dartObject.type!.element?.name;
+      badType = dartObject.type!.element3?.name3;
     }
 
     if (badType != null) {
@@ -82,28 +84,19 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
     if (reader.isList) {
       return [
         for (var e in reader.listValue)
-          literalForObject(fieldName, e, [
-            ...typeInformation,
-            'List',
-          ])
+          literalForObject(fieldName, e, [...typeInformation, 'List']),
       ];
     }
 
     if (reader.isSet) {
       return {
         for (var e in reader.setValue)
-          literalForObject(fieldName, e, [
-            ...typeInformation,
-            'Set',
-          ])
+          literalForObject(fieldName, e, [...typeInformation, 'Set']),
       };
     }
 
     if (reader.isMap) {
-      final mapTypeInformation = [
-        ...typeInformation,
-        'Map',
-      ];
+      final mapTypeInformation = [...typeInformation, 'Map'];
       return reader.mapValue.map(
         (k, v) => MapEntry(
           literalForObject(fieldName, k!, mapTypeInformation),
@@ -143,12 +136,12 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
       // the generated code will be invalid, so skipping until we're bored
       // later
 
-      final functionValue = objectValue.toFunctionValue()!;
+      final functionValue = objectValue.toFunctionValue2()!;
 
       final invokeConst =
-          functionValue is ConstructorElement && functionValue.isConst
-              ? 'const '
-              : '';
+          functionValue is ConstructorElement2 && functionValue.isConst
+          ? 'const '
+          : '';
 
       return '$invokeConst${functionValue.qualifiedName}()';
     }
@@ -176,9 +169,9 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
           throwUnsupported(
             element,
             '`$fieldName` has type '
-            '`${targetEnumType.getDisplayString(withNullability: false)}`, but '
+            '`${targetEnumType.toStringNonNullable()}`, but '
             'the provided unknownEnumValue is of type '
-            '`${annotationType.getDisplayString(withNullability: false)}`.',
+            '`${annotationType.toStringNonNullable()}`.',
           );
         }
       }
@@ -191,13 +184,17 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
         );
       }
 
-      final enumValueNames =
-          enumFields.map((p) => p.name).toList(growable: false);
+      final enumValueNames = enumFields
+          .map((p) => p.name3!)
+          .toList(growable: false);
 
-      final enumValueName =
-          enumValueForDartObject<String>(objectValue, enumValueNames, (n) => n);
+      final enumValueName = enumValueForDartObject<String>(
+        objectValue,
+        enumValueNames,
+        (n) => n,
+      );
 
-      return '${annotationType.element!.name}.$enumValueName';
+      return '${annotationType.element3!.name3}.$enumValueName';
     } else {
       final defaultValueLiteral = literalForObject(fieldName, objectValue, []);
       if (defaultValueLiteral == null) {
@@ -217,12 +214,12 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   if (defaultValue != null && ctorParamDefault != null) {
     if (defaultValue == ctorParamDefault) {
       log.info(
-        'The default value `$defaultValue` for `${element.name}` is defined '
+        'The default value `$defaultValue` for `${element.name3!}` is defined '
         'twice in the constructor and in the `PgSqlKey.defaultValue`.',
       );
     } else {
       log.warning(
-        'The constructor parameter for `${element.name}` has a default value '
+        'The constructor parameter for `${element.name3!}` has a default value '
         '`$ctorParamDefault`, but the `PgSqlKey.defaultValue` value '
         '`$defaultValue` will be used for missing or `null` values in PgSQL '
         'decoding.',
@@ -233,8 +230,9 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
   String? readValueFunctionName;
   final readValue = obj.read('readValue');
   if (!readValue.isNull) {
-    readValueFunctionName =
-        readValue.objectValue.toFunctionValue()!.qualifiedName;
+    readValueFunctionName = readValue.objectValue
+        .toFunctionValue2()!
+        .qualifiedName;
   }
 
   final ignore = obj.read('ignore').literalValue as bool?;
@@ -269,8 +267,10 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
     name: obj.read('name').literalValue as String?,
     readValueFunctionName: readValueFunctionName,
     required: obj.read('required').literalValue as bool?,
-    unknownEnumValue:
-        createAnnotationValue('unknownEnumValue', mustBeEnum: true),
+    unknownEnumValue: createAnnotationValue(
+      'unknownEnumValue',
+      mustBeEnum: true,
+    ),
     includeToPgSql: includeToPgSql,
     includeFromPgSql: includeFromPgSql,
   );
@@ -278,7 +278,7 @@ KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
 
 KeyConfig _populatePgSqlKey(
   ClassConfig classAnnotation,
-  FieldElement element, {
+  FieldElement2 element, {
   required String? defaultValue,
   bool? disallowNullValue,
   bool? includeIfNull,
@@ -292,9 +292,10 @@ KeyConfig _populatePgSqlKey(
   if (disallowNullValue == true) {
     if (includeIfNull == true) {
       throwUnsupported(
-          element,
-          'Cannot set both `disallowNullValue` and `includeIfNull` to `true`. '
-          'This leads to incompatible `toPgSql` and `fromPgSql` behavior.');
+        element,
+        'Cannot set both `disallowNullValue` and `includeIfNull` to `true`. '
+        'This leads to incompatible `toPgSql` and `fromPgSql` behavior.',
+      );
     }
   }
 
@@ -302,8 +303,11 @@ KeyConfig _populatePgSqlKey(
     defaultValue: defaultValue,
     disallowNullValue: disallowNullValue ?? false,
     includeIfNull: _includeIfNull(
-        includeIfNull, disallowNullValue, classAnnotation.includeIfNull),
-    name: name ?? encodedFieldName(classAnnotation.fieldRename, element.name),
+      includeIfNull,
+      disallowNullValue,
+      classAnnotation.includeIfNull,
+    ),
+    name: name ?? encodedFieldName(classAnnotation.fieldRename, element.name3!),
     readValueFunctionName: readValueFunctionName,
     required: required ?? false,
     unknownEnumValue: unknownEnumValue,
@@ -327,7 +331,7 @@ bool _includeIfNull(
 bool _interfaceTypesEqual(DartType a, DartType b) {
   if (a is InterfaceType && b is InterfaceType) {
     // Handle nullability case. Pretty sure this is fine for enums.
-    return a.element == b.element;
+    return a.element3 == b.element3;
   }
   return a == b;
 }
@@ -335,5 +339,6 @@ bool _interfaceTypesEqual(DartType a, DartType b) {
 const pgsqlKeyNullForUndefinedEnumValueFieldName =
     'PgSqlKey.nullForUndefinedEnumValue';
 
-final _nullAsUnknownChecker =
-    TypeChecker.fromRuntime(PgSqlKey.nullForUndefinedEnumValue.runtimeType);
+final _nullAsUnknownChecker = TypeChecker.fromRuntime(
+  PgSqlKey.nullForUndefinedEnumValue.runtimeType,
+);

@@ -10,30 +10,29 @@ Tuple<T, S> _$TupleFromPgSql<T, S>(
   Map<String, dynamic> pgsql,
   T Function(Object? pgsql) fromPgSqlT,
   S Function(Object? pgsql) fromPgSqlS,
-) =>
-    Tuple<T, S>(
-      fromPgSqlT(pgsql['value1']),
-      fromPgSqlS(pgsql['value2']),
-    );
+) => Tuple<T, S>(fromPgSqlT(pgsql['value1']), fromPgSqlS(pgsql['value2']));
 
 Map<String, dynamic> _$TupleToPgSql<T, S>(
   Tuple<T, S> instance,
   Object? Function(T value) toPgSqlT,
   Object? Function(S value) toPgSqlS,
-) =>
-    <String, dynamic>{
-      'value1': toPgSqlT(instance.value1),
-      'value2': toPgSqlS(instance.value2),
-    };
+) => <String, dynamic>{
+  'value1': toPgSqlT(instance.value1),
+  'value2': toPgSqlS(instance.value2),
+};
 
 ConcreteClass _$ConcreteClassFromPgSql(Map<String, dynamic> pgsql) =>
     ConcreteClass(
-      Tuple<int, DateTime>.fromPgSql(pgsql['tuple1'] as Map<String, dynamic>,
-          (value) => value as int, (value) => DateTime.parse(value as String)),
+      Tuple<int, DateTime>.fromPgSql(
+        pgsql['tuple1'] as Map<String, dynamic>,
+        (value) => (value as num).toInt(),
+        (value) => DateTime.parse(value as String),
+      ),
       Tuple<Duration, BigInt>.fromPgSql(
-          pgsql['tuple2'] as Map<String, dynamic>,
-          (value) => Duration(microseconds: value as int),
-          (value) => BigInt.parse(value as String)),
+        pgsql['tuple2'] as Map<String, dynamic>,
+        (value) => Duration(microseconds: (value as num).toInt()),
+        (value) => BigInt.parse(value as String),
+      ),
     );
 
 Map<String, dynamic> _$ConcreteClassToPgSql(ConcreteClass instance) =>

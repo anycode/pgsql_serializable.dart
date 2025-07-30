@@ -9,9 +9,9 @@ part of 'input.type_int.dart';
 // **************************************************************************
 
 SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) => SimpleClass(
-      pgsql['value'] as int,
-      pgsql['withDefault'] as int? ?? 42,
-    );
+  (pgsql['value'] as num).toInt(),
+  (pgsql['withDefault'] as num?)?.toInt() ?? 42,
+);
 
 Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
     <String, dynamic>{
@@ -21,13 +21,13 @@ Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
 
 SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =>
     SimpleClassNullable(
-      pgsql['value'] as int?,
-      pgsql['withDefault'] as int? ?? 42,
+      (pgsql['value'] as num?)?.toInt(),
+      (pgsql['withDefault'] as num?)?.toInt() ?? 42,
     );
 
 Map<String, dynamic> _$SimpleClassNullableToPgSql(
-        SimpleClassNullable instance) =>
-    <String, dynamic>{
-      'value': instance.value,
-      'withDefault': instance.withDefault,
-    };
+  SimpleClassNullable instance,
+) => <String, dynamic>{
+  'value': instance.value,
+  'withDefault': instance.withDefault,
+};

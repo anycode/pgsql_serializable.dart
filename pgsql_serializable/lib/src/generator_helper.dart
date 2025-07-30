@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -20,15 +20,12 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
 
   GeneratorHelper(
     this._generator,
-    ClassElement element,
+    ClassElement2 element,
     ConstantReader annotation,
   ) : super(
-            element,
-            mergeConfig(
-              _generator.config,
-              annotation,
-              classElement: element,
-            ));
+        element,
+        mergeConfig(_generator.config, annotation, classElement: element),
+      );
 
   @override
   void addMember(String memberContent) {
@@ -41,7 +38,7 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
   Iterable<String> generate() sync* {
     assert(_addedMembers.isEmpty);
 
-    if (config.genericArgumentFactories && element.typeParameters.isEmpty) {
+    if (config.genericArgumentFactories && element.typeParameters2.isEmpty) {
       log.warning(
         'The class `${element.displayName}` is annotated '
         'with `PgSqlSerializable` field `genericArgumentFactories: true`. '
@@ -58,23 +55,24 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
     // these fields.
     final unavailableReasons = <String, String>{};
 
-    final accessibleFields = sortedFields.fold<Map<String, FieldElement>>(
-      <String, FieldElement>{},
+    final accessibleFields = sortedFields.fold<Map<String, FieldElement2>>(
+      <String, FieldElement2>{},
       (map, field) {
         final pgsqlKey = pgsqlKeyFor(field);
         if (!field.isPublic && !pgsqlKey.explicitYesFromPgSql) {
-          unavailableReasons[field.name] = 'It is assigned to a private field.';
-        } else if (field.getter == null) {
-          assert(field.setter != null);
-          unavailableReasons[field.name] =
+          unavailableReasons[field.name3!] =
+              'It is assigned to a private field.';
+        } else if (field.getter2 == null) {
+          assert(field.setter2 != null);
+          unavailableReasons[field.name3!] =
               'Setter-only properties are not supported.';
-          log.warning('Setters are ignored: ${element.name}.${field.name}');
+          log.warning('Setters are ignored: ${element.name3!}.${field.name3!}');
         } else if (pgsqlKey.explicitNoFromPgSql) {
-          unavailableReasons[field.name] =
+          unavailableReasons[field.name3!] =
               'It is assigned to a field not meant to be used in fromPgSql.';
         } else {
-          assert(!map.containsKey(field.name));
-          map[field.name] = field;
+          assert(!map.containsKey(field.name3));
+          map[field.name3!] = field;
         }
 
         return map;
@@ -93,40 +91,37 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
 
       // Need to add candidates BACK even if they are not used in the factory if
       // they are forced to be used for toPgSQL
-      for (var candidate in sortedFields.where((element) =>
-          pgsqlKeyFor(element).explicitYesToPgSql &&
-          !fieldsToUse.contains(element))) {
+      for (var candidate in sortedFields.where(
+        (element) =>
+            pgsqlKeyFor(element).explicitYesToPgSql &&
+            !fieldsToUse.contains(element),
+      )) {
         fieldsToUse.add(candidate);
       }
 
       // Need the fields to maintain the original source ordering
       fieldsToUse.sort(
-          (a, b) => sortedFields.indexOf(a).compareTo(sortedFields.indexOf(b)));
+        (a, b) => sortedFields.indexOf(a).compareTo(sortedFields.indexOf(b)),
+      );
 
       accessibleFieldSet = fieldsToUse.toSet();
     }
 
     accessibleFieldSet
-      ..removeWhere(
-        (element) => pgsqlKeyFor(element).explicitNoToPgSql,
-      )
-
+      ..removeWhere((element) => pgsqlKeyFor(element).explicitNoToPgSql)
       // Check for duplicate PgSQL keys due to colliding annotations.
       // We do this now, since we have a final field list after any pruning done
       // by `_writeCtor`.
-      ..fold(
-        <String>{},
-        (Set<String> set, fe) {
-          final pgsqlKey = nameAccess(fe);
-          if (!set.add(pgsqlKey)) {
-            throw InvalidGenerationSourceError(
-              'More than one field has the PgSQL key for name "$pgsqlKey".',
-              element: fe,
-            );
-          }
-          return set;
-        },
-      );
+      ..fold(<String>{}, (Set<String> set, fe) {
+        final pgsqlKey = nameAccess(fe);
+        if (!set.add(pgsqlKey)) {
+          throw InvalidGenerationSourceError(
+            'More than one field has the PgSQL key for name "$pgsqlKey".',
+            element: fe,
+          );
+        }
+        return set;
+      });
 
     if (config.createFieldMap) {
       yield createFieldMap(accessibleFieldSet);

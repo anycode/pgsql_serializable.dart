@@ -9,15 +9,15 @@ part of 'example.dart';
 // **************************************************************************
 
 Person _$PersonFromPgSql(Map<String, dynamic> pgsql) => Person(
-      firstName: pgsql['firstName'] as String,
-      lastName: pgsql['lastName'] as String,
-      dateOfBirth: pgsql['dateOfBirth'] == null
-          ? null
-          : DateTime.parse(pgsql['dateOfBirth'] as String),
-    );
+  firstName: pgsql['firstName'] as String,
+  lastName: pgsql['lastName'] as String,
+  dateOfBirth: pgsql['dateOfBirth'] == null
+      ? null
+      : DateTime.parse(pgsql['dateOfBirth'] as String),
+);
 
 Map<String, dynamic> _$PersonToPgSql(Person instance) => <String, dynamic>{
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
-    };
+  'firstName': instance.firstName,
+  'lastName': instance.lastName,
+  'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
+};

@@ -2,25 +2,18 @@ name: _test_yaml
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.8.0
+
+resolution: workspace
 
 dev_dependencies:
   _pgsql_serial_shared_test:
     path: ../shared_test
-  build_runner: ^2.0.0
+  build_runner: ^2.2.1
   build_verify: ^3.0.0
-  checked_yaml: any
-  dart_flutter_team_lints: ^2.0.0
-  pgsql_annotation: ^4.7.0
-  pgsql_serializable: any
+  checked_yaml: ^2.0.4-wip
+  pgsql_annotation: ^4.9.0
+  pgsql_serializable: ^6.8.0
   path: ^1.8.2
-  test: ^1.6.0
+  test: ^1.21.6
   yaml: ^3.0.0
-
-dependency_overrides:
-  checked_yaml:
-    path: ../checked_yaml
-  pgsql_annotation:
-    path: ../pgsql_annotation
-  pgsql_serializable:
-    path: ../pgsql_serializable

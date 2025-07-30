@@ -16,39 +16,21 @@ const _trivialTypesToTest = {
     pgsqlExpression: "'12345'",
     altPgSqlExpression: "'67890'",
   ),
-  'bool': TestTypeData(
-    defaultExpression: 'true',
-    altPgSqlExpression: 'false',
-  ),
+  'bool': TestTypeData(defaultExpression: 'true', altPgSqlExpression: 'false'),
   'DateTime': TestTypeData.defaultFunc(
     pgsqlExpression: "'2020-01-01T00:00:00.000'",
     altPgSqlExpression: "'2018-01-01T00:00:00.000'",
   ),
-  'double': TestTypeData(
-    defaultExpression: '3.14',
-    altPgSqlExpression: '6.28',
-  ),
-  'Duration': TestTypeData(
-    pgsqlExpression: '1234',
-    altPgSqlExpression: '2345',
-  ),
+  'double': TestTypeData(defaultExpression: '3.14', altPgSqlExpression: '6.28'),
+  'Duration': TestTypeData(pgsqlExpression: '1234', altPgSqlExpression: '2345'),
   customEnumType: TestTypeData(
     defaultExpression: '$customEnumType.alpha',
     pgsqlExpression: "'alpha'",
     altPgSqlExpression: "'beta'",
   ),
-  'int': TestTypeData(
-    defaultExpression: '42',
-    altPgSqlExpression: '43',
-  ),
-  'num': TestTypeData(
-    defaultExpression: '88.6',
-    altPgSqlExpression: '29',
-  ),
-  'Object': TestTypeData(
-    defaultExpression: "'o1'",
-    altPgSqlExpression: "'o2'",
-  ),
+  'int': TestTypeData(defaultExpression: '42', altPgSqlExpression: '43'),
+  'num': TestTypeData(defaultExpression: '88.6', altPgSqlExpression: '29'),
+  'Object': TestTypeData(defaultExpression: "'o1'", altPgSqlExpression: "'o2'"),
   'String': TestTypeData(
     defaultExpression: "'a string'",
     altPgSqlExpression: "'another string'",
@@ -90,13 +72,10 @@ final _collectionTypes = {
   recordType: TestTypeData(
     altPgSqlExpression: '{}',
     genericArgs: _iterableGenericArgs,
-  )
+  ),
 };
 
-final _allTypes = {
-  ..._trivialTypesToTest,
-  ..._collectionTypes,
-};
+final _allTypes = {..._trivialTypesToTest, ..._collectionTypes};
 
 final _typesToTest = Map.of(_allTypes)..remove(recordType);
 
@@ -112,19 +91,21 @@ final _iterableGenericArgs = ([
   'FromPgSqlObjectParam',
   'dynamic',
   recordType,
-]..sort(compareAsciiLowerCase))
-    .toSet();
+]..sort(compareAsciiLowerCase)).toSet();
 
 const _defaultCollectionExpressions = '42, true, false, null';
 const _altCollectionExpressions = '43, false';
 
-Builder typeBuilder([_]) => validate('_type_builder', const _TypeBuilder());
+Builder typeBuilder([BuilderOptions? _]) =>
+    validate('_type_builder', const _TypeBuilder());
 
 class _TypeBuilder implements Builder {
   const _TypeBuilder();
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
+    final formatter = await buildStep.formatter();
+
     final inputId = buildStep.inputId;
 
     final sourceContent = await buildStep.readAsString(inputId);
@@ -141,11 +122,12 @@ class _TypeBuilder implements Builder {
   }
 
   @override
-  Map<String, List<String>> get buildExtensions =>
-      {'.dart': _allTypes.keys.map(toTypeExtension).toSet().toList()..sort()};
+  Map<String, List<String>> get buildExtensions => {
+    '.dart': _allTypes.keys.map(toTypeExtension).toSet().toList()..sort(),
+  };
 }
 
-Builder typeTestBuilder([_]) =>
+Builder typeTestBuilder([BuilderOptions? _]) =>
     validate('_type_test_builder', const _TypeTestBuilder());
 
 class _TypeTestBuilder implements Builder {
@@ -159,8 +141,9 @@ class _TypeTestBuilder implements Builder {
 
     for (var entry in _typesToTest.entries) {
       final type = entry.key;
-      final newId =
-          buildStep.inputId.changeExtension(_toTypeTestExtension(type));
+      final newId = buildStep.inputId.changeExtension(
+        _toTypeTestExtension(type),
+      );
 
       await buildStep.writeAsString(
         newId,
@@ -171,9 +154,9 @@ class _TypeTestBuilder implements Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        '.dart': _typesToTest.keys.map(_toTypeTestExtension).toSet().toList()
-          ..sort()
-      };
+    '.dart': _typesToTest.keys.map(_toTypeTestExtension).toSet().toList()
+      ..sort(),
+  };
 }
 
 String _toTypeTestExtension(String e) => '.${typeToPathPart(e)}_test.dart';

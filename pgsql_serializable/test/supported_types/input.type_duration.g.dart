@@ -8,24 +8,19 @@ part of 'input.type_duration.dart';
 // PgSqlSerializableGenerator
 // **************************************************************************
 
-SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) => SimpleClass(
-      Duration(microseconds: pgsql['value'] as int),
-    );
+SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) =>
+    SimpleClass(Duration(microseconds: (pgsql['value'] as num).toInt()));
 
 Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
-    <String, dynamic>{
-      'value': instance.value.inMicroseconds,
-    };
+    <String, dynamic>{'value': instance.value.inMicroseconds};
 
 SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =>
     SimpleClassNullable(
       pgsql['value'] == null
           ? null
-          : Duration(microseconds: pgsql['value'] as int),
+          : Duration(microseconds: (pgsql['value'] as num).toInt()),
     );
 
 Map<String, dynamic> _$SimpleClassNullableToPgSql(
-        SimpleClassNullable instance) =>
-    <String, dynamic>{
-      'value': instance.value?.inMicroseconds,
-    };
+  SimpleClassNullable instance,
+) => <String, dynamic>{'value': instance.value?.inMicroseconds};

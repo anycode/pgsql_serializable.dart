@@ -3,62 +3,58 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
+import 'shared_checkers.dart';
 import 'type_helpers/config_types.dart';
 
 const _pgsqlKeyChecker = TypeChecker.fromRuntime(PgSqlKey);
 
-DartObject? _pgsqlKeyAnnotation(FieldElement element) =>
+DartObject? _pgsqlKeyAnnotation(FieldElement2 element) =>
     _pgsqlKeyChecker.firstAnnotationOf(element) ??
-    (element.getter == null
+    (element.getter2 == null
         ? null
-        : _pgsqlKeyChecker.firstAnnotationOf(element.getter!));
+        : _pgsqlKeyChecker.firstAnnotationOf(element.getter2!));
 
-ConstantReader pgsqlKeyAnnotation(FieldElement element) =>
+ConstantReader pgsqlKeyAnnotation(FieldElement2 element) =>
     ConstantReader(_pgsqlKeyAnnotation(element));
 
 /// Returns `true` if [element] is annotated with [PgSqlKey].
-bool hasPgSqlKeyAnnotation(FieldElement element) =>
+bool hasPgSqlKeyAnnotation(FieldElement2 element) =>
     _pgsqlKeyAnnotation(element) != null;
 
-Never throwUnsupported(FieldElement element, String message) =>
+Never throwUnsupported(FieldElement2 element, String message) =>
     throw InvalidGenerationSourceError(
-      'Error with `@PgSqlKey` on the `${element.name}` field. $message',
+      'Error with `@PgSqlKey` on the `${element.name3}` field. $message',
       element: element,
     );
 
 T? readEnum<T extends Enum>(ConstantReader reader, List<T> values) =>
     reader.isNull
-        ? null
-        : enumValueForDartObject<T>(
-            reader.objectValue,
-            values,
-            (f) => f.name,
-          );
+    ? null
+    : enumValueForDartObject<T>(reader.objectValue, values, (f) => f.name);
 
 T enumValueForDartObject<T>(
   DartObject source,
   List<T> items,
   String Function(T) name,
-) =>
-    items[source.getField('index')!.toIntValue()!];
+) => items[source.getField('index')!.toIntValue()!];
 
 /// Return an instance of [PgSqlSerializable] corresponding to the provided
 /// [reader].
 // #CHANGE WHEN UPDATING pgsql_annotation
 PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializable(
-      anyMap: reader.read('anyMap').literalValue as bool?,
-      checked: reader.read('checked').literalValue as bool?,
-      constructor: reader.read('constructor').literalValue as String?,
-      createFactory: reader.read('createFactory').literalValue as bool?,
-      createToPgSql: reader.read('createToPgSql').literalValue as bool?,
-      createFieldMap: reader.read('createFieldMap').literalValue as bool?,
-      enumMapPrefix: reader.read('enumMapPrefix').literalValue as String?,
+  anyMap: reader.read('anyMap').literalValue as bool?,
+  checked: reader.read('checked').literalValue as bool?,
+  constructor: reader.read('constructor').literalValue as String?,
+  createFactory: reader.read('createFactory').literalValue as bool?,
+  createToPgSql: reader.read('createToPgSql').literalValue as bool?,
+  createFieldMap: reader.read('createFieldMap').literalValue as bool?,
+  enumMapPrefix: reader.read('enumMapPrefix').literalValue as String?,
       createPgSqlKeys: reader.read('createPgSqlKeys').literalValue as bool?,
       createPerFieldToPgSql:
           reader.read('createPerFieldToPgSql').literalValue as bool?,
@@ -84,20 +80,24 @@ PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializabl
 ClassConfig mergeConfig(
   ClassConfig config,
   ConstantReader reader, {
-  required ClassElement classElement,
+  required ClassElement2 classElement,
 }) {
   final annotation = _valueForAnnotation(reader);
   assert(config.ctorParamDefaults.isEmpty);
 
   final constructor = annotation.constructor ?? config.constructor;
-  final constructorInstance =
-      _constructorByNameOrNull(classElement, constructor);
+  final constructorInstance = _constructorByNameOrNull(
+    classElement,
+    constructor,
+  );
 
   final paramDefaultValueMap = constructorInstance == null
       ? <String, String>{}
-      : Map<String, String>.fromEntries(constructorInstance.parameters
-          .where((element) => element.hasDefaultValue)
-          .map((e) => MapEntry(e.name, e.defaultValueCode!)));
+      : Map<String, String>.fromEntries(
+          constructorInstance.formalParameters
+              .where((element) => element.hasDefaultValue)
+              .map((e) => MapEntry(e.name3!, e.defaultValueCode!)),
+        );
 
   final converters = reader.read('converters');
 
@@ -116,8 +116,9 @@ ClassConfig mergeConfig(
         annotation.disallowUnrecognizedKeys ?? config.disallowUnrecognizedKeys,
     explicitToPgSql: annotation.explicitToPgSql ?? config.explicitToPgSql,
     fieldRename: annotation.fieldRename ?? config.fieldRename,
-    genericArgumentFactories: annotation.genericArgumentFactories ??
-        (classElement.typeParameters.isNotEmpty &&
+    genericArgumentFactories:
+        annotation.genericArgumentFactories ??
+        (classElement.typeParameters2.isNotEmpty &&
             config.genericArgumentFactories),
     ignoreUnannotated: annotation.ignoreUnannotated ?? config.ignoreUnannotated,
     includeIfNull: annotation.includeIfNull ?? config.includeIfNull,
@@ -126,24 +127,23 @@ ClassConfig mergeConfig(
   );
 }
 
-ConstructorElement? _constructorByNameOrNull(
-  ClassElement classElement,
+ConstructorElement2? _constructorByNameOrNull(
+  ClassElement2 classElement,
   String name,
 ) {
   try {
     return constructorByName(classElement, name);
-    // ignore: avoid_catching_errors
   } on InvalidGenerationSourceError {
     return null;
   }
 }
 
-ConstructorElement constructorByName(ClassElement classElement, String name) {
-  final className = classElement.name;
+ConstructorElement2 constructorByName(ClassElement2 classElement, String name) {
+  final className = classElement.name3;
 
-  ConstructorElement? ctor;
+  ConstructorElement2? ctor;
   if (name.isEmpty) {
-    ctor = classElement.unnamedConstructor;
+    ctor = classElement.unnamedConstructor2;
     if (ctor == null) {
       throw InvalidGenerationSourceError(
         'The class `$className` has no default constructor.',
@@ -151,7 +151,7 @@ ConstructorElement constructorByName(ClassElement classElement, String name) {
       );
     }
   } else {
-    ctor = classElement.getNamedConstructor(name);
+    ctor = classElement.getNamedConstructor2(name);
     if (ctor == null) {
       throw InvalidGenerationSourceError(
         'The class `$className` does not have a constructor with the name '
@@ -164,35 +164,39 @@ ConstructorElement constructorByName(ClassElement classElement, String name) {
   return ctor;
 }
 
-/// If [targetType] is an enum, returns the [FieldElement] instances associated
+/// If [targetType] is an enum, returns the [FieldElement2] instances associated
 /// with its values.
 ///
 /// Otherwise, `null`.
-Iterable<FieldElement>? iterateEnumFields(DartType targetType) {
-  if (targetType is InterfaceType && targetType.element is EnumElement) {
-    return targetType.element.fields.where((element) => element.isEnumConstant);
+Iterable<FieldElement2>? iterateEnumFields(DartType targetType) {
+  if ( /*targetType is InterfaceType && */ targetType.element3
+      is EnumElement2) {
+    return (targetType.element3 as EnumElement2).constants2;
   }
   return null;
 }
 
 extension DartTypeExtension on DartType {
   DartType promoteNonNullable() =>
-      element?.library?.typeSystem.promoteToNonNull(this) ?? this;
+      element3?.library2?.typeSystem.promoteToNonNull(this) ?? this;
+
+  String toStringNonNullable() {
+    final val = getDisplayString();
+    if (val.endsWith('?')) return val.substring(0, val.length - 1);
+    return val;
+  }
 }
 
 String ifNullOrElse(String test, String ifNull, String ifNotNull) =>
     '$test == null ? $ifNull : $ifNotNull';
 
-String encodedFieldName(
-  FieldRename fieldRename,
-  String declaredName,
-) =>
+String encodedFieldName(FieldRename fieldRename, String declaredName) =>
     switch (fieldRename) {
       FieldRename.none => declaredName,
       FieldRename.snake => declaredName.snake,
       FieldRename.screamingSnake => declaredName.snake.toUpperCase(),
       FieldRename.kebab => declaredName.kebab,
-      FieldRename.pascal => declaredName.pascal
+      FieldRename.pascal => declaredName.pascal,
     };
 
 /// Return the Dart code presentation for the given [type].
@@ -201,15 +205,12 @@ String encodedFieldName(
 /// types and locations of these files in code. Specifically, it supports
 /// only [InterfaceType]s, with optional type arguments that are also should
 /// be [InterfaceType]s.
-String typeToCode(
-  DartType type, {
-  bool forceNullable = false,
-}) {
+String typeToCode(DartType type, {bool forceNullable = false}) {
   if (type is DynamicType) {
     return 'dynamic';
   } else if (type is InterfaceType) {
     return [
-      type.element.name,
+      type.element3.name3,
       if (type.typeArguments.isNotEmpty)
         '<${type.typeArguments.map(typeToCode).join(', ')}>',
       (type.isNullableType || forceNullable) ? '?' : '',
@@ -217,33 +218,58 @@ String typeToCode(
   }
 
   if (type is TypeParameterType) {
-    return type.getDisplayString(withNullability: false);
+    return type.toStringNonNullable();
   }
   throw UnimplementedError('(${type.runtimeType}) $type');
 }
 
-extension ExecutableElementExtension on ExecutableElement {
+String? defaultDecodeLogic(
+  DartType targetType,
+  String expression, {
+  bool defaultProvided = false,
+}) {
+  if (targetType.isDartCoreObject && !targetType.isNullableType) {
+    final question = defaultProvided ? '?' : '';
+    return '$expression as Object$question';
+  } else if (targetType.isDartCoreObject || targetType is DynamicType) {
+    // just return it as-is. We'll hope it's safe.
+    return expression;
+  } else if (targetType.isDartCoreDouble) {
+    final targetTypeNullable = defaultProvided || targetType.isNullableType;
+    final question = targetTypeNullable ? '?' : '';
+    return '($expression as num$question)$question.toDouble()';
+  } else if (targetType.isDartCoreInt) {
+    final targetTypeNullable = defaultProvided || targetType.isNullableType;
+    final question = targetTypeNullable ? '?' : '';
+    return '($expression as num$question)$question.toInt()';
+  } else if (simplePgSqlTypeChecker.isAssignableFromType(targetType)) {
+    final typeCode = typeToCode(targetType, forceNullable: defaultProvided);
+    return '$expression as $typeCode';
+  }
+
+  return null;
+}
+
+extension ExecutableElementExtension on ExecutableElement2 {
   /// Returns the name of `this` qualified with the class name if it's a
-  /// [MethodElement].
+  /// [MethodElement2].
   String get qualifiedName {
-    if (this is FunctionElement) {
-      return name;
+    if (this is TopLevelFunctionElement) {
+      return name3!;
     }
 
-    if (this is MethodElement) {
-      return '${enclosingElement.name}.$name';
+    if (this is MethodElement2) {
+      return '${enclosingElement2!.name3!}.${name3!}';
     }
 
-    if (this is ConstructorElement) {
-      // Ignore the default constructor.
-      if (name.isEmpty) {
-        return '${enclosingElement.name}';
+    if (this is ConstructorElement2) {
+      // The default constructor.
+      if (name3 == 'new') {
+        return enclosingElement2!.name3!;
       }
-      return '${enclosingElement.name}.$name';
+      return '${enclosingElement2!.name3!}.${name3!}';
     }
 
-    throw UnsupportedError(
-      'Not sure how to support typeof $runtimeType',
-    );
+    throw UnsupportedError('Not sure how to support typeof $runtimeType');
   }
 }

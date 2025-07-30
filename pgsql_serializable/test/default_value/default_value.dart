@@ -55,9 +55,11 @@ class DefaultValue implements dvi.DefaultValue {
   @PgSqlKey(defaultValue: {'answer': 42})
   Map<String, int> fieldMapSimple;
 
-  @PgSqlKey(defaultValue: {
-    'root': ['child']
-  })
+  @PgSqlKey(
+    defaultValue: {
+      'root': ['child'],
+    },
+  )
   Map<String, List<String>> fieldMapListString;
 
   Duration durationField;

@@ -44,7 +44,7 @@ class FromPgSqlOptionalParameters {
 }
 
 class ChildWithFromPgSql {
-  //ignore: avoid_unused_constructor_parameters
+  //ignore: avoid_unused_constructor_parameters, strict_top_level_inference
   ChildWithFromPgSql.fromPgSql(pgsql, {initValue = false});
 }
 

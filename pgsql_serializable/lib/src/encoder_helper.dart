@@ -2,11 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:source_helper/source_helper.dart';
 
-import 'constants.dart';
 import 'enum_utils.dart';
 import 'helper_core.dart';
 import 'type_helpers/generic_factory_helper.dart';
@@ -14,18 +13,21 @@ import 'type_helpers/pgsql_converter_helper.dart';
 import 'unsupported_type_error.dart';
 
 mixin EncodeHelper implements HelperCore {
-  String _fieldAccess(FieldElement field) => '$_toPgSqlParamName.${field.name}';
+  String _fieldAccess(FieldElement2 field) =>
+      '$_toPgSqlParamName.${field.name3!}';
 
-  String createPerFieldToPgSql(Set<FieldElement> accessibleFieldSet) {
+  String createPerFieldToPgSql(Set<FieldElement2> accessibleFieldSet) {
     final buffer = StringBuffer()
       ..writeln('// ignore: unused_element')
-      ..writeln('abstract class _\$${element.name.nonPrivate}PerFieldToPgSql {');
+      ..writeln(
+        'abstract class _\$${element.name3!.nonPrivate}PerFieldToPgSql {',
+      );
 
     for (final field in accessibleFieldSet) {
       buffer
         ..writeln('  // ignore: unused_element')
         ..write(
-          'static Object? ${field.name}'
+          'static Object? ${field.name3!}'
           '${genericClassArgumentsImpl(withConstraints: true)}'
           '(${field.type} $_toPgSqlParamName',
         );
@@ -44,16 +46,16 @@ mixin EncodeHelper implements HelperCore {
 
   /// Generates an object containing metadatas related to the encoding,
   /// destined to be used by other code-generators.
-  String createFieldMap(Set<FieldElement> accessibleFieldSet) {
+  String createFieldMap(Set<FieldElement2> accessibleFieldSet) {
     assert(config.createFieldMap);
 
     final buffer = StringBuffer(
-      'const _\$${element.name.nonPrivate}FieldMap = <String, String> {',
+      'const _\$${element.name3!.nonPrivate}FieldMap = <String, String> {',
     );
 
     for (final field in accessibleFieldSet) {
       buffer.writeln(
-        '${escapeDartString(field.name)}: '
+        '${escapeDartString(field.name3!)}: '
         '${escapeDartString(nameAccess(field))},',
       );
     }
@@ -65,17 +67,17 @@ mixin EncodeHelper implements HelperCore {
 
   /// Generates an object containing metadatas related to the encoding,
   /// destined to be used by other code-generators.
-  String createPgSqlKeys(Set<FieldElement> accessibleFieldSet) {
+  String createPgSqlKeys(Set<FieldElement2> accessibleFieldSet) {
     assert(config.createPgSqlKeys);
 
     final buffer = StringBuffer(
-      'abstract final class _\$${element.name.nonPrivate}PgSqlKeys {',
+      'abstract final class _\$${element.name3!.nonPrivate}PgSqlKeys {',
     );
     // ..write('static const _\$${element.name.nonPrivate}PgSqlKeys();');
 
     for (final field in accessibleFieldSet) {
       buffer.writeln(
-        'static const String ${field.name} = '
+        'static const String ${field.name3} = '
         '${escapeDartString(nameAccess(field))};',
       );
     }
@@ -85,126 +87,60 @@ mixin EncodeHelper implements HelperCore {
     return buffer.toString();
   }
 
-  Iterable<String> createToPgSql(Set<FieldElement> accessibleFields) sync* {
+  Iterable<String> createToPgSql(Set<FieldElement2> accessibleFields) sync* {
     assert(config.createToPgSql);
 
     final buffer = StringBuffer();
 
     final functionName =
         '${prefix}ToPgSql${genericClassArgumentsImpl(withConstraints: true)}';
-    buffer.write('Map<String, dynamic> '
-        '$functionName($targetClassReference $_toPgSqlParamName');
+    buffer.write(
+      'Map<String, dynamic> '
+      '$functionName($targetClassReference $_toPgSqlParamName',
+    );
 
     if (config.genericArgumentFactories) _writeGenericArgumentFactories(buffer);
 
-    buffer.write(') ');
+    buffer
+      ..write(') ')
+      ..writeln('=> <String, dynamic>{')
+      ..writeAll(
+        accessibleFields.map((field) {
+          final access = _fieldAccess(field);
 
-    final canWriteAllPgSqlValuesWithoutNullCheck =
-        accessibleFields.every(_canWritePgSqlWithoutNullCheck);
+          final keyExpression = safeNameAccess(field);
+          final valueExpression = _serializeField(field, access);
 
-    if (canWriteAllPgSqlValuesWithoutNullCheck) {
-      // write simple `toPgSql` method that includes all keys...
-      _writeToPgSqlSimple(buffer, accessibleFields);
-    } else {
-      // At least one field should be excluded if null
-      _writeToPgSqlWithNullChecks(buffer, accessibleFields);
-    }
+          final maybeQuestion = _canWritePgSqlWithoutNullCheck(field) ? '' : '?';
+
+          final keyValuePair = '$keyExpression: $maybeQuestion$valueExpression';
+          return '        $keyValuePair,\n';
+        }),
+      )
+      ..writeln('};');
 
     yield buffer.toString();
   }
 
   void _writeGenericArgumentFactories(StringBuffer buffer) {
-    for (var arg in element.typeParameters) {
+    for (var arg in element.typeParameters2) {
       final helperName = toPgSqlForType(
         arg.instantiate(nullabilitySuffix: NullabilitySuffix.none),
       );
-      buffer.write(',Object? Function(${arg.name} value) $helperName');
+      buffer.write(',Object? Function(${arg.name3} value) $helperName');
     }
-    if (element.typeParameters.isNotEmpty) {
+    if (element.typeParameters2.isNotEmpty) {
       buffer.write(',');
     }
   }
 
-  void _writeToPgSqlSimple(StringBuffer buffer, Iterable<FieldElement> fields) {
-    buffer
-      ..writeln('=> <String, dynamic>{')
-      ..writeAll(fields.map((field) {
-        final access = _fieldAccess(field);
-        final value =
-            '${safeNameAccess(field)}: ${_serializeField(field, access)}';
-        return '        $value,\n';
-      }))
-      ..writeln('};');
-  }
-
   static const _toPgSqlParamName = 'instance';
 
-  void _writeToPgSqlWithNullChecks(
-    StringBuffer buffer,
-    Iterable<FieldElement> fields,
-  ) {
-    buffer
-      ..writeln('{')
-      ..writeln('    final $generatedLocalVarName = <String, dynamic>{');
-
-    // Note that the map literal is left open above. As long as target fields
-    // don't need to be intercepted by the `only if null` logic, write them
-    // to the map literal directly. In theory, should allow more efficient
-    // serialization.
-    var directWrite = true;
-
-    for (final field in fields) {
-      var safeFieldAccess = _fieldAccess(field);
-      final safePgSqlKeyString = safeNameAccess(field);
-
-      // If `fieldName` collides with one of the local helpers, prefix
-      // access with `this.`.
-      if (safeFieldAccess == generatedLocalVarName ||
-          safeFieldAccess == toPgSqlMapHelperName) {
-        safeFieldAccess = 'this.$safeFieldAccess';
-      }
-
-      final expression = _serializeField(field, safeFieldAccess);
-      if (_canWritePgSqlWithoutNullCheck(field)) {
-        if (directWrite) {
-          buffer.writeln('      $safePgSqlKeyString: $expression,');
-        } else {
-          buffer.writeln(
-              '    $generatedLocalVarName[$safePgSqlKeyString] = $expression;');
-        }
-      } else {
-        if (directWrite) {
-          // close the still-open map literal
-          buffer
-            ..writeln('    };')
-            ..writeln()
-
-            // write the helper to be used by all following null-excluding
-            // fields
-            ..writeln('''
-    void $toPgSqlMapHelperName(String key, dynamic value) {
-      if (value != null) {
-        $generatedLocalVarName[key] = value;
-      }
-    }
-''');
-          directWrite = false;
-        }
-        buffer.writeln(
-            '    $toPgSqlMapHelperName($safePgSqlKeyString, $expression);');
-      }
-    }
-
-    buffer
-      ..writeln('    return $generatedLocalVarName;')
-      ..writeln('  }');
-  }
-
-  String _serializeField(FieldElement field, String accessExpression) {
+  String _serializeField(FieldElement2 field, String accessExpression) {
     try {
-      return getHelperContext(field)
-          .serialize(field.type, accessExpression)
-          .toString();
+      return getHelperContext(
+        field,
+      ).serialize(field.type, accessExpression).toString();
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
       throw createInvalidGenerationError('toPgSql', field, e);
@@ -213,7 +149,7 @@ mixin EncodeHelper implements HelperCore {
 
   /// Returns `true` if the field can be written to PgSQL 'naively' – meaning
   /// we can avoid checking for `null`.
-  bool _canWritePgSqlWithoutNullCheck(FieldElement field) {
+  bool _canWritePgSqlWithoutNullCheck(FieldElement2 field) {
     final pgsqlKey = pgsqlKeyFor(field);
 
     if (pgsqlKey.includeIfNull) {
@@ -227,8 +163,10 @@ mixin EncodeHelper implements HelperCore {
       return !serializeConvertData.returnType.isNullableType;
     }
 
-    final nullableEncodeConverter =
-        hasConverterNullEncode(field.type, helperContext);
+    final nullableEncodeConverter = hasConverterNullEncode(
+      field.type,
+      helperContext,
+    );
 
     if (nullableEncodeConverter != null) {
       return !nullableEncodeConverter && !field.type.isNullableType;

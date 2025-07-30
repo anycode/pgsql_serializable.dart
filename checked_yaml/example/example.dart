@@ -9,11 +9,7 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'example.g.dart';
 
-@PgSqlSerializable(
-  anyMap: true,
-  checked: true,
-  disallowUnrecognizedKeys: true,
-)
+@PgSqlSerializable(anyMap: true, checked: true, disallowUnrecognizedKeys: true)
 class Configuration {
   @PgSqlKey(required: true)
   final String name;

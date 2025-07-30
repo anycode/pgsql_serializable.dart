@@ -7,6 +7,7 @@ import 'package:source_helper/source_helper.dart';
 
 import '../lambda_result.dart';
 import '../type_helper.dart';
+import '../utils.dart';
 
 class GenericFactoryHelper extends TypeHelper<TypeHelperContextWithConfig> {
   const GenericFactoryHelper();
@@ -56,7 +57,8 @@ class GenericFactoryHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
 const _fromPgSqlHelperName = r'_$nullableGenericFromPgSql';
 
-const _fromPgSqlHelper = '''
+const _fromPgSqlHelper =
+    '''
 T? $_fromPgSqlHelperName<T>(
   Object? input,
   T Function(Object? pgsql) fromPgSql,
@@ -66,7 +68,8 @@ T? $_fromPgSqlHelperName<T>(
 
 const _toPgSqlHelperName = r'_$nullableGenericToPgSql';
 
-const _toPgSqlHelper = '''
+const _toPgSqlHelper =
+    '''
 Object? $_toPgSqlHelperName<T>(
   T? input,
   Object? Function(T value) toPgSql,
@@ -75,11 +78,11 @@ Object? $_toPgSqlHelperName<T>(
 ''';
 
 String toPgSqlForType(TypeParameterType type) =>
-    toPgSqlForName(type.getDisplayString(withNullability: false));
+    toPgSqlForName(type.toStringNonNullable());
 
 String toPgSqlForName(String genericType) => 'toPgSql$genericType';
 
 String fromPgSqlForType(TypeParameterType type) =>
-    fromPgSqlForName(type.getDisplayString(withNullability: false));
+    fromPgSqlForName(type.toStringNonNullable());
 
 String fromPgSqlForName(String genericType) => 'fromPgSql$genericType';

@@ -14,24 +14,18 @@ class GenericClassWithHelpersNullable<T, S> {
 
   final Set<S?>? someSet;
 
-  GenericClassWithHelpersNullable({
-    this.value,
-    this.list,
-    this.someSet,
-  });
+  GenericClassWithHelpersNullable({this.value, this.list, this.someSet});
 
   factory GenericClassWithHelpersNullable.fromPgSql(
     Map<String, dynamic> pgsql,
     T Function(Object? pgsql) fromPgSqlT,
     S Function(Object? pgsql) fromPgSqlS,
-  ) =>
-      _$GenericClassWithHelpersNullableFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
+  ) => _$GenericClassWithHelpersNullableFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
 
   Map<String, dynamic> toPgSql(
     Object? Function(T value) toPgSqlT,
     Object? Function(S value) toPgSqlS,
-  ) =>
-      _$GenericClassWithHelpersNullableToPgSql(this, toPgSqlT, toPgSqlS);
+  ) => _$GenericClassWithHelpersNullableToPgSql(this, toPgSqlT, toPgSqlS);
 }
 
 @PgSqlSerializable()

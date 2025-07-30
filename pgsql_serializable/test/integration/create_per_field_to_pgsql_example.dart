@@ -2,10 +2,7 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'create_per_field_to_pgsql_example.g.dart';
 
-@PgSqlSerializable(
-  createPerFieldToPgSql: true,
-  explicitToPgSql: true,
-)
+@PgSqlSerializable(createPerFieldToPgSql: true, explicitToPgSql: true)
 class Model {
   Model({
     required this.firstName,
@@ -56,21 +53,14 @@ class Nested {
   Map<String, Object?> toPgSql() => _$NestedToPgSql(this);
 }
 
-@PgSqlSerializable(
-  createPerFieldToPgSql: true,
-  genericArgumentFactories: true,
-)
+@PgSqlSerializable(createPerFieldToPgSql: true, genericArgumentFactories: true)
 class GenericFactory<T> {
-  GenericFactory(
-    this.value,
-    this.map,
-  );
+  GenericFactory(this.value, this.map);
 
   factory GenericFactory.fromPgSql(
     Map<String, Object?> pgsql,
     T Function(Object? pgsql) fromPgSqlT,
-  ) =>
-      _$GenericFactoryFromPgSql(pgsql, fromPgSqlT);
+  ) => _$GenericFactoryFromPgSql(pgsql, fromPgSqlT);
 
   final T value;
   final Map<String, T> map;

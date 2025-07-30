@@ -16,7 +16,7 @@ final _$dataPgSqlLiteral = [
     'vertical tab': '\v',
     'form feed': '\r',
     'carriage return': '\r',
-    'delete': '\x7F'
+    'delete': '\x7F',
   },
   'simple string',
   "'string with single quotes'",
@@ -47,8 +47,8 @@ final _$dataPgSqlLiteral = [
     'double': 42.0,
     'string': 'string',
     'list': [],
-    'bool': true
-  }
+    'bool': true,
+  },
 ];
 
 const _$asConstPgSqlLiteral = [
@@ -59,7 +59,7 @@ const _$asConstPgSqlLiteral = [
     'vertical tab': '\v',
     'form feed': '\r',
     'carriage return': '\r',
-    'delete': '\x7F'
+    'delete': '\x7F',
   },
   'simple string',
   "'string with single quotes'",
@@ -90,8 +90,8 @@ const _$asConstPgSqlLiteral = [
     'double': 42.0,
     'string': 'string',
     'list': [],
-    'bool': true
-  }
+    'bool': true,
+  },
 ];
 
 const _$naughtyStringsPgSqlLiteral = [
@@ -601,5 +601,5 @@ const _$naughtyStringsPgSqlLiteral = [
   'Roses are \x1B[0;31mred\x1B[0m, violets are \x1B[0;34mblue. Hope you enjoy terminal hue',
   'But now...\x1B[20Cfor my greatest trick...\x1B[8m',
   'The quic\b\b\b\b\b\bk brown fo\x07\x07\x07\x07\x07\x07\x07\x07\x07\x07\x07x... [Beeeep]',
-  'Powerلُلُصّبُلُلصّبُررً ॣ ॣh ॣ ॣ冗'
+  'Powerلُلُصّبُلُلصّبُررً ॣ ॣh ॣ ॣ冗',
 ];

@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
@@ -32,11 +32,9 @@ class PgSqlSerializableGenerator
   factory PgSqlSerializableGenerator({
     PgSqlSerializable? config,
     List<TypeHelper>? typeHelpers,
-  }) =>
-      PgSqlSerializableGenerator.fromSettings(Settings(
-        config: config,
-        typeHelpers: typeHelpers,
-      ));
+  }) => PgSqlSerializableGenerator.fromSettings(
+    Settings(config: config, typeHelpers: typeHelpers),
+  );
 
   /// Creates an instance of [PgSqlSerializableGenerator].
   ///
@@ -47,29 +45,20 @@ class PgSqlSerializableGenerator
   factory PgSqlSerializableGenerator.withDefaultHelpers(
     Iterable<TypeHelper> typeHelpers, {
     PgSqlSerializable? config,
-  }) =>
-      PgSqlSerializableGenerator(
-        config: config,
-        typeHelpers: List.unmodifiable(
-          typeHelpers.followedBy(Settings.defaultHelpers),
-        ),
-      );
+  }) => PgSqlSerializableGenerator(
+    config: config,
+    typeHelpers: List.unmodifiable(
+      typeHelpers.followedBy(Settings.defaultHelpers),
+    ),
+  );
 
   @override
   Iterable<String> generateForAnnotatedElement(
-    Element element,
+    Element2 element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    if (!element.library!.isNonNullableByDefault) {
-      throw InvalidGenerationSourceError(
-        'Generator cannot target libraries that have not been migrated to '
-        'null-safety.',
-        element: element,
-      );
-    }
-
-    if (element is! ClassElement || element is EnumElement) {
+    if (element is! ClassElement2 || element is EnumElement2) {
       throw InvalidGenerationSourceError(
         '`@PgSqlSerializable` can only be used on classes.',
         element: element,

@@ -1,14 +1,18 @@
 #!/bin/bash
 
-echo "1. git pull upstream, Enter to continue, CTRL-C to quit"
+echo "1. merge upstream changes, copy upstream to temp branch, Enter to continue, CTRL-C to quit"
 read x
-git pull upstream
+git checkout upstream
+git merge upstream/master
+git checkout -b upstream2main upstream^0
 
 echo "-------------------"
 echo "2. move files from json_xxx to pgsql_xxx, Enter to continue, CTRL-C to quit"
 read x
+mkdir -p pgsql_serializable
 cp -rf -t pgsql_serializable/ json_serializable/*
 rm -rf json_serializable/
+mkdir -p pgsql_annotation
 cp -rf -t pgsql_annotation/ json_annotation/*
 rm -rf json_annotation/
 
@@ -19,7 +23,7 @@ find pgsql* exam* -name '*json*' | \
 grep -v '\.json' | \
 while read file
 do
-	mv "$file" "${$file//json/pgsql}"
+	mv "$file" "${file//json/pgsql}"
 done
 
 echo "-------------------"
@@ -42,3 +46,10 @@ echo "-------------------"
 echo "5. remove backup files, Enter to continue, CTRL-C to quit"
 read x
 find . -name '*.orig' -exec rm \{\} \;
+
+
+echo "-------------------"
+echo "You're on branch upstream2main. Test all changes and if everything works fine, "
+echo "merge upstream2main into main and then delete upstream2main."
+echo ""
+echo "Finished"

@@ -14,24 +14,18 @@ class GenericClassWithHelpers<T, S> {
 
   final Set<S> someSet;
 
-  GenericClassWithHelpers(
-    this.value,
-    this.list,
-    this.someSet,
-  );
+  GenericClassWithHelpers(this.value, this.list, this.someSet);
 
   factory GenericClassWithHelpers.fromPgSql(
     Map<String, dynamic> pgsql,
     T Function(Object? pgsql) fromPgSqlT,
     S Function(Object? pgsql) fromPgSqlS,
-  ) =>
-      _$GenericClassWithHelpersFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
+  ) => _$GenericClassWithHelpersFromPgSql(pgsql, fromPgSqlT, fromPgSqlS);
 
   Map<String, dynamic> toPgSql(
     Object? Function(T value) toPgSqlT,
     Object? Function(S value) toPgSqlS,
-  ) =>
-      _$GenericClassWithHelpersToPgSql(this, toPgSqlT, toPgSqlS);
+  ) => _$GenericClassWithHelpersToPgSql(this, toPgSqlT, toPgSqlS);
 }
 
 @PgSqlSerializable()

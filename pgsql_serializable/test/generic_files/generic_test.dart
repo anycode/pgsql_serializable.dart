@@ -14,36 +14,43 @@ import 'generic_class.dart';
 void main() {
   group('generic', () {
     GenericClass<T, S> roundTripGenericClass<T extends num, S>(
-        GenericClass<T, S> p) {
+      GenericClass<T, S> p,
+    ) {
       final outputPgSql = loudEncode(p);
       final p2 = GenericClass<T, S>.fromPgSql(
-          jsonDecode(outputPgSql) as Map<String, dynamic>);
+        jsonDecode(outputPgSql) as Map<String, dynamic>,
+      );
       final outputPgSql2 = loudEncode(p2);
       expect(outputPgSql2, outputPgSql);
       return p2;
     }
 
     test('no type args', () {
-      // ignore: inference_failure_on_instance_creation
-      roundTripGenericClass(GenericClass()
-        ..fieldDynamic = 1
-        ..fieldInt = 2
-        ..fieldObject = 3
-        ..fieldT = 5
-        ..fieldS = 'six');
+      roundTripGenericClass(
+        // ignore: inference_failure_on_instance_creation
+        GenericClass()
+          ..fieldDynamic = 1
+          ..fieldInt = 2
+          ..fieldObject = 3
+          ..fieldT = 5
+          ..fieldS = 'six',
+      );
     });
     test('with type arguments', () {
-      roundTripGenericClass(GenericClass<double, String>()
-        ..fieldDynamic = 1
-        ..fieldInt = 2
-        ..fieldObject = 3
-        ..fieldT = 5.0
-        ..fieldS = 'six');
+      roundTripGenericClass(
+        GenericClass<double, String>()
+          ..fieldDynamic = 1
+          ..fieldInt = 2
+          ..fieldObject = 3
+          ..fieldT = 5.0
+          ..fieldS = 'six',
+      );
     });
     test('with bad arguments', () {
       expect(
-        () => GenericClass<double, String>()
-          ..fieldT = (true as dynamic) as double,
+        () =>
+            GenericClass<double, String>()
+              ..fieldT = (true as dynamic) as double,
         throwsTypeError,
       );
     });
@@ -76,7 +83,7 @@ void main() {
       final decoded = GenericClassWithHelpers<DateTime, Duration>.fromPgSql(
         jsonDecode(encodedPgSql) as Map<String, dynamic>,
         (value) => DateTime.parse(value as String),
-        (value) => Duration(milliseconds: value as int),
+        (value) => Duration(milliseconds: (value as num).toInt()),
       );
 
       final encodedPgSql2 = loudEncode(
@@ -179,7 +186,7 @@ void main() {
         ],
         someSet: {
           const Duration(milliseconds: 3),
-          const Duration(milliseconds: 4)
+          const Duration(milliseconds: 4),
         },
       );
 
@@ -192,10 +199,10 @@ void main() {
 
       final decoded =
           GenericClassWithHelpersNullable<DateTime, Duration>.fromPgSql(
-        jsonDecode(encodedPgSql) as Map<String, dynamic>,
-        (value) => DateTime.parse(value as String),
-        (value) => Duration(milliseconds: value as int),
-      );
+            jsonDecode(encodedPgSql) as Map<String, dynamic>,
+            (value) => DateTime.parse(value as String),
+            (value) => Duration(milliseconds: (value as num).toInt()),
+          );
 
       final encodedPgSql2 = loudEncode(
         decoded.toPgSql(encodeDateTime, encodeDuration),
@@ -207,10 +214,7 @@ void main() {
     test('basic round-trip with null values', () {
       final instance = GenericClassWithHelpersNullable<DateTime, Duration>(
         //value: null, // value is null by omission
-        list: [
-          null,
-          DateTime.fromMillisecondsSinceEpoch(2).toUtc(),
-        ],
+        list: [null, DateTime.fromMillisecondsSinceEpoch(2).toUtc()],
         someSet: {null, const Duration(milliseconds: 4)},
       );
 
@@ -223,10 +227,10 @@ void main() {
 
       final decoded =
           GenericClassWithHelpersNullable<DateTime, Duration>.fromPgSql(
-        jsonDecode(encodedPgSql) as Map<String, dynamic>,
-        (value) => DateTime.parse(value as String),
-        (value) => Duration(milliseconds: value as int),
-      );
+            jsonDecode(encodedPgSql) as Map<String, dynamic>,
+            (value) => DateTime.parse(value as String),
+            (value) => Duration(milliseconds: (value as num).toInt()),
+          );
 
       final encodedPgSql2 = loudEncode(
         decoded.toPgSql(encodeDateTime, encodeDuration),
@@ -320,10 +324,7 @@ void main() {
 
   test('issue 980 regression test', () {
     roundTripObject(
-      Issue980ParentClass([
-        Issue980GenericClass(45),
-        Issue980GenericClass(42),
-      ]),
+      Issue980ParentClass([Issue980GenericClass(45), Issue980GenericClass(42)]),
       Issue980ParentClass.fromPgSql,
     );
   });
@@ -332,8 +333,8 @@ void main() {
     _roundTrip(
       sourcePgSql: {
         'edges': [
-          {'node': '42'}
-        ]
+          {'node': '42'},
+        ],
       },
       genericEncode: (o) => o.toString(),
       genericDecode: (o) => int.parse(o as String),

@@ -2,31 +2,35 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// @dart=3.8
+
 // ignore_for_file: inference_failure_on_instance_creation
 
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(r'''
 PgSqlConverterNamedCtor<E> _$PgSqlConverterNamedCtorFromPgSql<E>(
-        Map<String, dynamic> pgsql) =>
-    PgSqlConverterNamedCtor<E>()
-      ..value = const _DurationMillisecondConverter.named()
-          .fromPgSql(pgsql['value'] as int)
-      ..genericValue =
-          _GenericConverter<E>.named().fromPgSql(pgsql['genericValue'] as int)
-      ..keyAnnotationFirst =
-          PgSqlConverterNamedCtor._fromPgSql(pgsql['keyAnnotationFirst'] as int);
+  Map<String, dynamic> pgsql,
+) => PgSqlConverterNamedCtor<E>()
+  ..value = const _DurationMillisecondConverter.named().fromPgSql(
+    (pgsql['value'] as num).toInt(),
+  )
+  ..genericValue = _GenericConverter<E>.named().fromPgSql(
+    (pgsql['genericValue'] as num).toInt(),
+  )
+  ..keyAnnotationFirst = PgSqlConverterNamedCtor._fromPgSql(
+    (pgsql['keyAnnotationFirst'] as num).toInt(),
+  );
 
 Map<String, dynamic> _$PgSqlConverterNamedCtorToPgSql<E>(
-        PgSqlConverterNamedCtor<E> instance) =>
-    <String, dynamic>{
-      'value':
-          const _DurationMillisecondConverter.named().toPgSql(instance.value),
-      'genericValue':
-          _GenericConverter<E>.named().toPgSql(instance.genericValue),
-      'keyAnnotationFirst':
-          PgSqlConverterNamedCtor._toPgSql(instance.keyAnnotationFirst),
-    };
+  PgSqlConverterNamedCtor<E> instance,
+) => <String, dynamic>{
+  'value': const _DurationMillisecondConverter.named().toPgSql(instance.value),
+  'genericValue': _GenericConverter<E>.named().toPgSql(instance.genericValue),
+  'keyAnnotationFirst': PgSqlConverterNamedCtor._toPgSql(
+    instance.keyAnnotationFirst,
+  ),
+};
 ''')
 @PgSqlSerializable()
 @_DurationMillisecondConverter.named()
@@ -46,28 +50,34 @@ class PgSqlConverterNamedCtor<E> {
 
 @ShouldGenerate(r'''
 PgSqlConvertOnField<E> _$PgSqlConvertOnFieldFromPgSql<E>(
-        Map<String, dynamic> pgsql) =>
-    PgSqlConvertOnField<E>()
-      ..annotatedField = const _DurationMillisecondConverter()
-          .fromPgSql(pgsql['annotatedField'] as int)
-      ..annotatedWithNamedCtor = const _DurationMillisecondConverter.named()
-          .fromPgSql(pgsql['annotatedWithNamedCtor'] as int)
-      ..classAnnotatedWithField =
-          _durationConverter.fromPgSql(pgsql['classAnnotatedWithField'] as int)
-      ..genericValue =
-          _GenericConverter<E>().fromPgSql(pgsql['genericValue'] as int);
+  Map<String, dynamic> pgsql,
+) => PgSqlConvertOnField<E>()
+  ..annotatedField = const _DurationMillisecondConverter().fromPgSql(
+    (pgsql['annotatedField'] as num).toInt(),
+  )
+  ..annotatedWithNamedCtor = const _DurationMillisecondConverter.named()
+      .fromPgSql((pgsql['annotatedWithNamedCtor'] as num).toInt())
+  ..classAnnotatedWithField = _durationConverter.fromPgSql(
+    (pgsql['classAnnotatedWithField'] as num).toInt(),
+  )
+  ..genericValue = _GenericConverter<E>().fromPgSql(
+    (pgsql['genericValue'] as num).toInt(),
+  );
 
 Map<String, dynamic> _$PgSqlConvertOnFieldToPgSql<E>(
-        PgSqlConvertOnField<E> instance) =>
-    <String, dynamic>{
-      'annotatedField':
-          const _DurationMillisecondConverter().toPgSql(instance.annotatedField),
-      'annotatedWithNamedCtor': const _DurationMillisecondConverter.named()
-          .toPgSql(instance.annotatedWithNamedCtor),
-      'classAnnotatedWithField':
-          _durationConverter.toPgSql(instance.classAnnotatedWithField),
-      'genericValue': _GenericConverter<E>().toPgSql(instance.genericValue),
-    };
+  PgSqlConvertOnField<E> instance,
+) => <String, dynamic>{
+  'annotatedField': const _DurationMillisecondConverter().toPgSql(
+    instance.annotatedField,
+  ),
+  'annotatedWithNamedCtor': const _DurationMillisecondConverter.named().toPgSql(
+    instance.annotatedWithNamedCtor,
+  ),
+  'classAnnotatedWithField': _durationConverter.toPgSql(
+    instance.classAnnotatedWithField,
+  ),
+  'genericValue': _GenericConverter<E>().toPgSql(instance.genericValue),
+};
 ''')
 @PgSqlSerializable()
 @_durationConverter
@@ -119,7 +129,7 @@ class _BadConverter<T, S> implements PgSqlConverter<S, int> {
 
 @ShouldThrow(
   'Found more than one matching converter for `Duration`.',
-  element: '',
+  element: 'new',
 )
 @PgSqlSerializable()
 @_durationConverter
@@ -144,7 +154,7 @@ class _DurationMillisecondConverter implements PgSqlConverter<Duration, int> {
 
 @ShouldThrow(
   'Generators with constructor arguments are not supported.',
-  element: '',
+  element: 'new',
 )
 @PgSqlSerializable()
 @_ConverterWithCtorParams(42)
@@ -166,11 +176,12 @@ class _ConverterWithCtorParams implements PgSqlConverter<Duration, int> {
 
 @ShouldGenerate(r'''
 Map<String, dynamic> _$PgSqlConverterOnGetterToPgSql(
-        PgSqlConverterOnGetter instance) =>
-    <String, dynamic>{
-      'annotatedGetter':
-          const _NeedsConversionConverter().toPgSql(instance.annotatedGetter),
-    };
+  PgSqlConverterOnGetter instance,
+) => <String, dynamic>{
+  'annotatedGetter': const _NeedsConversionConverter().toPgSql(
+    instance.annotatedGetter,
+  ),
+};
 ''')
 @PgSqlSerializable(createFactory: false)
 class PgSqlConverterOnGetter {
@@ -191,12 +202,10 @@ class _NeedsConversionConverter implements PgSqlConverter<NeedsConversion, int> 
   int toPgSql(NeedsConversion object) => 0;
 }
 
-@ShouldThrow(
-  '''
+@ShouldThrow('''
 Could not generate `fromPgSql` code for `value`.
 To support the type `NeedsConversion` you can:
-$converterOrKeyInstructions''',
-)
+$converterOrKeyInstructions''')
 @_NullableConverter()
 @PgSqlSerializable()
 class PgSqlConverterNullableToNonNullable {

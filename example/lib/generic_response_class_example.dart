@@ -18,11 +18,7 @@ class BaseResponse<T> {
   @PgSqlKey(fromPgSql: _dataFromPgSql)
   final T? data;
 
-  const BaseResponse({
-    this.status,
-    this.msg,
-    this.data,
-  });
+  const BaseResponse({this.status, this.msg, this.data});
 
   factory BaseResponse.fromPgSql(Map<String, dynamic> pgsql) =>
       _$BaseResponseFromPgSql(pgsql);
@@ -43,8 +39,9 @@ class BaseResponse<T> {
       // necessary to "peek" into non-empty lists to determine the type!
 
       return pgsql
-          .map((e) => Article.fromPgSql(e as Map<String, dynamic>))
-          .toList() as T;
+              .map((e) => Article.fromPgSql(e as Map<String, dynamic>))
+              .toList()
+          as T;
     }
 
     throw ArgumentError.value(
@@ -80,10 +77,7 @@ class User {
   final int? id;
   final String? email;
 
-  const User({
-    this.id,
-    this.email,
-  });
+  const User({this.id, this.email});
 
   factory User.fromPgSql(Map<String, dynamic> pgsql) => _$UserFromPgSql(pgsql);
 }
@@ -93,10 +87,7 @@ class Comment {
   final String? content;
   final int? id;
 
-  const Comment({
-    this.id,
-    this.content,
-  });
+  const Comment({this.id, this.content});
 
   factory Comment.fromPgSql(Map<String, dynamic> pgsql) =>
       _$CommentFromPgSql(pgsql);

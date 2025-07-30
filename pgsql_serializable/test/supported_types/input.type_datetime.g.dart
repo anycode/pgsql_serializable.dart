@@ -9,11 +9,11 @@ part of 'input.type_datetime.dart';
 // **************************************************************************
 
 SimpleClass _$SimpleClassFromPgSql(Map<String, dynamic> pgsql) => SimpleClass(
-      DateTime.parse(pgsql['value'] as String),
-      pgsql['withDefault'] == null
-          ? _defaultValueFunc()
-          : DateTime.parse(pgsql['withDefault'] as String),
-    );
+  DateTime.parse(pgsql['value'] as String),
+  pgsql['withDefault'] == null
+      ? _defaultValueFunc()
+      : DateTime.parse(pgsql['withDefault'] as String),
+);
 
 Map<String, dynamic> _$SimpleClassToPgSql(SimpleClass instance) =>
     <String, dynamic>{
@@ -30,8 +30,8 @@ SimpleClassNullable _$SimpleClassNullableFromPgSql(Map<String, dynamic> pgsql) =
     );
 
 Map<String, dynamic> _$SimpleClassNullableToPgSql(
-        SimpleClassNullable instance) =>
-    <String, dynamic>{
-      'value': instance.value?.toIso8601String(),
-      'withDefault': instance.withDefault?.toIso8601String(),
-    };
+  SimpleClassNullable instance,
+) => <String, dynamic>{
+  'value': instance.value?.toIso8601String(),
+  'withDefault': instance.withDefault?.toIso8601String(),
+};

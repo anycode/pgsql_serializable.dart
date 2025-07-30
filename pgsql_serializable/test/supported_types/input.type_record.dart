@@ -13,9 +13,7 @@ typedef RecordTypeDef = ();
 class SimpleClass {
   final RecordTypeDef value;
 
-  SimpleClass(
-    this.value,
-  );
+  SimpleClass(this.value);
 
   factory SimpleClass.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassFromPgSql(pgsql);
@@ -27,9 +25,7 @@ class SimpleClass {
 class SimpleClassNullable {
   final RecordTypeDef? value;
 
-  SimpleClassNullable(
-    this.value,
-  );
+  SimpleClassNullable(this.value);
 
   factory SimpleClassNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableFromPgSql(pgsql);
@@ -43,9 +39,7 @@ typedef SimpleClassOfBigIntTypeDef = (BigInt, {BigInt named});
 class SimpleClassOfBigInt {
   final SimpleClassOfBigIntTypeDef value;
 
-  SimpleClassOfBigInt(
-    this.value,
-  );
+  SimpleClassOfBigInt(this.value);
 
   factory SimpleClassOfBigInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfBigIntFromPgSql(pgsql);
@@ -57,9 +51,7 @@ class SimpleClassOfBigInt {
 class SimpleClassNullableOfBigInt {
   final SimpleClassOfBigIntTypeDef? value;
 
-  SimpleClassNullableOfBigInt(
-    this.value,
-  );
+  SimpleClassNullableOfBigInt(this.value);
 
   factory SimpleClassNullableOfBigInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfBigIntFromPgSql(pgsql);
@@ -73,9 +65,7 @@ typedef SimpleClassOfBigIntNullableTypeDef = (BigInt?, {BigInt? named});
 class SimpleClassOfBigIntNullable {
   final SimpleClassOfBigIntNullableTypeDef value;
 
-  SimpleClassOfBigIntNullable(
-    this.value,
-  );
+  SimpleClassOfBigIntNullable(this.value);
 
   factory SimpleClassOfBigIntNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfBigIntNullableFromPgSql(pgsql);
@@ -87,13 +77,11 @@ class SimpleClassOfBigIntNullable {
 class SimpleClassNullableOfBigIntNullable {
   final SimpleClassOfBigIntNullableTypeDef? value;
 
-  SimpleClassNullableOfBigIntNullable(
-    this.value,
-  );
+  SimpleClassNullableOfBigIntNullable(this.value);
 
   factory SimpleClassNullableOfBigIntNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfBigIntNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfBigIntNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfBigIntNullableToPgSql(this);
@@ -105,9 +93,7 @@ typedef SimpleClassOfBoolTypeDef = (bool, {bool named});
 class SimpleClassOfBool {
   final SimpleClassOfBoolTypeDef value;
 
-  SimpleClassOfBool(
-    this.value,
-  );
+  SimpleClassOfBool(this.value);
 
   factory SimpleClassOfBool.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfBoolFromPgSql(pgsql);
@@ -119,9 +105,7 @@ class SimpleClassOfBool {
 class SimpleClassNullableOfBool {
   final SimpleClassOfBoolTypeDef? value;
 
-  SimpleClassNullableOfBool(
-    this.value,
-  );
+  SimpleClassNullableOfBool(this.value);
 
   factory SimpleClassNullableOfBool.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfBoolFromPgSql(pgsql);
@@ -135,9 +119,7 @@ typedef SimpleClassOfBoolNullableTypeDef = (bool?, {bool? named});
 class SimpleClassOfBoolNullable {
   final SimpleClassOfBoolNullableTypeDef value;
 
-  SimpleClassOfBoolNullable(
-    this.value,
-  );
+  SimpleClassOfBoolNullable(this.value);
 
   factory SimpleClassOfBoolNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfBoolNullableFromPgSql(pgsql);
@@ -149,13 +131,11 @@ class SimpleClassOfBoolNullable {
 class SimpleClassNullableOfBoolNullable {
   final SimpleClassOfBoolNullableTypeDef? value;
 
-  SimpleClassNullableOfBoolNullable(
-    this.value,
-  );
+  SimpleClassNullableOfBoolNullable(this.value);
 
   factory SimpleClassNullableOfBoolNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfBoolNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfBoolNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfBoolNullableToPgSql(this);
@@ -167,9 +147,7 @@ typedef SimpleClassOfDateTimeTypeDef = (DateTime, {DateTime named});
 class SimpleClassOfDateTime {
   final SimpleClassOfDateTimeTypeDef value;
 
-  SimpleClassOfDateTime(
-    this.value,
-  );
+  SimpleClassOfDateTime(this.value);
 
   factory SimpleClassOfDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeFromPgSql(pgsql);
@@ -181,9 +159,7 @@ class SimpleClassOfDateTime {
 class SimpleClassNullableOfDateTime {
   final SimpleClassOfDateTimeTypeDef? value;
 
-  SimpleClassNullableOfDateTime(
-    this.value,
-  );
+  SimpleClassNullableOfDateTime(this.value);
 
   factory SimpleClassNullableOfDateTime.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfDateTimeFromPgSql(pgsql);
@@ -197,9 +173,7 @@ typedef SimpleClassOfDateTimeNullableTypeDef = (DateTime?, {DateTime? named});
 class SimpleClassOfDateTimeNullable {
   final SimpleClassOfDateTimeNullableTypeDef value;
 
-  SimpleClassOfDateTimeNullable(
-    this.value,
-  );
+  SimpleClassOfDateTimeNullable(this.value);
 
   factory SimpleClassOfDateTimeNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDateTimeNullableFromPgSql(pgsql);
@@ -211,13 +185,11 @@ class SimpleClassOfDateTimeNullable {
 class SimpleClassNullableOfDateTimeNullable {
   final SimpleClassOfDateTimeNullableTypeDef? value;
 
-  SimpleClassNullableOfDateTimeNullable(
-    this.value,
-  );
+  SimpleClassNullableOfDateTimeNullable(this.value);
 
   factory SimpleClassNullableOfDateTimeNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfDateTimeNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfDateTimeNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfDateTimeNullableToPgSql(this);
@@ -229,9 +201,7 @@ typedef SimpleClassOfDoubleTypeDef = (double, {double named});
 class SimpleClassOfDouble {
   final SimpleClassOfDoubleTypeDef value;
 
-  SimpleClassOfDouble(
-    this.value,
-  );
+  SimpleClassOfDouble(this.value);
 
   factory SimpleClassOfDouble.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDoubleFromPgSql(pgsql);
@@ -243,9 +213,7 @@ class SimpleClassOfDouble {
 class SimpleClassNullableOfDouble {
   final SimpleClassOfDoubleTypeDef? value;
 
-  SimpleClassNullableOfDouble(
-    this.value,
-  );
+  SimpleClassNullableOfDouble(this.value);
 
   factory SimpleClassNullableOfDouble.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfDoubleFromPgSql(pgsql);
@@ -259,9 +227,7 @@ typedef SimpleClassOfDoubleNullableTypeDef = (double?, {double? named});
 class SimpleClassOfDoubleNullable {
   final SimpleClassOfDoubleNullableTypeDef value;
 
-  SimpleClassOfDoubleNullable(
-    this.value,
-  );
+  SimpleClassOfDoubleNullable(this.value);
 
   factory SimpleClassOfDoubleNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDoubleNullableFromPgSql(pgsql);
@@ -273,13 +239,11 @@ class SimpleClassOfDoubleNullable {
 class SimpleClassNullableOfDoubleNullable {
   final SimpleClassOfDoubleNullableTypeDef? value;
 
-  SimpleClassNullableOfDoubleNullable(
-    this.value,
-  );
+  SimpleClassNullableOfDoubleNullable(this.value);
 
   factory SimpleClassNullableOfDoubleNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfDoubleNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfDoubleNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfDoubleNullableToPgSql(this);
@@ -291,9 +255,7 @@ typedef SimpleClassOfDurationTypeDef = (Duration, {Duration named});
 class SimpleClassOfDuration {
   final SimpleClassOfDurationTypeDef value;
 
-  SimpleClassOfDuration(
-    this.value,
-  );
+  SimpleClassOfDuration(this.value);
 
   factory SimpleClassOfDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDurationFromPgSql(pgsql);
@@ -305,9 +267,7 @@ class SimpleClassOfDuration {
 class SimpleClassNullableOfDuration {
   final SimpleClassOfDurationTypeDef? value;
 
-  SimpleClassNullableOfDuration(
-    this.value,
-  );
+  SimpleClassNullableOfDuration(this.value);
 
   factory SimpleClassNullableOfDuration.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfDurationFromPgSql(pgsql);
@@ -321,9 +281,7 @@ typedef SimpleClassOfDurationNullableTypeDef = (Duration?, {Duration? named});
 class SimpleClassOfDurationNullable {
   final SimpleClassOfDurationNullableTypeDef value;
 
-  SimpleClassOfDurationNullable(
-    this.value,
-  );
+  SimpleClassOfDurationNullable(this.value);
 
   factory SimpleClassOfDurationNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDurationNullableFromPgSql(pgsql);
@@ -335,13 +293,11 @@ class SimpleClassOfDurationNullable {
 class SimpleClassNullableOfDurationNullable {
   final SimpleClassOfDurationNullableTypeDef? value;
 
-  SimpleClassNullableOfDurationNullable(
-    this.value,
-  );
+  SimpleClassNullableOfDurationNullable(this.value);
 
   factory SimpleClassNullableOfDurationNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfDurationNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfDurationNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfDurationNullableToPgSql(this);
@@ -353,9 +309,7 @@ typedef SimpleClassOfDynamicTypeDef = (dynamic, {dynamic named});
 class SimpleClassOfDynamic {
   final SimpleClassOfDynamicTypeDef value;
 
-  SimpleClassOfDynamic(
-    this.value,
-  );
+  SimpleClassOfDynamic(this.value);
 
   factory SimpleClassOfDynamic.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfDynamicFromPgSql(pgsql);
@@ -367,9 +321,7 @@ class SimpleClassOfDynamic {
 class SimpleClassNullableOfDynamic {
   final SimpleClassOfDynamicTypeDef? value;
 
-  SimpleClassNullableOfDynamic(
-    this.value,
-  );
+  SimpleClassNullableOfDynamic(this.value);
 
   factory SimpleClassNullableOfDynamic.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfDynamicFromPgSql(pgsql);
@@ -383,9 +335,7 @@ typedef SimpleClassOfEnumTypeTypeDef = (EnumType, {EnumType named});
 class SimpleClassOfEnumType {
   final SimpleClassOfEnumTypeTypeDef value;
 
-  SimpleClassOfEnumType(
-    this.value,
-  );
+  SimpleClassOfEnumType(this.value);
 
   factory SimpleClassOfEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeFromPgSql(pgsql);
@@ -397,9 +347,7 @@ class SimpleClassOfEnumType {
 class SimpleClassNullableOfEnumType {
   final SimpleClassOfEnumTypeTypeDef? value;
 
-  SimpleClassNullableOfEnumType(
-    this.value,
-  );
+  SimpleClassNullableOfEnumType(this.value);
 
   factory SimpleClassNullableOfEnumType.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfEnumTypeFromPgSql(pgsql);
@@ -413,9 +361,7 @@ typedef SimpleClassOfEnumTypeNullableTypeDef = (EnumType?, {EnumType? named});
 class SimpleClassOfEnumTypeNullable {
   final SimpleClassOfEnumTypeNullableTypeDef value;
 
-  SimpleClassOfEnumTypeNullable(
-    this.value,
-  );
+  SimpleClassOfEnumTypeNullable(this.value);
 
   factory SimpleClassOfEnumTypeNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfEnumTypeNullableFromPgSql(pgsql);
@@ -427,13 +373,11 @@ class SimpleClassOfEnumTypeNullable {
 class SimpleClassNullableOfEnumTypeNullable {
   final SimpleClassOfEnumTypeNullableTypeDef? value;
 
-  SimpleClassNullableOfEnumTypeNullable(
-    this.value,
-  );
+  SimpleClassNullableOfEnumTypeNullable(this.value);
 
   factory SimpleClassNullableOfEnumTypeNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfEnumTypeNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfEnumTypeNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfEnumTypeNullableToPgSql(this);
@@ -441,20 +385,18 @@ class SimpleClassNullableOfEnumTypeNullable {
 
 typedef SimpleClassOfFromPgSqlDynamicParamTypeDef = (
   FromPgSqlDynamicParam, {
-  FromPgSqlDynamicParam named
+  FromPgSqlDynamicParam named,
 });
 
 @PgSqlSerializable()
 class SimpleClassOfFromPgSqlDynamicParam {
   final SimpleClassOfFromPgSqlDynamicParamTypeDef value;
 
-  SimpleClassOfFromPgSqlDynamicParam(
-    this.value,
-  );
+  SimpleClassOfFromPgSqlDynamicParam(this.value);
 
   factory SimpleClassOfFromPgSqlDynamicParam.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassOfFromPgSqlDynamicParamFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassOfFromPgSqlDynamicParamFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassOfFromPgSqlDynamicParamToPgSql(this);
@@ -464,13 +406,11 @@ class SimpleClassOfFromPgSqlDynamicParam {
 class SimpleClassNullableOfFromPgSqlDynamicParam {
   final SimpleClassOfFromPgSqlDynamicParamTypeDef? value;
 
-  SimpleClassNullableOfFromPgSqlDynamicParam(
-    this.value,
-  );
+  SimpleClassNullableOfFromPgSqlDynamicParam(this.value);
 
   factory SimpleClassNullableOfFromPgSqlDynamicParam.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfFromPgSqlDynamicParamFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfFromPgSqlDynamicParamFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfFromPgSqlDynamicParamToPgSql(this);
@@ -478,20 +418,18 @@ class SimpleClassNullableOfFromPgSqlDynamicParam {
 
 typedef SimpleClassOfFromPgSqlNullableObjectParamTypeDef = (
   FromPgSqlNullableObjectParam, {
-  FromPgSqlNullableObjectParam named
+  FromPgSqlNullableObjectParam named,
 });
 
 @PgSqlSerializable()
 class SimpleClassOfFromPgSqlNullableObjectParam {
   final SimpleClassOfFromPgSqlNullableObjectParamTypeDef value;
 
-  SimpleClassOfFromPgSqlNullableObjectParam(
-    this.value,
-  );
+  SimpleClassOfFromPgSqlNullableObjectParam(this.value);
 
   factory SimpleClassOfFromPgSqlNullableObjectParam.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassOfFromPgSqlNullableObjectParamFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassOfFromPgSqlNullableObjectParamFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassOfFromPgSqlNullableObjectParamToPgSql(this);
@@ -501,13 +439,11 @@ class SimpleClassOfFromPgSqlNullableObjectParam {
 class SimpleClassNullableOfFromPgSqlNullableObjectParam {
   final SimpleClassOfFromPgSqlNullableObjectParamTypeDef? value;
 
-  SimpleClassNullableOfFromPgSqlNullableObjectParam(
-    this.value,
-  );
+  SimpleClassNullableOfFromPgSqlNullableObjectParam(this.value);
 
   factory SimpleClassNullableOfFromPgSqlNullableObjectParam.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfFromPgSqlNullableObjectParamFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfFromPgSqlNullableObjectParamFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfFromPgSqlNullableObjectParamToPgSql(this);
@@ -515,20 +451,18 @@ class SimpleClassNullableOfFromPgSqlNullableObjectParam {
 
 typedef SimpleClassOfFromPgSqlObjectParamTypeDef = (
   FromPgSqlObjectParam, {
-  FromPgSqlObjectParam named
+  FromPgSqlObjectParam named,
 });
 
 @PgSqlSerializable()
 class SimpleClassOfFromPgSqlObjectParam {
   final SimpleClassOfFromPgSqlObjectParamTypeDef value;
 
-  SimpleClassOfFromPgSqlObjectParam(
-    this.value,
-  );
+  SimpleClassOfFromPgSqlObjectParam(this.value);
 
   factory SimpleClassOfFromPgSqlObjectParam.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassOfFromPgSqlObjectParamFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassOfFromPgSqlObjectParamFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassOfFromPgSqlObjectParamToPgSql(this);
@@ -538,13 +472,11 @@ class SimpleClassOfFromPgSqlObjectParam {
 class SimpleClassNullableOfFromPgSqlObjectParam {
   final SimpleClassOfFromPgSqlObjectParamTypeDef? value;
 
-  SimpleClassNullableOfFromPgSqlObjectParam(
-    this.value,
-  );
+  SimpleClassNullableOfFromPgSqlObjectParam(this.value);
 
   factory SimpleClassNullableOfFromPgSqlObjectParam.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfFromPgSqlObjectParamFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfFromPgSqlObjectParamFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfFromPgSqlObjectParamToPgSql(this);
@@ -556,9 +488,7 @@ typedef SimpleClassOfIntTypeDef = (int, {int named});
 class SimpleClassOfInt {
   final SimpleClassOfIntTypeDef value;
 
-  SimpleClassOfInt(
-    this.value,
-  );
+  SimpleClassOfInt(this.value);
 
   factory SimpleClassOfInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfIntFromPgSql(pgsql);
@@ -570,9 +500,7 @@ class SimpleClassOfInt {
 class SimpleClassNullableOfInt {
   final SimpleClassOfIntTypeDef? value;
 
-  SimpleClassNullableOfInt(
-    this.value,
-  );
+  SimpleClassNullableOfInt(this.value);
 
   factory SimpleClassNullableOfInt.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfIntFromPgSql(pgsql);
@@ -586,9 +514,7 @@ typedef SimpleClassOfIntNullableTypeDef = (int?, {int? named});
 class SimpleClassOfIntNullable {
   final SimpleClassOfIntNullableTypeDef value;
 
-  SimpleClassOfIntNullable(
-    this.value,
-  );
+  SimpleClassOfIntNullable(this.value);
 
   factory SimpleClassOfIntNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfIntNullableFromPgSql(pgsql);
@@ -600,13 +526,11 @@ class SimpleClassOfIntNullable {
 class SimpleClassNullableOfIntNullable {
   final SimpleClassOfIntNullableTypeDef? value;
 
-  SimpleClassNullableOfIntNullable(
-    this.value,
-  );
+  SimpleClassNullableOfIntNullable(this.value);
 
   factory SimpleClassNullableOfIntNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfIntNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfIntNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfIntNullableToPgSql(this);
@@ -618,9 +542,7 @@ typedef SimpleClassOfNumTypeDef = (num, {num named});
 class SimpleClassOfNum {
   final SimpleClassOfNumTypeDef value;
 
-  SimpleClassOfNum(
-    this.value,
-  );
+  SimpleClassOfNum(this.value);
 
   factory SimpleClassOfNum.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfNumFromPgSql(pgsql);
@@ -632,9 +554,7 @@ class SimpleClassOfNum {
 class SimpleClassNullableOfNum {
   final SimpleClassOfNumTypeDef? value;
 
-  SimpleClassNullableOfNum(
-    this.value,
-  );
+  SimpleClassNullableOfNum(this.value);
 
   factory SimpleClassNullableOfNum.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfNumFromPgSql(pgsql);
@@ -648,9 +568,7 @@ typedef SimpleClassOfNumNullableTypeDef = (num?, {num? named});
 class SimpleClassOfNumNullable {
   final SimpleClassOfNumNullableTypeDef value;
 
-  SimpleClassOfNumNullable(
-    this.value,
-  );
+  SimpleClassOfNumNullable(this.value);
 
   factory SimpleClassOfNumNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfNumNullableFromPgSql(pgsql);
@@ -662,13 +580,11 @@ class SimpleClassOfNumNullable {
 class SimpleClassNullableOfNumNullable {
   final SimpleClassOfNumNullableTypeDef? value;
 
-  SimpleClassNullableOfNumNullable(
-    this.value,
-  );
+  SimpleClassNullableOfNumNullable(this.value);
 
   factory SimpleClassNullableOfNumNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfNumNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfNumNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfNumNullableToPgSql(this);
@@ -680,9 +596,7 @@ typedef SimpleClassOfObjectTypeDef = (Object, {Object named});
 class SimpleClassOfObject {
   final SimpleClassOfObjectTypeDef value;
 
-  SimpleClassOfObject(
-    this.value,
-  );
+  SimpleClassOfObject(this.value);
 
   factory SimpleClassOfObject.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfObjectFromPgSql(pgsql);
@@ -694,9 +608,7 @@ class SimpleClassOfObject {
 class SimpleClassNullableOfObject {
   final SimpleClassOfObjectTypeDef? value;
 
-  SimpleClassNullableOfObject(
-    this.value,
-  );
+  SimpleClassNullableOfObject(this.value);
 
   factory SimpleClassNullableOfObject.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfObjectFromPgSql(pgsql);
@@ -710,9 +622,7 @@ typedef SimpleClassOfObjectNullableTypeDef = (Object?, {Object? named});
 class SimpleClassOfObjectNullable {
   final SimpleClassOfObjectNullableTypeDef value;
 
-  SimpleClassOfObjectNullable(
-    this.value,
-  );
+  SimpleClassOfObjectNullable(this.value);
 
   factory SimpleClassOfObjectNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfObjectNullableFromPgSql(pgsql);
@@ -724,13 +634,11 @@ class SimpleClassOfObjectNullable {
 class SimpleClassNullableOfObjectNullable {
   final SimpleClassOfObjectNullableTypeDef? value;
 
-  SimpleClassNullableOfObjectNullable(
-    this.value,
-  );
+  SimpleClassNullableOfObjectNullable(this.value);
 
   factory SimpleClassNullableOfObjectNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfObjectNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfObjectNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfObjectNullableToPgSql(this);
@@ -738,16 +646,14 @@ class SimpleClassNullableOfObjectNullable {
 
 typedef SimpleClassOfRecordTypeDef = (
   (int, String, {bool truth}), {
-  (int, String, {bool truth}) named
+  (int, String, {bool truth}) named,
 });
 
 @PgSqlSerializable()
 class SimpleClassOfRecord {
   final SimpleClassOfRecordTypeDef value;
 
-  SimpleClassOfRecord(
-    this.value,
-  );
+  SimpleClassOfRecord(this.value);
 
   factory SimpleClassOfRecord.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfRecordFromPgSql(pgsql);
@@ -759,9 +665,7 @@ class SimpleClassOfRecord {
 class SimpleClassNullableOfRecord {
   final SimpleClassOfRecordTypeDef? value;
 
-  SimpleClassNullableOfRecord(
-    this.value,
-  );
+  SimpleClassNullableOfRecord(this.value);
 
   factory SimpleClassNullableOfRecord.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfRecordFromPgSql(pgsql);
@@ -775,9 +679,7 @@ typedef SimpleClassOfStringTypeDef = (String, {String named});
 class SimpleClassOfString {
   final SimpleClassOfStringTypeDef value;
 
-  SimpleClassOfString(
-    this.value,
-  );
+  SimpleClassOfString(this.value);
 
   factory SimpleClassOfString.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfStringFromPgSql(pgsql);
@@ -789,9 +691,7 @@ class SimpleClassOfString {
 class SimpleClassNullableOfString {
   final SimpleClassOfStringTypeDef? value;
 
-  SimpleClassNullableOfString(
-    this.value,
-  );
+  SimpleClassNullableOfString(this.value);
 
   factory SimpleClassNullableOfString.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfStringFromPgSql(pgsql);
@@ -805,9 +705,7 @@ typedef SimpleClassOfStringNullableTypeDef = (String?, {String? named});
 class SimpleClassOfStringNullable {
   final SimpleClassOfStringNullableTypeDef value;
 
-  SimpleClassOfStringNullable(
-    this.value,
-  );
+  SimpleClassOfStringNullable(this.value);
 
   factory SimpleClassOfStringNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfStringNullableFromPgSql(pgsql);
@@ -819,13 +717,11 @@ class SimpleClassOfStringNullable {
 class SimpleClassNullableOfStringNullable {
   final SimpleClassOfStringNullableTypeDef? value;
 
-  SimpleClassNullableOfStringNullable(
-    this.value,
-  );
+  SimpleClassNullableOfStringNullable(this.value);
 
   factory SimpleClassNullableOfStringNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfStringNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfStringNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfStringNullableToPgSql(this);
@@ -837,9 +733,7 @@ typedef SimpleClassOfUriTypeDef = (Uri, {Uri named});
 class SimpleClassOfUri {
   final SimpleClassOfUriTypeDef value;
 
-  SimpleClassOfUri(
-    this.value,
-  );
+  SimpleClassOfUri(this.value);
 
   factory SimpleClassOfUri.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfUriFromPgSql(pgsql);
@@ -851,9 +745,7 @@ class SimpleClassOfUri {
 class SimpleClassNullableOfUri {
   final SimpleClassOfUriTypeDef? value;
 
-  SimpleClassNullableOfUri(
-    this.value,
-  );
+  SimpleClassNullableOfUri(this.value);
 
   factory SimpleClassNullableOfUri.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableOfUriFromPgSql(pgsql);
@@ -867,9 +759,7 @@ typedef SimpleClassOfUriNullableTypeDef = (Uri?, {Uri? named});
 class SimpleClassOfUriNullable {
   final SimpleClassOfUriNullableTypeDef value;
 
-  SimpleClassOfUriNullable(
-    this.value,
-  );
+  SimpleClassOfUriNullable(this.value);
 
   factory SimpleClassOfUriNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassOfUriNullableFromPgSql(pgsql);
@@ -881,13 +771,11 @@ class SimpleClassOfUriNullable {
 class SimpleClassNullableOfUriNullable {
   final SimpleClassOfUriNullableTypeDef? value;
 
-  SimpleClassNullableOfUriNullable(
-    this.value,
-  );
+  SimpleClassNullableOfUriNullable(this.value);
 
   factory SimpleClassNullableOfUriNullable.fromPgSql(
-          Map<String, Object?> pgsql) =>
-      _$SimpleClassNullableOfUriNullableFromPgSql(pgsql);
+    Map<String, Object?> pgsql,
+  ) => _$SimpleClassNullableOfUriNullableFromPgSql(pgsql);
 
   Map<String, Object?> toPgSql() =>
       _$SimpleClassNullableOfUriNullableToPgSql(this);

@@ -91,7 +91,8 @@ class ClassConfig {
             config.createFieldMap ?? ClassConfig.defaults.createFieldMap,
         createPgSqlKeys:
             config.createPgSqlKeys ?? ClassConfig.defaults.createPgSqlKeys,
-        createPerFieldToPgSql: config.createPerFieldToPgSql ??
+        createPerFieldToPgSql:
+            config.createPerFieldToPgSql ??
             ClassConfig.defaults.createPerFieldToPgSql,
         createFactory:
             config.createFactory ?? ClassConfig.defaults.createFactory,
@@ -104,10 +105,12 @@ class ClassConfig {
             config.explicitToPgSql ?? ClassConfig.defaults.explicitToPgSql,
         includeIfNull:
             config.includeIfNull ?? ClassConfig.defaults.includeIfNull,
-        genericArgumentFactories: config.genericArgumentFactories ??
+        genericArgumentFactories:
+            config.genericArgumentFactories ??
             ClassConfig.defaults.genericArgumentFactories,
         fieldRename: config.fieldRename ?? ClassConfig.defaults.fieldRename,
-        disallowUnrecognizedKeys: config.disallowUnrecognizedKeys ??
+        disallowUnrecognizedKeys:
+            config.disallowUnrecognizedKeys ??
             ClassConfig.defaults.disallowUnrecognizedKeys,
         // TODO typeConverters = []
       );
@@ -133,16 +136,16 @@ class ClassConfig {
   );
 
   PgSqlSerializable toPgSqlSerializable() => PgSqlSerializable(
-        checked: checked,
-        anyMap: anyMap,
-        constructor: constructor,
-        createFactory: createFactory,
-        createToPgSql: createToPgSql,
-        createFieldMap: createFieldMap,
-        createPgSqlKeys: createPgSqlKeys,
-        createPerFieldToPgSql: createPerFieldToPgSql,
-        ignoreUnannotated: ignoreUnannotated,
-        enumMapPrefix: enumMapPrefix,
+    checked: checked,
+    anyMap: anyMap,
+    constructor: constructor,
+    createFactory: createFactory,
+    createToPgSql: createToPgSql,
+    createFieldMap: createFieldMap,
+    createPgSqlKeys: createPgSqlKeys,
+    createPerFieldToPgSql: createPerFieldToPgSql,
+    ignoreUnannotated: ignoreUnannotated,
+    enumMapPrefix: enumMapPrefix,
         explicitToPgSql: explicitToPgSql,
         includeIfNull: includeIfNull,
         genericArgumentFactories: genericArgumentFactories,

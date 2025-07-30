@@ -12,21 +12,22 @@ final generatorConfigDefaultPgSql = Map<String, dynamic>.unmodifiable(
 );
 
 // #CHANGE WHEN UPDATING pgsql_annotation
-final generatorConfigNonDefaultPgSql =
-    Map<String, dynamic>.unmodifiable(const PgSqlSerializable(
-  anyMap: true,
-  checked: true,
-  constructor: 'something',
-  createFactory: false,
-  createToPgSql: false,
-  createFieldMap: true,
-  createPgSqlKeys: true,
-  createPerFieldToPgSql: true,
-  disallowUnrecognizedKeys: true,
-  enumMapPrefix: 'pg',
+final generatorConfigNonDefaultPgSql = Map<String, dynamic>.unmodifiable(
+  const PgSqlSerializable(
+    anyMap: true,
+    checked: true,
+    constructor: 'something',
+    createFactory: false,
+    createToPgSql: false,
+    createFieldMap: true,
+    createPgSqlKeys: true,
+    createPerFieldToPgSql: true,
+    disallowUnrecognizedKeys: true,
+    enumMapPrefix: 'pg',
   explicitToPgSql: true,
   fieldRename: FieldRename.kebab,
   ignoreUnannotated: true,
   includeIfNull: false,
   genericArgumentFactories: true,
-).toPgSql());
+).toPgSql(),
+);

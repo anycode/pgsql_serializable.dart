@@ -48,32 +48,31 @@ class _Factory implements k.KitchenSinkFactory<dynamic, dynamic> {
     Iterable<Object>? objectIterable,
     Iterable<int>? intIterable,
     Iterable<DateTime>? dateTimeIterable,
-  }) =>
-      KitchenSink(
-        ctorValidatedNo42: ctorValidatedNo42,
-        iterable: iterable,
-        dynamicIterable: dynamicIterable,
-        objectIterable: objectIterable,
-        intIterable: intIterable,
-        dateTimeIterable: dateTimeIterable,
-      );
+  }) => KitchenSink(
+    ctorValidatedNo42: ctorValidatedNo42,
+    iterable: iterable,
+    dynamicIterable: dynamicIterable,
+    objectIterable: objectIterable,
+    intIterable: intIterable,
+    dateTimeIterable: dateTimeIterable,
+  );
 
   k.KitchenSink fromPgSql(Map pgsql) => KitchenSink.fromPgSql(pgsql);
 
   k.PgSqlConverterTestClass pgsqlConverterCtor() => PgSqlConverterTestClass(
-        const Duration(),
-        [],
-        BigInt.zero,
-        {},
-        BigInt.zero,
-        {},
-        TrivialNumber(0),
-        {},
-        DateTime.fromMillisecondsSinceEpoch(0),
-        TrivialString(''),
-        TrivialNumber(0),
-        {},
-      );
+    const Duration(),
+    [],
+    BigInt.zero,
+    {},
+    BigInt.zero,
+    {},
+    TrivialNumber(0),
+    {},
+    DateTime.fromMillisecondsSinceEpoch(0),
+    TrivialString(''),
+    TrivialNumber(0),
+    {},
+  );
 
   k.PgSqlConverterTestClass pgsqlConverterFromPgSql(Map<String, dynamic> pgsql) =>
       PgSqlConverterTestClass.fromPgSql(pgsql);
@@ -87,10 +86,7 @@ Object? _valueAccessor(Map pgsql, String key) {
   return pgsql[key];
 }
 
-@PgSqlSerializable(
-  checked: true,
-  anyMap: true,
-)
+@PgSqlSerializable(checked: true, anyMap: true)
 class KitchenSink implements k.KitchenSink {
   // NOTE: exposing these as Iterable, but storing the values as List
   // to make the equality test work trivially.
@@ -110,14 +106,17 @@ class KitchenSink implements k.KitchenSink {
     Iterable<Object>? objectIterable,
     Iterable<int>? intIterable,
     Iterable<DateTime>? dateTimeIterable,
-  })  : _iterable = iterable?.toList(),
-        _dynamicIterable = dynamicIterable?.toList() ?? _defaultList(),
-        _objectIterable = objectIterable?.toList() ?? _defaultList(),
-        _intIterable = intIterable?.toList() ?? _defaultList(),
-        _dateTimeIterable = dateTimeIterable?.toList() ?? _defaultList() {
+  }) : _iterable = iterable?.toList(),
+       _dynamicIterable = dynamicIterable?.toList() ?? _defaultList(),
+       _objectIterable = objectIterable?.toList() ?? _defaultList(),
+       _intIterable = intIterable?.toList() ?? _defaultList(),
+       _dateTimeIterable = dateTimeIterable?.toList() ?? _defaultList() {
     if (ctorValidatedNo42 == 42) {
       throw ArgumentError.value(
-          42, 'ctorValidatedNo42', 'The value `42` is not allowed.');
+        42,
+        'ctorValidatedNo42',
+        'The value `42` is not allowed.',
+      );
     }
   }
 
@@ -198,12 +197,16 @@ class KitchenSink implements k.KitchenSink {
   }
 }
 
-@PgSqlSerializable(checked: true, anyMap: true, converters: [
-  // referencing a top-level field should work
-  durationConverter,
-  // referencing via a const constructor should work
-  BigIntStringConverter(),
-])
+@PgSqlSerializable(
+  checked: true,
+  anyMap: true,
+  converters: [
+    // referencing a top-level field should work
+    durationConverter,
+    // referencing via a const constructor should work
+    BigIntStringConverter(),
+  ],
+)
 // referencing a top-level field should work
 @trivialStringConverter
 @TrivialNumberConverter.instance
@@ -249,10 +252,7 @@ class PgSqlConverterTestClass implements k.PgSqlConverterTestClass {
   Set<TrivialNumber?> nullableNumberSillySet;
 }
 
-@PgSqlSerializable(
-  checked: true,
-  anyMap: true,
-)
+@PgSqlSerializable(checked: true, anyMap: true)
 // ignore: inference_failure_on_instance_creation
 @GenericConverter()
 class PgSqlConverterGeneric<S, T, U> {
@@ -260,11 +260,7 @@ class PgSqlConverterGeneric<S, T, U> {
   List<T> itemList;
   Map<String, U> itemMap;
 
-  PgSqlConverterGeneric(
-    this.item,
-    this.itemList,
-    this.itemMap,
-  );
+  PgSqlConverterGeneric(this.item, this.itemList, this.itemMap);
 
   factory PgSqlConverterGeneric.fromPgSql(Map<String, dynamic> pgsql) =>
       _$PgSqlConverterGenericFromPgSql(pgsql);

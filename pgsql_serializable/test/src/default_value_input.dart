@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// @dart=3.8
+
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldThrow(
@@ -19,18 +21,14 @@ class DefaultWithSymbol {
 
 int _function() => 42;
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 DefaultWithFunction _$DefaultWithFunctionFromPgSql(Map<String, dynamic> pgsql) =>
     DefaultWithFunction()..field = pgsql['field'] ?? _function();
 
 Map<String, dynamic> _$DefaultWithFunctionToPgSql(
-        DefaultWithFunction instance) =>
-    <String, dynamic>{
-      'field': instance.field,
-    };
-''',
-)
+  DefaultWithFunction instance,
+) => <String, dynamic>{'field': instance.field};
+''')
 @PgSqlSerializable()
 class DefaultWithFunction {
   @PgSqlKey(defaultValue: _function)
@@ -106,17 +104,16 @@ class BadEnumDefaultValue {
   BadEnumDefaultValue();
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 DefaultWithToPgSqlClass _$DefaultWithToPgSqlClassFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    DefaultWithToPgSqlClass()
-      ..fieldDefaultValueToPgSql = pgsql['fieldDefaultValueToPgSql'] == null
-          ? 7
-          : DefaultWithToPgSqlClass._fromPgSql(
-              pgsql['fieldDefaultValueToPgSql'] as String);
-''',
-)
+  Map<String, dynamic> pgsql,
+) => DefaultWithToPgSqlClass()
+  ..fieldDefaultValueToPgSql = pgsql['fieldDefaultValueToPgSql'] == null
+      ? 7
+      : DefaultWithToPgSqlClass._fromPgSql(
+          pgsql['fieldDefaultValueToPgSql'] as String,
+        );
+''')
 @PgSqlSerializable(createToPgSql: false)
 class DefaultWithToPgSqlClass {
   @PgSqlKey(defaultValue: 7, fromPgSql: _fromPgSql)
@@ -130,14 +127,14 @@ class DefaultWithToPgSqlClass {
 @ShouldGenerate(
   r'''
 DefaultWithDisallowNullRequiredClass
-    _$DefaultWithDisallowNullRequiredClassFromPgSql(Map<String, dynamic> pgsql) {
+_$DefaultWithDisallowNullRequiredClassFromPgSql(Map<String, dynamic> pgsql) {
   $checkKeys(
     pgsql,
     requiredKeys: const ['theField'],
     disallowNullValues: const ['theField'],
   );
   return DefaultWithDisallowNullRequiredClass()
-    ..theField = pgsql['theField'] as int? ?? 7;
+    ..theField = (pgsql['theField'] as num?)?.toInt() ?? 7;
 }
 ''',
   expectedLogItems: [
@@ -156,11 +153,10 @@ class DefaultWithDisallowNullRequiredClass {
 @ShouldGenerate(
   r'''
 CtorDefaultValueAndPgSqlKeyDefaultValue
-    _$CtorDefaultValueAndPgSqlKeyDefaultValueFromPgSql(
-            Map<String, dynamic> pgsql) =>
-        CtorDefaultValueAndPgSqlKeyDefaultValue(
-          pgsql['theField'] as int? ?? 7,
-        );
+_$CtorDefaultValueAndPgSqlKeyDefaultValueFromPgSql(Map<String, dynamic> pgsql) =>
+    CtorDefaultValueAndPgSqlKeyDefaultValue(
+      (pgsql['theField'] as num?)?.toInt() ?? 7,
+    );
 ''',
   expectedLogItems: [
     'The constructor parameter for `theField` has a default value `6`, but the '
@@ -179,10 +175,8 @@ class CtorDefaultValueAndPgSqlKeyDefaultValue {
 @ShouldGenerate(
   r'''
 SameCtorAndPgSqlKeyDefaultValue _$SameCtorAndPgSqlKeyDefaultValueFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    SameCtorAndPgSqlKeyDefaultValue(
-      pgsql['theField'] as int? ?? 3,
-    );
+  Map<String, dynamic> pgsql,
+) => SameCtorAndPgSqlKeyDefaultValue((pgsql['theField'] as num?)?.toInt() ?? 3);
 ''',
   expectedLogItems: [
     'The default value `3` for `theField` is defined twice '
@@ -199,18 +193,18 @@ class SameCtorAndPgSqlKeyDefaultValue {
 
 @ShouldGenerate(r'''
 DefaultDoubleConstants _$DefaultDoubleConstantsFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    DefaultDoubleConstants()
-      ..defaultNan = (pgsql['defaultNan'] as num?)?.toDouble() ?? double.nan
-      ..defaultNegativeInfinity =
-          (pgsql['defaultNegativeInfinity'] as num?)?.toDouble() ??
-              double.negativeInfinity
-      ..defaultInfinity =
-          (pgsql['defaultInfinity'] as num?)?.toDouble() ?? double.infinity
-      ..defaultMinPositive =
-          (pgsql['defaultMinPositive'] as num?)?.toDouble() ?? 5e-324
-      ..defaultMaxFinite = (pgsql['defaultMaxFinite'] as num?)?.toDouble() ??
-          1.7976931348623157e+308;
+  Map<String, dynamic> pgsql,
+) => DefaultDoubleConstants()
+  ..defaultNan = (pgsql['defaultNan'] as num?)?.toDouble() ?? double.nan
+  ..defaultNegativeInfinity =
+      (pgsql['defaultNegativeInfinity'] as num?)?.toDouble() ??
+      double.negativeInfinity
+  ..defaultInfinity =
+      (pgsql['defaultInfinity'] as num?)?.toDouble() ?? double.infinity
+  ..defaultMinPositive =
+      (pgsql['defaultMinPositive'] as num?)?.toDouble() ?? 5e-324
+  ..defaultMaxFinite =
+      (pgsql['defaultMaxFinite'] as num?)?.toDouble() ?? 1.7976931348623157e+308;
 ''')
 @PgSqlSerializable(createToPgSql: false)
 class DefaultDoubleConstants {

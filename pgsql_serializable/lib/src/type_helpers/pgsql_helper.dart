@@ -2,9 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element.dart';
+// import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:collection/collection.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
@@ -43,16 +43,18 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
     var toPgSql = _toPgSqlMethod(interfaceType);
 
     if (toPgSql != null) {
-      // Using the `declaration` here so we get the original definition –
+      // Using the `baseElement` here so we get the original definition –
       // and not one with the generics already populated.
-      toPgSql = toPgSql.declaration;
+      toPgSql = toPgSql.baseElement;
 
       toPgSqlArgs.addAll(
         _helperParams(
           context.serialize,
           _encodeHelper,
           interfaceType,
-          toPgSql.parameters.where((element) => element.isRequiredPositional),
+          toPgSql.formalParameters.where(
+            (element) => element.isRequiredPositional,
+          ),
           toPgSql,
         ),
       );
@@ -76,14 +78,15 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
       return null;
     }
 
-    final classElement = targetType.element;
+    final classElement = targetType.element3;
 
-    final fromPgSqlCtor = classElement.constructors
-        .singleWhereOrNull((ce) => ce.name == 'fromPgSql');
+    final fromPgSqlCtor = classElement.constructors2
+        .where((ce) => ce.name3 == 'fromPgSql')
+        .singleOrNull;
 
     var output = expression;
     if (fromPgSqlCtor != null) {
-      final positionalParams = fromPgSqlCtor.parameters
+      final positionalParams = fromPgSqlCtor.formalParameters
           .where((element) => element.isPositional)
           .toList();
 
@@ -141,10 +144,10 @@ class PgSqlHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
 List<String> _helperParams(
   Object? Function(DartType, String) execute,
-  TypeParameterType Function(ParameterElement, Element) paramMapper,
+  TypeParameterType Function(FormalParameterElement, Element2) paramMapper,
   InterfaceType type,
-  Iterable<ParameterElement> positionalParams,
-  Element targetElement,
+  Iterable<FormalParameterElement> positionalParams,
+  Element2 targetElement,
 ) {
   final rest = <TypeParameterType>[];
   for (var param in positionalParams) {
@@ -154,8 +157,9 @@ List<String> _helperParams(
   final args = <String>[];
 
   for (var helperArg in rest) {
-    final typeParamIndex =
-        type.element.typeParameters.indexOf(helperArg.element);
+    final typeParamIndex = type.element3.typeParameters2.indexOf(
+      helperArg.element3,
+    );
 
     // TODO: throw here if `typeParamIndex` is -1 ?
     final typeArg = type.typeArguments[typeParamIndex];
@@ -167,8 +171,8 @@ List<String> _helperParams(
 }
 
 TypeParameterType _decodeHelper(
-  ParameterElement param,
-  Element targetElement,
+  FormalParameterElement param,
+  Element2 targetElement,
 ) {
   final type = param.type;
 
@@ -177,7 +181,7 @@ TypeParameterType _decodeHelper(
       type.normalParameterTypes.length == 1) {
     final funcReturnType = type.returnType;
 
-    if (param.name == fromPgSqlForName(funcReturnType.element!.name!)) {
+    if (param.name3 == fromPgSqlForName(funcReturnType.element3!.name3!)) {
       final funcParamType = type.normalParameterTypes.single;
 
       if ((funcParamType.isDartCoreObject && funcParamType.isNullableType) ||
@@ -198,8 +202,8 @@ TypeParameterType _decodeHelper(
 }
 
 TypeParameterType _encodeHelper(
-  ParameterElement param,
-  Element targetElement,
+  FormalParameterElement param,
+  Element2 targetElement,
 ) {
   final type = param.type;
 
@@ -208,7 +212,7 @@ TypeParameterType _encodeHelper(
       type.normalParameterTypes.length == 1) {
     final funcParamType = type.normalParameterTypes.single;
 
-    if (param.name == toPgSqlForName(funcParamType.element!.name!)) {
+    if (param.name3 == toPgSqlForName(funcParamType.element3!.name3!)) {
       if (funcParamType is TypeParameterType) {
         return funcParamType;
       }
@@ -248,9 +252,10 @@ InterfaceType? _instantiate(
   InterfaceType classType,
 ) {
   final argTypes = ctorParamType.typeArguments.map((arg) {
-    final typeParamIndex = classType.element.typeParameters.indexWhere(
-        // TODO: not 100% sure `nullabilitySuffix` is right
-        (e) => e.instantiate(nullabilitySuffix: arg.nullabilitySuffix) == arg);
+    final typeParamIndex = classType.element3.typeParameters2.indexWhere(
+      // TODO: not 100% sure `nullabilitySuffix` is right
+      (e) => e.instantiate(nullabilitySuffix: arg.nullabilitySuffix) == arg,
+    );
     if (typeParamIndex >= 0) {
       return classType.typeArguments[typeParamIndex];
     } else {
@@ -264,7 +269,7 @@ InterfaceType? _instantiate(
     return null;
   }
 
-  return ctorParamType.element.instantiate(
+  return ctorParamType.element3.instantiate(
     typeArguments: argTypes.cast<DartType>(),
     nullabilitySuffix: ctorParamType.nullabilitySuffix,
   );
@@ -274,9 +279,9 @@ ClassConfig? _annotation(ClassConfig config, InterfaceType source) {
   if (source.isEnum) {
     return null;
   }
-  final annotations = const TypeChecker.fromRuntime(PgSqlSerializable)
-      .annotationsOfExact(source.element, throwOnUnresolved: false)
-      .toList();
+  final annotations = const TypeChecker.fromRuntime(
+    PgSqlSerializable,
+  ).annotationsOfExact(source.element3, throwOnUnresolved: false).toList();
 
   if (annotations.isEmpty) {
     return null;
@@ -285,10 +290,11 @@ ClassConfig? _annotation(ClassConfig config, InterfaceType source) {
   return mergeConfig(
     config,
     ConstantReader(annotations.single),
-    classElement: source.element as ClassElement,
+    classElement: source.element3 as ClassElement2,
   );
 }
 
-MethodElement? _toPgSqlMethod(DartType type) => type.typeImplementations
-    .map((dt) => dt is InterfaceType ? dt.getMethod('toPgSql') : null)
-    .firstWhereOrNull((me) => me != null);
+MethodElement2? _toPgSqlMethod(DartType type) => type.typeImplementations
+    .map((dt) => dt is InterfaceType ? dt.getMethod2('toPgSql') : null)
+    .where((me) => me != null)
+    .firstOrNull;

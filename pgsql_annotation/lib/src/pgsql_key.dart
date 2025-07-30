@@ -1,4 +1,4 @@
-// Copyright (c) 2018, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2018, the Dart project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -19,13 +19,13 @@ class PgSqlKey {
   final Object? defaultValue;
 
   /// If `true`, generated code will throw a [DisallowedNullValueException] if
-  /// the corresponding key exists, but the value is `null`.
+  /// the corresponding key exists, but its value is `null`.
   ///
   /// Note: this value does not affect the behavior of a PgSQL map *without* the
   /// associated key.
   ///
   /// If [disallowNullValue] is `true`, [includeIfNull] will be treated as
-  /// `false` to ensure compatibility between `toPgSql` and `fromPgSql`.
+  /// `false` to ensure consistency between `toPgSql` and `fromPgSql`.
   ///
   /// If both [includeIfNull] and [disallowNullValue] are set to `true` on the
   /// same field, an exception will be thrown during code generation.
@@ -39,8 +39,9 @@ class PgSqlKey {
   /// type of the annotated field.
   ///
   /// When creating a class that supports both `toPgSql` and `fromPgSql`
-  /// (the default), you should also set [toPgSql] if you set [fromPgSql].
-  /// Values returned by [toPgSql] should "round-trip" through [fromPgSql].
+  /// (the default behavior), it is recommended to also set [toPgSql] if
+  /// [fromPgSql] is set. Values returned by [toPgSql] should "round-trip"
+  /// through [fromPgSql].
   final Function? fromPgSql;
 
   /// `true` if the generator should ignore this field completely.
@@ -48,7 +49,7 @@ class PgSqlKey {
   /// If `null` (the default) or `false`, the field will be considered for
   /// serialization.
   ///
-  /// This field is DEPRECATED use [includeFromPgSql] and [includeToPgSql]
+  /// This field is DEPRECATED; use [includeFromPgSql] and [includeToPgSql]
   /// instead.
   @Deprecated(
     'Use `includeFromPgSql` and `includeToPgSql` with a value of `false` '
@@ -56,23 +57,23 @@ class PgSqlKey {
   )
   final bool? ignore;
 
-  /// Used to force a field to be included (or excluded) when decoding a object
-  /// from PgSQL.
+  /// Determines whether a field should be included (or excluded) when decoding
+  /// an object from PgSQL.
   ///
-  /// `null` (the default) means the field will be handled with the default
-  /// semantics that take into account if it's private or if it can be cleanly
-  /// round-tripped to-from PgSQL.
+  /// `null` (the default) means the field will be handled with default
+  /// semantics that consider whether it's private or if it can be cleanly
+  /// round-tripped to and from PgSQL.
   ///
-  /// `true` means the field should always be decoded, even if it's private.
+  /// `true` forces the field to always be decoded, even if it's private.
   ///
-  /// `false` means the field should never be decoded.
+  /// `false` prevents the field from being decoded.
   final bool? includeFromPgSql;
 
-  /// Whether the generator should include fields with `null` values in the
+  /// Specifies whether fields with `null` values should be included in the
   /// serialized output.
   ///
-  /// If `true`, the generator should include the field in the serialized
-  /// output, even if the value is `null`.
+  /// If `true`, the field will be included in the serialized output even if its
+  /// value is `null`.
   ///
   /// The default value, `null`, indicates that the behavior should be
   /// acquired from the [PgSqlSerializable.includeIfNull] annotation on the
@@ -85,44 +86,43 @@ class PgSqlKey {
   /// same field, an exception will be thrown during code generation.
   final bool? includeIfNull;
 
-  /// Used to force a field to be included (or excluded) when encoding a object
-  /// to PgSQL.
+  /// Determines whether a field should be included (or excluded) when encoding
+  /// an object to PgSQL.
   ///
   /// `null` (the default) means the field will be handled with the default
   /// semantics that take into account if it's private or if it can be cleanly
   /// round-tripped to-from PgSQL.
   ///
-  /// `true` means the field should always be encoded, even if it's private.
+  /// `true` forces the field to always be encoded, even if it's private.
   ///
-  /// `false` means the field should never be encoded.
+  /// `false` prevents the field from being encoded.
   final bool? includeToPgSql;
 
-  /// The key in a PgSQL map to use when reading and writing values corresponding
-  /// to the annotated fields.
+  /// The key to use in the PgSQL map when reading and writing values for the
+  /// annotated field.
   ///
-  /// If `null`, the field name is used.
+  /// If `null`, the field name will be used as the key.
   final String? name;
 
-  /// Specialize how a value is read from the source PgSQL map.
+  /// Customizes how a value is read from the source PgSQL map.
   ///
   /// Typically, the value corresponding to a given key is read directly from
   /// the PgSQL map using `map[key]`. At times it's convenient to customize this
   /// behavior to support alternative names or to support logic that requires
   /// accessing multiple values at once.
   ///
-  /// The provided, the [Function] must be a top-level or static within the
-  /// using class.
+  /// The provided [Function] must be either a top-level function or a static
+  /// method within the class.
   ///
   /// Note: using this feature does not change any of the subsequent decoding
   /// logic for the field. For instance, if the field is of type [DateTime] we
   /// expect the function provided here to return a [String].
   final Object? Function(Map, String)? readValue;
 
-  /// When `true`, generated code for `fromPgSql` will verify that the source
-  /// PgSQL map contains the associated key.
+  /// If `true`, generated code for `fromPgSql` will verify that the source PgSQL
+  /// map contains the associated key.
   ///
-  /// If the key does not exist, a [MissingRequiredKeysException] exception is
-  /// thrown.
+  /// If the key is missing, a [MissingRequiredKeysException] will be thrown.
   ///
   /// Note: only the existence of the key is checked. A key with a `null` value
   /// is considered valid.
@@ -135,23 +135,23 @@ class PgSqlKey {
   /// returns a PgSQL-compatible value.
   ///
   /// When creating a class that supports both `toPgSql` and `fromPgSql`
-  /// (the default), you should also set [fromPgSql] if you set [toPgSql].
-  /// Values returned by [toPgSql] should "round-trip" through [fromPgSql].
+  /// (the default behavior), it is recommended to also set [fromPgSql] if
+  /// [toPgSql] is set. Values returned by [toPgSql] should "round-trip" through
+  /// [fromPgSql].
   final Function? toPgSql;
 
-  /// The value to use for an enum field when the value provided is not in the
-  /// source enum.
+  /// The value to use for an enum field when the provided value does not match
+  /// any of the values in the source enum.
   ///
   /// Valid only on enum fields with a compatible enum value.
   ///
-  /// If you want to use the value `null` when encountering an unknown value,
-  /// use the value of [PgSqlKey.nullForUndefinedEnumValue] instead. This is only
-  /// valid on a nullable enum field.
+  /// To use `null` for unknown values, use [PgSqlKey.nullForUndefinedEnumValue].
+  /// This is only valid for nullable enum fields.
   final Enum? unknownEnumValue;
 
   /// Creates a new [PgSqlKey] instance.
   ///
-  /// Only required when the default behavior is not desired.
+  /// Use this constructor when the default behavior is not desired.
   const PgSqlKey({
     @Deprecated('Has no effect') bool? nullable,
     this.defaultValue,

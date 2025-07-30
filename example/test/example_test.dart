@@ -10,13 +10,18 @@ import 'package:test/test.dart';
 
 void main() {
   test('PgSqlSerializable', () {
-    final person = Person('Inigo', 'Montoya', DateTime(1560, 5, 5))
-      ..orders = [Order(DateTime.now())..item = (Item()..count = 42)];
+    final person = Person(
+      'Inigo',
+      'Montoya',
+      DateTime(1560, 5, 5),
+      middleName: 'Bob',
+    )..orders = [Order(DateTime.now())..item = (Item()..count = 42)];
 
     final personPgSql = loudEncode(person);
 
-    final person2 =
-        Person.fromPgSql(json.decode(personPgSql) as Map<String, dynamic>);
+    final person2 = Person.fromPgSql(
+      json.decode(personPgSql) as Map<String, dynamic>,
+    );
 
     expect(person.firstName, person2.firstName);
     expect(person.lastName, person2.lastName);

@@ -1,12 +1,16 @@
+// @dart=3.8
+
 part of '_pgsql_serializable_test_input.dart';
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 UnknownEnumValue _$UnknownEnumValueFromPgSql(Map<String, dynamic> pgsql) =>
     UnknownEnumValue()
-      ..value = $enumDecodeNullable(
-              _$pgUnknownEnumValueItemsEnumMap, pgsql['value'],
-              unknownValue: UnknownEnumValueItems.vUnknown) ??
+      ..value =
+          $enumDecodeNullable(
+            _$pgUnknownEnumValueItemsEnumMap,
+            pgsql['value'],
+            unknownValue: UnknownEnumValueItems.vUnknown,
+          ) ??
           UnknownEnumValueItems.vNull;
 
 const _$pgUnknownEnumValueItemsEnumMap = {
@@ -16,11 +20,8 @@ const _$pgUnknownEnumValueItemsEnumMap = {
   UnknownEnumValueItems.vUnknown: 'vUnknown',
   UnknownEnumValueItems.vNull: 'vNull',
 };
-''',
-)
-@PgSqlSerializable(
-  createToPgSql: false,
-)
+''')
+@PgSqlSerializable(createToPgSql: false)
 class UnknownEnumValue {
   @PgSqlKey(
     defaultValue: UnknownEnumValueItems.vNull,

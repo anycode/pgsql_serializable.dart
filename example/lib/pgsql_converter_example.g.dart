@@ -8,7 +8,7 @@ part of 'pgsql_converter_example.dart';
 
 DateTimeExample _$DateTimeExampleFromPgSql(Map<String, dynamic> pgsql) =>
     DateTimeExample(
-      const _DateTimeEpochConverter().fromPgSql(pgsql['when'] as int),
+      const _DateTimeEpochConverter().fromPgSql((pgsql['when'] as num).toInt()),
     );
 
 Map<String, dynamic> _$DateTimeExampleToPgSql(DateTimeExample instance) =>
@@ -17,32 +17,27 @@ Map<String, dynamic> _$DateTimeExampleToPgSql(DateTimeExample instance) =>
     };
 
 GenericCollection<T> _$GenericCollectionFromPgSql<T>(
-        Map<String, dynamic> pgsql) =>
-    GenericCollection<T>(
-      page: pgsql['page'] as int?,
-      totalResults: pgsql['total_results'] as int?,
-      totalPages: pgsql['total_pages'] as int?,
-      results: (pgsql['results'] as List<dynamic>?)
-          ?.map(_Converter<T>().fromPgSql)
-          .toList(),
-    );
+  Map<String, dynamic> pgsql,
+) => GenericCollection<T>(
+  page: (pgsql['page'] as num?)?.toInt(),
+  totalResults: (pgsql['total_results'] as num?)?.toInt(),
+  totalPages: (pgsql['total_pages'] as num?)?.toInt(),
+  results: (pgsql['results'] as List<dynamic>?)
+      ?.map(_Converter<T>().fromPgSql)
+      .toList(),
+);
 
 Map<String, dynamic> _$GenericCollectionToPgSql<T>(
-        GenericCollection<T> instance) =>
-    <String, dynamic>{
-      'page': instance.page,
-      'total_results': instance.totalResults,
-      'total_pages': instance.totalPages,
-      'results': instance.results?.map(_Converter<T>().toPgSql).toList(),
-    };
+  GenericCollection<T> instance,
+) => <String, dynamic>{
+  'page': instance.page,
+  'total_results': instance.totalResults,
+  'total_pages': instance.totalPages,
+  'results': instance.results?.map(_Converter<T>().toPgSql).toList(),
+};
 
-CustomResult _$CustomResultFromPgSql(Map<String, dynamic> pgsql) => CustomResult(
-      pgsql['name'] as String,
-      pgsql['size'] as int,
-    );
+CustomResult _$CustomResultFromPgSql(Map<String, dynamic> pgsql) =>
+    CustomResult(pgsql['name'] as String, (pgsql['size'] as num).toInt());
 
 Map<String, dynamic> _$CustomResultToPgSql(CustomResult instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'size': instance.size,
-    };
+    <String, dynamic>{'name': instance.name, 'size': instance.size};

@@ -1,3 +1,5 @@
+// @dart=3.8
+
 part of '_pgsql_serializable_test_input.dart';
 
 @ShouldGenerate(
@@ -29,8 +31,8 @@ class JustSetterNoToPgSql {
 @ShouldGenerate(
   r'''
 Map<String, dynamic> _$JustSetterNoFromPgSqlToPgSql(
-        JustSetterNoFromPgSql instance) =>
-    <String, dynamic>{};
+  JustSetterNoFromPgSql instance,
+) => <String, dynamic>{};
 ''',
   expectedLogItems: ['Setters are ignored: JustSetterNoFromPgSql.someSetter'],
 )

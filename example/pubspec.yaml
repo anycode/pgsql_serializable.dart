@@ -2,10 +2,12 @@ name: example
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.8.0
+
+resolution: workspace
 
 dependencies:
-  pgsql_annotation: ^4.8.0
+  pgsql_annotation: ^4.9.0
 
 dev_dependencies:
   # Used by tests. Not required to use `pgsql_serializable`.
@@ -18,20 +20,9 @@ dev_dependencies:
   # Used by tests. Not required to use `pgsql_serializable`.
   build_verify: ^3.0.0
 
-  # Not required to use `pgsql_serializable`.
-  dart_flutter_team_lints: ^2.0.0
-
   # REQUIRED!
-  pgsql_serializable: ^6.6.0
+  pgsql_serializable: ^6.8.0
 
   # Not required to use `pgsql_serializable`.
   path: ^1.8.0
-  test: ^1.16.0
-
-# This section is used to verify changes to these packages. Do not include in
-# your code!
-dependency_overrides:
-  pgsql_annotation:
-    path: ../pgsql_annotation
-  pgsql_serializable:
-    path: ../pgsql_serializable
+  test: ^1.21.6

@@ -1,8 +1,47 @@
-## 6.8.0-wip
+## 6.10.0
+
+- Required `analyzer: ^7.4.0`.
+- Switch to analyzer element2 model and `build: ^3.0.0-dev`.
+- Move `package:collection` to a dev dependency.
+- Use new `null-aware element` feature in generated code.
+- Require Dart 3.8
+
+## 6.9.5
+
+- Support the `analyzer: '>=6.9.0 <8.0.0'`.
+- Fixed use of deprecated analyzer APIs.
+
+## 6.9.4
+
+- Fix extra line being generated when targeting Dart 3.7 package.
+
+## 6.9.3
+
+- Error out if the target package does not have a language version of `3.0` or 
+  greater.
+
+## 6.9.2
+
+- Support the latest `package:analyzer`.
+
+## 6.9.1
+
+- Support the latest `package:source_gen`.
+- Require Dart 3.6
+
+## 6.9.0
+
+- Use conditional map syntax to clean up `null` handling in `toJson` functions.
+- Fix core Dart type links in docs.
+- Require Dart 3.5
+
+## 6.8.0
 
 - Add type arguments to `Map` literals used for `Record` serialization.
-- Added support for generating `ExampleJsonKeys`, exposing a secured way to access the json keys from the properties.
-  ([#1164](https://github.com/google/json_serializable.dart/pull/1164))
+- Add support for `JsonSerializable(createJsonKeys: true)`.
+  ([#1401](https://github.com/google/json_serializable.dart/pull/1401))
+- Handle decoding an `int` value from a `double` literal. 
+  This now matches the behavior of `double` values being encoded as `int`.
 
 ## 6.7.1
 

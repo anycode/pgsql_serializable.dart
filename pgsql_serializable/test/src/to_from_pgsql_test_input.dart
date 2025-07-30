@@ -2,6 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// @dart=3.8
+
+// ignore_for_file: strict_top_level_inference
+
 part of '_pgsql_serializable_test_input.dart';
 
 int _toInt(bool input) => 42;
@@ -36,20 +40,19 @@ class InvalidFromFunc2Args {
   late String field;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 ValidToFromFuncClassStatic _$ValidToFromFuncClassStaticFromPgSql(
-        Map<String, dynamic> pgsql) =>
+  Map<String, dynamic> pgsql,
+) =>
     ValidToFromFuncClassStatic()
       ..field = ValidToFromFuncClassStatic._staticFunc(pgsql['field'] as String);
 
 Map<String, dynamic> _$ValidToFromFuncClassStaticToPgSql(
-        ValidToFromFuncClassStatic instance) =>
-    <String, dynamic>{
-      'field': ValidToFromFuncClassStatic._staticFunc(instance.field),
-    };
-''',
-)
+  ValidToFromFuncClassStatic instance,
+) => <String, dynamic>{
+  'field': ValidToFromFuncClassStatic._staticFunc(instance.field),
+};
+''')
 @PgSqlSerializable()
 class ValidToFromFuncClassStatic {
   static String _staticFunc(String param) => throw UnimplementedError();
@@ -84,26 +87,23 @@ class Reproduce869NullableGenericType {
   late final List<int> values;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 Reproduce869NullableGenericTypeWithDefault
-    _$Reproduce869NullableGenericTypeWithDefaultFromPgSql(
-            Map<String, dynamic> pgsql) =>
-        Reproduce869NullableGenericTypeWithDefault()
-          ..values =
-              pgsql['values'] == null ? [] : _fromList(pgsql['values'] as List?)
-          ..valuesNullable = pgsql['valuesNullable'] == null
-              ? []
-              : _fromList(pgsql['valuesNullable'] as List?);
+_$Reproduce869NullableGenericTypeWithDefaultFromPgSql(
+  Map<String, dynamic> pgsql,
+) => Reproduce869NullableGenericTypeWithDefault()
+  ..values = pgsql['values'] == null ? [] : _fromList(pgsql['values'] as List?)
+  ..valuesNullable = pgsql['valuesNullable'] == null
+      ? []
+      : _fromList(pgsql['valuesNullable'] as List?);
 
 Map<String, dynamic> _$Reproduce869NullableGenericTypeWithDefaultToPgSql(
-        Reproduce869NullableGenericTypeWithDefault instance) =>
-    <String, dynamic>{
-      'values': _toList(instance.values),
-      'valuesNullable': _toList(instance.valuesNullable),
-    };
-''',
-)
+  Reproduce869NullableGenericTypeWithDefault instance,
+) => <String, dynamic>{
+  'values': _toList(instance.values),
+  'valuesNullable': _toList(instance.valuesNullable),
+};
+''')
 @PgSqlSerializable()
 class Reproduce869NullableGenericTypeWithDefault {
   @PgSqlKey(
@@ -122,7 +122,7 @@ class Reproduce869NullableGenericTypeWithDefault {
 }
 
 List<int>? _fromList(List? pairs) =>
-    pairs?.map((it) => it as int).toList(growable: false);
+    pairs?.map((it) => (it as num).toInt()).toList(growable: false);
 
 List<List>? _toList(List<int>? pairs) =>
     pairs?.map((it) => [it]).toList(growable: false);
@@ -138,20 +138,14 @@ class InvalidToFunc2Args {
   late String field;
 }
 
-@ShouldGenerate(
-  "_toStringFromObject(pgsql['field'])",
-  contains: true,
-)
+@ShouldGenerate("_toStringFromObject(pgsql['field'])", contains: true)
 @PgSqlSerializable()
 class ObjectConvertMethods {
   @PgSqlKey(fromPgSql: _toStringFromObject, toPgSql: _toObject)
   late String field;
 }
 
-@ShouldGenerate(
-  "_toDynamic(pgsql['field'])",
-  contains: true,
-)
+@ShouldGenerate("_toDynamic(pgsql['field'])", contains: true)
 @PgSqlSerializable()
 class DynamicConvertMethods {
   @PgSqlKey(fromPgSql: _toDynamic, toPgSql: _toDynamic)
@@ -160,10 +154,7 @@ class DynamicConvertMethods {
 
 String _toString(String input) => 'null';
 
-@ShouldGenerate(
-  "_toString(pgsql['field'] as String)",
-  contains: true,
-)
+@ShouldGenerate("_toString(pgsql['field'] as String)", contains: true)
 @PgSqlSerializable()
 class TypedConvertMethods {
   @PgSqlKey(fromPgSql: _toString, toPgSql: _toString)
@@ -172,23 +163,11 @@ class TypedConvertMethods {
 
 String? _toStringNullOnEmpty(String input) => input.isEmpty ? null : input;
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 Map<String, dynamic> _$ToPgSqlNullableFalseIncludeIfNullFalseToPgSql(
-    ToPgSqlNullableFalseIncludeIfNullFalse instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('field', _toStringNullOnEmpty(instance.field));
-  return val;
-}
-''',
-)
+  ToPgSqlNullableFalseIncludeIfNullFalse instance,
+) => <String, dynamic>{'field': ?_toStringNullOnEmpty(instance.field)};
+''')
 @PgSqlSerializable(createFactory: false)
 class ToPgSqlNullableFalseIncludeIfNullFalse {
   @PgSqlKey(toPgSql: _toStringNullOnEmpty, includeIfNull: false)
@@ -201,16 +180,14 @@ String _fromDynamicList(List input) => 'null';
 
 String _fromDynamicIterable(Iterable input) => 'null';
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 FromDynamicCollection _$FromDynamicCollectionFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    FromDynamicCollection()
-      ..mapField = _fromDynamicMap(pgsql['mapField'] as Map)
-      ..listField = _fromDynamicList(pgsql['listField'] as List)
-      ..iterableField = _fromDynamicIterable(pgsql['iterableField'] as List);
-''',
-)
+  Map<String, dynamic> pgsql,
+) => FromDynamicCollection()
+  ..mapField = _fromDynamicMap(pgsql['mapField'] as Map)
+  ..listField = _fromDynamicList(pgsql['listField'] as List)
+  ..iterableField = _fromDynamicIterable(pgsql['iterableField'] as List);
+''')
 @PgSqlSerializable(createToPgSql: false)
 class FromDynamicCollection {
   @PgSqlKey(fromPgSql: _fromDynamicMap)
@@ -227,17 +204,16 @@ String _fromNullableDynamicList(List? input) => 'null';
 
 String _fromNullableDynamicIterable(Iterable? input) => 'null';
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 FromNullableDynamicCollection _$FromNullableDynamicCollectionFromPgSql(
-        Map<String, dynamic> pgsql) =>
-    FromNullableDynamicCollection()
-      ..mapField = _fromNullableDynamicMap(pgsql['mapField'] as Map?)
-      ..listField = _fromNullableDynamicList(pgsql['listField'] as List?)
-      ..iterableField =
-          _fromNullableDynamicIterable(pgsql['iterableField'] as List?);
-''',
-)
+  Map<String, dynamic> pgsql,
+) => FromNullableDynamicCollection()
+  ..mapField = _fromNullableDynamicMap(pgsql['mapField'] as Map?)
+  ..listField = _fromNullableDynamicList(pgsql['listField'] as List?)
+  ..iterableField = _fromNullableDynamicIterable(
+    pgsql['iterableField'] as List?,
+  );
+''')
 @PgSqlSerializable(createToPgSql: false)
 class FromNullableDynamicCollection {
   @PgSqlKey(fromPgSql: _fromNullableDynamicMap)
@@ -314,19 +290,13 @@ class OkayOnlyOptionalPositional {
   String? field;
 }
 
-@ShouldGenerate(
-  r'''
+@ShouldGenerate(r'''
 _BetterPrivateNames _$BetterPrivateNamesFromPgSql(Map<String, dynamic> pgsql) =>
-    _BetterPrivateNames(
-      name: pgsql['name'] as String,
-    );
+    _BetterPrivateNames(name: pgsql['name'] as String);
 
 Map<String, dynamic> _$BetterPrivateNamesToPgSql(_BetterPrivateNames instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-    };
-''',
-)
+    <String, dynamic>{'name': instance.name};
+''')
 @PgSqlSerializable(createFactory: true, createToPgSql: true)
 // ignore: unused_element
 class _BetterPrivateNames {

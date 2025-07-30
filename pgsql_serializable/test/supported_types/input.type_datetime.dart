@@ -13,10 +13,7 @@ class SimpleClass {
   @PgSqlKey(defaultValue: _defaultValueFunc)
   DateTime withDefault;
 
-  SimpleClass(
-    this.value,
-    this.withDefault,
-  );
+  SimpleClass(this.value, this.withDefault);
 
   factory SimpleClass.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassFromPgSql(pgsql);
@@ -31,10 +28,7 @@ class SimpleClassNullable {
   @PgSqlKey(defaultValue: _defaultValueFunc)
   DateTime? withDefault;
 
-  SimpleClassNullable(
-    this.value,
-    this.withDefault,
-  );
+  SimpleClassNullable(this.value, this.withDefault);
 
   factory SimpleClassNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableFromPgSql(pgsql);

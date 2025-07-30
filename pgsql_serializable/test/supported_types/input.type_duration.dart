@@ -10,9 +10,7 @@ part 'input.type_duration.g.dart';
 class SimpleClass {
   final Duration value;
 
-  SimpleClass(
-    this.value,
-  );
+  SimpleClass(this.value);
 
   factory SimpleClass.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassFromPgSql(pgsql);
@@ -24,9 +22,7 @@ class SimpleClass {
 class SimpleClassNullable {
   final Duration? value;
 
-  SimpleClassNullable(
-    this.value,
-  );
+  SimpleClassNullable(this.value);
 
   factory SimpleClassNullable.fromPgSql(Map<String, Object?> pgsql) =>
       _$SimpleClassNullableFromPgSql(pgsql);

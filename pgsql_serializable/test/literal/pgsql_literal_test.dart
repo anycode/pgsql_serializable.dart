@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-library test;
+library;
 
 import 'dart:convert';
 import 'dart:io';
@@ -29,8 +29,11 @@ void main() {
   });
 
   test('naughty strings', () {
-    final dataFilePath =
-        p.join('test', 'literal', 'big-list-of-naughty-strings.pgsql');
+    final dataFilePath = p.join(
+      'test',
+      'literal',
+      'big-list-of-naughty-strings.pgsql',
+    );
     final dataFile = File(dataFilePath);
 
     final dataString = loudEncode(json.decode(dataFile.readAsStringSync()));

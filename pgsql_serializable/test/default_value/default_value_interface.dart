@@ -54,13 +54,10 @@ class ConstClass {
 
   ConstClass.easy() : field = 'easy';
 
-  factory ConstClass.fromPgSql(Map<String, dynamic> pgsql) => ConstClass(
-        pgsql['field'] as String,
-      );
+  factory ConstClass.fromPgSql(Map<String, dynamic> pgsql) =>
+      ConstClass(pgsql['field'] as String);
 
-  Map<String, dynamic> toPgSql() => <String, dynamic>{
-        'field': field,
-      };
+  Map<String, dynamic> toPgSql() => <String, dynamic>{'field': field};
 }
 
 ConstClass constClassFromPgSql(String pgsql) => ConstClass(pgsql);

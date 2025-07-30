@@ -9,22 +9,22 @@ part of 'create_per_field_to_pgsql_example.dart';
 // **************************************************************************
 
 Model _$ModelFromPgSql(Map<String, dynamic> pgsql) => Model(
-      firstName: pgsql['firstName'] as String,
-      lastName: pgsql['lastName'] as String,
-      enumValue: $enumDecodeNullable(_$EnumValueEnumMap, pgsql['enumValue']),
-      nested: pgsql['nested'] == null
-          ? null
-          : Nested.fromPgSql(pgsql['nested'] as Map<String, dynamic>),
-      nestedExcludeIfNull: pgsql['nestedExcludeIfNull'] == null
-          ? null
-          : Nested.fromPgSql(
-              pgsql['nestedExcludeIfNull'] as Map<String, dynamic>),
-      nestedGeneric: pgsql['nestedGeneric'] == null
-          ? null
-          : GenericFactory<int>.fromPgSql(
-              pgsql['nestedGeneric'] as Map<String, dynamic>,
-              (value) => value as int),
-    );
+  firstName: pgsql['firstName'] as String,
+  lastName: pgsql['lastName'] as String,
+  enumValue: $enumDecodeNullable(_$EnumValueEnumMap, pgsql['enumValue']),
+  nested: pgsql['nested'] == null
+      ? null
+      : Nested.fromPgSql(pgsql['nested'] as Map<String, dynamic>),
+  nestedExcludeIfNull: pgsql['nestedExcludeIfNull'] == null
+      ? null
+      : Nested.fromPgSql(pgsql['nestedExcludeIfNull'] as Map<String, dynamic>),
+  nestedGeneric: pgsql['nestedGeneric'] == null
+      ? null
+      : GenericFactory<int>.fromPgSql(
+          pgsql['nestedGeneric'] as Map<String, dynamic>,
+          (value) => (value as num).toInt(),
+        ),
+);
 
 // ignore: unused_element
 abstract class _$ModelPerFieldToPgSql {
@@ -38,82 +38,58 @@ abstract class _$ModelPerFieldToPgSql {
   static Object? nested(Nested? instance) => instance?.toPgSql();
   // ignore: unused_element
   static Object? nestedGeneric(GenericFactory<int>? instance) =>
-      instance?.toPgSql(
-        (value) => value,
-      );
+      instance?.toPgSql((value) => value);
   // ignore: unused_element
   static Object? nestedExcludeIfNull(Nested? instance) => instance?.toPgSql();
 }
 
-Map<String, dynamic> _$ModelToPgSql(Model instance) {
-  final val = <String, dynamic>{
-    'firstName': instance.firstName,
-    'lastName': instance.lastName,
-    'enumValue': _$EnumValueEnumMap[instance.enumValue],
-    'nested': instance.nested?.toPgSql(),
-    'nestedGeneric': instance.nestedGeneric?.toPgSql(
-      (value) => value,
-    ),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('nestedExcludeIfNull', instance.nestedExcludeIfNull?.toPgSql());
-  return val;
-}
-
-const _$EnumValueEnumMap = {
-  EnumValue.first: '1',
-  EnumValue.second: 'second',
+Map<String, dynamic> _$ModelToPgSql(Model instance) => <String, dynamic>{
+  'firstName': instance.firstName,
+  'lastName': instance.lastName,
+  'enumValue': _$EnumValueEnumMap[instance.enumValue],
+  'nested': instance.nested?.toPgSql(),
+  'nestedGeneric': instance.nestedGeneric?.toPgSql((value) => value),
+  'nestedExcludeIfNull': ?instance.nestedExcludeIfNull?.toPgSql(),
 };
 
-Nested _$NestedFromPgSql(Map<String, dynamic> pgsql) => Nested(
-      pgsql['value'] as String,
-    );
+const _$EnumValueEnumMap = {EnumValue.first: '1', EnumValue.second: 'second'};
+
+Nested _$NestedFromPgSql(Map<String, dynamic> pgsql) =>
+    Nested(pgsql['value'] as String);
 
 Map<String, dynamic> _$NestedToPgSql(Nested instance) => <String, dynamic>{
-      'value': instance.value,
-    };
+  'value': instance.value,
+};
 
 GenericFactory<T> _$GenericFactoryFromPgSql<T>(
   Map<String, dynamic> pgsql,
   T Function(Object? pgsql) fromPgSqlT,
-) =>
-    GenericFactory<T>(
-      fromPgSqlT(pgsql['value']),
-      (pgsql['map'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry(k, fromPgSqlT(e)),
-      ),
-    );
+) => GenericFactory<T>(
+  fromPgSqlT(pgsql['value']),
+  (pgsql['map'] as Map<String, dynamic>).map(
+    (k, e) => MapEntry(k, fromPgSqlT(e)),
+  ),
+);
 
 // ignore: unused_element
 abstract class _$GenericFactoryPerFieldToPgSql {
   // ignore: unused_element
-  static Object? value<T>(
-    T instance,
-    Object? Function(T value) toPgSqlT,
-  ) =>
+  static Object? value<T>(T instance, Object? Function(T value) toPgSqlT) =>
       toPgSqlT(instance);
   // ignore: unused_element
   static Object? map<T>(
     Map<String, T> instance,
     Object? Function(T value) toPgSqlT,
-  ) =>
-      instance.map((k, e) => MapEntry(k, toPgSqlT(e)));
+  ) => instance.map((k, e) => MapEntry(k, toPgSqlT(e)));
 }
 
 Map<String, dynamic> _$GenericFactoryToPgSql<T>(
   GenericFactory<T> instance,
   Object? Function(T value) toPgSqlT,
-) =>
-    <String, dynamic>{
-      'value': toPgSqlT(instance.value),
-      'map': instance.map.map((k, e) => MapEntry(k, toPgSqlT(e))),
-    };
+) => <String, dynamic>{
+  'value': toPgSqlT(instance.value),
+  'map': instance.map.map((k, e) => MapEntry(k, toPgSqlT(e))),
+};
 
 // ignore: unused_element
 abstract class _$PrivateModelPerFieldToPgSql {
@@ -122,6 +98,4 @@ abstract class _$PrivateModelPerFieldToPgSql {
 }
 
 Map<String, dynamic> _$PrivateModelToPgSql(_PrivateModel instance) =>
-    <String, dynamic>{
-      'full-name': instance.fullName,
-    };
+    <String, dynamic>{'full-name': instance.fullName};

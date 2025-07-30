@@ -10,7 +10,7 @@
 /// This library is **not** intended to be imported by typical end-users unless
 /// you are creating a custom compilation pipeline. See documentation for
 /// details, and `build.yaml` for how these builders are configured by default.
-library pgsql_serializable.builder;
+library;
 
 import 'package:build/build.dart';
 import 'package:pgsql_annotation/pgsql_annotation.dart';
@@ -27,7 +27,7 @@ Builder pgsqlSerializable(BuilderOptions options) {
     return pgsqlPartBuilder(config: config);
   } on CheckedFromPgSqlException catch (e) {
     final lines = <String>[
-      'Could not parse the options provided for `pgsql_serializable`.'
+      'Could not parse the options provided for `pgsql_serializable`.',
     ];
 
     if (e.key != null) {
@@ -39,11 +39,6 @@ Builder pgsqlSerializable(BuilderOptions options) {
       lines.add(e.innerError.toString());
     }
 
-    throw StateError(
-      lines
-          .join('\n')
-          // TODO(kevmoo) remove when dart-lang/sdk#50756 is fixed!
-          .replaceAll(" of ' in type cast'", ' in type cast'),
-    );
+    throw StateError(lines.join('\n'));
   }
 }

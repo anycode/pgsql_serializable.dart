@@ -16,7 +16,7 @@ enum Category {
   down,
   // NOTE: this should override the kebab bits below!
   @PgSqlValue('not_discovered_yet')
-  notDiscoveredYet
+  notDiscoveredYet,
 }
 
 enum StatusCode {
@@ -38,6 +38,11 @@ Duration? durationFromInt(int? ms) =>
 
 int? durationToInt(Duration? duration) => duration?.inMilliseconds;
 
+String? stringFromDouble(double? value) => value?.toString();
+
+double? stringToDouble(String? value) =>
+    value == null ? null : double.parse(value);
+
 DateTime? dateTimeFromEpochUs(int? us) =>
     us == null ? null : DateTime.fromMicrosecondsSinceEpoch(us);
 
@@ -52,10 +57,10 @@ class Platform {
   const Platform._(this.description);
 
   factory Platform.fromPgSql(String value) => switch (value) {
-        'foo' => foo,
-        'undefined' => undefined,
-        _ => throw ArgumentError.value(value, 'value', 'Not a supported value.')
-      };
+    'foo' => foo,
+    'undefined' => undefined,
+    _ => throw ArgumentError.value(value, 'value', 'Not a supported value.'),
+  };
 
   String toPgSql() => description;
 }
