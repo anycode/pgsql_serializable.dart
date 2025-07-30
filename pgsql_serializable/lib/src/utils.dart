@@ -55,18 +55,18 @@ PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializabl
   createToPgSql: reader.read('createToPgSql').literalValue as bool?,
   createFieldMap: reader.read('createFieldMap').literalValue as bool?,
   enumMapPrefix: reader.read('enumMapPrefix').literalValue as String?,
-      createPgSqlKeys: reader.read('createPgSqlKeys').literalValue as bool?,
-      createPerFieldToPgSql:
-          reader.read('createPerFieldToPgSql').literalValue as bool?,
-      disallowUnrecognizedKeys:
-          reader.read('disallowUnrecognizedKeys').literalValue as bool?,
-      explicitToPgSql: reader.read('explicitToPgSql').literalValue as bool?,
-      fieldRename: readEnum(reader.read('fieldRename'), FieldRename.values),
-      genericArgumentFactories:
-          reader.read('genericArgumentFactories').literalValue as bool?,
-      ignoreUnannotated: reader.read('ignoreUnannotated').literalValue as bool?,
-      includeIfNull: reader.read('includeIfNull').literalValue as bool?,
-    );
+  createPgSqlKeys: reader.read('createPgSqlKeys').literalValue as bool?,
+  createPerFieldToPgSql:
+      reader.read('createPerFieldToPgSql').literalValue as bool?,
+  disallowUnrecognizedKeys:
+      reader.read('disallowUnrecognizedKeys').literalValue as bool?,
+  explicitToPgSql: reader.read('explicitToPgSql').literalValue as bool?,
+  fieldRename: readEnum(reader.read('fieldRename'), FieldRename.values),
+  genericArgumentFactories:
+      reader.read('genericArgumentFactories').literalValue as bool?,
+  ignoreUnannotated: reader.read('ignoreUnannotated').literalValue as bool?,
+  includeIfNull: reader.read('includeIfNull').literalValue as bool?,
+);
 
 /// Returns a [ClassConfig] with values from the [PgSqlSerializable]
 /// instance represented by [reader].

@@ -146,11 +146,11 @@ class ClassConfig {
     createPerFieldToPgSql: createPerFieldToPgSql,
     ignoreUnannotated: ignoreUnannotated,
     enumMapPrefix: enumMapPrefix,
-        explicitToPgSql: explicitToPgSql,
-        includeIfNull: includeIfNull,
-        genericArgumentFactories: genericArgumentFactories,
-        fieldRename: fieldRename,
-        disallowUnrecognizedKeys: disallowUnrecognizedKeys,
-        // TODO typeConverters = []
-      );
+    explicitToPgSql: explicitToPgSql,
+    includeIfNull: includeIfNull,
+    genericArgumentFactories: genericArgumentFactories,
+    fieldRename: fieldRename,
+    disallowUnrecognizedKeys: disallowUnrecognizedKeys,
+    // TODO typeConverters = []
+  );
 }

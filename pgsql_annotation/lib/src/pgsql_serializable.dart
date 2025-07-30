@@ -321,13 +321,13 @@ class PgSqlSerializable {
     disallowUnrecognizedKeys:
         disallowUnrecognizedKeys ?? defaults.disallowUnrecognizedKeys,
     enumMapPrefix: enumMapPrefix ?? defaults.enumMapPrefix,
-        explicitToPgSql: explicitToPgSql ?? defaults.explicitToPgSql,
-        fieldRename: fieldRename ?? defaults.fieldRename,
-        ignoreUnannotated: ignoreUnannotated ?? defaults.ignoreUnannotated,
-        includeIfNull: includeIfNull ?? defaults.includeIfNull,
-        genericArgumentFactories:
-            genericArgumentFactories ?? defaults.genericArgumentFactories,
-      );
+    explicitToPgSql: explicitToPgSql ?? defaults.explicitToPgSql,
+    fieldRename: fieldRename ?? defaults.fieldRename,
+    ignoreUnannotated: ignoreUnannotated ?? defaults.ignoreUnannotated,
+    includeIfNull: includeIfNull ?? defaults.includeIfNull,
+    genericArgumentFactories:
+        genericArgumentFactories ?? defaults.genericArgumentFactories,
+  );
 
   Map<String, dynamic> toPgSql() => _$PgSqlSerializableToPgSql(this);
 }
