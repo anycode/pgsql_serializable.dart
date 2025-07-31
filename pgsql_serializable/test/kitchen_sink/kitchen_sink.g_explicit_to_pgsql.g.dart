@@ -176,6 +176,11 @@ Map<String, dynamic> _$KitchenSinkToPgSql(
       'validatedPropertyNo42': instance.validatedPropertyNo42,
     };
 
+$Rec? _$recordConvertNullable<$Rec>(
+    Object? value,
+    $Rec Function(Map) convert,
+    ) => value == null ? null : convert(value as Map<String, dynamic>);
+
 PgSqlConverterTestClass _$PgSqlConverterTestClassFromPgSql(
   Map<String, dynamic> pgsql,
 ) => PgSqlConverterTestClass(
