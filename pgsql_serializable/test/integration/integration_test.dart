@@ -2,17 +2,18 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:test/test.dart';
 
 import '../test_utils.dart';
 import 'converter_examples.dart';
-import 'create_per_field_to_pgsql_example.dart';
+import 'create_per_field_to_json_example.dart';
 import 'field_map_example.dart';
-import 'pgsql_enum_example.dart';
-import 'pgsql_keys_example.dart' as pg_keys;
-import 'pgsql_test_common.dart' show Category, Platform, StatusCode;
-import 'pgsql_test_example.dart';
+import 'json_enum_example.dart';
+import 'json_keys_example.dart' as js_keys;
+import 'json_test_common.dart' show Category, Platform, StatusCode;
+import 'json_test_example.dart';
+import 'schema_example.dart';
 
 Matcher _throwsArgumentError(Object matcher) =>
     throwsA(isArgumentError.having((e) => e.message, 'message', matcher));
@@ -20,7 +21,7 @@ Matcher _throwsArgumentError(Object matcher) =>
 void main() {
   group('Person', () {
     void roundTripPerson(Person p) {
-      roundTripObject(p, Person.fromPgSql);
+      roundTripObject(p, Person.fromJson);
     }
 
     test('now', () {
@@ -47,8 +48,8 @@ void main() {
       );
     });
 
-    test('empty pgsql', () {
-      final person = Person.fromPgSql({
+    test('empty json', () {
+      final person = Person.fromJson({
         'firstName': 'a',
         'lastName': 'b',
         '\$house': 'top',
@@ -68,7 +69,7 @@ void main() {
 
   group('Order', () {
     void roundTripOrder(Order p) {
-      roundTripObject(p, Order.fromPgSql);
+      roundTripObject(p, Order.fromJson);
     }
 
     test('null', () {
@@ -99,8 +100,8 @@ void main() {
       );
     });
 
-    test('almost empty pgsql', () {
-      final order = Order.fromPgSql({'category': 'not_discovered_yet'});
+    test('almost empty json', () {
+      final order = Order.fromJson({'category': 'not_discovered_yet'});
       expect(order.items, isEmpty);
       expect(order.category, Category.notDiscoveredYet);
       expect(
@@ -113,7 +114,7 @@ void main() {
 
     test('required, but missing enum value fails', () {
       expect(
-        () => Person.fromPgSql({'firstName': 'a', 'lastName': 'b'}),
+        () => Person.fromJson({'firstName': 'a', 'lastName': 'b'}),
         _throwsArgumentError(
           'A value must be provided. Supported values: '
           'top, bottom, strange, charmed, up, down, not_discovered_yet',
@@ -123,7 +124,7 @@ void main() {
 
     test('mismatched enum value fails', () {
       expect(
-        () => Order.fromPgSql({'category': 'weird'}),
+        () => Order.fromJson({'category': 'weird'}),
         _throwsArgumentError(
           '`weird` is not one of the supported values: '
           'top, bottom, strange, charmed, up, down, not_discovered_yet',
@@ -151,7 +152,7 @@ void main() {
     });
 
     test('statusCode', () {
-      final order = Order.fromPgSql({
+      final order = Order.fromJson({
         'category': 'not_discovered_yet',
         'status_code': 404,
       });
@@ -160,7 +161,7 @@ void main() {
     });
 
     test('statusCode "500" - weird', () {
-      final order = Order.fromPgSql({
+      final order = Order.fromJson({
         'category': 'not_discovered_yet',
         'status_code': '500',
       });
@@ -169,7 +170,7 @@ void main() {
     });
 
     test('statusCode `500` - unknown', () {
-      final order = Order.fromPgSql({
+      final order = Order.fromJson({
         'category': 'not_discovered_yet',
         'status_code': 500,
       });
@@ -177,7 +178,7 @@ void main() {
       roundTripOrder(order);
     });
 
-    test('duration toPgSql', () {
+    test('duration toJson', () {
       final order = Order.custom(Category.notDiscoveredYet)
         ..statusCode = StatusCode.success
         ..duration = const Duration(
@@ -188,12 +189,12 @@ void main() {
           milliseconds: 23,
           microseconds: 12,
         );
-      expect(order.toPgSql()['duration'], equals(190473023012));
+      expect(order.toJson()['duration'], equals(190473023012));
       roundTripOrder(order);
     });
 
-    test('duration fromPgSql', () {
-      final order = Order.fromPgSql({
+    test('duration fromJson', () {
+      final order = Order.fromJson({
         'category': 'not_discovered_yet',
         'duration': 190473023012,
       });
@@ -216,28 +217,28 @@ void main() {
 
   group('Item', () {
     void roundTripItem(Item p) {
-      roundTripObject(p, Item.fromPgSql);
+      roundTripObject(p, Item.fromJson);
     }
 
-    test('empty pgsql', () {
-      final item = Item.fromPgSql({});
+    test('empty json', () {
+      final item = Item.fromJson({});
       expect(item.saleDates, isNull);
       roundTripItem(item);
 
       expect(
-        item.toPgSql().keys,
+        item.toJson().keys,
         orderedEquals(['price', 'saleDates', 'rates', 'geoPoint']),
         reason: 'Omits null `itemNumber`',
       );
     });
 
-    test('set itemNumber - with custom PgSQL key', () {
-      final item = Item.fromPgSql({'item-number': 42});
+    test('set itemNumber - with custom JSON key', () {
+      final item = Item.fromJson({'item-number': 42});
       expect(item.itemNumber, 42);
       roundTripItem(item);
 
       expect(
-        item.toPgSql().keys,
+        item.toJson().keys,
         orderedEquals([
           'price',
           'item-number',
@@ -252,7 +253,7 @@ void main() {
 
   group('Numbers', () {
     void roundTripNumber(Numbers p) {
-      roundTripObject(p, Numbers.fromPgSql);
+      roundTripObject(p, Numbers.fromJson);
     }
 
     test('simple', () {
@@ -270,8 +271,8 @@ void main() {
     test('custom DateTime', () {
       final instance = Numbers()
         ..date = DateTime.fromMillisecondsSinceEpoch(42);
-      final pgsql = instance.toPgSql();
-      expect(pgsql, containsPair('date', 42000));
+      final json = instance.toJson();
+      expect(json, containsPair('date', 42000));
     });
 
     test('support ints as doubles', () {
@@ -281,7 +282,7 @@ void main() {
         'doubleAsString': 3,
       };
 
-      final output = roundTripObject(Numbers.fromPgSql(value), Numbers.fromPgSql);
+      final output = roundTripObject(Numbers.fromJson(value), Numbers.fromJson);
       expect(output.doubleAsString, 3.0.toString());
     });
 
@@ -290,7 +291,7 @@ void main() {
         'ints': [3, 3.0, 3.14, 0],
       };
 
-      final output = roundTripObject(Numbers.fromPgSql(value), Numbers.fromPgSql);
+      final output = roundTripObject(Numbers.fromJson(value), Numbers.fromJson);
 
       // NOTE: all of the double values are truncated
       expect(output.ints, [3, 3, 3, 0]);
@@ -304,11 +305,11 @@ void main() {
       ..intIntMap = {3: 3}
       ..uriIntMap = {Uri.parse('https://example.com'): 4};
 
-    roundTripObject(instance, MapKeyVariety.fromPgSql);
+    roundTripObject(instance, MapKeyVariety.fromJson);
   });
 
   test('UnknownEnumValue', () {
-    final instance = UnknownEnumValue.fromPgSql({
+    final instance = UnknownEnumValue.fromJson({
       'enumValue': 'nope',
       'enumIterable': ['nope'],
       'enumList': ['nope'],
@@ -324,7 +325,7 @@ void main() {
   test('PrivateConstructor', () {
     final value = PrivateConstructor('test');
 
-    roundTripObject(value, PrivateConstructor.fromPgSql);
+    roundTripObject(value, PrivateConstructor.fromJson);
   });
 
   test('enum helpers', () {
@@ -338,30 +339,30 @@ void main() {
       status: {Issue1145RegressionEnum.gamma: true},
     );
     // Due to issue 1145 this resulted in Map<String?, dynamic>
-    expect(cls.toPgSql()['status'], const TypeMatcher<Map<String, dynamic>>());
+    expect(cls.toJson()['status'], const TypeMatcher<Map<String, dynamic>>());
   });
 
   test('serializing a nullable enum in a list should produce a list with'
       ' nullable entries', () {
     final cls = Issue1145RegressionB(status: [Issue1145RegressionEnum.gamma]);
     // Issue 1145 should not have affected nullable enums
-    expect(cls.toPgSql()['status'], const TypeMatcher<List<String?>>());
+    expect(cls.toJson()['status'], const TypeMatcher<List<String?>>());
   });
 
   test('unknown as null for enum', () {
     expect(
-      () => Issue559Regression.fromPgSql({}).status,
+      () => Issue559Regression.fromJson({}).status,
       throwsA(isA<MissingRequiredKeysException>()),
     );
     expect(
-      () => Issue559Regression.fromPgSql({'status': null}).status,
+      () => Issue559Regression.fromJson({'status': null}).status,
       throwsA(isA<DisallowedNullValueException>()),
     );
     expect(
-      Issue559Regression.fromPgSql({'status': 'gamma'}).status,
+      Issue559Regression.fromJson({'status': 'gamma'}).status,
       Issue559RegressionEnum.gamma,
     );
-    expect(Issue559Regression.fromPgSql({'status': 'bob'}).status, isNull);
+    expect(Issue559Regression.fromJson({'status': 'bob'}).status, isNull);
   });
 
   test(r'_$ModelFieldMap', () {
@@ -375,37 +376,37 @@ void main() {
     },
   );
 
-  test(r'_$ModelPerFieldToPgSql', () {
-    expect(ModelPerFieldToPgSql.firstName('foo'), 'foo');
+  test(r'_$ModelPerFieldToJson', () {
+    expect(ModelPerFieldToJson.firstName('foo'), 'foo');
 
-    expect(ModelPerFieldToPgSql.enumValue(EnumValue.first), '1');
-    expect(ModelPerFieldToPgSql.enumValue(EnumValue.second), 'second');
+    expect(ModelPerFieldToJson.enumValue(EnumValue.first), '1');
+    expect(ModelPerFieldToJson.enumValue(EnumValue.second), 'second');
 
-    expect(ModelPerFieldToPgSql.nested(Nested('foo')), {'value': 'foo'});
-    expect(ModelPerFieldToPgSql.nested(null), null);
-    expect(ModelPerFieldToPgSql.nestedExcludeIfNull(Nested('foo')), {
+    expect(ModelPerFieldToJson.nested(Nested('foo')), {'value': 'foo'});
+    expect(ModelPerFieldToJson.nested(null), null);
+    expect(ModelPerFieldToJson.nestedExcludeIfNull(Nested('foo')), {
       'value': 'foo',
     });
-    expect(ModelPerFieldToPgSql.nestedExcludeIfNull(null), null);
-    expect(ModelPerFieldToPgSql.nestedGeneric(GenericFactory(42, {'key': 21})), {
+    expect(ModelPerFieldToJson.nestedExcludeIfNull(null), null);
+    expect(ModelPerFieldToJson.nestedGeneric(GenericFactory(42, {'key': 21})), {
       'value': 42,
       'map': {'key': 21},
     });
   });
 
-  test(r'_$GenericFactoryPerFieldToPgSql', () {
+  test(r'_$GenericFactoryPerFieldToJson', () {
     expect(
-      GenericFactoryPerFieldToPgSql.value<int>(42, (value) => '$value'),
+      GenericFactoryPerFieldToJson.value<int>(42, (value) => '$value'),
       '42',
     );
-    expect(GenericFactoryPerFieldToPgSql.value<String>('42', int.tryParse), 42);
+    expect(GenericFactoryPerFieldToJson.value<String>('42', int.tryParse), 42);
 
     expect(
-      GenericFactoryPerFieldToPgSql.map<int>({'foo': 21}, (value) => '$value'),
+      GenericFactoryPerFieldToJson.map<int>({'foo': 21}, (value) => '$value'),
       {'foo': '21'},
     );
     expect(
-      GenericFactoryPerFieldToPgSql.map<String>({'key': '42'}, int.tryParse),
+      GenericFactoryPerFieldToJson.map<String>({'key': '42'}, int.tryParse),
       {'key': 42},
     );
   });
@@ -420,13 +421,13 @@ void main() {
         valueWithFunctions: value,
         valueWithNullableFunctions: value,
       );
-      return roundTripObject(instance, Issue1202RegressionClass.fromPgSql);
+      return roundTripObject(instance, Issue1202RegressionClass.fromJson);
     }
 
     test('With default values', () {
       final thing = roundTripIssue1202RegressionClass(42);
 
-      expect(thing.toPgSql(), {
+      expect(thing.toJson(), {
         'valueWithFunctions': '42',
         'notNullableValueWithConverter': '42',
         'value': 42,
@@ -437,7 +438,7 @@ void main() {
     test('With non-default values', () {
       final thing = roundTripIssue1202RegressionClass(43);
 
-      expect(thing.toPgSql(), {
+      expect(thing.toJson(), {
         'valueWithFunctions': '43',
         'notNullableValueWithConverter': '43',
         'value': 42,
@@ -457,7 +458,7 @@ void main() {
         valueWithNullableFunctions: 42,
       );
 
-      expect(instance.toPgSql(), {
+      expect(instance.toJson(), {
         'valueWithFunctions': '42',
         'notNullableValueWithConverter': '42',
         'normalNullableValue': 42,
@@ -467,19 +468,28 @@ void main() {
 
   test('Issue1226Regression', () {
     final instance = Issue1226Regression(durationType: null);
-    expect(instance.toPgSql(), isEmpty);
+    expect(instance.toJson(), isEmpty);
   });
 
   test('Regression1229', () {
     final instance = Regression1229();
-    expect(instance.toPgSql(), isEmpty);
+    expect(instance.toJson(), isEmpty);
   });
 
   test('value field index fun', () {
     expect(enumValueFieldIndexValues, [0, 701, 2]);
   });
 
-  test('ModelPgSqlKeys', () {
-    expect(pg_keys.keys, {'first-name', 'LAST_NAME'});
+  test('ModelJsonKeys', () {
+    expect(js_keys.keys, {'first-name', 'LAST_NAME'});
+  });
+
+  test('nested schema matches standalone schema', () {
+    final definitions = SchemaExample.schema[r'$defs'] as Map<String, dynamic>;
+    final nestedSchemaFromExample = definitions['ComprehensiveNested'];
+    final standaloneSchema = Map<String, dynamic>.from(
+      ComprehensiveNested.schema,
+    )..remove(r'$schema');
+    expect(nestedSchemaFromExample, standaloneSchema);
   });
 }

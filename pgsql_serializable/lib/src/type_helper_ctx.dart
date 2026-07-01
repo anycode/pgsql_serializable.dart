@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:source_helper/source_helper.dart';
 
@@ -17,7 +17,7 @@ import 'utils.dart';
 
 TypeHelperCtx typeHelperContext(
   HelperCore helperCore,
-  FieldElement2 fieldElement,
+  FieldElement fieldElement,
 ) => TypeHelperCtx._(helperCore, fieldElement);
 
 class TypeHelperCtx
@@ -25,19 +25,19 @@ class TypeHelperCtx
   final HelperCore _helperCore;
 
   @override
-  final FieldElement2 fieldElement;
+  final FieldElement fieldElement;
 
   @override
-  ClassElement2 get classElement => _helperCore.element;
+  ClassElement get classElement => _helperCore.element;
 
   @override
   ClassConfig get config => _helperCore.config;
 
   @override
-  ConvertData? get serializeConvertData => _pairFromContext.toPgSql;
+  ConvertData? get serializeConvertData => _pairFromContext.toJson;
 
   @override
-  ConvertData? get deserializeConvertData => _pairFromContext.fromPgSql;
+  ConvertData? get deserializeConvertData => _pairFromContext.fromJson;
 
   late final _pairFromContext = _ConvertPair(fieldElement);
 
@@ -75,6 +75,26 @@ class TypeHelperCtx
     );
   }
 
+  /// Like [deserialize], but does not apply nullable short-circuiting for
+  /// [targetType].
+  ///
+  /// Used when a JSON key is present (including when its value is JSON `null`)
+  /// for PATCH tri-state fields, so explicit `null` is passed to `fromJson`.
+  Object deserializePresentJsonValue(
+    DartType targetType,
+    String expression, {
+    String? defaultValue,
+  }) {
+    final value = _run(
+      targetType,
+      expression,
+      (TypeHelper th) =>
+          th.deserialize(targetType, expression, this, defaultValue != null),
+    );
+
+    return DefaultContainer.deserialize(value, defaultValue: defaultValue);
+  }
+
   Object _run(
     DartType targetType,
     String expression,
@@ -93,21 +113,21 @@ class TypeHelperCtx
 class _ConvertPair {
   static final _expando = Expando<_ConvertPair>();
 
-  final ConvertData? fromPgSql, toPgSql;
+  final ConvertData? fromJson, toJson;
 
-  _ConvertPair._(this.fromPgSql, this.toPgSql);
+  _ConvertPair._(this.fromJson, this.toJson);
 
-  factory _ConvertPair(FieldElement2 element) {
+  factory _ConvertPair(FieldElement element) {
     var pair = _expando[element];
 
     if (pair == null) {
-      final obj = pgsqlKeyAnnotation(element);
+      final obj = jsonKeyAnnotation(element);
       if (obj.isNull) {
         pair = _ConvertPair._(null, null);
       } else {
-        final toPgSql = _convertData(obj.objectValue, element, false);
-        final fromPgSql = _convertData(obj.objectValue, element, true);
-        pair = _ConvertPair._(fromPgSql, toPgSql);
+        final toJson = _convertData(obj.objectValue, element, false);
+        final fromJson = _convertData(obj.objectValue, element, true);
+        pair = _ConvertPair._(fromJson, toJson);
       }
       _expando[element] = pair;
     }
@@ -115,15 +135,15 @@ class _ConvertPair {
   }
 }
 
-ConvertData? _convertData(DartObject obj, FieldElement2 element, bool isFrom) {
-  final paramName = isFrom ? 'fromPgSql' : 'toPgSql';
+ConvertData? _convertData(DartObject obj, FieldElement element, bool isFrom) {
+  final paramName = isFrom ? 'fromJson' : 'toJson';
   final objectValue = obj.getField(paramName);
 
   if (objectValue == null || objectValue.isNull) {
     return null;
   }
 
-  final executableElement = objectValue.toFunctionValue2()!;
+  final executableElement = objectValue.toFunctionValue()!;
 
   if (executableElement.formalParameters.isEmpty ||
       executableElement.formalParameters.first.isNamed ||
@@ -131,7 +151,7 @@ ConvertData? _convertData(DartObject obj, FieldElement2 element, bool isFrom) {
           1) {
     throwUnsupported(
       element,
-      'The `$paramName` function `${executableElement.name3}` must have one '
+      'The `$paramName` function `${executableElement.name}` must have one '
       'positional parameter.',
     );
   }
@@ -139,13 +159,13 @@ ConvertData? _convertData(DartObject obj, FieldElement2 element, bool isFrom) {
   final returnType = executableElement.returnType;
   final argType = executableElement.formalParameters.first.type;
   if (isFrom) {
-    final hasDefaultValue = !pgsqlKeyAnnotation(
+    final hasDefaultValue = !jsonKeyAnnotation(
       element,
     ).read('defaultValue').isNull;
 
     if (returnType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `fromPgSql` function.
+      // to the `fromJson` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!returnType.isAssignableTo(element.type)) {
       if (returnType.promoteNonNullable().isAssignableTo(element.type) &&
@@ -156,7 +176,7 @@ ConvertData? _convertData(DartObject obj, FieldElement2 element, bool isFrom) {
         final elementTypeCode = typeToCode(element.type);
         throwUnsupported(
           element,
-          'The `$paramName` function `${executableElement.name3}` return type '
+          'The `$paramName` function `${executableElement.name}` return type '
           '`$returnTypeCode` is not compatible with field type '
           '`$elementTypeCode`.',
         );
@@ -165,14 +185,14 @@ ConvertData? _convertData(DartObject obj, FieldElement2 element, bool isFrom) {
   } else {
     if (argType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `fromPgSql` function.
+      // to the `fromJson` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!element.type.isAssignableTo(argType)) {
       final argTypeCode = typeToCode(argType);
       final elementTypeCode = typeToCode(element.type);
       throwUnsupported(
         element,
-        'The `$paramName` function `${executableElement.name3}` argument type '
+        'The `$paramName` function `${executableElement.name}` argument type '
         '`$argTypeCode` is not compatible with field type'
         ' `$elementTypeCode`.',
       );

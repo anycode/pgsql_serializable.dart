@@ -3,17 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
-import 'pgsql_literal_generator.dart';
+import 'json_literal_generator.dart';
 import 'utils.dart';
 
-String constMapName(DartType targetType, String prefix) =>
-    '_\$$prefix${targetType.element3!.name3}EnumMap';
+String constMapName(DartType targetType) =>
+    '_\$${targetType.element!.name}EnumMap';
 
 /// If [targetType] is not an enum, return `null`.
 ///
@@ -32,8 +32,7 @@ bool? enumFieldWithNullInEncodeMap(DartType targetType) {
 }
 
 String? enumValueMapFromType(
-  DartType targetType,
-  String prefix, {
+  DartType targetType, {
   bool nullWithNoAnnotation = false,
 }) {
   final enumMap = _enumMap(
@@ -46,26 +45,26 @@ String? enumValueMapFromType(
   final items = enumMap.entries
       .map(
         (e) =>
-            '  ${targetType.element3!.name3}.${e.key.name3}: '
-            '${pgsqlLiteralAsDart(e.value)},',
+            '  ${targetType.element!.name}.${e.key.name}: '
+            '${jsonLiteralAsDart(e.value)},',
       )
       .join();
 
-  return 'const ${constMapName(targetType, prefix)} = {\n$items\n};';
+  return 'const ${constMapName(targetType)} = {\n$items\n};';
 }
 
-Map<FieldElement2, Object?>? _enumMap(
+Map<FieldElement, Object?>? _enumMap(
   DartType targetType, {
   bool nullWithNoAnnotation = false,
 }) {
-  final targetTypeElement = targetType.element3;
+  final targetTypeElement = targetType.element;
   if (targetTypeElement == null) return null;
-  final annotation = _pgsqlEnumChecker.firstAnnotationOf(targetTypeElement);
-  final pgsqlEnum = _fromAnnotation(annotation);
+  final annotation = _jsonEnumChecker.firstAnnotationOf(targetTypeElement);
+  final jsonEnum = _fromAnnotation(annotation);
 
   final enumFields = iterateEnumFields(targetType);
 
-  if (enumFields == null || (nullWithNoAnnotation && !pgsqlEnum.alwaysCreate)) {
+  if (enumFields == null || (nullWithNoAnnotation && !jsonEnum.alwaysCreate)) {
     return null;
   }
 
@@ -73,32 +72,33 @@ Map<FieldElement2, Object?>? _enumMap(
     for (var field in enumFields)
       field: _generateEntry(
         field: field,
-        pgsqlEnum: pgsqlEnum,
+        jsonEnum: jsonEnum,
         targetType: targetType,
       ),
   };
 }
 
 Object? _generateEntry({
-  required FieldElement2 field,
-  required PgSqlEnum pgsqlEnum,
+  required FieldElement field,
+  required JsonEnum jsonEnum,
   required DartType targetType,
 }) {
-  final annotation = const TypeChecker.fromRuntime(
-    PgSqlValue,
+  final annotation = const TypeChecker.typeNamed(
+    JsonValue,
+    inPackage: 'json_annotation',
   ).firstAnnotationOfExact(field);
 
   if (annotation == null) {
-    final valueField = pgsqlEnum.valueField;
+    final valueField = jsonEnum.valueField;
     if (valueField != null) {
       // TODO: fieldRename is pointless here!!! At least log a warning!
 
-      final fieldElementType = field.type.element3 as EnumElement2;
+      final fieldElementType = field.type.element as EnumElement;
 
-      final e = fieldElementType.getField2(valueField);
+      final e = fieldElementType.getField(valueField);
 
       if (e == null && valueField == 'index') {
-        return fieldElementType.fields2
+        return fieldElementType.fields
             .where((element) => element.isEnumConstant)
             .toList(growable: false)
             .indexOf(field);
@@ -106,10 +106,10 @@ Object? _generateEntry({
 
       if (e == null || e.isStatic) {
         throw InvalidGenerationSourceError(
-          '`PgSqlEnum.valueField` was set to "$valueField", but '
+          '`JsonEnum.valueField` was set to "$valueField", but '
           'that is not a valid, instance field on '
           '`${typeToCode(targetType)}`.',
-          element: targetType.element3,
+          element: targetType.element,
         );
       }
 
@@ -119,13 +119,13 @@ Object? _generateEntry({
         return valueReader.literalValue;
       } else {
         throw InvalidGenerationSourceError(
-          '`PgSqlEnum.valueField` was set to "$valueField", but '
+          '`JsonEnum.valueField` was set to "$valueField", but '
           'that field does not have a type of String, int, or null.',
-          element: targetType.element3,
+          element: targetType.element,
         );
       }
     } else {
-      return encodedFieldName(pgsqlEnum.fieldRename, field.name3!);
+      return encodedFieldName(jsonEnum.fieldRename, field.name!);
     }
   } else {
     final reader = ConstantReader(annotation);
@@ -137,7 +137,7 @@ Object? _generateEntry({
     } else {
       final targetTypeCode = typeToCode(targetType);
       throw InvalidGenerationSourceError(
-        'The `PgSqlValue` annotation on `$targetTypeCode.${field.name3}` does '
+        'The `JsonValue` annotation on `$targetTypeCode.${field.name}` does '
         'not have a value of type String, int, or null.',
         element: field,
       );
@@ -145,14 +145,17 @@ Object? _generateEntry({
   }
 }
 
-const _pgsqlEnumChecker = TypeChecker.fromRuntime(PgSqlEnum);
+const _jsonEnumChecker = TypeChecker.typeNamed(
+  JsonEnum,
+  inPackage: 'json_annotation',
+);
 
-PgSqlEnum _fromAnnotation(DartObject? dartObject) {
+JsonEnum _fromAnnotation(DartObject? dartObject) {
   if (dartObject == null) {
-    return const PgSqlEnum();
+    return const JsonEnum();
   }
   final reader = ConstantReader(dartObject);
-  return PgSqlEnum(
+  return JsonEnum(
     alwaysCreate: reader.read('alwaysCreate').literalValue as bool,
     fieldRename: readEnum(reader.read('fieldRename'), FieldRename.values)!,
     valueField: reader.read('valueField').literalValue as String?,

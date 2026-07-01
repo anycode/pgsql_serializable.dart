@@ -5,32 +5,43 @@
 @TestOn('vm')
 library;
 
-import 'package:pgsql_serializable/pgsql_serializable.dart';
+import 'package:json_serializable/json_serializable.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_gen_test/source_gen_test.dart';
 import 'package:test/test.dart';
 
 Future<void> main() async {
   initializeBuildLogTracking();
-  final pgsqlSerializableTestReader = await initializeLibraryReaderForDirectory(
+  final jsonSerializableTestReader = await initializeLibraryReaderForDirectory(
     p.join('test', 'src'),
-    '_pgsql_serializable_test_input.dart',
+    '_json_serializable_test_input.dart',
+  );
+
+  final jsonSchemaTestReader = await initializeLibraryReaderForDirectory(
+    p.join('test', 'src'),
+    '_json_schema_test_input.dart',
   );
 
   testAnnotatedElements(
-    pgsqlSerializableTestReader,
-    PgSqlSerializableGenerator(),
+    jsonSerializableTestReader,
+    JsonSerializableGenerator(),
     expectedAnnotatedTests: _expectedAnnotatedTests,
   );
 
-  final pgsqlEnumTestReader = await initializeLibraryReaderForDirectory(
+  testAnnotatedElements(
+    jsonSchemaTestReader,
+    JsonSerializableGenerator(),
+    expectedAnnotatedTests: _expectedSchemaTests,
+  );
+
+  final jsonEnumTestReader = await initializeLibraryReaderForDirectory(
     p.join('test', 'src'),
-    '_pgsql_enum_test_input.dart',
+    '_json_enum_test_input.dart',
   );
 
   testAnnotatedElements(
-    pgsqlEnumTestReader,
-    PgSqlEnumGenerator(),
+    jsonEnumTestReader,
+    const JsonEnumGenerator(),
     expectedAnnotatedTests: {
       'EnumValueIssue1147',
       'EnumValueNotAField',
@@ -42,13 +53,28 @@ Future<void> main() async {
 }
 
 const _expectedAnnotatedTests = {
+  '_BetterPrivateNames',
+  'annotatedMethod',
   'BadEnumDefaultValue',
   'BadFromFuncReturnType',
+  'BadPatchEntity',
+  'PatchBadCustomFromJson',
+  'PatchDefaultValueWithExplicit',
+  'PatchDisallowNullWithExplicit',
+  'PatchEntityChecked',
+  'PatchNonNullableField',
+  'PatchNullableStringEntity',
+  'PatchRequiredWithExplicit',
+  'PatchWithCustomFromJson',
+  'PatchReadValueWithExplicit',
   'BadNoArgs',
   'BadOneNamed',
   'BadToFuncReturnType',
   'BadTwoRequiredPositional',
-  'CtorDefaultValueAndPgSqlKeyDefaultValue',
+  'CtorDefaultValueAndJsonKeyDefaultValue',
+  'CtorParamJsonKey',
+  'CtorParamJsonKeyWithExtends',
+  'DateTimeUtcTestClass',
   'DefaultDoubleConstants',
   'DefaultWithConstObject',
   'DefaultWithDisallowNullRequiredClass',
@@ -56,7 +82,7 @@ const _expectedAnnotatedTests = {
   'DefaultWithFunctionInList',
   'DefaultWithNestedEnum',
   'DefaultWithSymbol',
-  'DefaultWithToPgSqlClass',
+  'DefaultWithToJsonClass',
   'DefaultWithType',
   'DupeKeys',
   'DynamicConvertMethods',
@@ -65,7 +91,7 @@ const _expectedAnnotatedTests = {
   'FieldNamerPascal',
   'FieldNamerScreamingSnake',
   'FieldNamerSnake',
-  'FieldWithFromPgSqlCtorAndTypeParams',
+  'FieldWithFromJsonCtorAndTypeParams',
   'FinalFields',
   'FinalFieldsNotSetInCtor',
   'FromDynamicCollection',
@@ -74,32 +100,33 @@ const _expectedAnnotatedTests = {
   'GeneralTestClass2',
   'GenericArgumentFactoriesFlagWithoutGenericType',
   'GenericClass',
-  'IgnoreAndIncludeFromPgSqlFieldCtorClass',
-  'IgnoreAndIncludeToPgSqlFieldCtorClass',
-  'IgnoreUnannotated',
+  'IgnoreAndIncludeFromJsonFieldCtorClass',
+  'IgnoreAndIncludeToJsonFieldCtorClass',
   'IgnoredFieldClass',
   'IgnoredFieldCtorClass',
+  'IgnoreUnannotated',
   'IncludeIfNullDisallowNullClass',
   'IncludeIfNullOverride',
-  'InvalidChildClassFromPgSql',
-  'InvalidChildClassFromPgSql2',
-  'InvalidChildClassFromPgSql3',
+  'InvalidChildClassFromJson',
+  'InvalidChildClassFromJson2',
+  'InvalidChildClassFromJson3',
   'InvalidFromFunc2Args',
   'InvalidToFunc2Args',
   'Issue1038RegressionTest',
   'Issue713',
-  'PgSqlConvertOnField',
-  'PgSqlConverterCtorParams',
-  'PgSqlConverterDuplicateAnnotations',
-  'PgSqlConverterNamedCtor',
-  'PgSqlConverterNullableToNonNullable',
-  'PgSqlConverterOnGetter',
-  'PgSqlConverterWithBadTypeArg',
-  'PgSqlValueValid',
-  'PgSqlValueWithBool',
+  'JsonConverterCtorParams',
+  'JsonConverterDuplicateAnnotations',
+  'JsonConverterNamedCtor',
+  'JsonConverterNullableToNonNullable',
+  'JsonConverterOnGetter',
+  'JsonConverterWithBadTypeArg',
+  'JsonConvertOnField',
+  'JsonSchemaTestClass',
+  'JsonValueValid',
+  'JsonValueWithBool',
   'JustSetter',
-  'JustSetterNoFromPgSql',
-  'JustSetterNoToPgSql',
+  'JustSetterNoFromJson',
+  'JustSetterNoToJson',
   'KeyDupesField',
   'MapKeyNoNullableInt',
   'MapKeyNoNullableObject',
@@ -116,19 +143,28 @@ const _expectedAnnotatedTests = {
   'OkayOnlyOptionalPositional',
   'OnlyStaticMembers',
   'OverrideGetterExampleI613',
+  'PatchEntity',
   'PrivateFieldCtorClass',
   'PropInMixinI448Regression',
+  'RecordDoubleConverter',
+  'RecordNamedDoubleConverter',
+  'RecordNullableDoubleConverter',
+  'RecordSingleDoubleConverter',
+  'RecordWithFunction',
+  'RecordWithNamedFunction',
+  'RecordWithSinglePositionalFunction',
   'Reproduce869NullableGenericType',
   'Reproduce869NullableGenericTypeWithDefault',
-  'SameCtorAndPgSqlKeyDefaultValue',
+  'SameCtorAndJsonKeyDefaultValue',
   'SetSupport',
+  'SubclassedJsonKey',
   'SubType',
   'SubTypeWithAnnotatedFieldOverrideExtends',
   'SubTypeWithAnnotatedFieldOverrideExtendsWithOverrides',
   'SubTypeWithAnnotatedFieldOverrideImplements',
-  'SubclassedPgSqlKey',
-  'TearOffFromPgSqlClass',
-  'ToPgSqlNullableFalseIncludeIfNullFalse',
+  'TearOffFromJsonClass',
+  'theAnswer',
+  'ToJsonNullableFalseIncludeIfNullFalse',
   'TypedConvertMethods',
   'UnknownEnumValue',
   'UnknownEnumValueListWrongEnumType',
@@ -140,13 +176,24 @@ const _expectedAnnotatedTests = {
   'UnsupportedEnum',
   'UnsupportedListField',
   'UnsupportedMapField',
+  'UnsupportedNestedFunctionType',
+  'UnsupportedMapKeyRecord',
   'UnsupportedSetField',
   'UnsupportedUriField',
   'ValidToFromFuncClassStatic',
   'WithANonCtorGetter',
   'WithANonCtorGetterChecked',
   'WrongConstructorNameClass',
-  '_BetterPrivateNames',
-  'annotatedMethod',
-  'theAnswer',
+};
+
+const _expectedSchemaTests = {
+  'JsonSchemaDocsTest',
+  'JsonSchemaCollectionsTest',
+  'JsonSchemaDefaultsTest',
+  'JsonSchemaNullableTest',
+  'JsonSchemaNestedTest',
+  'JsonSchemaNonCollectionTest',
+  'JsonSchemaGetterTest',
+  'JsonSchemaRecursiveListTest',
+  'JsonSchemaRecursiveListIssue',
 };

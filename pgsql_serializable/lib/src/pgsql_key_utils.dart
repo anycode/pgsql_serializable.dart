@@ -3,41 +3,67 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
-import 'pgsql_literal_generator.dart';
+import 'json_literal_generator.dart';
 import 'shared_checkers.dart';
 import 'type_helpers/config_types.dart';
 import 'utils.dart';
 
-final _pgsqlKeyExpando = Expando<Map<ClassConfig, KeyConfig>>();
+final _jsonKeyExpando = Expando<Map<ClassConfig, KeyConfig>>();
 
-KeyConfig pgsqlKeyForField(FieldElement2 field, ClassConfig classAnnotation) =>
-    (_pgsqlKeyExpando[field] ??= Map.identity())[classAnnotation] ??= _from(
+KeyConfig jsonKeyForField(FieldElement field, ClassConfig classAnnotation) =>
+    (_jsonKeyExpando[field] ??= Map.identity())[classAnnotation] ??= _from(
       field,
       classAnnotation,
     );
 
-KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
-  // If an annotation exists on `element` the source is a 'real' field.
-  // If the result is `null`, check the getter – it is a property.
-  // TODO: setters: github.com/anycode/pgsql_serializable.dart/issues/24
-  final obj = pgsqlKeyAnnotation(element);
+KeyConfig _from(FieldElement element, ClassConfig classAnnotation) {
+  final obj = jsonKeyAnnotation(element);
+  final ctorParam = classAnnotation.ctorParams
+      .where((e) => e.name == element.name)
+      .singleOrNull;
+  final ctorObj = ctorParam == null
+      ? null
+      : jsonKeyAnnotationForCtorParam(ctorParam);
 
-  final ctorParamDefault = classAnnotation.ctorParamDefaults[element.name3];
+  ConstantReader fallbackObjRead(String field) {
+    if (ctorObj != null && !ctorObj.isNull) {
+      final ctorReadResult = ctorObj.read(field);
+      if (!ctorReadResult.isNull) {
+        final fieldReadResult = obj.isNull ? null : obj.read(field);
+        if (fieldReadResult != null &&
+            fieldReadResult.objectValue != ctorReadResult.objectValue) {
+          log.warning(
+            'Field `${element.name}` has conflicting `JsonKey.$field` '
+            'annotations: both constructor parameter and class field have '
+            'this annotation. Using constructor parameter value.',
+          );
+        }
 
-  if (obj.isNull) {
-    return _populatePgSqlKey(
+        return ctorReadResult;
+      }
+    }
+    if (obj.isNull) {
+      return ConstantReader(null);
+    }
+    return obj.read(field);
+  }
+
+  final ctorParamDefault = ctorParam?.defaultValueCode;
+
+  if (obj.isNull && (ctorObj == null || ctorObj.isNull)) {
+    return _populateJsonKey(
       classAnnotation,
       element,
       defaultValue: ctorParamDefault,
-      includeFromPgSql: classAnnotation.ignoreUnannotated ? false : null,
-      includeToPgSql: classAnnotation.ignoreUnannotated ? false : null,
+      includeFromJson: classAnnotation.ignoreUnannotated ? false : null,
+      includeToJson: classAnnotation.ignoreUnannotated ? false : null,
     );
   }
 
@@ -66,7 +92,7 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
       // literal, which is NOT supported!
       badType = 'Function';
     } else if (!reader.isLiteral) {
-      badType = dartObject.type!.element3?.name3;
+      badType = dartObject.type!.element?.name;
     }
 
     if (badType != null) {
@@ -110,7 +136,7 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
     throwUnsupported(
       element,
       'The provided value is not supported: $badType. '
-      'This may be an error in package:pgsql_serializable. '
+      'This may be an error in package:json_serializable. '
       'Please rerun your build with `--verbose` and file an issue.',
     );
   }
@@ -121,7 +147,7 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
   /// either the annotated field is not an `enum` or `List` or if the value in
   /// [fieldName] is not an `enum` value.
   String? createAnnotationValue(String fieldName, {bool mustBeEnum = false}) {
-    final annotationValue = obj.read(fieldName);
+    final annotationValue = fallbackObjRead(fieldName);
 
     if (annotationValue.isNull) {
       return null;
@@ -136,10 +162,10 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
       // the generated code will be invalid, so skipping until we're bored
       // later
 
-      final functionValue = objectValue.toFunctionValue2()!;
+      final functionValue = objectValue.toFunctionValue()!;
 
       final invokeConst =
-          functionValue is ConstructorElement2 && functionValue.isConst
+          functionValue is ConstructorElement && functionValue.isConst
           ? 'const '
           : '';
 
@@ -164,7 +190,7 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
         }
 
         if (_nullAsUnknownChecker.isExactlyType(annotationType)) {
-          return pgsqlKeyNullForUndefinedEnumValueFieldName;
+          return jsonKeyNullForUndefinedEnumValueFieldName;
         } else if (!_interfaceTypesEqual(annotationType, targetEnumType)) {
           throwUnsupported(
             element,
@@ -178,14 +204,14 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
 
       if (_nullAsUnknownChecker.isExactlyType(annotationType)) {
         throw InvalidGenerationSourceError(
-          '`$pgsqlKeyNullForUndefinedEnumValueFieldName` cannot be used with '
-          '`PgSqlKey.defaultValue`.',
+          '`$jsonKeyNullForUndefinedEnumValueFieldName` cannot be used with '
+          '`JsonKey.defaultValue`.',
           element: element,
         );
       }
 
       final enumValueNames = enumFields
-          .map((p) => p.name3!)
+          .map((p) => p.name!)
           .toList(growable: false);
 
       final enumValueName = enumValueForDartObject<String>(
@@ -194,7 +220,7 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
         (n) => n,
       );
 
-      return '${annotationType.element3!.name3}.$enumValueName';
+      return '${annotationType.element!.name}.$enumValueName';
     } else {
       final defaultValueLiteral = literalForObject(fieldName, objectValue, []);
       if (defaultValueLiteral == null) {
@@ -206,7 +232,7 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
           'The value provided for `$fieldName` must be a matching enum.',
         );
       }
-      return pgsqlLiteralAsDart(defaultValueLiteral);
+      return jsonLiteralAsDart(defaultValueLiteral);
     }
   }
 
@@ -214,87 +240,132 @@ KeyConfig _from(FieldElement2 element, ClassConfig classAnnotation) {
   if (defaultValue != null && ctorParamDefault != null) {
     if (defaultValue == ctorParamDefault) {
       log.info(
-        'The default value `$defaultValue` for `${element.name3!}` is defined '
-        'twice in the constructor and in the `PgSqlKey.defaultValue`.',
+        'The default value `$defaultValue` for `${element.name!}` is defined '
+        'twice in the constructor and in the `JsonKey.defaultValue`.',
       );
     } else {
       log.warning(
-        'The constructor parameter for `${element.name3!}` has a default value '
-        '`$ctorParamDefault`, but the `PgSqlKey.defaultValue` value '
-        '`$defaultValue` will be used for missing or `null` values in PgSQL '
+        'The constructor parameter for `${element.name!}` has a default value '
+        '`$ctorParamDefault`, but the `JsonKey.defaultValue` value '
+        '`$defaultValue` will be used for missing or `null` values in JSON '
         'decoding.',
       );
     }
   }
 
   String? readValueFunctionName;
-  final readValue = obj.read('readValue');
+  final readValue = fallbackObjRead('readValue');
   if (!readValue.isNull) {
     readValueFunctionName = readValue.objectValue
-        .toFunctionValue2()!
+        .toFunctionValue()!
         .qualifiedName;
   }
 
-  final ignore = obj.read('ignore').literalValue as bool?;
-  var includeFromPgSql = obj.read('includeFromPgSql').literalValue as bool?;
-  var includeToPgSql = obj.read('includeToPgSql').literalValue as bool?;
+  final ignore = fallbackObjRead('ignore').literalValue as bool?;
+  var includeFromJson =
+      fallbackObjRead('includeFromJson').literalValue as bool?;
+  var includeToJson = fallbackObjRead('includeToJson').literalValue as bool?;
 
   if (ignore != null) {
-    if (includeFromPgSql != null) {
+    if (includeFromJson != null) {
       throwUnsupported(
         element,
-        'Cannot use both `ignore` and `includeFromPgSql` on the same field. '
-        'Since `ignore` is deprecated, you should only use `includeFromPgSql`.',
+        'Cannot use both `ignore` and `includeFromJson` on the same field. '
+        'Since `ignore` is deprecated, you should only use `includeFromJson`.',
       );
     }
-    if (includeToPgSql != null) {
+    if (includeToJson != null) {
       throwUnsupported(
         element,
-        'Cannot use both `ignore` and `includeToPgSql` on the same field. '
-        'Since `ignore` is deprecated, you should only use `includeToPgSql`.',
+        'Cannot use both `ignore` and `includeToJson` on the same field. '
+        'Since `ignore` is deprecated, you should only use `includeToJson`.',
       );
     }
-    assert(includeFromPgSql == null && includeToPgSql == null);
-    includeToPgSql = includeFromPgSql = !ignore;
+    assert(includeFromJson == null && includeToJson == null);
+    includeToJson = includeFromJson = !ignore;
   }
 
-  return _populatePgSqlKey(
+  final explicitJsonNullWhenNonNullField =
+      fallbackObjRead('explicitJsonNullWhenNonNullField').literalValue as bool?;
+
+  return _populateJsonKey(
     classAnnotation,
     element,
     defaultValue: defaultValue ?? ctorParamDefault,
-    disallowNullValue: obj.read('disallowNullValue').literalValue as bool?,
-    includeIfNull: obj.read('includeIfNull').literalValue as bool?,
-    name: obj.read('name').literalValue as String?,
+    disallowNullValue:
+        fallbackObjRead('disallowNullValue').literalValue as bool?,
+    explicitJsonNullWhenNonNullField: explicitJsonNullWhenNonNullField,
+    includeIfNull: fallbackObjRead('includeIfNull').literalValue as bool?,
+    name: fallbackObjRead('name').literalValue as String?,
     readValueFunctionName: readValueFunctionName,
-    required: obj.read('required').literalValue as bool?,
+    required: fallbackObjRead('required').literalValue as bool?,
     unknownEnumValue: createAnnotationValue(
       'unknownEnumValue',
       mustBeEnum: true,
     ),
-    includeToPgSql: includeToPgSql,
-    includeFromPgSql: includeFromPgSql,
+    includeToJson: includeToJson,
+    includeFromJson: includeFromJson,
   );
 }
 
-KeyConfig _populatePgSqlKey(
+KeyConfig _populateJsonKey(
   ClassConfig classAnnotation,
-  FieldElement2 element, {
+  FieldElement element, {
   required String? defaultValue,
   bool? disallowNullValue,
+  bool? explicitJsonNullWhenNonNullField,
   bool? includeIfNull,
   String? name,
   String? readValueFunctionName,
   bool? required,
   String? unknownEnumValue,
-  bool? includeToPgSql,
-  bool? includeFromPgSql,
+  bool? includeToJson,
+  bool? includeFromJson,
 }) {
   if (disallowNullValue == true) {
     if (includeIfNull == true) {
       throwUnsupported(
         element,
         'Cannot set both `disallowNullValue` and `includeIfNull` to `true`. '
-        'This leads to incompatible `toPgSql` and `fromPgSql` behavior.',
+        'This leads to incompatible `toJson` and `fromJson` behavior.',
+      );
+    }
+  }
+
+  if (explicitJsonNullWhenNonNullField == true) {
+    if (!element.type.isNullableType) {
+      throwUnsupported(
+        element,
+        'Fields with `explicitJsonNullWhenNonNullField` must be nullable so '
+        'a missing JSON key can be represented as Dart `null`.',
+      );
+    }
+    if (disallowNullValue == true) {
+      throwUnsupported(
+        element,
+        'Cannot set both `explicitJsonNullWhenNonNullField` and '
+        '`disallowNullValue` to `true`.',
+      );
+    }
+    if (required == true) {
+      throwUnsupported(
+        element,
+        'Cannot set both `explicitJsonNullWhenNonNullField` and `required` to '
+        '`true`.',
+      );
+    }
+    if (defaultValue != null) {
+      throwUnsupported(
+        element,
+        'Cannot set `defaultValue` when `explicitJsonNullWhenNonNullField` is '
+        '`true`.',
+      );
+    }
+    if (readValueFunctionName != null) {
+      throwUnsupported(
+        element,
+        'Cannot set `readValue` when `explicitJsonNullWhenNonNullField` is '
+        '`true`.',
       );
     }
   }
@@ -302,17 +373,18 @@ KeyConfig _populatePgSqlKey(
   return KeyConfig(
     defaultValue: defaultValue,
     disallowNullValue: disallowNullValue ?? false,
+    explicitJsonNullWhenNonNullField: explicitJsonNullWhenNonNullField ?? false,
     includeIfNull: _includeIfNull(
       includeIfNull,
       disallowNullValue,
       classAnnotation.includeIfNull,
     ),
-    name: name ?? encodedFieldName(classAnnotation.fieldRename, element.name3!),
+    name: name ?? encodedFieldName(classAnnotation.fieldRename, element.name!),
     readValueFunctionName: readValueFunctionName,
     required: required ?? false,
     unknownEnumValue: unknownEnumValue,
-    includeFromPgSql: includeFromPgSql,
-    includeToPgSql: includeToPgSql,
+    includeFromJson: includeFromJson,
+    includeToJson: includeToJson,
   );
 }
 
@@ -331,14 +403,15 @@ bool _includeIfNull(
 bool _interfaceTypesEqual(DartType a, DartType b) {
   if (a is InterfaceType && b is InterfaceType) {
     // Handle nullability case. Pretty sure this is fine for enums.
-    return a.element3 == b.element3;
+    return a.element == b.element;
   }
   return a == b;
 }
 
-const pgsqlKeyNullForUndefinedEnumValueFieldName =
-    'PgSqlKey.nullForUndefinedEnumValue';
+const jsonKeyNullForUndefinedEnumValueFieldName =
+    'JsonKey.nullForUndefinedEnumValue';
 
-final _nullAsUnknownChecker = TypeChecker.fromRuntime(
-  PgSqlKey.nullForUndefinedEnumValue.runtimeType,
+final _nullAsUnknownChecker = TypeChecker.typeNamed(
+  JsonKey.nullForUndefinedEnumValue.runtimeType,
+  inPackage: 'json_annotation',
 );

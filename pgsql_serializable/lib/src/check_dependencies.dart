@@ -11,11 +11,11 @@ import 'package:pubspec_parse/pubspec_parse.dart';
 import 'constants.dart';
 
 const _productionDirectories = {'lib', 'bin'};
-const _annotationPkgName = 'pgsql_annotation';
+const _annotationPkgName = 'json_annotation';
 final _supportLanguageRange = VersionConstraint.parse(
   supportedLanguageConstraint,
 );
-final requiredPgSqlAnnotationMinVersion = Version.parse('4.9.0');
+final requiredJsonAnnotationMinVersion = Version.parse('4.12.0');
 
 Future<void> pubspecHasRightVersion(BuildStep buildStep) async {
   final segments = buildStep.inputId.pathSegments;
@@ -92,12 +92,12 @@ String? _checkAnnotationConstraint(
       if (dependency == null) {
         return 'You are missing a required dependency on $_annotationPkgName '
             'with a lower bound of at least '
-            '"$requiredPgSqlAnnotationMinVersion".';
+            '"$requiredJsonAnnotationMinVersion".';
       }
     } else {
       return 'You are missing a required dependency on $_annotationPkgName in '
           'the "dependencies" section of your pubspec with a lower bound of at '
-          'least "$requiredPgSqlAnnotationMinVersion".';
+          'least "$requiredJsonAnnotationMinVersion".';
     }
   }
 
@@ -114,17 +114,17 @@ String? _checkAnnotationConstraint(
 
   final constraintTooLowMessage =
       'The version constraint "$constraint" on $_annotationPkgName allows '
-      'versions before $requiredPgSqlAnnotationMinVersion which is not '
+      'versions before $requiredJsonAnnotationMinVersion which is not '
       'allowed.';
 
-  if (constraint is Version && constraint < requiredPgSqlAnnotationMinVersion) {
+  if (constraint is Version && constraint < requiredJsonAnnotationMinVersion) {
     return constraintTooLowMessage;
   }
 
   final range = constraint as VersionRange;
   final rangeMin = range.min;
 
-  if (rangeMin == null || rangeMin < requiredPgSqlAnnotationMinVersion) {
+  if (rangeMin == null || rangeMin < requiredJsonAnnotationMinVersion) {
     return constraintTooLowMessage;
   }
 

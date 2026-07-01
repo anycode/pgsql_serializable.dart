@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'type_helper.dart';
 import 'type_helpers/big_int_helper.dart';
@@ -13,8 +13,8 @@ import 'type_helpers/duration_helper.dart';
 import 'type_helpers/enum_helper.dart';
 import 'type_helpers/generic_factory_helper.dart';
 import 'type_helpers/iterable_helper.dart';
-import 'type_helpers/pgsql_converter_helper.dart';
-import 'type_helpers/pgsql_helper.dart';
+import 'type_helpers/json_converter_helper.dart';
+import 'type_helpers/json_helper.dart';
 import 'type_helpers/map_helper.dart';
 import 'type_helpers/record_helper.dart';
 import 'type_helpers/uri_helper.dart';
@@ -33,7 +33,7 @@ class Settings {
     BigIntHelper(),
     DateTimeHelper(),
     DurationHelper(),
-    PgSqlHelper(),
+    JsonHelper(),
     UriHelper(),
   ];
 
@@ -41,7 +41,7 @@ class Settings {
 
   Iterable<TypeHelper> get allHelpers => const <TypeHelper>[
     ConvertHelper(),
-    PgSqlConverterHelper(),
+    JsonConverterHelper(),
     GenericFactoryHelper(),
   ].followedBy(_typeHelpers).followedBy(_coreHelpers);
 
@@ -50,11 +50,11 @@ class Settings {
   /// Creates an instance of [Settings].
   ///
   /// If [typeHelpers] is not provided, the built-in helpers are used:
-  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
+  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [JsonHelper], and
   /// [UriHelper].
-  Settings({PgSqlSerializable? config, List<TypeHelper>? typeHelpers})
+  Settings({required JsonSerializable? config, List<TypeHelper>? typeHelpers})
     : config = config != null
-          ? ClassConfig.fromPgSqlSerializable(config)
+          ? ClassConfig.fromJsonSerializable(config)
           : ClassConfig.defaults,
       _typeHelpers = typeHelpers ?? defaultHelpers;
 
@@ -62,11 +62,11 @@ class Settings {
   ///
   /// [typeHelpers] provides a set of [TypeHelper] that will be used along with
   /// the built-in helpers:
-  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
+  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [JsonHelper], and
   /// [UriHelper].
   factory Settings.withDefaultHelpers(
     Iterable<TypeHelper> typeHelpers, {
-    PgSqlSerializable? config,
+    JsonSerializable? config,
   }) => Settings(
     config: config,
     typeHelpers: List.unmodifiable(typeHelpers.followedBy(defaultHelpers)),

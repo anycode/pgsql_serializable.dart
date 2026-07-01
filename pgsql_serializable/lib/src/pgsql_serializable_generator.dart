@@ -2,9 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'generator_helper.dart';
@@ -13,39 +13,40 @@ import 'type_helper.dart';
 import 'type_helpers/big_int_helper.dart';
 import 'type_helpers/date_time_helper.dart';
 import 'type_helpers/duration_helper.dart';
-import 'type_helpers/pgsql_helper.dart';
+import 'type_helpers/json_helper.dart';
 import 'type_helpers/uri_helper.dart';
 
-class PgSqlSerializableGenerator
-    extends GeneratorForAnnotation<PgSqlSerializable> {
+class JsonSerializableGenerator
+    extends GeneratorForAnnotation<JsonSerializable> {
   final Settings _settings;
 
-  PgSqlSerializable get config => _settings.config.toPgSqlSerializable();
+  JsonSerializable get config => _settings.config.toJsonSerializable();
 
-  PgSqlSerializableGenerator.fromSettings(this._settings);
+  JsonSerializableGenerator.fromSettings(this._settings)
+    : super(inPackage: 'json_annotation');
 
-  /// Creates an instance of [PgSqlSerializableGenerator].
+  /// Creates an instance of [JsonSerializableGenerator].
   ///
   /// If [typeHelpers] is not provided, the built-in helpers are used:
-  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
+  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [JsonHelper], and
   /// [UriHelper].
-  factory PgSqlSerializableGenerator({
-    PgSqlSerializable? config,
+  factory JsonSerializableGenerator({
+    JsonSerializable? config,
     List<TypeHelper>? typeHelpers,
-  }) => PgSqlSerializableGenerator.fromSettings(
+  }) => JsonSerializableGenerator.fromSettings(
     Settings(config: config, typeHelpers: typeHelpers),
   );
 
-  /// Creates an instance of [PgSqlSerializableGenerator].
+  /// Creates an instance of [JsonSerializableGenerator].
   ///
   /// [typeHelpers] provides a set of [TypeHelper] that will be used along with
   /// the built-in helpers:
-  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [PgSqlHelper], and
+  /// [BigIntHelper], [DateTimeHelper], [DurationHelper], [JsonHelper], and
   /// [UriHelper].
-  factory PgSqlSerializableGenerator.withDefaultHelpers(
+  factory JsonSerializableGenerator.withDefaultHelpers(
     Iterable<TypeHelper> typeHelpers, {
-    PgSqlSerializable? config,
-  }) => PgSqlSerializableGenerator(
+    JsonSerializable? config,
+  }) => JsonSerializableGenerator(
     config: config,
     typeHelpers: List.unmodifiable(
       typeHelpers.followedBy(Settings.defaultHelpers),
@@ -54,13 +55,13 @@ class PgSqlSerializableGenerator
 
   @override
   Iterable<String> generateForAnnotatedElement(
-    Element2 element,
+    Element element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) {
-    if (element is! ClassElement2 || element is EnumElement2) {
+    if (element is! ClassElement || element is EnumElement) {
       throw InvalidGenerationSourceError(
-        '`@PgSqlSerializable` can only be used on classes.',
+        '`@JsonSerializable` can only be used on classes.',
         element: element,
       );
     }

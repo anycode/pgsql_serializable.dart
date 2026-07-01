@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -11,16 +11,18 @@ import 'decode_helper.dart';
 import 'encoder_helper.dart';
 import 'field_helpers.dart';
 import 'helper_core.dart';
+import 'schema_helper.dart';
 import 'settings.dart';
 import 'utils.dart';
 
-class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
+class GeneratorHelper extends HelperCore
+    with EncodeHelper, DecodeHelper, SchemaHelper {
   final Settings _generator;
   final _addedMembers = <String>{};
 
   GeneratorHelper(
     this._generator,
-    ClassElement2 element,
+    ClassElement element,
     ConstantReader annotation,
   ) : super(
         element,
@@ -38,10 +40,10 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
   Iterable<String> generate() sync* {
     assert(_addedMembers.isEmpty);
 
-    if (config.genericArgumentFactories && element.typeParameters2.isEmpty) {
+    if (config.genericArgumentFactories && element.typeParameters.isEmpty) {
       log.warning(
         'The class `${element.displayName}` is annotated '
-        'with `PgSqlSerializable` field `genericArgumentFactories: true`. '
+        'with `JsonSerializable` field `genericArgumentFactories: true`. '
         '`genericArgumentFactories: true` only affects classes with type '
         'parameters. For classes without type parameters, the option is '
         'ignored.',
@@ -55,24 +57,24 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
     // these fields.
     final unavailableReasons = <String, String>{};
 
-    final accessibleFields = sortedFields.fold<Map<String, FieldElement2>>(
-      <String, FieldElement2>{},
+    final accessibleFields = sortedFields.fold<Map<String, FieldElement>>(
+      <String, FieldElement>{},
       (map, field) {
-        final pgsqlKey = pgsqlKeyFor(field);
-        if (!field.isPublic && !pgsqlKey.explicitYesFromPgSql) {
-          unavailableReasons[field.name3!] =
+        final jsonKey = jsonKeyFor(field);
+        if (!field.isPublic && !jsonKey.explicitYesFromJson) {
+          unavailableReasons[field.name!] =
               'It is assigned to a private field.';
-        } else if (field.getter2 == null) {
-          assert(field.setter2 != null);
-          unavailableReasons[field.name3!] =
+        } else if (field.getter == null) {
+          assert(field.setter != null);
+          unavailableReasons[field.name!] =
               'Setter-only properties are not supported.';
-          log.warning('Setters are ignored: ${element.name3!}.${field.name3!}');
-        } else if (pgsqlKey.explicitNoFromPgSql) {
-          unavailableReasons[field.name3!] =
-              'It is assigned to a field not meant to be used in fromPgSql.';
+          log.warning('Setters are ignored: ${element.name}.${field.name}');
+        } else if (jsonKey.explicitNoFromJson) {
+          unavailableReasons[field.name!] =
+              'It is assigned to a field not meant to be used in fromJson.';
         } else {
-          assert(!map.containsKey(field.name3));
-          map[field.name3!] = field;
+          assert(!map.containsKey(field.name));
+          map[field.name!] = field;
         }
 
         return map;
@@ -90,10 +92,10 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
           .toList();
 
       // Need to add candidates BACK even if they are not used in the factory if
-      // they are forced to be used for toPgSQL
+      // they are forced to be used for toJSON
       for (var candidate in sortedFields.where(
         (element) =>
-            pgsqlKeyFor(element).explicitYesToPgSql &&
+            jsonKeyFor(element).explicitYesToJson &&
             !fieldsToUse.contains(element),
       )) {
         fieldsToUse.add(candidate);
@@ -108,15 +110,15 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
     }
 
     accessibleFieldSet
-      ..removeWhere((element) => pgsqlKeyFor(element).explicitNoToPgSql)
-      // Check for duplicate PgSQL keys due to colliding annotations.
-      // We do this now, since we have a final field list after any pruning done
-      // by `_writeCtor`.
+      ..removeWhere((element) => jsonKeyFor(element).explicitNoToJson)
+      // Check for duplicate JSON keys due to colliding annotations. We do this
+      // now, since we have a final field list after any pruning done by
+      // `_writeCtor`.
       ..fold(<String>{}, (Set<String> set, fe) {
-        final pgsqlKey = nameAccess(fe);
-        if (!set.add(pgsqlKey)) {
+        final jsonKey = nameAccess(fe);
+        if (!set.add(jsonKey)) {
           throw InvalidGenerationSourceError(
-            'More than one field has the PgSQL key for name "$pgsqlKey".',
+            'More than one field has the JSON key for name "$jsonKey".',
             element: fe,
           );
         }
@@ -127,28 +129,22 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
       yield createFieldMap(accessibleFieldSet);
     }
 
-    if (config.createPgSqlKeys) {
-      yield createPgSqlKeys(accessibleFieldSet);
+    if (config.createJsonKeys) {
+      yield createJsonKeys(accessibleFieldSet);
     }
 
-    if (config.createPerFieldToPgSql) {
-      yield createPerFieldToPgSql(accessibleFieldSet);
+    if (config.createPerFieldToJson) {
+      yield createPerFieldToJson(accessibleFieldSet);
     }
 
-    if (config.createToPgSql) {
-      yield* createToPgSql(accessibleFieldSet);
+    if (config.createToJson) {
+      yield* createToJson(accessibleFieldSet);
+    }
+
+    if (config.createJsonSchema) {
+      yield createJsonSchema();
     }
 
     yield* _addedMembers;
   }
-}
-
-extension on KeyConfig {
-  bool get explicitYesFromPgSql => includeFromPgSql == true;
-
-  bool get explicitNoFromPgSql => includeFromPgSql == false;
-
-  bool get explicitYesToPgSql => includeToPgSql == true;
-
-  bool get explicitNoToPgSql => includeToPgSql == false;
 }

@@ -2,15 +2,16 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
 import 'helper_core.dart';
-import 'pgsql_literal_generator.dart';
+import 'json_literal_generator.dart';
 import 'type_helpers/generic_factory_helper.dart';
+import 'type_helpers/patch_tri_state_helper.dart';
 import 'unsupported_type_error.dart';
 import 'utils.dart';
 
@@ -23,7 +24,7 @@ class CreateFactoryResult {
 
 mixin DecodeHelper implements HelperCore {
   CreateFactoryResult createFactory(
-    Map<String, FieldElement2> accessibleFields,
+    Map<String, FieldElement> accessibleFields,
     Map<String, String> unavailableReasons,
   ) {
     assert(config.createFactory);
@@ -32,26 +33,26 @@ mixin DecodeHelper implements HelperCore {
     final mapType = config.anyMap ? 'Map' : 'Map<String, dynamic>';
     buffer.write(
       '$targetClassReference '
-      '${prefix}FromPgSql${genericClassArgumentsImpl(withConstraints: true)}'
-      '($mapType pgsql',
+      '${prefix}FromJson${genericClassArgumentsImpl(withConstraints: true)}'
+      '($mapType json',
     );
 
     if (config.genericArgumentFactories) {
-      for (var arg in element.typeParameters2) {
-        final helperName = fromPgSqlForType(
+      for (var arg in element.typeParameters) {
+        final helperName = fromJsonForType(
           arg.instantiate(nullabilitySuffix: NullabilitySuffix.none),
         );
 
-        buffer.write(', ${arg.name3} Function(Object? pgsql) $helperName');
+        buffer.write(', ${arg.name} Function(Object? json) $helperName');
       }
-      if (element.typeParameters2.isNotEmpty) {
+      if (element.typeParameters.isNotEmpty) {
         buffer.write(',');
       }
     }
 
     buffer.write(')');
 
-    final fromPgSqlLines = <String>[];
+    final fromJsonLines = <String>[];
 
     String deserializeFun(
       String paramOrFieldName, {
@@ -68,13 +69,13 @@ mixin DecodeHelper implements HelperCore {
       accessibleFields.values
           .where(
             (fe) =>
-                element.lookUpSetter2(
-                  name: fe.name3!,
-                  library: element.library2,
+                element.lookUpSetter(
+                  name: fe.name!,
+                  library: element.library,
                 ) !=
                 null,
           )
-          .map((fe) => fe.name3!)
+          .map((fe) => fe.name!)
           .toList(),
       unavailableReasons,
       deserializeFun,
@@ -82,18 +83,18 @@ mixin DecodeHelper implements HelperCore {
 
     final checks = _checkKeys(
       accessibleFields.values.where(
-        (fe) => data.usedCtorParamsAndFields.contains(fe.name3),
+        (fe) => data.usedCtorParamsAndFields.contains(fe.name),
       ),
     ).toList();
 
     if (config.checked) {
-      final classLiteral = escapeDartString(element.name3!);
+      final classLiteral = escapeDartString(element.name!);
 
       final sectionBuffer = StringBuffer()
         ..write('''
   \$checkedCreate(
     $classLiteral,
-    pgsql,
+    json,
     (\$checkedConvert) {\n''')
         ..write(checks.join())
         ..write('''
@@ -109,7 +110,7 @@ mixin DecodeHelper implements HelperCore {
           ..write('val.$fieldName = ')
           ..write(_deserializeForField(fieldValue, checkedProperty: true));
 
-        final readValueFunc = pgsqlKeyFor(fieldValue).readValueFunctionName;
+        final readValueFunc = jsonKeyFor(fieldValue).readValueFunctionName;
         if (readValueFunc != null) {
           sectionBuffer.writeln(',readValue: $readValueFunc,');
         }
@@ -130,16 +131,16 @@ mixin DecodeHelper implements HelperCore {
       if (fieldKeyMap.isEmpty) {
         fieldKeyMapArg = '';
       } else {
-        final mapLiteral = pgsqlMapAsDart(fieldKeyMap);
+        final mapLiteral = jsonMapAsDart(fieldKeyMap);
         fieldKeyMapArg = ', fieldKeyMap: const $mapLiteral';
       }
 
       sectionBuffer
         ..write(fieldKeyMapArg)
         ..write(',);');
-      fromPgSqlLines.add(sectionBuffer.toString());
+      fromJsonLines.add(sectionBuffer.toString());
     } else {
-      fromPgSqlLines.addAll(checks);
+      fromJsonLines.addAll(checks);
 
       final sectionBuffer = StringBuffer()
         ..write('''
@@ -151,30 +152,30 @@ mixin DecodeHelper implements HelperCore {
           ..write(deserializeFun(field));
       }
       sectionBuffer.writeln(';');
-      fromPgSqlLines.add(sectionBuffer.toString());
+      fromJsonLines.add(sectionBuffer.toString());
     }
 
-    if (fromPgSqlLines.length == 1) {
+    if (fromJsonLines.length == 1) {
       buffer
         ..write('=>')
-        ..write(fromPgSqlLines.single);
+        ..write(fromJsonLines.single);
     } else {
       buffer
         ..write('{')
-        ..writeAll(fromPgSqlLines.take(fromPgSqlLines.length - 1))
+        ..writeAll(fromJsonLines.take(fromJsonLines.length - 1))
         ..write('return ')
-        ..write(fromPgSqlLines.last)
+        ..write(fromJsonLines.last)
         ..write('}');
     }
 
     return CreateFactoryResult(buffer.toString(), data.usedCtorParamsAndFields);
   }
 
-  Iterable<String> _checkKeys(Iterable<FieldElement2> accessibleFields) sync* {
+  Iterable<String> _checkKeys(Iterable<FieldElement> accessibleFields) sync* {
     final args = <String>[];
 
-    String constantList(Iterable<FieldElement2> things) =>
-        'const ${pgsqlLiteralAsDart(things.map<String>(nameAccess).toList())}';
+    String constantList(Iterable<FieldElement> things) =>
+        'const ${jsonLiteralAsDart(things.map<String>(nameAccess).toList())}';
 
     if (config.disallowUnrecognizedKeys) {
       final allowKeysLiteral = constantList(accessibleFields);
@@ -183,7 +184,7 @@ mixin DecodeHelper implements HelperCore {
     }
 
     final requiredKeys = accessibleFields
-        .where((fe) => pgsqlKeyFor(fe).required)
+        .where((fe) => jsonKeyFor(fe).required)
         .toList();
     if (requiredKeys.isNotEmpty) {
       final requiredKeyLiteral = constantList(requiredKeys);
@@ -192,7 +193,7 @@ mixin DecodeHelper implements HelperCore {
     }
 
     final disallowNullKeys = accessibleFields
-        .where((fe) => pgsqlKeyFor(fe).disallowNullValue)
+        .where((fe) => jsonKeyFor(fe).disallowNullValue)
         .toList();
     if (disallowNullKeys.isNotEmpty) {
       final disallowNullKeyLiteral = constantList(disallowNullKeys);
@@ -201,37 +202,60 @@ mixin DecodeHelper implements HelperCore {
     }
 
     if (args.isNotEmpty) {
-      yield '\$checkKeys(pgsql, ${args.map((e) => '$e, ').join()});\n';
+      yield '\$checkKeys(json, ${args.map((e) => '$e, ').join()});\n';
     }
   }
 
   /// If [checkedProperty] is `true`, we're using this function to write to a
   /// setter.
   String _deserializeForField(
-    FieldElement2 field, {
+    FieldElement field, {
     FormalParameterElement? ctorParam,
     bool checkedProperty = false,
   }) {
-    final pgsqlKeyName = safeNameAccess(field);
+    final jsonKeyName = safeNameAccess(field);
     final targetType = ctorParam?.type ?? field.type;
     final contextHelper = getHelperContext(field);
-    final pgsqlKey = pgsqlKeyFor(field);
-    final defaultValue = pgsqlKey.defaultValue;
-    final readValueFunc = pgsqlKey.readValueFunctionName;
+    final jsonKey = jsonKeyFor(field);
+    final defaultValue = jsonKey.defaultValue;
+    final readValueFunc = jsonKey.readValueFunctionName;
+    final patchTriState = usesExplicitJsonNullWhenNonNullField(jsonKey);
 
-    String deserialize(String expression) => contextHelper
-        .deserialize(targetType, expression, defaultValue: defaultValue)
-        .toString();
+    String deserialize(String expression, {bool patchPresentValue = false}) =>
+        (patchPresentValue
+                ? contextHelper.deserializePresentJsonValue(
+                    targetType,
+                    expression,
+                    defaultValue: defaultValue,
+                  )
+                : contextHelper.deserialize(
+                    targetType,
+                    expression,
+                    defaultValue: defaultValue,
+                  ))
+            .toString();
 
     String value;
     try {
       if (config.checked) {
-        value = deserialize('v');
+        final deserializeV = deserialize('v');
+        if (patchTriState) {
+          validateExplicitJsonNullDeserialize(field, contextHelper, targetType);
+          final triStateBody = wrapPatchTriStateCheckedConvert(
+            mapExpression: 'json',
+            jsonKeyName: jsonKeyName,
+            absentExpression: 'null',
+            presentExpression: deserialize('v', patchPresentValue: true),
+          );
+          value = triStateBody;
+        } else {
+          value = deserializeV;
+        }
         if (!checkedProperty) {
           final readValueBit = readValueFunc == null
               ? ''
               : ',readValue: $readValueFunc,';
-          value = '\$checkedConvert($pgsqlKeyName, (v) => $value$readValueBit)';
+          value = '\$checkedConvert($jsonKeyName, (v) => $value$readValueBit)';
         }
       } else {
         assert(
@@ -239,21 +263,36 @@ mixin DecodeHelper implements HelperCore {
           'should only be true if `_generator.checked` is true.',
         );
 
-        value = deserialize(
-          readValueFunc == null
-              ? 'pgsql[$pgsqlKeyName]'
-              : '$readValueFunc(pgsql, $pgsqlKeyName)',
+        final jsonValueExpression = readValueFunc == null
+            ? 'json[$jsonKeyName]'
+            : '$readValueFunc(json, $jsonKeyName)';
+
+        final deserializeValue = deserialize(
+          jsonValueExpression,
+          patchPresentValue: patchTriState,
         );
+
+        if (patchTriState) {
+          validateExplicitJsonNullDeserialize(field, contextHelper, targetType);
+          value = wrapPatchTriStateFromJson(
+            mapExpression: 'json',
+            jsonKeyName: jsonKeyName,
+            absentExpression: 'null',
+            presentExpression: deserializeValue,
+          );
+        } else {
+          value = deserializeValue;
+        }
       }
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('fromPgSql', field, e);
+      throw createInvalidGenerationError('fromJson', field, e);
     }
 
     if (defaultValue != null) {
-      if (pgsqlKey.disallowNullValue && pgsqlKey.required) {
+      if (jsonKey.disallowNullValue && jsonKey.required) {
         log.warning(
-          'The `defaultValue` on field `${field.name3}` will have no '
+          'The `defaultValue` on field `${field.name}` will have no '
           'effect because both `disallowNullValue` and `required` are set to '
           '`true`.',
         );
@@ -274,7 +313,7 @@ mixin DecodeHelper implements HelperCore {
 /// [writableFields] are also populated, but only if they have not already
 /// been defined by a constructor parameter with the same name.
 _ConstructorData _writeConstructorInvocation(
-  ClassElement2 classElement,
+  ClassElement classElement,
   String constructorName,
   Iterable<String> availableConstructorParameters,
   Iterable<String> writableFields,
@@ -282,7 +321,7 @@ _ConstructorData _writeConstructorInvocation(
   String Function(String paramOrFieldName, {FormalParameterElement ctorParam})
   deserializeForField,
 ) {
-  final className = classElement.name3;
+  final className = classElement.name;
 
   final ctor = constructorByName(classElement, constructorName);
 
@@ -291,13 +330,13 @@ _ConstructorData _writeConstructorInvocation(
   final namedConstructorArguments = <FormalParameterElement>[];
 
   for (final arg in ctor.formalParameters) {
-    if (!availableConstructorParameters.contains(arg.name3)) {
+    if (!availableConstructorParameters.contains(arg.name)) {
       if (arg.isRequired) {
         var msg =
             'Cannot populate the required constructor '
-            'argument: ${arg.name3}.';
+            'argument: ${arg.name}.';
 
-        final additionalInfo = unavailableReasons[arg.name3];
+        final additionalInfo = unavailableReasons[arg.name];
 
         if (additionalInfo != null) {
           msg = '$msg $additionalInfo';
@@ -315,7 +354,7 @@ _ConstructorData _writeConstructorInvocation(
     } else {
       constructorArguments.add(arg);
     }
-    usedCtorParamsAndFields.add(arg.name3!);
+    usedCtorParamsAndFields.add(arg.name!);
   }
 
   // fields that aren't already set by the constructor and that aren't final
@@ -334,7 +373,7 @@ _ConstructorData _writeConstructorInvocation(
     ..writeAll(
       constructorArguments.map((paramElement) {
         final content = deserializeForField(
-          paramElement.name3!,
+          paramElement.name!,
           ctorParam: paramElement,
         );
         return '      $content,\n';
@@ -343,10 +382,10 @@ _ConstructorData _writeConstructorInvocation(
     ..writeAll(
       namedConstructorArguments.map((paramElement) {
         final value = deserializeForField(
-          paramElement.name3!,
+          paramElement.name!,
           ctorParam: paramElement,
         );
-        return '      ${paramElement.name3!}: $value,\n';
+        return '      ${paramElement.name!}: $value,\n';
       }),
     )
     ..write(')');

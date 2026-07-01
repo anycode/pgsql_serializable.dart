@@ -3,33 +3,42 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
 import 'shared_checkers.dart';
 import 'type_helpers/config_types.dart';
 
-const _pgsqlKeyChecker = TypeChecker.fromRuntime(PgSqlKey);
+const _jsonKeyChecker = TypeChecker.typeNamed(
+  JsonKey,
+  inPackage: 'json_annotation',
+);
 
-DartObject? _pgsqlKeyAnnotation(FieldElement2 element) =>
-    _pgsqlKeyChecker.firstAnnotationOf(element) ??
-    (element.getter2 == null
+/// If an annotation exists on `element` the source is a 'real' field.
+/// If the result is `null`, check the getter – it is a property.
+// TODO: setters: github.com/google/json_serializable.dart/issues/24
+DartObject? _jsonKeyAnnotation(FieldElement element) =>
+    _jsonKeyChecker.firstAnnotationOf(element) ??
+    (element.getter == null
         ? null
-        : _pgsqlKeyChecker.firstAnnotationOf(element.getter2!));
+        : _jsonKeyChecker.firstAnnotationOf(element.getter!));
 
-ConstantReader pgsqlKeyAnnotation(FieldElement2 element) =>
-    ConstantReader(_pgsqlKeyAnnotation(element));
+ConstantReader jsonKeyAnnotation(FieldElement element) =>
+    ConstantReader(_jsonKeyAnnotation(element));
 
-/// Returns `true` if [element] is annotated with [PgSqlKey].
-bool hasPgSqlKeyAnnotation(FieldElement2 element) =>
-    _pgsqlKeyAnnotation(element) != null;
+/// Returns `true` if [element] is annotated with [JsonKey].
+bool hasJsonKeyAnnotation(FieldElement element) =>
+    _jsonKeyAnnotation(element) != null;
 
-Never throwUnsupported(FieldElement2 element, String message) =>
+ConstantReader jsonKeyAnnotationForCtorParam(FormalParameterElement element) =>
+    ConstantReader(_jsonKeyChecker.firstAnnotationOf(element));
+
+Never throwUnsupported(FieldElement element, String message) =>
     throw InvalidGenerationSourceError(
-      'Error with `@PgSqlKey` on the `${element.name3}` field. $message',
+      'Error with `@JsonKey` on the `${element.name}` field. $message',
       element: element,
     );
 
@@ -44,46 +53,47 @@ T enumValueForDartObject<T>(
   String Function(T) name,
 ) => items[source.getField('index')!.toIntValue()!];
 
-/// Return an instance of [PgSqlSerializable] corresponding to the provided
+/// Return an instance of [JsonSerializable] corresponding to the provided
 /// [reader].
-// #CHANGE WHEN UPDATING pgsql_annotation
-PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializable(
+// #CHANGE WHEN UPDATING json_annotation
+JsonSerializable _valueForAnnotation(ConstantReader reader) => JsonSerializable(
   anyMap: reader.read('anyMap').literalValue as bool?,
   checked: reader.read('checked').literalValue as bool?,
   constructor: reader.read('constructor').literalValue as String?,
   createFactory: reader.read('createFactory').literalValue as bool?,
-  createToPgSql: reader.read('createToPgSql').literalValue as bool?,
+  createToJson: reader.read('createToJson').literalValue as bool?,
   createFieldMap: reader.read('createFieldMap').literalValue as bool?,
-  enumMapPrefix: reader.read('enumMapPrefix').literalValue as String?,
-  createPgSqlKeys: reader.read('createPgSqlKeys').literalValue as bool?,
-  createPerFieldToPgSql:
-      reader.read('createPerFieldToPgSql').literalValue as bool?,
+  createJsonKeys: reader.read('createJsonKeys').literalValue as bool?,
+  createPerFieldToJson:
+      reader.read('createPerFieldToJson').literalValue as bool?,
+  dateTimeUtc: reader.read('dateTimeUtc').literalValue as bool?,
   disallowUnrecognizedKeys:
       reader.read('disallowUnrecognizedKeys').literalValue as bool?,
-  explicitToPgSql: reader.read('explicitToPgSql').literalValue as bool?,
+  explicitToJson: reader.read('explicitToJson').literalValue as bool?,
   fieldRename: readEnum(reader.read('fieldRename'), FieldRename.values),
   genericArgumentFactories:
       reader.read('genericArgumentFactories').literalValue as bool?,
   ignoreUnannotated: reader.read('ignoreUnannotated').literalValue as bool?,
   includeIfNull: reader.read('includeIfNull').literalValue as bool?,
+  createJsonSchema: reader.read('createJsonSchema').literalValue as bool?,
 );
 
-/// Returns a [ClassConfig] with values from the [PgSqlSerializable]
+/// Returns a [ClassConfig] with values from the [JsonSerializable]
 /// instance represented by [reader].
 ///
-/// For fields that are not defined in [PgSqlSerializable] or `null` in [reader],
+/// For fields that are not defined in [JsonSerializable] or `null` in [reader],
 /// use the values in [config].
 ///
-/// Note: if [PgSqlSerializable.genericArgumentFactories] is `false` for [reader]
+/// Note: if [JsonSerializable.genericArgumentFactories] is `false` for [reader]
 /// and `true` for [config], the corresponding field in the return value will
 /// only be `true` if [classElement] has type parameters.
 ClassConfig mergeConfig(
   ClassConfig config,
   ConstantReader reader, {
-  required ClassElement2 classElement,
+  required ClassElement classElement,
 }) {
   final annotation = _valueForAnnotation(reader);
-  assert(config.ctorParamDefaults.isEmpty);
+  assert(config.ctorParams.isEmpty);
 
   final constructor = annotation.constructor ?? config.constructor;
   final constructorInstance = _constructorByNameOrNull(
@@ -91,13 +101,9 @@ ClassConfig mergeConfig(
     constructor,
   );
 
-  final paramDefaultValueMap = constructorInstance == null
-      ? <String, String>{}
-      : Map<String, String>.fromEntries(
-          constructorInstance.formalParameters
-              .where((element) => element.hasDefaultValue)
-              .map((e) => MapEntry(e.name3!, e.defaultValueCode!)),
-        );
+  final ctorParams = <FormalParameterElement>[
+    ...?constructorInstance?.formalParameters,
+  ];
 
   final converters = reader.read('converters');
 
@@ -106,29 +112,30 @@ ClassConfig mergeConfig(
     checked: annotation.checked ?? config.checked,
     constructor: constructor,
     createFactory: annotation.createFactory ?? config.createFactory,
-    createToPgSql: annotation.createToPgSql ?? config.createToPgSql,
+    createToJson: annotation.createToJson ?? config.createToJson,
     createFieldMap: annotation.createFieldMap ?? config.createFieldMap,
-    enumMapPrefix: annotation.enumMapPrefix ?? config.enumMapPrefix,
-    createPgSqlKeys: annotation.createPgSqlKeys ?? config.createPgSqlKeys,
-    createPerFieldToPgSql:
-        annotation.createPerFieldToPgSql ?? config.createPerFieldToPgSql,
+    createJsonKeys: annotation.createJsonKeys ?? config.createJsonKeys,
+    createPerFieldToJson:
+        annotation.createPerFieldToJson ?? config.createPerFieldToJson,
     disallowUnrecognizedKeys:
         annotation.disallowUnrecognizedKeys ?? config.disallowUnrecognizedKeys,
-    explicitToPgSql: annotation.explicitToPgSql ?? config.explicitToPgSql,
+    explicitToJson: annotation.explicitToJson ?? config.explicitToJson,
     fieldRename: annotation.fieldRename ?? config.fieldRename,
     genericArgumentFactories:
         annotation.genericArgumentFactories ??
-        (classElement.typeParameters2.isNotEmpty &&
+        (classElement.typeParameters.isNotEmpty &&
             config.genericArgumentFactories),
     ignoreUnannotated: annotation.ignoreUnannotated ?? config.ignoreUnannotated,
     includeIfNull: annotation.includeIfNull ?? config.includeIfNull,
-    ctorParamDefaults: paramDefaultValueMap,
+    ctorParams: ctorParams,
     converters: converters.isNull ? const [] : converters.listValue,
+    createJsonSchema: annotation.createJsonSchema ?? config.createJsonSchema,
+    dateTimeUtc: annotation.dateTimeUtc ?? config.dateTimeUtc,
   );
 }
 
-ConstructorElement2? _constructorByNameOrNull(
-  ClassElement2 classElement,
+ConstructorElement? _constructorByNameOrNull(
+  ClassElement classElement,
   String name,
 ) {
   try {
@@ -138,12 +145,12 @@ ConstructorElement2? _constructorByNameOrNull(
   }
 }
 
-ConstructorElement2 constructorByName(ClassElement2 classElement, String name) {
-  final className = classElement.name3;
+ConstructorElement constructorByName(ClassElement classElement, String name) {
+  final className = classElement.name;
 
-  ConstructorElement2? ctor;
+  ConstructorElement? ctor;
   if (name.isEmpty) {
-    ctor = classElement.unnamedConstructor2;
+    ctor = classElement.unnamedConstructor;
     if (ctor == null) {
       throw InvalidGenerationSourceError(
         'The class `$className` has no default constructor.',
@@ -151,7 +158,7 @@ ConstructorElement2 constructorByName(ClassElement2 classElement, String name) {
       );
     }
   } else {
-    ctor = classElement.getNamedConstructor2(name);
+    ctor = classElement.getNamedConstructor(name);
     if (ctor == null) {
       throw InvalidGenerationSourceError(
         'The class `$className` does not have a constructor with the name '
@@ -164,21 +171,20 @@ ConstructorElement2 constructorByName(ClassElement2 classElement, String name) {
   return ctor;
 }
 
-/// If [targetType] is an enum, returns the [FieldElement2] instances associated
+/// If [targetType] is an enum, returns the [FieldElement] instances associated
 /// with its values.
 ///
 /// Otherwise, `null`.
-Iterable<FieldElement2>? iterateEnumFields(DartType targetType) {
-  if ( /*targetType is InterfaceType && */ targetType.element3
-      is EnumElement2) {
-    return (targetType.element3 as EnumElement2).constants2;
+Iterable<FieldElement>? iterateEnumFields(DartType targetType) {
+  if (targetType.element is EnumElement) {
+    return (targetType.element as EnumElement).constants;
   }
   return null;
 }
 
 extension DartTypeExtension on DartType {
   DartType promoteNonNullable() =>
-      element3?.library2?.typeSystem.promoteToNonNull(this) ?? this;
+      element?.library?.typeSystem.promoteToNonNull(this) ?? this;
 
   String toStringNonNullable() {
     final val = getDisplayString();
@@ -202,25 +208,46 @@ String encodedFieldName(FieldRename fieldRename, String declaredName) =>
 /// Return the Dart code presentation for the given [type].
 ///
 /// This function is intentionally limited, and does not support all possible
-/// types and locations of these files in code. Specifically, it supports
-/// only [InterfaceType]s, with optional type arguments that are also should
-/// be [InterfaceType]s.
-String typeToCode(DartType type, {bool forceNullable = false}) {
-  if (type is DynamicType) {
-    return 'dynamic';
-  } else if (type is InterfaceType) {
-    return [
-      type.element3.name3,
-      if (type.typeArguments.isNotEmpty)
-        '<${type.typeArguments.map(typeToCode).join(', ')}>',
-      (type.isNullableType || forceNullable) ? '?' : '',
-    ].join();
-  }
+/// types. Specifically, it supports [InterfaceType]s, [RecordType]s,
+/// [TypeParameterType]s, and [DynamicType]s.
+String typeToCode(DartType type, {bool forceNullable = false}) =>
+    switch (type) {
+      DynamicType() => 'dynamic',
+      InterfaceType() => [
+        type.element.name,
+        if (type.typeArguments.isNotEmpty)
+          '<${type.typeArguments.map(typeToCode).join(', ')}>',
+        if (type.isNullableType || forceNullable) '?',
+      ].join(),
+      TypeParameterType() => type.toStringNonNullable(),
+      RecordType() => _recordTypeToCode(type, forceNullable),
+      _ => type.getDisplayString(),
+    };
 
-  if (type is TypeParameterType) {
-    return type.toStringNonNullable();
+String _recordTypeToCode(RecordType type, bool forceNullable) {
+  final positional = type.positionalFields
+      .map((f) => typeToCode(f.type))
+      .join(', ');
+  final named = type.namedFields
+      .map((f) => '${typeToCode(f.type)} ${f.name}')
+      .join(', ');
+
+  final buffer = StringBuffer('(');
+  if (positional.isNotEmpty) {
+    buffer.write(positional);
+    if (named.isNotEmpty) buffer.write(', ');
   }
-  throw UnimplementedError('(${type.runtimeType}) $type');
+  if (named.isNotEmpty) {
+    buffer.write('{$named}');
+  }
+  if (type.positionalFields.length == 1 && type.namedFields.isEmpty) {
+    buffer.write(',');
+  }
+  buffer.write(')');
+  if (type.isNullableType || forceNullable) {
+    buffer.write('?');
+  }
+  return buffer.toString();
 }
 
 String? defaultDecodeLogic(
@@ -242,7 +269,7 @@ String? defaultDecodeLogic(
     final targetTypeNullable = defaultProvided || targetType.isNullableType;
     final question = targetTypeNullable ? '?' : '';
     return '($expression as num$question)$question.toInt()';
-  } else if (simplePgSqlTypeChecker.isAssignableFromType(targetType)) {
+  } else if (simpleJsonTypeChecker.isAssignableFromType(targetType)) {
     final typeCode = typeToCode(targetType, forceNullable: defaultProvided);
     return '$expression as $typeCode';
   }
@@ -250,26 +277,30 @@ String? defaultDecodeLogic(
   return null;
 }
 
-extension ExecutableElementExtension on ExecutableElement2 {
+extension ExecutableElementExtension on ExecutableElement {
   /// Returns the name of `this` qualified with the class name if it's a
-  /// [MethodElement2].
+  /// [MethodElement].
   String get qualifiedName {
     if (this is TopLevelFunctionElement) {
-      return name3!;
+      return name!;
     }
 
-    if (this is MethodElement2) {
-      return '${enclosingElement2!.name3!}.${name3!}';
+    if (this is MethodElement) {
+      return '${enclosingElement!.name}.$name';
     }
 
-    if (this is ConstructorElement2) {
+    if (this is ConstructorElement) {
       // The default constructor.
-      if (name3 == 'new') {
-        return enclosingElement2!.name3!;
+      if (name == 'new') {
+        return enclosingElement!.name!;
       }
-      return '${enclosingElement2!.name3!}.${name3!}';
+      return '${enclosingElement!.name}.$name';
     }
 
     throw UnsupportedError('Not sure how to support typeof $runtimeType');
   }
 }
+
+const jsonSerializableChecker = TypeChecker.fromUrl(
+  'package:json_annotation/src/json_serializable.dart#JsonSerializable',
+);

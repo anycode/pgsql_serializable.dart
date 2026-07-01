@@ -1,6 +1,6 @@
-import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-@PgSqlSerializable()
+@JsonSerializable()
 class ConfigurationImplicitDefaults {
   ConfigurationImplicitDefaults();
   ConfigurationImplicitDefaults.something();
@@ -8,80 +8,83 @@ class ConfigurationImplicitDefaults {
   int? field;
 }
 
-// #CHANGE WHEN UPDATING pgsql_annotation
-@PgSqlSerializable(
+// #CHANGE WHEN UPDATING json_annotation
+@JsonSerializable(
   anyMap: false,
   checked: false,
   constructor: '',
   createFactory: true,
-  createToPgSql: true,
+  createToJson: true,
   createFieldMap: false,
-  createPgSqlKeys: false,
-  createPerFieldToPgSql: false,
+  createJsonKeys: false,
+  createPerFieldToJson: false,
+  dateTimeUtc: false,
   disallowUnrecognizedKeys: false,
-  explicitToPgSql: false,
+  explicitToJson: false,
   fieldRename: FieldRename.none,
   ignoreUnannotated: false,
   includeIfNull: true,
   genericArgumentFactories: false,
+  createJsonSchema: false,
 )
 class ConfigurationExplicitDefaults {
   int? field;
 }
 
-@PgSqlSerializable(createFactory: false)
+@JsonSerializable(createFactory: false)
 class IncludeIfNullAll {
-  @PgSqlKey(includeIfNull: true)
+  @JsonKey(includeIfNull: true)
   int? number;
   String? str;
 }
 
-@PgSqlSerializable(createToPgSql: false)
-class FromPgSqlOptionalParameters {
-  final ChildWithFromPgSql child;
+@JsonSerializable(createToJson: false)
+class FromJsonOptionalParameters {
+  final ChildWithFromJson child;
 
-  FromPgSqlOptionalParameters(this.child);
+  FromJsonOptionalParameters(this.child);
 }
 
-class ChildWithFromPgSql {
-  //ignore: avoid_unused_constructor_parameters, strict_top_level_inference
-  ChildWithFromPgSql.fromPgSql(pgsql, {initValue = false});
+class ChildWithFromJson {
+  // Intentionally untyped parameters to ensure this codepath is handled well.
+  //ignore: avoid_unused_constructor_parameters, strict_top_level_inference, type_annotate_public_apis
+  ChildWithFromJson.fromJson(json, {initValue = false});
 }
 
-@PgSqlSerializable()
+@JsonSerializable()
 class ParentObject {
   int? number;
   String? str;
   ChildObject? child;
 }
 
-@PgSqlSerializable()
+@JsonSerializable()
 class ChildObject {
   int? number;
   String? str;
 }
 
-@PgSqlSerializable()
+@JsonSerializable()
 class ParentObjectWithChildren {
   int? number;
   String? str;
   List<ChildObject>? children;
 }
 
-@PgSqlSerializable()
+@JsonSerializable()
 class ParentObjectWithDynamicChildren {
   int? number;
   String? str;
   late List<dynamic> children;
 }
 
-@PgSqlSerializable(createFactory: false, explicitToPgSql: true)
+@JsonSerializable(createFactory: false, explicitToJson: true)
 class TrivialNestedNullable {
   TrivialNestedNullable? child;
   int? otherField;
 }
 
-@PgSqlSerializable(createFactory: false, explicitToPgSql: true)
+@JsonSerializable(createFactory: false, explicitToJson: true)
 class TrivialNestedNonNullable {
   late TrivialNestedNonNullable child;
   int? otherField;

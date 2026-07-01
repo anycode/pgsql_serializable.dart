@@ -2,41 +2,42 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:source_helper/source_helper.dart';
 
 import 'enum_utils.dart';
 import 'helper_core.dart';
 import 'type_helpers/generic_factory_helper.dart';
-import 'type_helpers/pgsql_converter_helper.dart';
+import 'type_helpers/json_converter_helper.dart';
+import 'type_helpers/patch_tri_state_helper.dart';
 import 'unsupported_type_error.dart';
+import 'utils.dart';
 
 mixin EncodeHelper implements HelperCore {
-  String _fieldAccess(FieldElement2 field) =>
-      '$_toPgSqlParamName.${field.name3!}';
+  String _fieldAccess(FieldElement field) => '$_toJsonParamName.${field.name!}';
 
-  String createPerFieldToPgSql(Set<FieldElement2> accessibleFieldSet) {
+  String createPerFieldToJson(Set<FieldElement> accessibleFieldSet) {
     final buffer = StringBuffer()
       ..writeln('// ignore: unused_element')
       ..writeln(
-        'abstract class _\$${element.name3!.nonPrivate}PerFieldToPgSql {',
+        'abstract class _\$${element.name!.nonPrivate}PerFieldToJson {',
       );
 
     for (final field in accessibleFieldSet) {
       buffer
         ..writeln('  // ignore: unused_element')
         ..write(
-          'static Object? ${field.name3!}'
+          'static Object? ${field.name!}'
           '${genericClassArgumentsImpl(withConstraints: true)}'
-          '(${field.type} $_toPgSqlParamName',
+          '(${field.type} $_toJsonParamName',
         );
 
       if (config.genericArgumentFactories) {
         _writeGenericArgumentFactories(buffer);
       }
 
-      buffer.writeln(') => ${_serializeField(field, _toPgSqlParamName)};');
+      buffer.writeln(') => ${_serializeField(field, _toJsonParamName)};');
     }
 
     buffer.writeln('}');
@@ -46,16 +47,16 @@ mixin EncodeHelper implements HelperCore {
 
   /// Generates an object containing metadatas related to the encoding,
   /// destined to be used by other code-generators.
-  String createFieldMap(Set<FieldElement2> accessibleFieldSet) {
+  String createFieldMap(Set<FieldElement> accessibleFieldSet) {
     assert(config.createFieldMap);
 
     final buffer = StringBuffer(
-      'const _\$${element.name3!.nonPrivate}FieldMap = <String, String> {',
+      'const _\$${element.name!.nonPrivate}FieldMap = <String, String> {',
     );
 
     for (final field in accessibleFieldSet) {
       buffer.writeln(
-        '${escapeDartString(field.name3!)}: '
+        '${escapeDartString(field.name!)}: '
         '${escapeDartString(nameAccess(field))},',
       );
     }
@@ -67,17 +68,17 @@ mixin EncodeHelper implements HelperCore {
 
   /// Generates an object containing metadatas related to the encoding,
   /// destined to be used by other code-generators.
-  String createPgSqlKeys(Set<FieldElement2> accessibleFieldSet) {
-    assert(config.createPgSqlKeys);
+  String createJsonKeys(Set<FieldElement> accessibleFieldSet) {
+    assert(config.createJsonKeys);
 
     final buffer = StringBuffer(
-      'abstract final class _\$${element.name3!.nonPrivate}PgSqlKeys {',
+      'abstract final class _\$${element.name!.nonPrivate}JsonKeys {',
     );
-    // ..write('static const _\$${element.name.nonPrivate}PgSqlKeys();');
+    // ..write('static const _\$${element.name.nonPrivate}JsonKeys();');
 
     for (final field in accessibleFieldSet) {
       buffer.writeln(
-        'static const String ${field.name3} = '
+        'static const String ${field.name} = '
         '${escapeDartString(nameAccess(field))};',
       );
     }
@@ -87,16 +88,16 @@ mixin EncodeHelper implements HelperCore {
     return buffer.toString();
   }
 
-  Iterable<String> createToPgSql(Set<FieldElement2> accessibleFields) sync* {
-    assert(config.createToPgSql);
+  Iterable<String> createToJson(Set<FieldElement> accessibleFields) sync* {
+    assert(config.createToJson);
 
     final buffer = StringBuffer();
 
     final functionName =
-        '${prefix}ToPgSql${genericClassArgumentsImpl(withConstraints: true)}';
+        '${prefix}ToJson${genericClassArgumentsImpl(withConstraints: true)}';
     buffer.write(
       'Map<String, dynamic> '
-      '$functionName($targetClassReference $_toPgSqlParamName',
+      '$functionName($targetClassReference $_toJsonParamName',
     );
 
     if (config.genericArgumentFactories) _writeGenericArgumentFactories(buffer);
@@ -106,12 +107,19 @@ mixin EncodeHelper implements HelperCore {
       ..writeln('=> <String, dynamic>{')
       ..writeAll(
         accessibleFields.map((field) {
-          final access = _fieldAccess(field);
-
           final keyExpression = safeNameAccess(field);
+
+          if (usesExplicitJsonNullWhenNonNullField(jsonKeyFor(field))) {
+            final access = _fieldAccess(field);
+            final valueExpression = _serializePatchField(field, 'value');
+            return '        if ($access case final value?) '
+                '$keyExpression: $valueExpression,\n';
+          }
+
+          final access = _fieldAccess(field);
           final valueExpression = _serializeField(field, access);
 
-          final maybeQuestion = _canWritePgSqlWithoutNullCheck(field) ? '' : '?';
+          final maybeQuestion = _canWriteJsonWithoutNullCheck(field) ? '' : '?';
 
           final keyValuePair = '$keyExpression: $maybeQuestion$valueExpression';
           return '        $keyValuePair,\n';
@@ -123,36 +131,52 @@ mixin EncodeHelper implements HelperCore {
   }
 
   void _writeGenericArgumentFactories(StringBuffer buffer) {
-    for (var arg in element.typeParameters2) {
-      final helperName = toPgSqlForType(
+    for (var arg in element.typeParameters) {
+      final helperName = toJsonForType(
         arg.instantiate(nullabilitySuffix: NullabilitySuffix.none),
       );
-      buffer.write(',Object? Function(${arg.name3} value) $helperName');
+      buffer.write(',Object? Function(${arg.name} value) $helperName');
     }
-    if (element.typeParameters2.isNotEmpty) {
+    if (element.typeParameters.isNotEmpty) {
       buffer.write(',');
     }
   }
 
-  static const _toPgSqlParamName = 'instance';
+  static const _toJsonParamName = 'instance';
 
-  String _serializeField(FieldElement2 field, String accessExpression) {
+  String _serializeField(FieldElement field, String accessExpression) {
     try {
       return getHelperContext(
         field,
       ).serialize(field.type, accessExpression).toString();
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('toPgSql', field, e);
+      throw createInvalidGenerationError('toJson', field, e);
     }
   }
 
-  /// Returns `true` if the field can be written to PgSQL 'naively' – meaning
-  /// we can avoid checking for `null`.
-  bool _canWritePgSqlWithoutNullCheck(FieldElement2 field) {
-    final pgsqlKey = pgsqlKeyFor(field);
+  String _serializePatchField(FieldElement field, String accessExpression) {
+    try {
+      final type = field.type.promoteNonNullable();
+      return getHelperContext(
+        field,
+      ).serialize(type, accessExpression).toString();
+    } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
+    {
+      throw createInvalidGenerationError('toJson', field, e);
+    }
+  }
 
-    if (pgsqlKey.includeIfNull) {
+  /// Returns `true` if the field can be written to JSON 'naively' – meaning
+  /// we can avoid checking for `null`.
+  bool _canWriteJsonWithoutNullCheck(FieldElement field) {
+    final jsonKey = jsonKeyFor(field);
+
+    if (usesExplicitJsonNullWhenNonNullField(jsonKey)) {
+      return true;
+    }
+
+    if (jsonKey.includeIfNull) {
       return true;
     }
 
