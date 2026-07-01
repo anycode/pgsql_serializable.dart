@@ -13,26 +13,26 @@
 library;
 
 import 'package:build/build.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
-import 'src/json_part_builder.dart';
+import 'src/pgsql_part_builder.dart';
 
 /// Supports `package:build_runner` creation and configuration of
-/// `json_serializable`.
+/// `pgsql_serializable`.
 ///
 /// Not meant to be invoked by hand-authored code.
-Builder jsonSerializable(BuilderOptions options) {
+Builder pgsqlSerializable(BuilderOptions options) {
   try {
-    var configJson = options.config;
+    var configPgSql = options.config;
     // Ignore `run_only_if_triggered` if present, it's used by `build_runner`.
-    if (configJson.containsKey('run_only_if_triggered')) {
-      configJson = Map.of(configJson)..remove('run_only_if_triggered');
+    if (configPgSql.containsKey('run_only_if_triggered')) {
+      configPgSql = Map.of(configPgSql)..remove('run_only_if_triggered');
     }
-    final config = JsonSerializable.fromJson(configJson);
-    return jsonPartBuilder(config: config);
-  } on CheckedFromJsonException catch (e) {
+    final config = PgSqlSerializable.fromPgSql(configPgSql);
+    return pgsqlPartBuilder(config: config);
+  } on CheckedFromPgSqlException catch (e) {
     final lines = <String>[
-      'Could not parse the options provided for `json_serializable`.',
+      'Could not parse the options provided for `pgsql_serializable`.',
     ];
 
     if (e.key != null) {

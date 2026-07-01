@@ -1,6 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
-@JsonSerializable()
+@PgSqlSerializable()
 class ConfigurationImplicitDefaults {
   ConfigurationImplicitDefaults();
   ConfigurationImplicitDefaults.something();
@@ -8,83 +8,83 @@ class ConfigurationImplicitDefaults {
   int? field;
 }
 
-// #CHANGE WHEN UPDATING json_annotation
-@JsonSerializable(
+// #CHANGE WHEN UPDATING pgsql_annotation
+@PgSqlSerializable(
   anyMap: false,
   checked: false,
   constructor: '',
   createFactory: true,
-  createToJson: true,
+  createToPgSql: true,
   createFieldMap: false,
-  createJsonKeys: false,
-  createPerFieldToJson: false,
+  createPgSqlKeys: false,
+  createPerFieldToPgSql: false,
   dateTimeUtc: false,
   disallowUnrecognizedKeys: false,
-  explicitToJson: false,
+  explicitToPgSql: false,
   fieldRename: FieldRename.none,
   ignoreUnannotated: false,
   includeIfNull: true,
   genericArgumentFactories: false,
-  createJsonSchema: false,
+  createPgSqlSchema: false,
 )
 class ConfigurationExplicitDefaults {
   int? field;
 }
 
-@JsonSerializable(createFactory: false)
+@PgSqlSerializable(createFactory: false)
 class IncludeIfNullAll {
-  @JsonKey(includeIfNull: true)
+  @PgSqlKey(includeIfNull: true)
   int? number;
   String? str;
 }
 
-@JsonSerializable(createToJson: false)
-class FromJsonOptionalParameters {
-  final ChildWithFromJson child;
+@PgSqlSerializable(createToPgSql: false)
+class FromPgSqlOptionalParameters {
+  final ChildWithFromPgSql child;
 
-  FromJsonOptionalParameters(this.child);
+  FromPgSqlOptionalParameters(this.child);
 }
 
-class ChildWithFromJson {
+class ChildWithFromPgSql {
   // Intentionally untyped parameters to ensure this codepath is handled well.
   //ignore: avoid_unused_constructor_parameters, strict_top_level_inference, type_annotate_public_apis
-  ChildWithFromJson.fromJson(json, {initValue = false});
+  ChildWithFromPgSql.fromPgSql(pgsql, {initValue = false});
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class ParentObject {
   int? number;
   String? str;
   ChildObject? child;
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class ChildObject {
   int? number;
   String? str;
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class ParentObjectWithChildren {
   int? number;
   String? str;
   List<ChildObject>? children;
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class ParentObjectWithDynamicChildren {
   int? number;
   String? str;
   late List<dynamic> children;
 }
 
-@JsonSerializable(createFactory: false, explicitToJson: true)
+@PgSqlSerializable(createFactory: false, explicitToPgSql: true)
 class TrivialNestedNullable {
   TrivialNestedNullable? child;
   int? otherField;
 }
 
-@JsonSerializable(createFactory: false, explicitToJson: true)
+@PgSqlSerializable(createFactory: false, explicitToPgSql: true)
 class TrivialNestedNonNullable {
   late TrivialNestedNonNullable child;
   int? otherField;

@@ -43,7 +43,7 @@ class GeneratorHelper extends HelperCore
     if (config.genericArgumentFactories && element.typeParameters.isEmpty) {
       log.warning(
         'The class `${element.displayName}` is annotated '
-        'with `JsonSerializable` field `genericArgumentFactories: true`. '
+        'with `PgSqlSerializable` field `genericArgumentFactories: true`. '
         '`genericArgumentFactories: true` only affects classes with type '
         'parameters. For classes without type parameters, the option is '
         'ignored.',
@@ -60,8 +60,8 @@ class GeneratorHelper extends HelperCore
     final accessibleFields = sortedFields.fold<Map<String, FieldElement>>(
       <String, FieldElement>{},
       (map, field) {
-        final jsonKey = jsonKeyFor(field);
-        if (!field.isPublic && !jsonKey.explicitYesFromJson) {
+        final pgsqlKey = pgsqlKeyFor(field);
+        if (!field.isPublic && !pgsqlKey.explicitYesFromPgSql) {
           unavailableReasons[field.name!] =
               'It is assigned to a private field.';
         } else if (field.getter == null) {
@@ -69,9 +69,9 @@ class GeneratorHelper extends HelperCore
           unavailableReasons[field.name!] =
               'Setter-only properties are not supported.';
           log.warning('Setters are ignored: ${element.name}.${field.name}');
-        } else if (jsonKey.explicitNoFromJson) {
+        } else if (pgsqlKey.explicitNoFromPgSql) {
           unavailableReasons[field.name!] =
-              'It is assigned to a field not meant to be used in fromJson.';
+              'It is assigned to a field not meant to be used in fromPgSql.';
         } else {
           assert(!map.containsKey(field.name));
           map[field.name!] = field;
@@ -92,10 +92,10 @@ class GeneratorHelper extends HelperCore
           .toList();
 
       // Need to add candidates BACK even if they are not used in the factory if
-      // they are forced to be used for toJSON
+      // they are forced to be used for toPgSQL
       for (var candidate in sortedFields.where(
         (element) =>
-            jsonKeyFor(element).explicitYesToJson &&
+            pgsqlKeyFor(element).explicitYesToPgSql &&
             !fieldsToUse.contains(element),
       )) {
         fieldsToUse.add(candidate);
@@ -110,15 +110,15 @@ class GeneratorHelper extends HelperCore
     }
 
     accessibleFieldSet
-      ..removeWhere((element) => jsonKeyFor(element).explicitNoToJson)
-      // Check for duplicate JSON keys due to colliding annotations. We do this
+      ..removeWhere((element) => pgsqlKeyFor(element).explicitNoToPgSql)
+      // Check for duplicate PgSQL keys due to colliding annotations. We do this
       // now, since we have a final field list after any pruning done by
       // `_writeCtor`.
       ..fold(<String>{}, (Set<String> set, fe) {
-        final jsonKey = nameAccess(fe);
-        if (!set.add(jsonKey)) {
+        final pgsqlKey = nameAccess(fe);
+        if (!set.add(pgsqlKey)) {
           throw InvalidGenerationSourceError(
-            'More than one field has the JSON key for name "$jsonKey".',
+            'More than one field has the PgSQL key for name "$pgsqlKey".',
             element: fe,
           );
         }
@@ -129,20 +129,20 @@ class GeneratorHelper extends HelperCore
       yield createFieldMap(accessibleFieldSet);
     }
 
-    if (config.createJsonKeys) {
-      yield createJsonKeys(accessibleFieldSet);
+    if (config.createPgSqlKeys) {
+      yield createPgSqlKeys(accessibleFieldSet);
     }
 
-    if (config.createPerFieldToJson) {
-      yield createPerFieldToJson(accessibleFieldSet);
+    if (config.createPerFieldToPgSql) {
+      yield createPerFieldToPgSql(accessibleFieldSet);
     }
 
-    if (config.createToJson) {
-      yield* createToJson(accessibleFieldSet);
+    if (config.createToPgSql) {
+      yield* createToPgSql(accessibleFieldSet);
     }
 
-    if (config.createJsonSchema) {
-      yield createJsonSchema();
+    if (config.createPgSqlSchema) {
+      yield createPgSqlSchema();
     }
 
     yield* _addedMembers;

@@ -11,14 +11,14 @@ import 'package:source_helper/source_helper.dart';
 
 import 'field_helpers.dart';
 import 'helper_core.dart';
-import 'json_key_utils.dart';
-import 'json_literal_generator.dart';
+import 'pgsql_key_utils.dart';
+import 'pgsql_literal_generator.dart';
 import 'shared_checkers.dart';
 import 'type_helpers/config_types.dart';
 import 'utils.dart';
 
 mixin SchemaHelper implements HelperCore {
-  String createJsonSchema() {
+  String createPgSqlSchema() {
     final generatedSchemas = <String, Map<String, dynamic>>{};
     final mainSchema = _generateSchemaForProperties(
       element,
@@ -30,13 +30,13 @@ mixin SchemaHelper implements HelperCore {
     );
 
     final schema = {
-      r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+      r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
       ...mainSchema,
       if (generatedSchemas.isNotEmpty) r'$defs': generatedSchemas,
     };
 
-    final name = '_\$${element.name}JsonSchema';
-    return 'const $name = ${jsonLiteralAsDart(schema)};';
+    final name = '_\$${element.name}PgSqlSchema';
+    return 'const $name = ${pgsqlLiteralAsDart(schema)};';
   }
 }
 
@@ -45,9 +45,9 @@ Iterable<_PropertyInfo> _propertiesFor(
   ClassConfig config,
 ) {
   final accessibleFields = createSortedFieldSet(element).where((f) {
-    final jsonKey = jsonKeyForField(f, config);
+    final pgsqlKey = pgsqlKeyForField(f, config);
 
-    if (jsonKey.explicitNoToJson) {
+    if (pgsqlKey.explicitNoToPgSql) {
       return false;
     }
 
@@ -61,8 +61,8 @@ Iterable<_PropertyInfo> _propertiesFor(
       return true;
     }
 
-    // Getter-only fields are included if explicitly annotated for `toJson`...
-    if (jsonKey.includeToJson == true) {
+    // Getter-only fields are included if explicitly annotated for `toPgSql`...
+    if (pgsqlKey.includeToPgSql == true) {
       return true;
     }
 
@@ -71,9 +71,9 @@ Iterable<_PropertyInfo> _propertiesFor(
   });
 
   return accessibleFields.map((FieldElement field) {
-    final jsonKey = jsonKeyForField(field, config);
-    final name = jsonKey.name;
-    final annotations = jsonKeyAnnotation(field);
+    final pgsqlKey = pgsqlKeyForField(field, config);
+    final name = pgsqlKey.name;
+    final annotations = pgsqlKeyAnnotation(field);
 
     // Default Value validation logic...
     DartObject? defaultValueObj;
@@ -105,7 +105,7 @@ Iterable<_PropertyInfo> _propertiesFor(
         .trim();
 
     bool calculateIsRequired() {
-      if (jsonKey.required) return true;
+      if (pgsqlKey.required) return true;
       if (defaultValueObj != null) return false;
       if (param != null) {
         if (param.hasDefaultValue) return false;
@@ -270,7 +270,7 @@ Map<String, dynamic> _generateComplexTypeSchema(
   }
 
   // Create a simplified schema for nested objects
-  final annotation = jsonSerializableChecker.firstAnnotationOfExact(
+  final annotation = pgsqlSerializableChecker.firstAnnotationOfExact(
     classElement,
     throwOnUnresolved: false,
   );
@@ -326,7 +326,7 @@ Object? _defaultValue(DartObject defaultValue, DartType type) => switch (type) {
 /// Sentinel value used to indicate that no default value could be determined.
 final _noMatch = Object();
 
-/// Property information used to generate the JSON Schema.
+/// Property information used to generate the PgSQL Schema.
 class _PropertyInfo {
   final String name;
   final DartType type;

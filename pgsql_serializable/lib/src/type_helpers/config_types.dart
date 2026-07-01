@@ -4,21 +4,21 @@
 
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
-/// Represents values from [JsonKey] when merged with local configuration.
+/// Represents values from [PgSqlKey] when merged with local configuration.
 class KeyConfig {
   final String? defaultValue;
 
   final bool disallowNullValue;
 
-  final bool explicitJsonNullWhenNonNullField;
+  final bool explicitPgSqlNullWhenNonNullField;
 
-  final bool? includeFromJson;
+  final bool? includeFromPgSql;
 
   final bool includeIfNull;
 
-  final bool? includeToJson;
+  final bool? includeToPgSql;
 
   final String name;
 
@@ -31,26 +31,26 @@ class KeyConfig {
   KeyConfig({
     required this.defaultValue,
     required this.disallowNullValue,
-    required this.explicitJsonNullWhenNonNullField,
-    required this.includeFromJson,
+    required this.explicitPgSqlNullWhenNonNullField,
+    required this.includeFromPgSql,
     required this.includeIfNull,
-    required this.includeToJson,
+    required this.includeToPgSql,
     required this.name,
     required this.readValueFunctionName,
     required this.required,
     required this.unknownEnumValue,
   });
 
-  bool get explicitYesFromJson => includeFromJson == true;
+  bool get explicitYesFromPgSql => includeFromPgSql == true;
 
-  bool get explicitNoFromJson => includeFromJson == false;
+  bool get explicitNoFromPgSql => includeFromPgSql == false;
 
-  bool get explicitYesToJson => includeToJson == true;
+  bool get explicitYesToPgSql => includeToPgSql == true;
 
-  bool get explicitNoToJson => includeToJson == false;
+  bool get explicitNoToPgSql => includeToPgSql == false;
 }
 
-/// Represents values from [JsonSerializable] when merged with local
+/// Represents values from [PgSqlSerializable] when merged with local
 /// configuration.
 ///
 /// Values are all known, so types are non-nullable.
@@ -59,14 +59,15 @@ class ClassConfig {
   final bool checked;
   final String constructor;
   final bool createFactory;
-  final bool createToJson;
+  final bool createToPgSql;
   final bool createFieldMap;
-  final bool createJsonKeys;
-  final bool createPerFieldToJson;
-  final bool createJsonSchema;
+  final bool createPgSqlKeys;
+  final bool createPerFieldToPgSql;
+  final bool createPgSqlSchema;
   final bool dateTimeUtc;
   final bool disallowUnrecognizedKeys;
-  final bool explicitToJson;
+  final String enumMapPrefix;
+  final bool explicitToPgSql;
   final FieldRename fieldRename;
   final bool genericArgumentFactories;
   final bool ignoreUnannotated;
@@ -79,14 +80,15 @@ class ClassConfig {
     required this.checked,
     required this.constructor,
     required this.createFactory,
-    required this.createToJson,
+    required this.createToPgSql,
     required this.createFieldMap,
-    required this.createJsonKeys,
-    required this.createPerFieldToJson,
-    required this.createJsonSchema,
+    required this.createPgSqlKeys,
+    required this.createPerFieldToPgSql,
+    required this.createPgSqlSchema,
     required this.dateTimeUtc,
     required this.disallowUnrecognizedKeys,
-    required this.explicitToJson,
+    required this.enumMapPrefix,
+    required this.explicitToPgSql,
     required this.fieldRename,
     required this.genericArgumentFactories,
     required this.ignoreUnannotated,
@@ -95,29 +97,31 @@ class ClassConfig {
     this.ctorParams = const [],
   });
 
-  factory ClassConfig.fromJsonSerializable(JsonSerializable config) =>
-      // #CHANGE WHEN UPDATING json_annotation
+  factory ClassConfig.fromPgSqlSerializable(PgSqlSerializable config) =>
+      // #CHANGE WHEN UPDATING pgsql_annotation
       ClassConfig(
         checked: config.checked ?? ClassConfig.defaults.checked,
         anyMap: config.anyMap ?? ClassConfig.defaults.anyMap,
         constructor: config.constructor ?? ClassConfig.defaults.constructor,
         createFieldMap:
             config.createFieldMap ?? ClassConfig.defaults.createFieldMap,
-        createJsonKeys:
-            config.createJsonKeys ?? ClassConfig.defaults.createJsonKeys,
-        createPerFieldToJson:
-            config.createPerFieldToJson ??
-            ClassConfig.defaults.createPerFieldToJson,
-        createJsonSchema:
-            config.createJsonSchema ?? ClassConfig.defaults.createJsonSchema,
+        createPgSqlKeys:
+            config.createPgSqlKeys ?? ClassConfig.defaults.createPgSqlKeys,
+        createPerFieldToPgSql:
+            config.createPerFieldToPgSql ??
+            ClassConfig.defaults.createPerFieldToPgSql,
+        createPgSqlSchema:
+            config.createPgSqlSchema ?? ClassConfig.defaults.createPgSqlSchema,
         createFactory:
             config.createFactory ?? ClassConfig.defaults.createFactory,
-        createToJson: config.createToJson ?? ClassConfig.defaults.createToJson,
+        createToPgSql: config.createToPgSql ?? ClassConfig.defaults.createToPgSql,
         dateTimeUtc: config.dateTimeUtc ?? ClassConfig.defaults.dateTimeUtc,
         ignoreUnannotated:
             config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
-        explicitToJson:
-            config.explicitToJson ?? ClassConfig.defaults.explicitToJson,
+        enumMapPrefix:
+            config.enumMapPrefix ?? ClassConfig.defaults.enumMapPrefix,
+        explicitToPgSql:
+            config.explicitToPgSql ?? ClassConfig.defaults.explicitToPgSql,
         includeIfNull:
             config.includeIfNull ?? ClassConfig.defaults.includeIfNull,
         genericArgumentFactories:
@@ -129,39 +133,41 @@ class ClassConfig {
             ClassConfig.defaults.disallowUnrecognizedKeys,
       );
 
-  /// An instance of [JsonSerializable] with all fields set to their default
+  /// An instance of [PgSqlSerializable] with all fields set to their default
   /// values.
   static const defaults = ClassConfig(
     anyMap: false,
     checked: false,
     constructor: '',
     createFactory: true,
-    createToJson: true,
+    createToPgSql: true,
     createFieldMap: false,
-    createJsonKeys: false,
-    createPerFieldToJson: false,
-    createJsonSchema: false,
+    createPgSqlKeys: false,
+    createPerFieldToPgSql: false,
+    createPgSqlSchema: false,
     dateTimeUtc: false,
     disallowUnrecognizedKeys: false,
-    explicitToJson: false,
+    enumMapPrefix: 'pg',
+    explicitToPgSql: false,
     fieldRename: FieldRename.none,
     genericArgumentFactories: false,
     ignoreUnannotated: false,
     includeIfNull: true,
   );
 
-  JsonSerializable toJsonSerializable() => JsonSerializable(
+  PgSqlSerializable toPgSqlSerializable() => PgSqlSerializable(
     checked: checked,
     anyMap: anyMap,
     constructor: constructor,
     createFactory: createFactory,
-    createToJson: createToJson,
+    createToPgSql: createToPgSql,
     createFieldMap: createFieldMap,
-    createJsonKeys: createJsonKeys,
-    createPerFieldToJson: createPerFieldToJson,
-    createJsonSchema: createJsonSchema,
+    createPgSqlKeys: createPgSqlKeys,
+    createPerFieldToPgSql: createPerFieldToPgSql,
+    createPgSqlSchema: createPgSqlSchema,
     ignoreUnannotated: ignoreUnannotated,
-    explicitToJson: explicitToJson,
+    enumMapPrefix: enumMapPrefix,
+    explicitToPgSql: explicitToPgSql,
     includeIfNull: includeIfNull,
     genericArgumentFactories: genericArgumentFactories,
     fieldRename: fieldRename,
@@ -176,14 +182,15 @@ class ClassConfig {
         checked: checked,
         constructor: constructor,
         createFactory: createFactory,
-        createToJson: createToJson,
+        createToPgSql: createToPgSql,
         createFieldMap: createFieldMap,
-        createJsonKeys: createJsonKeys,
-        createPerFieldToJson: createPerFieldToJson,
-        createJsonSchema: createJsonSchema,
+        createPgSqlKeys: createPgSqlKeys,
+        createPerFieldToPgSql: createPerFieldToPgSql,
+        createPgSqlSchema: createPgSqlSchema,
         dateTimeUtc: dateTimeUtc,
         disallowUnrecognizedKeys: disallowUnrecognizedKeys,
-        explicitToJson: explicitToJson,
+        enumMapPrefix: enumMapPrefix,
+        explicitToPgSql: explicitToPgSql,
         fieldRename: fieldRename,
         genericArgumentFactories: genericArgumentFactories,
         ignoreUnannotated: ignoreUnannotated,

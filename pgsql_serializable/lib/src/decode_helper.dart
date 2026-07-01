@@ -9,7 +9,7 @@ import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
 import 'helper_core.dart';
-import 'json_literal_generator.dart';
+import 'pgsql_literal_generator.dart';
 import 'type_helpers/generic_factory_helper.dart';
 import 'type_helpers/patch_tri_state_helper.dart';
 import 'unsupported_type_error.dart';
@@ -33,17 +33,17 @@ mixin DecodeHelper implements HelperCore {
     final mapType = config.anyMap ? 'Map' : 'Map<String, dynamic>';
     buffer.write(
       '$targetClassReference '
-      '${prefix}FromJson${genericClassArgumentsImpl(withConstraints: true)}'
-      '($mapType json',
+      '${prefix}FromPgSql${genericClassArgumentsImpl(withConstraints: true)}'
+      '($mapType pgsql',
     );
 
     if (config.genericArgumentFactories) {
       for (var arg in element.typeParameters) {
-        final helperName = fromJsonForType(
+        final helperName = fromPgSqlForType(
           arg.instantiate(nullabilitySuffix: NullabilitySuffix.none),
         );
 
-        buffer.write(', ${arg.name} Function(Object? json) $helperName');
+        buffer.write(', ${arg.name} Function(Object? pgsql) $helperName');
       }
       if (element.typeParameters.isNotEmpty) {
         buffer.write(',');
@@ -52,7 +52,7 @@ mixin DecodeHelper implements HelperCore {
 
     buffer.write(')');
 
-    final fromJsonLines = <String>[];
+    final fromPgSqlLines = <String>[];
 
     String deserializeFun(
       String paramOrFieldName, {
@@ -94,7 +94,7 @@ mixin DecodeHelper implements HelperCore {
         ..write('''
   \$checkedCreate(
     $classLiteral,
-    json,
+    pgsql,
     (\$checkedConvert) {\n''')
         ..write(checks.join())
         ..write('''
@@ -110,7 +110,7 @@ mixin DecodeHelper implements HelperCore {
           ..write('val.$fieldName = ')
           ..write(_deserializeForField(fieldValue, checkedProperty: true));
 
-        final readValueFunc = jsonKeyFor(fieldValue).readValueFunctionName;
+        final readValueFunc = pgsqlKeyFor(fieldValue).readValueFunctionName;
         if (readValueFunc != null) {
           sectionBuffer.writeln(',readValue: $readValueFunc,');
         }
@@ -131,16 +131,16 @@ mixin DecodeHelper implements HelperCore {
       if (fieldKeyMap.isEmpty) {
         fieldKeyMapArg = '';
       } else {
-        final mapLiteral = jsonMapAsDart(fieldKeyMap);
+        final mapLiteral = pgsqlMapAsDart(fieldKeyMap);
         fieldKeyMapArg = ', fieldKeyMap: const $mapLiteral';
       }
 
       sectionBuffer
         ..write(fieldKeyMapArg)
         ..write(',);');
-      fromJsonLines.add(sectionBuffer.toString());
+      fromPgSqlLines.add(sectionBuffer.toString());
     } else {
-      fromJsonLines.addAll(checks);
+      fromPgSqlLines.addAll(checks);
 
       final sectionBuffer = StringBuffer()
         ..write('''
@@ -152,19 +152,19 @@ mixin DecodeHelper implements HelperCore {
           ..write(deserializeFun(field));
       }
       sectionBuffer.writeln(';');
-      fromJsonLines.add(sectionBuffer.toString());
+      fromPgSqlLines.add(sectionBuffer.toString());
     }
 
-    if (fromJsonLines.length == 1) {
+    if (fromPgSqlLines.length == 1) {
       buffer
         ..write('=>')
-        ..write(fromJsonLines.single);
+        ..write(fromPgSqlLines.single);
     } else {
       buffer
         ..write('{')
-        ..writeAll(fromJsonLines.take(fromJsonLines.length - 1))
+        ..writeAll(fromPgSqlLines.take(fromPgSqlLines.length - 1))
         ..write('return ')
-        ..write(fromJsonLines.last)
+        ..write(fromPgSqlLines.last)
         ..write('}');
     }
 
@@ -175,7 +175,7 @@ mixin DecodeHelper implements HelperCore {
     final args = <String>[];
 
     String constantList(Iterable<FieldElement> things) =>
-        'const ${jsonLiteralAsDart(things.map<String>(nameAccess).toList())}';
+        'const ${pgsqlLiteralAsDart(things.map<String>(nameAccess).toList())}';
 
     if (config.disallowUnrecognizedKeys) {
       final allowKeysLiteral = constantList(accessibleFields);
@@ -184,7 +184,7 @@ mixin DecodeHelper implements HelperCore {
     }
 
     final requiredKeys = accessibleFields
-        .where((fe) => jsonKeyFor(fe).required)
+        .where((fe) => pgsqlKeyFor(fe).required)
         .toList();
     if (requiredKeys.isNotEmpty) {
       final requiredKeyLiteral = constantList(requiredKeys);
@@ -193,7 +193,7 @@ mixin DecodeHelper implements HelperCore {
     }
 
     final disallowNullKeys = accessibleFields
-        .where((fe) => jsonKeyFor(fe).disallowNullValue)
+        .where((fe) => pgsqlKeyFor(fe).disallowNullValue)
         .toList();
     if (disallowNullKeys.isNotEmpty) {
       final disallowNullKeyLiteral = constantList(disallowNullKeys);
@@ -202,7 +202,7 @@ mixin DecodeHelper implements HelperCore {
     }
 
     if (args.isNotEmpty) {
-      yield '\$checkKeys(json, ${args.map((e) => '$e, ').join()});\n';
+      yield '\$checkKeys(pgsql, ${args.map((e) => '$e, ').join()});\n';
     }
   }
 
@@ -213,17 +213,17 @@ mixin DecodeHelper implements HelperCore {
     FormalParameterElement? ctorParam,
     bool checkedProperty = false,
   }) {
-    final jsonKeyName = safeNameAccess(field);
+    final pgsqlKeyName = safeNameAccess(field);
     final targetType = ctorParam?.type ?? field.type;
     final contextHelper = getHelperContext(field);
-    final jsonKey = jsonKeyFor(field);
-    final defaultValue = jsonKey.defaultValue;
-    final readValueFunc = jsonKey.readValueFunctionName;
-    final patchTriState = usesExplicitJsonNullWhenNonNullField(jsonKey);
+    final pgsqlKey = pgsqlKeyFor(field);
+    final defaultValue = pgsqlKey.defaultValue;
+    final readValueFunc = pgsqlKey.readValueFunctionName;
+    final patchTriState = usesExplicitPgSqlNullWhenNonNullField(pgsqlKey);
 
     String deserialize(String expression, {bool patchPresentValue = false}) =>
         (patchPresentValue
-                ? contextHelper.deserializePresentJsonValue(
+                ? contextHelper.deserializePresentPgSqlValue(
                     targetType,
                     expression,
                     defaultValue: defaultValue,
@@ -240,10 +240,10 @@ mixin DecodeHelper implements HelperCore {
       if (config.checked) {
         final deserializeV = deserialize('v');
         if (patchTriState) {
-          validateExplicitJsonNullDeserialize(field, contextHelper, targetType);
+          validateExplicitPgSqlNullDeserialize(field, contextHelper, targetType);
           final triStateBody = wrapPatchTriStateCheckedConvert(
-            mapExpression: 'json',
-            jsonKeyName: jsonKeyName,
+            mapExpression: 'pgsql',
+            pgsqlKeyName: pgsqlKeyName,
             absentExpression: 'null',
             presentExpression: deserialize('v', patchPresentValue: true),
           );
@@ -255,7 +255,7 @@ mixin DecodeHelper implements HelperCore {
           final readValueBit = readValueFunc == null
               ? ''
               : ',readValue: $readValueFunc,';
-          value = '\$checkedConvert($jsonKeyName, (v) => $value$readValueBit)';
+          value = '\$checkedConvert($pgsqlKeyName, (v) => $value$readValueBit)';
         }
       } else {
         assert(
@@ -263,20 +263,20 @@ mixin DecodeHelper implements HelperCore {
           'should only be true if `_generator.checked` is true.',
         );
 
-        final jsonValueExpression = readValueFunc == null
-            ? 'json[$jsonKeyName]'
-            : '$readValueFunc(json, $jsonKeyName)';
+        final pgsqlValueExpression = readValueFunc == null
+            ? 'pgsql[$pgsqlKeyName]'
+            : '$readValueFunc(pgsql, $pgsqlKeyName)';
 
         final deserializeValue = deserialize(
-          jsonValueExpression,
+          pgsqlValueExpression,
           patchPresentValue: patchTriState,
         );
 
         if (patchTriState) {
-          validateExplicitJsonNullDeserialize(field, contextHelper, targetType);
-          value = wrapPatchTriStateFromJson(
-            mapExpression: 'json',
-            jsonKeyName: jsonKeyName,
+          validateExplicitPgSqlNullDeserialize(field, contextHelper, targetType);
+          value = wrapPatchTriStateFromPgSql(
+            mapExpression: 'pgsql',
+            pgsqlKeyName: pgsqlKeyName,
             absentExpression: 'null',
             presentExpression: deserializeValue,
           );
@@ -286,11 +286,11 @@ mixin DecodeHelper implements HelperCore {
       }
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('fromJson', field, e);
+      throw createInvalidGenerationError('fromPgSql', field, e);
     }
 
     if (defaultValue != null) {
-      if (jsonKey.disallowNullValue && jsonKey.required) {
+      if (pgsqlKey.disallowNullValue && pgsqlKey.required) {
         log.warning(
           'The `defaultValue` on field `${field.name}` will have no '
           'effect because both `disallowNullValue` and `required` are set to '

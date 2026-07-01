@@ -5,52 +5,52 @@
 part of 'schema_example.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// PgSqlSerializableGenerator
 // **************************************************************************
 
-SchemaExample _$SchemaExampleFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['propExtraFieldRequired']);
+SchemaExample _$SchemaExampleFromPgSql(Map<String, dynamic> pgsql) {
+  $checkKeys(pgsql, requiredKeys: const ['propExtraFieldRequired']);
   return SchemaExample(
-      (json['requiredBranch'] as List<dynamic>)
-          .map((e) => SchemaExample.fromJson(e as Map<String, dynamic>))
+      (pgsql['requiredBranch'] as List<dynamic>)
+          .map((e) => SchemaExample.fromPgSql(e as Map<String, dynamic>))
           .toList(),
-      (json['nullableRequiredPositional'] as num?)?.toDouble(),
-      requiredName: (json['requiredName'] as num).toDouble(),
+      (pgsql['nullableRequiredPositional'] as num?)?.toDouble(),
+      requiredName: (pgsql['requiredName'] as num).toDouble(),
       nullableNotRequired:
-          (json['nullableNotRequired'] as num?)?.toDouble() ?? 3.145,
-      nullableRequiredName: (json['nullableRequiredName'] as num?)?.toDouble(),
-      optionalNullableFieldWithJsonKeyDefault:
-          (json['optionalNullableFieldWithJsonKeyDefault'] as num?)
+          (pgsql['nullableNotRequired'] as num?)?.toDouble() ?? 3.145,
+      nullableRequiredName: (pgsql['nullableRequiredName'] as num?)?.toDouble(),
+      optionalNullableFieldWithPgSqlKeyDefault:
+          (pgsql['optionalNullableFieldWithPgSqlKeyDefault'] as num?)
               ?.toDouble() ??
           3.145,
-      branch: Branch.fromJson(json['branch'] as Map<String, dynamic>),
-      nested: json['nested'] == null
+      branch: Branch.fromPgSql(pgsql['branch'] as Map<String, dynamic>),
+      nested: pgsql['nested'] == null
           ? null
-          : ComprehensiveNested.fromJson(
-              json['nested'] as Map<String, dynamic>,
+          : ComprehensiveNested.fromPgSql(
+              pgsql['nested'] as Map<String, dynamic>,
             ),
     )
-    ..propExtraField = json['propExtraField'] as bool
-    ..propExtraFieldRequired = json['propExtraFieldRequired'] as bool;
+    ..propExtraField = pgsql['propExtraField'] as bool
+    ..propExtraFieldRequired = pgsql['propExtraFieldRequired'] as bool;
 }
 
-Map<String, dynamic> _$SchemaExampleToJson(SchemaExample instance) =>
+Map<String, dynamic> _$SchemaExampleToPgSql(SchemaExample instance) =>
     <String, dynamic>{
       'requiredName': instance.requiredName,
       'nullableNotRequired': instance.nullableNotRequired,
       'nullableRequiredPositional': instance.nullableRequiredPositional,
       'nullableRequiredName': instance.nullableRequiredName,
       'requiredBranch': instance.requiredBranch,
-      'optionalNullableFieldWithJsonKeyDefault':
-          instance.optionalNullableFieldWithJsonKeyDefault,
+      'optionalNullableFieldWithPgSqlKeyDefault':
+          instance.optionalNullableFieldWithPgSqlKeyDefault,
       'branch': instance.branch,
       'nested': instance.nested,
       'propExtraField': instance.propExtraField,
       'propExtraFieldRequired': instance.propExtraFieldRequired,
     };
 
-const _$SchemaExampleJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$SchemaExamplePgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'requiredName': {
@@ -69,7 +69,7 @@ const _$SchemaExampleJsonSchema = {
       'items': {r'$ref': '#'},
       'description': 'Required named constructor parameter',
     },
-    'optionalNullableFieldWithJsonKeyDefault': {
+    'optionalNullableFieldWithPgSqlKeyDefault': {
       'type': 'number',
       'default': 3.145,
     },
@@ -109,7 +109,7 @@ const _$SchemaExampleJsonSchema = {
     'ComprehensiveNested': {
       'type': 'object',
       'properties': {
-        'noIncludeFromJson': {'type': 'integer'},
+        'noIncludeFromPgSql': {'type': 'integer'},
         'writableField': {
           'type': 'integer',
           'description': 'Writable field comment\n\nWith a second line.',
@@ -126,26 +126,26 @@ const _$SchemaExampleJsonSchema = {
   },
 };
 
-Branch _$BranchFromJson(Map<String, dynamic> json) => Branch(
-  length: (json['length'] as num).toDouble(),
-  branch: (json['branch'] as List<dynamic>)
-      .map((e) => Branch.fromJson(e as Map<String, dynamic>))
+Branch _$BranchFromPgSql(Map<String, dynamic> pgsql) => Branch(
+  length: (pgsql['length'] as num).toDouble(),
+  branch: (pgsql['branch'] as List<dynamic>)
+      .map((e) => Branch.fromPgSql(e as Map<String, dynamic>))
       .toList(),
 );
 
-Map<String, dynamic> _$BranchToJson(Branch instance) => <String, dynamic>{
+Map<String, dynamic> _$BranchToPgSql(Branch instance) => <String, dynamic>{
   'length': instance.length,
   'branch': instance.branch,
 };
 
-ComprehensiveNested _$ComprehensiveNestedFromJson(Map<String, dynamic> json) =>
+ComprehensiveNested _$ComprehensiveNestedFromPgSql(Map<String, dynamic> pgsql) =>
     ComprehensiveNested()
-      ..noIncludeToJson = (json['noIncludeToJson'] as num).toInt()
-      ..writableField = (json['writableField'] as num).toInt()
-      ..regexChecks = (json['regexChecks'] as num).toInt()
-      ..renamedField = (json['renamed_field'] as num).toInt();
+      ..noIncludeToPgSql = (pgsql['noIncludeToPgSql'] as num).toInt()
+      ..writableField = (pgsql['writableField'] as num).toInt()
+      ..regexChecks = (pgsql['regexChecks'] as num).toInt()
+      ..renamedField = (pgsql['renamed_field'] as num).toInt();
 
-Map<String, dynamic> _$ComprehensiveNestedToJson(
+Map<String, dynamic> _$ComprehensiveNestedToPgSql(
   ComprehensiveNested instance,
 ) => <String, dynamic>{
   'writableField': instance.writableField,
@@ -154,11 +154,11 @@ Map<String, dynamic> _$ComprehensiveNestedToJson(
   'getterIncluded': instance.getterIncluded,
 };
 
-const _$ComprehensiveNestedJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$ComprehensiveNestedPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
-    'noIncludeFromJson': {'type': 'integer'},
+    'noIncludeFromPgSql': {'type': 'integer'},
     'writableField': {
       'type': 'integer',
       'description': 'Writable field comment\n\nWith a second line.',

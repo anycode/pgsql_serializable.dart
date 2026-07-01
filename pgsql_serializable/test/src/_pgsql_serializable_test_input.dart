@@ -13,7 +13,7 @@ part 'checked_test_input.dart';
 part 'constants_copy.dart';
 part 'core_subclass_type_input.dart';
 part 'default_value_input.dart';
-part 'extends_jsonkey_override.dart';
+part 'extends_pgsqlkey_override.dart';
 part 'field_namer_input.dart';
 part 'generic_test_input.dart';
 part 'inheritance_test_input.dart';
@@ -590,8 +590,8 @@ class TearOffValueClass {
 }
 
 @ShouldGenerate(r'''
-const _$JsonSchemaTestClassJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaTestClassPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'name': {'type': 'string'},
@@ -600,28 +600,28 @@ const _$JsonSchemaTestClassJsonSchema = {
   'required': ['name', 'age'],
 };
 ''', contains: true)
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaTestClass {
+class PgSqlSchemaTestClass {
   final String name;
   final int age;
 
-  JsonSchemaTestClass(this.name, this.age);
+  PgSqlSchemaTestClass(this.name, this.age);
 }
 
 @ShouldGenerate(r'''
-DateTimeUtcTestClass _$DateTimeUtcTestClassFromJson(
-  Map<String, dynamic> json,
-) => DateTimeUtcTestClass(DateTime.parse(json['date'] as String));
+DateTimeUtcTestClass _$DateTimeUtcTestClassFromPgSql(
+  Map<String, dynamic> pgsql,
+) => DateTimeUtcTestClass(DateTime.parse(pgsql['date'] as String));
 
-Map<String, dynamic> _$DateTimeUtcTestClassToJson(
+Map<String, dynamic> _$DateTimeUtcTestClassToPgSql(
   DateTimeUtcTestClass instance,
 ) => <String, dynamic>{'date': instance.date.toUtc().toIso8601String()};
 ''')
-@JsonSerializable(dateTimeUtc: true)
+@PgSqlSerializable(dateTimeUtc: true)
 class DateTimeUtcTestClass {
   final DateTime date;
 
@@ -629,10 +629,10 @@ class DateTimeUtcTestClass {
 }
 
 @ShouldThrow(
-  'Could not generate `fromJson` code for `record` because of type '
+  'Could not generate `fromPgSql` code for `record` because of type '
   '`void Function()`.',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class RecordWithFunction {
   final (int, void Function()) record;
 
@@ -640,10 +640,10 @@ class RecordWithFunction {
 }
 
 @ShouldThrow(
-  'Could not generate `fromJson` code for `record` because of type '
+  'Could not generate `fromPgSql` code for `record` because of type '
   '`void Function()`.',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class RecordWithNamedFunction {
   final ({int a, void Function() b}) record;
 
@@ -651,34 +651,34 @@ class RecordWithNamedFunction {
 }
 
 @ShouldThrow(
-  'Could not generate `fromJson` code for `record` because of type '
+  'Could not generate `fromPgSql` code for `record` because of type '
   '`void Function()`.',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class RecordWithSinglePositionalFunction {
   final (void Function(),) record;
 
   RecordWithSinglePositionalFunction(this.record);
 }
 
-class RecordConverter1 extends JsonConverter<(int, int), Map<String, dynamic>> {
+class RecordConverter1 extends PgSqlConverter<(int, int), Map<String, dynamic>> {
   const RecordConverter1();
   @override
-  (int, int) fromJson(Map<String, dynamic> json) => (0, 0);
+  (int, int) fromPgSql(Map<String, dynamic> pgsql) => (0, 0);
   @override
-  Map<String, dynamic> toJson((int, int) object) => {};
+  Map<String, dynamic> toPgSql((int, int) object) => {};
 }
 
-class RecordConverter2 extends JsonConverter<(int, int), Map<String, dynamic>> {
+class RecordConverter2 extends PgSqlConverter<(int, int), Map<String, dynamic>> {
   const RecordConverter2();
   @override
-  (int, int) fromJson(Map<String, dynamic> json) => (0, 0);
+  (int, int) fromPgSql(Map<String, dynamic> pgsql) => (0, 0);
   @override
-  Map<String, dynamic> toJson((int, int) object) => {};
+  Map<String, dynamic> toPgSql((int, int) object) => {};
 }
 
 @ShouldThrow('Found more than one matching converter for `(int, int)`.')
-@JsonSerializable()
+@PgSqlSerializable()
 @RecordConverter1()
 @RecordConverter2()
 class RecordDoubleConverter {
@@ -686,25 +686,25 @@ class RecordDoubleConverter {
 }
 
 class SingleRecordConverter1
-    extends JsonConverter<(int,), Map<String, dynamic>> {
+    extends PgSqlConverter<(int,), Map<String, dynamic>> {
   const SingleRecordConverter1();
   @override
-  (int,) fromJson(Map<String, dynamic> json) => (0,);
+  (int,) fromPgSql(Map<String, dynamic> pgsql) => (0,);
   @override
-  Map<String, dynamic> toJson((int,) object) => {};
+  Map<String, dynamic> toPgSql((int,) object) => {};
 }
 
 class SingleRecordConverter2
-    extends JsonConverter<(int,), Map<String, dynamic>> {
+    extends PgSqlConverter<(int,), Map<String, dynamic>> {
   const SingleRecordConverter2();
   @override
-  (int,) fromJson(Map<String, dynamic> json) => (0,);
+  (int,) fromPgSql(Map<String, dynamic> pgsql) => (0,);
   @override
-  Map<String, dynamic> toJson((int,) object) => {};
+  Map<String, dynamic> toPgSql((int,) object) => {};
 }
 
 @ShouldThrow('Found more than one matching converter for `(int,)`.')
-@JsonSerializable()
+@PgSqlSerializable()
 @SingleRecordConverter1()
 @SingleRecordConverter2()
 class RecordSingleDoubleConverter {
@@ -712,25 +712,25 @@ class RecordSingleDoubleConverter {
 }
 
 class NullableRecordConverter1
-    extends JsonConverter<(int, int)?, Map<String, dynamic>> {
+    extends PgSqlConverter<(int, int)?, Map<String, dynamic>> {
   const NullableRecordConverter1();
   @override
-  (int, int)? fromJson(Map<String, dynamic> json) => null;
+  (int, int)? fromPgSql(Map<String, dynamic> pgsql) => null;
   @override
-  Map<String, dynamic> toJson((int, int)? object) => {};
+  Map<String, dynamic> toPgSql((int, int)? object) => {};
 }
 
 class NullableRecordConverter2
-    extends JsonConverter<(int, int)?, Map<String, dynamic>> {
+    extends PgSqlConverter<(int, int)?, Map<String, dynamic>> {
   const NullableRecordConverter2();
   @override
-  (int, int)? fromJson(Map<String, dynamic> json) => null;
+  (int, int)? fromPgSql(Map<String, dynamic> pgsql) => null;
   @override
-  Map<String, dynamic> toJson((int, int)? object) => {};
+  Map<String, dynamic> toPgSql((int, int)? object) => {};
 }
 
 @ShouldThrow('Found more than one matching converter for `(int, int)?`.')
-@JsonSerializable()
+@PgSqlSerializable()
 @NullableRecordConverter1()
 @NullableRecordConverter2()
 class RecordNullableDoubleConverter {
@@ -738,25 +738,25 @@ class RecordNullableDoubleConverter {
 }
 
 class NamedRecordConverter1
-    extends JsonConverter<({int a, int b}), Map<String, dynamic>> {
+    extends PgSqlConverter<({int a, int b}), Map<String, dynamic>> {
   const NamedRecordConverter1();
   @override
-  ({int a, int b}) fromJson(Map<String, dynamic> json) => (a: 0, b: 0);
+  ({int a, int b}) fromPgSql(Map<String, dynamic> pgsql) => (a: 0, b: 0);
   @override
-  Map<String, dynamic> toJson(({int a, int b}) object) => {};
+  Map<String, dynamic> toPgSql(({int a, int b}) object) => {};
 }
 
 class NamedRecordConverter2
-    extends JsonConverter<({int a, int b}), Map<String, dynamic>> {
+    extends PgSqlConverter<({int a, int b}), Map<String, dynamic>> {
   const NamedRecordConverter2();
   @override
-  ({int a, int b}) fromJson(Map<String, dynamic> json) => (a: 0, b: 0);
+  ({int a, int b}) fromPgSql(Map<String, dynamic> pgsql) => (a: 0, b: 0);
   @override
-  Map<String, dynamic> toJson(({int a, int b}) object) => {};
+  Map<String, dynamic> toPgSql(({int a, int b}) object) => {};
 }
 
 @ShouldThrow('Found more than one matching converter for `({int a, int b})`.')
-@JsonSerializable()
+@PgSqlSerializable()
 @NamedRecordConverter1()
 @NamedRecordConverter2()
 class RecordNamedDoubleConverter {
@@ -764,16 +764,16 @@ class RecordNamedDoubleConverter {
 }
 
 @ShouldThrow('''
-Could not generate `fromJson` code for `field` because of type `void Function()`.''')
-@JsonSerializable(createToJson: false)
+Could not generate `fromPgSql` code for `field` because of type `void Function()`.''')
+@PgSqlSerializable(createToPgSql: false)
 class UnsupportedNestedFunctionType {
   late List<void Function()> field;
 }
 
 @ShouldThrow('''
-Could not generate `fromJson` code for `map` because of type `(int, int)`.
+Could not generate `fromPgSql` code for `map` because of type `(int, int)`.
 Map keys must be one of: Object, dynamic, enum, String, BigInt, DateTime, int, Uri.''')
-@JsonSerializable(createToJson: false)
+@PgSqlSerializable(createToPgSql: false)
 class UnsupportedMapKeyRecord {
   late Map<(int, int), String> map;
 }

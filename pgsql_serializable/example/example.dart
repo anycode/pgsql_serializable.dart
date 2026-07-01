@@ -6,13 +6,10 @@ import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'example.g.dart';
 
-@PgSqlSerializable()
+@PgSqlSerializable(createPgSqlSchema: true)
 class Person {
-  /// The generated code assumes these values exist in PgSQL.
   final String firstName, lastName;
 
-  /// The generated code below handles if the corresponding PgSQL value doesn't
-  /// exist or is empty.
   final DateTime? dateOfBirth;
 
   Person({required this.firstName, required this.lastName, this.dateOfBirth});
@@ -23,4 +20,7 @@ class Person {
 
   /// Connect the generated [_$PersonToPgSql] function to the `toPgSql` method.
   Map<String, dynamic> toPgSql() => _$PersonToPgSql(this);
+
+  /// The PgSQL Schema for this class.
+  static const pgsqlSchema = _$PersonPgSqlSchema;
 }

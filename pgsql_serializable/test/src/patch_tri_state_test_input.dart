@@ -1,6 +1,6 @@
 // @dart=3.8
 
-part of '_json_serializable_test_input.dart';
+part of '_pgsql_serializable_test_input.dart';
 
 sealed class PatchValue<T> {
   const PatchValue();
@@ -8,14 +8,14 @@ sealed class PatchValue<T> {
   const factory PatchValue.present(T value) = PatchValuePresent;
   const factory PatchValue.none() = PatchValueNone;
 
-  factory PatchValue.fromJson(
-    Object? json,
-    T Function(Object? json) fromJsonT,
-  ) => json == null
+  factory PatchValue.fromPgSql(
+    Object? pgsql,
+    T Function(Object? pgsql) fromPgSqlT,
+  ) => pgsql == null
       ? const PatchValue.none()
-      : PatchValue.present(fromJsonT(json));
+      : PatchValue.present(fromPgSqlT(pgsql));
 
-  Object? toJson(Object? Function(T value) toJsonT);
+  Object? toPgSql(Object? Function(T value) toPgSqlT);
 }
 
 final class PatchValuePresent<T> extends PatchValue<T> {
@@ -24,252 +24,252 @@ final class PatchValuePresent<T> extends PatchValue<T> {
   final T value;
 
   @override
-  Object? toJson(Object? Function(T value) toJsonT) => toJsonT(value);
+  Object? toPgSql(Object? Function(T value) toPgSqlT) => toPgSqlT(value);
 }
 
 final class PatchValueNone<T> extends PatchValue<T> {
   const PatchValueNone();
 
   @override
-  Object? toJson(Object? Function(T value) toJsonT) => null;
+  Object? toPgSql(Object? Function(T value) toPgSqlT) => null;
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchInner {
   const PatchInner(this.id);
 
-  factory PatchInner.fromJson(Map<String, dynamic> json) =>
-      PatchInner(json['id'] as int);
+  factory PatchInner.fromPgSql(Map<String, dynamic> pgsql) =>
+      PatchInner(pgsql['id'] as int);
 
   final int id;
 
-  Map<String, dynamic> toJson() => {'id': id};
+  Map<String, dynamic> toPgSql() => {'id': id};
 }
 
 @ShouldGenerate(r'''
-PatchEntity _$PatchEntityFromJson(Map<String, dynamic> json) => PatchEntity(
-  name: json['name'] as String,
-  inner: !json.containsKey('inner')
+PatchEntity _$PatchEntityFromPgSql(Map<String, dynamic> pgsql) => PatchEntity(
+  name: pgsql['name'] as String,
+  inner: !pgsql.containsKey('inner')
       ? null
-      : PatchValue<PatchInner>.fromJson(
-          json['inner'],
-          (value) => PatchInner.fromJson(value as Map<String, dynamic>),
+      : PatchValue<PatchInner>.fromPgSql(
+          pgsql['inner'],
+          (value) => PatchInner.fromPgSql(value as Map<String, dynamic>),
         ),
 );
 
-Map<String, dynamic> _$PatchEntityToJson(
+Map<String, dynamic> _$PatchEntityToPgSql(
   PatchEntity instance,
 ) => <String, dynamic>{
   'name': instance.name,
-  if (instance.inner case final value?) 'inner': value.toJson((value) => value),
+  if (instance.inner case final value?) 'inner': value.toPgSql((value) => value),
 };
 ''')
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchEntity {
   const PatchEntity({required this.name, this.inner});
 
   final String name;
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true)
   final PatchValue<PatchInner>? inner;
 }
 
 @ShouldThrow(
-  'Fields with `explicitJsonNullWhenNonNullField` cannot deserialize '
-  'explicit JSON `null` through `BadPatchInner.fromJson` because its first '
+  'Fields with `explicitPgSqlNullWhenNonNullField` cannot deserialize '
+  'explicit PgSQL `null` through `BadPatchInner.fromPgSql` because its first '
   'parameter is non-nullable `Map<String, dynamic>`. Use a nullable parameter '
-  '(for example `Object?`) or provide a custom `@JsonKey(fromJson: ...)` that '
+  '(for example `Object?`) or provide a custom `@PgSqlKey(fromPgSql: ...)` that '
   'accepts nullable input.',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class BadPatchEntity {
   const BadPatchEntity({this.inner});
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true)
   final BadPatchInner? inner;
 }
 
 class BadPatchInner {
   const BadPatchInner(this.id);
 
-  factory BadPatchInner.fromJson(Map<String, dynamic> json) =>
-      BadPatchInner(json['id'] as int);
+  factory BadPatchInner.fromPgSql(Map<String, dynamic> pgsql) =>
+      BadPatchInner(pgsql['id'] as int);
 
   final int id;
 }
 
-PatchValue<PatchInner>? _patchValueFromJson(Object? json) =>
-    PatchValue.fromJson(
-      json,
-      (value) => PatchInner.fromJson(value as Map<String, dynamic>),
+PatchValue<PatchInner>? _patchValueFromPgSql(Object? pgsql) =>
+    PatchValue.fromPgSql(
+      pgsql,
+      (value) => PatchInner.fromPgSql(value as Map<String, dynamic>),
     );
 
-Object? _patchValueToJson(PatchValue<PatchInner>? value) =>
-    value?.toJson((v) => v.toJson());
+Object? _patchValueToPgSql(PatchValue<PatchInner>? value) =>
+    value?.toPgSql((v) => v.toPgSql());
 
 @ShouldGenerate(r'''
-PatchEntityChecked _$PatchEntityCheckedFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('PatchEntityChecked', json, ($checkedConvert) {
+PatchEntityChecked _$PatchEntityCheckedFromPgSql(Map<String, dynamic> pgsql) =>
+    $checkedCreate('PatchEntityChecked', pgsql, ($checkedConvert) {
       final val = PatchEntityChecked(
         name: $checkedConvert('name', (v) => v as String),
         inner: $checkedConvert(
           'inner',
-          (v) => !json.containsKey('inner')
+          (v) => !pgsql.containsKey('inner')
               ? null
-              : PatchValue<PatchInner>.fromJson(
+              : PatchValue<PatchInner>.fromPgSql(
                   v,
-                  (value) => PatchInner.fromJson(value as Map<String, dynamic>),
+                  (value) => PatchInner.fromPgSql(value as Map<String, dynamic>),
                 ),
         ),
       );
       return val;
     });
 
-Map<String, dynamic> _$PatchEntityCheckedToJson(
+Map<String, dynamic> _$PatchEntityCheckedToPgSql(
   PatchEntityChecked instance,
 ) => <String, dynamic>{
   'name': instance.name,
-  if (instance.inner case final value?) 'inner': value.toJson((value) => value),
+  if (instance.inner case final value?) 'inner': value.toPgSql((value) => value),
 };
 ''')
-@JsonSerializable(checked: true)
+@PgSqlSerializable(checked: true)
 class PatchEntityChecked {
   const PatchEntityChecked({required this.name, this.inner});
 
   final String name;
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true)
   final PatchValue<PatchInner>? inner;
 }
 
 @ShouldGenerate(r'''
-PatchNullableStringEntity _$PatchNullableStringEntityFromJson(
-  Map<String, dynamic> json,
+PatchNullableStringEntity _$PatchNullableStringEntityFromPgSql(
+  Map<String, dynamic> pgsql,
 ) => PatchNullableStringEntity(
-  note: !json.containsKey('note') ? null : json['note'] as String?,
+  note: !pgsql.containsKey('note') ? null : pgsql['note'] as String?,
 );
 
-Map<String, dynamic> _$PatchNullableStringEntityToJson(
+Map<String, dynamic> _$PatchNullableStringEntityToPgSql(
   PatchNullableStringEntity instance,
 ) => <String, dynamic>{if (instance.note case final value?) 'note': value};
 ''')
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchNullableStringEntity {
   const PatchNullableStringEntity({this.note});
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true)
   final String? note;
 }
 
 @ShouldGenerate(r'''
-PatchWithCustomFromJson _$PatchWithCustomFromJsonFromJson(
-  Map<String, dynamic> json,
-) => PatchWithCustomFromJson(
-  value: !json.containsKey('value') ? null : _patchValueFromJson(json['value']),
+PatchWithCustomFromPgSql _$PatchWithCustomFromPgSqlFromPgSql(
+  Map<String, dynamic> pgsql,
+) => PatchWithCustomFromPgSql(
+  value: !pgsql.containsKey('value') ? null : _patchValueFromPgSql(pgsql['value']),
 );
 
-Map<String, dynamic> _$PatchWithCustomFromJsonToJson(
-  PatchWithCustomFromJson instance,
+Map<String, dynamic> _$PatchWithCustomFromPgSqlToPgSql(
+  PatchWithCustomFromPgSql instance,
 ) => <String, dynamic>{
-  if (instance.value case final value?) 'value': _patchValueToJson(value),
+  if (instance.value case final value?) 'value': _patchValueToPgSql(value),
 };
 ''')
-@JsonSerializable()
-class PatchWithCustomFromJson {
-  const PatchWithCustomFromJson({this.value});
+@PgSqlSerializable()
+class PatchWithCustomFromPgSql {
+  const PatchWithCustomFromPgSql({this.value});
 
-  @JsonKey(
-    explicitJsonNullWhenNonNullField: true,
-    fromJson: _patchValueFromJson,
-    toJson: _patchValueToJson,
+  @PgSqlKey(
+    explicitPgSqlNullWhenNonNullField: true,
+    fromPgSql: _patchValueFromPgSql,
+    toPgSql: _patchValueToPgSql,
   )
   final PatchValue<PatchInner>? value;
 }
 
 @ShouldThrow(
-  'Error with `@JsonKey` on the `inner` field. Fields with '
-  '`explicitJsonNullWhenNonNullField` must be nullable so a missing JSON key '
+  'Error with `@PgSqlKey` on the `inner` field. Fields with '
+  '`explicitPgSqlNullWhenNonNullField` must be nullable so a missing PgSQL key '
   'can be represented as Dart `null`.',
   element: 'inner',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchNonNullableField {
   const PatchNonNullableField({required this.inner});
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true)
   final PatchValue<PatchInner> inner;
 }
 
 @ShouldThrow(
-  'Error with `@JsonKey` on the `inner` field. Cannot set both '
-  '`explicitJsonNullWhenNonNullField` and `disallowNullValue` to `true`.',
+  'Error with `@PgSqlKey` on the `inner` field. Cannot set both '
+  '`explicitPgSqlNullWhenNonNullField` and `disallowNullValue` to `true`.',
   element: 'inner',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchDisallowNullWithExplicit {
   const PatchDisallowNullWithExplicit({this.inner});
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true, disallowNullValue: true)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true, disallowNullValue: true)
   final PatchValue<PatchInner>? inner;
 }
 
 @ShouldThrow(
-  'Error with `@JsonKey` on the `inner` field. Cannot set both '
-  '`explicitJsonNullWhenNonNullField` and `required` to `true`.',
+  'Error with `@PgSqlKey` on the `inner` field. Cannot set both '
+  '`explicitPgSqlNullWhenNonNullField` and `required` to `true`.',
   element: 'inner',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchRequiredWithExplicit {
   const PatchRequiredWithExplicit({this.inner});
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true, required: true)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true, required: true)
   final PatchValue<PatchInner>? inner;
 }
 
 @ShouldThrow(
-  'Error with `@JsonKey` on the `note` field. Cannot set `defaultValue` when '
-  '`explicitJsonNullWhenNonNullField` is `true`.',
+  'Error with `@PgSqlKey` on the `note` field. Cannot set `defaultValue` when '
+  '`explicitPgSqlNullWhenNonNullField` is `true`.',
   element: 'note',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchDefaultValueWithExplicit {
   const PatchDefaultValueWithExplicit({this.note});
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true, defaultValue: '')
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true, defaultValue: '')
   final String? note;
 }
 
-String _nonNullableStringFromJson(String value) => value;
+String _nonNullableStringFromPgSql(String value) => value;
 
 @ShouldThrow(
-  'Error with `@JsonKey` on the `note` field. Fields with '
-  '`explicitJsonNullWhenNonNullField` require `fromJson` to accept a nullable '
-  'JSON input (for example `Object?`), but `_nonNullableStringFromJson` has a '
+  'Error with `@PgSqlKey` on the `note` field. Fields with '
+  '`explicitPgSqlNullWhenNonNullField` require `fromPgSql` to accept a nullable '
+  'PgSQL input (for example `Object?`), but `_nonNullableStringFromPgSql` has a '
   'non-nullable parameter type `String`.',
   element: 'note',
 )
-@JsonSerializable()
-class PatchBadCustomFromJson {
-  const PatchBadCustomFromJson({this.note});
+@PgSqlSerializable()
+class PatchBadCustomFromPgSql {
+  const PatchBadCustomFromPgSql({this.note});
 
-  @JsonKey(
-    explicitJsonNullWhenNonNullField: true,
-    fromJson: _nonNullableStringFromJson,
+  @PgSqlKey(
+    explicitPgSqlNullWhenNonNullField: true,
+    fromPgSql: _nonNullableStringFromPgSql,
   )
   final String? note;
 }
 
-Object? _dummyReadValue(Map json, String key) => json[key];
+Object? _dummyReadValue(Map pgsql, String key) => pgsql[key];
 
 @ShouldThrow(
-  'Error with `@JsonKey` on the `note` field. Cannot set `readValue` when '
-  '`explicitJsonNullWhenNonNullField` is `true`.',
+  'Error with `@PgSqlKey` on the `note` field. Cannot set `readValue` when '
+  '`explicitPgSqlNullWhenNonNullField` is `true`.',
   element: 'note',
 )
-@JsonSerializable()
+@PgSqlSerializable()
 class PatchReadValueWithExplicit {
   const PatchReadValueWithExplicit({this.note});
 
-  @JsonKey(explicitJsonNullWhenNonNullField: true, readValue: _dummyReadValue)
+  @PgSqlKey(explicitPgSqlNullWhenNonNullField: true, readValue: _dummyReadValue)
   final String? note;
 }

@@ -1,55 +1,55 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'json_serializable.dart';
+part of 'pgsql_serializable.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
+// PgSqlSerializableGenerator
 // **************************************************************************
 
-JsonSerializable _$JsonSerializableFromJson(
-  Map<String, dynamic> json,
+PgSqlSerializable _$PgSqlSerializableFromPgSql(
+  Map<String, dynamic> pgsql,
 ) => $checkedCreate(
-  'JsonSerializable',
-  json,
+  'PgSqlSerializable',
+  pgsql,
   ($checkedConvert) {
     $checkKeys(
-      json,
+      pgsql,
       allowedKeys: const [
         'any_map',
         'checked',
         'constructor',
         'create_factory',
         'create_field_map',
-        'create_json_keys',
-        'create_json_schema',
-        'create_per_field_to_json',
-        'create_to_json',
+        'create_pgsql_keys',
+        'create_pgsql_schema',
+        'create_per_field_to_pgsql',
+        'create_to_pgsql',
         'date_time_utc',
         'disallow_unrecognized_keys',
-        'explicit_to_json',
+        'explicit_to_pgsql',
         'field_rename',
         'generic_argument_factories',
         'ignore_unannotated',
         'include_if_null',
       ],
     );
-    final val = JsonSerializable(
+    final val = PgSqlSerializable(
       anyMap: $checkedConvert('any_map', (v) => v as bool?),
       checked: $checkedConvert('checked', (v) => v as bool?),
       constructor: $checkedConvert('constructor', (v) => v as String?),
       createFieldMap: $checkedConvert('create_field_map', (v) => v as bool?),
-      createJsonKeys: $checkedConvert('create_json_keys', (v) => v as bool?),
-      createJsonSchema: $checkedConvert(
-        'create_json_schema',
+      createPgSqlKeys: $checkedConvert('create_pgsql_keys', (v) => v as bool?),
+      createPgSqlSchema: $checkedConvert(
+        'create_pgsql_schema',
         (v) => v as bool?,
       ),
       createFactory: $checkedConvert('create_factory', (v) => v as bool?),
-      createToJson: $checkedConvert('create_to_json', (v) => v as bool?),
+      createToPgSql: $checkedConvert('create_to_pgsql', (v) => v as bool?),
       disallowUnrecognizedKeys: $checkedConvert(
         'disallow_unrecognized_keys',
         (v) => v as bool?,
       ),
-      explicitToJson: $checkedConvert('explicit_to_json', (v) => v as bool?),
+      explicitToPgSql: $checkedConvert('explicit_to_pgsql', (v) => v as bool?),
       fieldRename: $checkedConvert(
         'field_rename',
         (v) => $enumDecodeNullable(_$FieldRenameEnumMap, v),
@@ -63,8 +63,8 @@ JsonSerializable _$JsonSerializableFromJson(
         'generic_argument_factories',
         (v) => v as bool?,
       ),
-      createPerFieldToJson: $checkedConvert(
-        'create_per_field_to_json',
+      createPerFieldToPgSql: $checkedConvert(
+        'create_per_field_to_pgsql',
         (v) => v as bool?,
       ),
       dateTimeUtc: $checkedConvert('date_time_utc', (v) => v as bool?),
@@ -74,35 +74,35 @@ JsonSerializable _$JsonSerializableFromJson(
   fieldKeyMap: const {
     'anyMap': 'any_map',
     'createFieldMap': 'create_field_map',
-    'createJsonKeys': 'create_json_keys',
-    'createJsonSchema': 'create_json_schema',
+    'createPgSqlKeys': 'create_pgsql_keys',
+    'createPgSqlSchema': 'create_pgsql_schema',
     'createFactory': 'create_factory',
-    'createToJson': 'create_to_json',
+    'createToPgSql': 'create_to_pgsql',
     'disallowUnrecognizedKeys': 'disallow_unrecognized_keys',
-    'explicitToJson': 'explicit_to_json',
+    'explicitToPgSql': 'explicit_to_pgsql',
     'fieldRename': 'field_rename',
     'ignoreUnannotated': 'ignore_unannotated',
     'includeIfNull': 'include_if_null',
     'genericArgumentFactories': 'generic_argument_factories',
-    'createPerFieldToJson': 'create_per_field_to_json',
+    'createPerFieldToPgSql': 'create_per_field_to_pgsql',
     'dateTimeUtc': 'date_time_utc',
   },
 );
 
-Map<String, dynamic> _$JsonSerializableToJson(JsonSerializable instance) =>
+Map<String, dynamic> _$PgSqlSerializableToPgSql(PgSqlSerializable instance) =>
     <String, dynamic>{
       'any_map': instance.anyMap,
       'checked': instance.checked,
       'constructor': instance.constructor,
       'create_factory': instance.createFactory,
       'create_field_map': instance.createFieldMap,
-      'create_json_keys': instance.createJsonKeys,
-      'create_json_schema': instance.createJsonSchema,
-      'create_per_field_to_json': instance.createPerFieldToJson,
-      'create_to_json': instance.createToJson,
+      'create_pgsql_keys': instance.createPgSqlKeys,
+      'create_pgsql_schema': instance.createPgSqlSchema,
+      'create_per_field_to_pgsql': instance.createPerFieldToPgSql,
+      'create_to_pgsql': instance.createToPgSql,
       'date_time_utc': instance.dateTimeUtc,
       'disallow_unrecognized_keys': instance.disallowUnrecognizedKeys,
-      'explicit_to_json': instance.explicitToJson,
+      'explicit_to_pgsql': instance.explicitToPgSql,
       'field_rename': _$FieldRenameEnumMap[instance.fieldRename],
       'generic_argument_factories': instance.genericArgumentFactories,
       'ignore_unannotated': instance.ignoreUnannotated,

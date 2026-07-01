@@ -5,40 +5,40 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
 import 'shared_checkers.dart';
 import 'type_helpers/config_types.dart';
 
-const _jsonKeyChecker = TypeChecker.typeNamed(
-  JsonKey,
-  inPackage: 'json_annotation',
+const _pgsqlKeyChecker = TypeChecker.typeNamed(
+  PgSqlKey,
+  inPackage: 'pgsql_annotation',
 );
 
 /// If an annotation exists on `element` the source is a 'real' field.
 /// If the result is `null`, check the getter – it is a property.
-// TODO: setters: github.com/google/json_serializable.dart/issues/24
-DartObject? _jsonKeyAnnotation(FieldElement element) =>
-    _jsonKeyChecker.firstAnnotationOf(element) ??
+// TODO: setters: github.com/anycode/pgsql_serializable.dart/issues/24
+DartObject? _pgsqlKeyAnnotation(FieldElement element) =>
+    _pgsqlKeyChecker.firstAnnotationOf(element) ??
     (element.getter == null
         ? null
-        : _jsonKeyChecker.firstAnnotationOf(element.getter!));
+        : _pgsqlKeyChecker.firstAnnotationOf(element.getter!));
 
-ConstantReader jsonKeyAnnotation(FieldElement element) =>
-    ConstantReader(_jsonKeyAnnotation(element));
+ConstantReader pgsqlKeyAnnotation(FieldElement element) =>
+    ConstantReader(_pgsqlKeyAnnotation(element));
 
-/// Returns `true` if [element] is annotated with [JsonKey].
-bool hasJsonKeyAnnotation(FieldElement element) =>
-    _jsonKeyAnnotation(element) != null;
+/// Returns `true` if [element] is annotated with [PgSqlKey].
+bool hasPgSqlKeyAnnotation(FieldElement element) =>
+    _pgsqlKeyAnnotation(element) != null;
 
-ConstantReader jsonKeyAnnotationForCtorParam(FormalParameterElement element) =>
-    ConstantReader(_jsonKeyChecker.firstAnnotationOf(element));
+ConstantReader pgsqlKeyAnnotationForCtorParam(FormalParameterElement element) =>
+    ConstantReader(_pgsqlKeyChecker.firstAnnotationOf(element));
 
 Never throwUnsupported(FieldElement element, String message) =>
     throw InvalidGenerationSourceError(
-      'Error with `@JsonKey` on the `${element.name}` field. $message',
+      'Error with `@PgSqlKey` on the `${element.name}` field. $message',
       element: element,
     );
 
@@ -53,38 +53,38 @@ T enumValueForDartObject<T>(
   String Function(T) name,
 ) => items[source.getField('index')!.toIntValue()!];
 
-/// Return an instance of [JsonSerializable] corresponding to the provided
+/// Return an instance of [PgSqlSerializable] corresponding to the provided
 /// [reader].
-// #CHANGE WHEN UPDATING json_annotation
-JsonSerializable _valueForAnnotation(ConstantReader reader) => JsonSerializable(
+// #CHANGE WHEN UPDATING pgsql_annotation
+PgSqlSerializable _valueForAnnotation(ConstantReader reader) => PgSqlSerializable(
   anyMap: reader.read('anyMap').literalValue as bool?,
   checked: reader.read('checked').literalValue as bool?,
   constructor: reader.read('constructor').literalValue as String?,
   createFactory: reader.read('createFactory').literalValue as bool?,
-  createToJson: reader.read('createToJson').literalValue as bool?,
+  createToPgSql: reader.read('createToPgSql').literalValue as bool?,
   createFieldMap: reader.read('createFieldMap').literalValue as bool?,
-  createJsonKeys: reader.read('createJsonKeys').literalValue as bool?,
-  createPerFieldToJson:
-      reader.read('createPerFieldToJson').literalValue as bool?,
+  createPgSqlKeys: reader.read('createPgSqlKeys').literalValue as bool?,
+  createPerFieldToPgSql:
+      reader.read('createPerFieldToPgSql').literalValue as bool?,
   dateTimeUtc: reader.read('dateTimeUtc').literalValue as bool?,
   disallowUnrecognizedKeys:
       reader.read('disallowUnrecognizedKeys').literalValue as bool?,
-  explicitToJson: reader.read('explicitToJson').literalValue as bool?,
+  explicitToPgSql: reader.read('explicitToPgSql').literalValue as bool?,
   fieldRename: readEnum(reader.read('fieldRename'), FieldRename.values),
   genericArgumentFactories:
       reader.read('genericArgumentFactories').literalValue as bool?,
   ignoreUnannotated: reader.read('ignoreUnannotated').literalValue as bool?,
   includeIfNull: reader.read('includeIfNull').literalValue as bool?,
-  createJsonSchema: reader.read('createJsonSchema').literalValue as bool?,
+  createPgSqlSchema: reader.read('createPgSqlSchema').literalValue as bool?,
 );
 
-/// Returns a [ClassConfig] with values from the [JsonSerializable]
+/// Returns a [ClassConfig] with values from the [PgSqlSerializable]
 /// instance represented by [reader].
 ///
-/// For fields that are not defined in [JsonSerializable] or `null` in [reader],
+/// For fields that are not defined in [PgSqlSerializable] or `null` in [reader],
 /// use the values in [config].
 ///
-/// Note: if [JsonSerializable.genericArgumentFactories] is `false` for [reader]
+/// Note: if [PgSqlSerializable.genericArgumentFactories] is `false` for [reader]
 /// and `true` for [config], the corresponding field in the return value will
 /// only be `true` if [classElement] has type parameters.
 ClassConfig mergeConfig(
@@ -112,14 +112,15 @@ ClassConfig mergeConfig(
     checked: annotation.checked ?? config.checked,
     constructor: constructor,
     createFactory: annotation.createFactory ?? config.createFactory,
-    createToJson: annotation.createToJson ?? config.createToJson,
+    createToPgSql: annotation.createToPgSql ?? config.createToPgSql,
     createFieldMap: annotation.createFieldMap ?? config.createFieldMap,
-    createJsonKeys: annotation.createJsonKeys ?? config.createJsonKeys,
-    createPerFieldToJson:
-        annotation.createPerFieldToJson ?? config.createPerFieldToJson,
+    enumMapPrefix: annotation.enumMapPrefix ?? config.enumMapPrefix,
+    createPgSqlKeys: annotation.createPgSqlKeys ?? config.createPgSqlKeys,
+    createPerFieldToPgSql:
+        annotation.createPerFieldToPgSql ?? config.createPerFieldToPgSql,
     disallowUnrecognizedKeys:
         annotation.disallowUnrecognizedKeys ?? config.disallowUnrecognizedKeys,
-    explicitToJson: annotation.explicitToJson ?? config.explicitToJson,
+    explicitToPgSql: annotation.explicitToPgSql ?? config.explicitToPgSql,
     fieldRename: annotation.fieldRename ?? config.fieldRename,
     genericArgumentFactories:
         annotation.genericArgumentFactories ??
@@ -129,7 +130,7 @@ ClassConfig mergeConfig(
     includeIfNull: annotation.includeIfNull ?? config.includeIfNull,
     ctorParams: ctorParams,
     converters: converters.isNull ? const [] : converters.listValue,
-    createJsonSchema: annotation.createJsonSchema ?? config.createJsonSchema,
+    createPgSqlSchema: annotation.createPgSqlSchema ?? config.createPgSqlSchema,
     dateTimeUtc: annotation.dateTimeUtc ?? config.dateTimeUtc,
   );
 }
@@ -269,7 +270,7 @@ String? defaultDecodeLogic(
     final targetTypeNullable = defaultProvided || targetType.isNullableType;
     final question = targetTypeNullable ? '?' : '';
     return '($expression as num$question)$question.toInt()';
-  } else if (simpleJsonTypeChecker.isAssignableFromType(targetType)) {
+  } else if (simplePgSqlTypeChecker.isAssignableFromType(targetType)) {
     final typeCode = typeToCode(targetType, forceNullable: defaultProvided);
     return '$expression as $typeCode';
   }
@@ -301,6 +302,6 @@ extension ExecutableElementExtension on ExecutableElement {
   }
 }
 
-const jsonSerializableChecker = TypeChecker.fromUrl(
-  'package:json_annotation/src/json_serializable.dart#JsonSerializable',
+const pgsqlSerializableChecker = TypeChecker.fromUrl(
+  'package:pgsql_annotation/src/pgsql_serializable.dart#PgSqlSerializable',
 );

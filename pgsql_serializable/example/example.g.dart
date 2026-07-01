@@ -22,8 +22,8 @@ Map<String, dynamic> _$PersonToPgSql(Person instance) => <String, dynamic>{
   'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
 };
 
-const _$PersonJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PersonPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'firstName': {'type': 'string'},

@@ -267,10 +267,10 @@ class RegressionTestIssue1210 with RegressionTestIssue1210Mixin {
   Map<String, dynamic> toPgSql() => _$RegressionTestIssue1210ToPgSql(this);
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 class CustomList extends ListBase<String> {
   // Regression test for issue:
-  // https://github.com/google/json_serializable.dart/issues/1512
+  // https://github.com/anycode/pgsql_serializable.dart/issues/1512
 
   final List<String> _innerList = [];
 
@@ -292,8 +292,8 @@ class CustomList extends ListBase<String> {
     _innerList[index] = value;
   }
 
-  factory CustomList.fromJson(Map<String, dynamic> json) =>
-      _$CustomListFromJson(json);
+  factory CustomList.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$CustomListFromPgSql(pgsql);
 
-  Map<String, dynamic> toJson() => _$CustomListToJson(this);
+  Map<String, dynamic> toPgSql() => _$CustomListToPgSql(this);
 }

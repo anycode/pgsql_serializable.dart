@@ -9,19 +9,19 @@ import 'package:source_helper/source_helper.dart';
 import 'enum_utils.dart';
 import 'helper_core.dart';
 import 'type_helpers/generic_factory_helper.dart';
-import 'type_helpers/json_converter_helper.dart';
+import 'type_helpers/pgsql_converter_helper.dart';
 import 'type_helpers/patch_tri_state_helper.dart';
 import 'unsupported_type_error.dart';
 import 'utils.dart';
 
 mixin EncodeHelper implements HelperCore {
-  String _fieldAccess(FieldElement field) => '$_toJsonParamName.${field.name!}';
+  String _fieldAccess(FieldElement field) => '$_toPgSqlParamName.${field.name!}';
 
-  String createPerFieldToJson(Set<FieldElement> accessibleFieldSet) {
+  String createPerFieldToPgSql(Set<FieldElement> accessibleFieldSet) {
     final buffer = StringBuffer()
       ..writeln('// ignore: unused_element')
       ..writeln(
-        'abstract class _\$${element.name!.nonPrivate}PerFieldToJson {',
+        'abstract class _\$${element.name!.nonPrivate}PerFieldToPgSql {',
       );
 
     for (final field in accessibleFieldSet) {
@@ -30,14 +30,14 @@ mixin EncodeHelper implements HelperCore {
         ..write(
           'static Object? ${field.name!}'
           '${genericClassArgumentsImpl(withConstraints: true)}'
-          '(${field.type} $_toJsonParamName',
+          '(${field.type} $_toPgSqlParamName',
         );
 
       if (config.genericArgumentFactories) {
         _writeGenericArgumentFactories(buffer);
       }
 
-      buffer.writeln(') => ${_serializeField(field, _toJsonParamName)};');
+      buffer.writeln(') => ${_serializeField(field, _toPgSqlParamName)};');
     }
 
     buffer.writeln('}');
@@ -68,13 +68,13 @@ mixin EncodeHelper implements HelperCore {
 
   /// Generates an object containing metadatas related to the encoding,
   /// destined to be used by other code-generators.
-  String createJsonKeys(Set<FieldElement> accessibleFieldSet) {
-    assert(config.createJsonKeys);
+  String createPgSqlKeys(Set<FieldElement> accessibleFieldSet) {
+    assert(config.createPgSqlKeys);
 
     final buffer = StringBuffer(
-      'abstract final class _\$${element.name!.nonPrivate}JsonKeys {',
+      'abstract final class _\$${element.name!.nonPrivate}PgSqlKeys {',
     );
-    // ..write('static const _\$${element.name.nonPrivate}JsonKeys();');
+    // ..write('static const _\$${element.name.nonPrivate}PgSqlKeys();');
 
     for (final field in accessibleFieldSet) {
       buffer.writeln(
@@ -88,16 +88,16 @@ mixin EncodeHelper implements HelperCore {
     return buffer.toString();
   }
 
-  Iterable<String> createToJson(Set<FieldElement> accessibleFields) sync* {
-    assert(config.createToJson);
+  Iterable<String> createToPgSql(Set<FieldElement> accessibleFields) sync* {
+    assert(config.createToPgSql);
 
     final buffer = StringBuffer();
 
     final functionName =
-        '${prefix}ToJson${genericClassArgumentsImpl(withConstraints: true)}';
+        '${prefix}ToPgSql${genericClassArgumentsImpl(withConstraints: true)}';
     buffer.write(
       'Map<String, dynamic> '
-      '$functionName($targetClassReference $_toJsonParamName',
+      '$functionName($targetClassReference $_toPgSqlParamName',
     );
 
     if (config.genericArgumentFactories) _writeGenericArgumentFactories(buffer);
@@ -109,7 +109,7 @@ mixin EncodeHelper implements HelperCore {
         accessibleFields.map((field) {
           final keyExpression = safeNameAccess(field);
 
-          if (usesExplicitJsonNullWhenNonNullField(jsonKeyFor(field))) {
+          if (usesExplicitPgSqlNullWhenNonNullField(pgsqlKeyFor(field))) {
             final access = _fieldAccess(field);
             final valueExpression = _serializePatchField(field, 'value');
             return '        if ($access case final value?) '
@@ -119,7 +119,7 @@ mixin EncodeHelper implements HelperCore {
           final access = _fieldAccess(field);
           final valueExpression = _serializeField(field, access);
 
-          final maybeQuestion = _canWriteJsonWithoutNullCheck(field) ? '' : '?';
+          final maybeQuestion = _canWritePgSqlWithoutNullCheck(field) ? '' : '?';
 
           final keyValuePair = '$keyExpression: $maybeQuestion$valueExpression';
           return '        $keyValuePair,\n';
@@ -132,7 +132,7 @@ mixin EncodeHelper implements HelperCore {
 
   void _writeGenericArgumentFactories(StringBuffer buffer) {
     for (var arg in element.typeParameters) {
-      final helperName = toJsonForType(
+      final helperName = toPgSqlForType(
         arg.instantiate(nullabilitySuffix: NullabilitySuffix.none),
       );
       buffer.write(',Object? Function(${arg.name} value) $helperName');
@@ -142,7 +142,7 @@ mixin EncodeHelper implements HelperCore {
     }
   }
 
-  static const _toJsonParamName = 'instance';
+  static const _toPgSqlParamName = 'instance';
 
   String _serializeField(FieldElement field, String accessExpression) {
     try {
@@ -151,7 +151,7 @@ mixin EncodeHelper implements HelperCore {
       ).serialize(field.type, accessExpression).toString();
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('toJson', field, e);
+      throw createInvalidGenerationError('toPgSql', field, e);
     }
   }
 
@@ -163,20 +163,20 @@ mixin EncodeHelper implements HelperCore {
       ).serialize(type, accessExpression).toString();
     } on UnsupportedTypeError catch (e) // ignore: avoid_catching_errors
     {
-      throw createInvalidGenerationError('toJson', field, e);
+      throw createInvalidGenerationError('toPgSql', field, e);
     }
   }
 
-  /// Returns `true` if the field can be written to JSON 'naively' – meaning
+  /// Returns `true` if the field can be written to PgSQL 'naively' – meaning
   /// we can avoid checking for `null`.
-  bool _canWriteJsonWithoutNullCheck(FieldElement field) {
-    final jsonKey = jsonKeyFor(field);
+  bool _canWritePgSqlWithoutNullCheck(FieldElement field) {
+    final pgsqlKey = pgsqlKeyFor(field);
 
-    if (usesExplicitJsonNullWhenNonNullField(jsonKey)) {
+    if (usesExplicitPgSqlNullWhenNonNullField(pgsqlKey)) {
       return true;
     }
 
-    if (jsonKey.includeIfNull) {
+    if (pgsqlKey.includeIfNull) {
       return true;
     }
 

@@ -4,13 +4,19 @@
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'enum_utils.dart';
+import 'settings.dart';
 
-class JsonEnumGenerator extends GeneratorForAnnotation<JsonEnum> {
-  const JsonEnumGenerator() : super(inPackage: 'json_annotation');
+class PgSqlEnumGenerator extends GeneratorForAnnotation<PgSqlEnum> {
+
+  final Settings _settings;
+
+  PgSqlEnumGenerator({PgSqlSerializable? config }): this.fromSettings(Settings(config: config));
+
+  PgSqlEnumGenerator.fromSettings(this._settings): super(inPackage: 'pgslq_annotation');
 
   @override
   List<String> generateForAnnotatedElement(
@@ -20,13 +26,14 @@ class JsonEnumGenerator extends GeneratorForAnnotation<JsonEnum> {
   ) {
     if (element is! EnumElement) {
       throw InvalidGenerationSourceError(
-        '`@JsonEnum` can only be used on enum elements.',
+        '`@PgSqlEnum` can only be used on enum elements.',
         element: element,
       );
     }
 
     final value = enumValueMapFromType(
       element.thisType,
+      _settings.config.enumMapPrefix,
       nullWithNoAnnotation: true,
     );
 

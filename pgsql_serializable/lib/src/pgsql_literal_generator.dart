@@ -7,13 +7,13 @@ import 'dart:convert';
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
-class JsonLiteralGenerator extends GeneratorForAnnotation<JsonLiteral> {
-  const JsonLiteralGenerator() : super(inPackage: 'json_annotation');
+class PgSqlLiteralGenerator extends GeneratorForAnnotation<PgSqlLiteral> {
+  const PgSqlLiteralGenerator() : super(inPackage: 'pgsql_annotation');
 
   @override
   Future<String> generateForAnnotatedElement(
@@ -36,30 +36,30 @@ class JsonLiteralGenerator extends GeneratorForAnnotation<JsonLiteral> {
 
     final asConst = annotation.read('asConst').boolValue;
 
-    final thing = jsonLiteralAsDart(content).toString();
+    final thing = pgsqlLiteralAsDart(content).toString();
     final marked = asConst ? 'const' : 'final';
 
-    return '$marked _\$${element.name}JsonLiteral = $thing;';
+    return '$marked _\$${element.name}PgSqlLiteral = $thing;';
   }
 }
 
 /// Returns a [String] representing a valid Dart literal for [value].
-String jsonLiteralAsDart(Object? value) => switch (value) {
+String pgsqlLiteralAsDart(Object? value) => switch (value) {
   null => 'null',
   final String s => escapeDartString(s),
   final double d when d.isNaN => 'double.nan',
   final double d when d.isInfinite =>
     d.isNegative ? 'double.negativeInfinity' : 'double.infinity',
   bool() || num() => value.toString(),
-  final List l => '[${l.map(jsonLiteralAsDart).join(', ')}]',
-  final Set s => '{${s.map(jsonLiteralAsDart).join(', ')}}',
-  final Map m => jsonMapAsDart(m),
+  final List l => '[${l.map(pgsqlLiteralAsDart).join(', ')}]',
+  final Set s => '{${s.map(pgsqlLiteralAsDart).join(', ')}}',
+  final Map m => pgsqlMapAsDart(m),
   _ => throw StateError(
     'Should never get here – with ${value.runtimeType} - `$value`.',
   ),
 };
 
-String jsonMapAsDart(Map value) {
+String pgsqlMapAsDart(Map value) {
   final buffer = StringBuffer('{');
 
   var first = true;
@@ -72,7 +72,7 @@ String jsonMapAsDart(Map value) {
     buffer
       ..write(escapeDartString(k as String))
       ..write(': ')
-      ..write(jsonLiteralAsDart(v));
+      ..write(pgsqlLiteralAsDart(v));
   });
 
   buffer.write('}');

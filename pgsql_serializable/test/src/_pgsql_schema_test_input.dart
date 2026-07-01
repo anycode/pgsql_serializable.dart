@@ -2,12 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 import 'package:source_gen_test/annotations.dart';
 
 @ShouldGenerate(r'''
-const _$JsonSchemaDocsTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaDocsTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'name': {'type': 'string', 'description': 'The name of the item'},
@@ -15,21 +15,21 @@ const _$JsonSchemaDocsTestJsonSchema = {
   'required': ['name'],
 };
 ''')
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaDocsTest {
+class PgSqlSchemaDocsTest {
   /// The name of the item
   final String name;
 
-  JsonSchemaDocsTest(this.name);
+  PgSqlSchemaDocsTest(this.name);
 }
 
 @ShouldGenerate(r'''
-const _$JsonSchemaCollectionsTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaCollectionsTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'tags': {
@@ -44,28 +44,28 @@ const _$JsonSchemaCollectionsTestJsonSchema = {
   'required': ['tags', 'metadata'],
 };
 ''')
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaCollectionsTest {
+class PgSqlSchemaCollectionsTest {
   final List<String> tags;
   final Map<String, int> metadata;
 
-  JsonSchemaCollectionsTest(this.tags, this.metadata);
+  PgSqlSchemaCollectionsTest(this.tags, this.metadata);
 }
 
 @ShouldGenerate(r'''
-JsonSchemaDefaultsTest _$JsonSchemaDefaultsTestFromJson(
-  Map<String, dynamic> json,
-) => JsonSchemaDefaultsTest(
-  (json['propAnnotatedDefaultValue'] as num?)?.toInt() ?? 42,
-  propCtorDefaultValue: (json['propCtorDefaultValue'] as num?)?.toInt() ?? 42,
+PgSqlSchemaDefaultsTest _$PgSqlSchemaDefaultsTestFromPgSql(
+  Map<String, dynamic> pgsql,
+) => PgSqlSchemaDefaultsTest(
+  (pgsql['propAnnotatedDefaultValue'] as num?)?.toInt() ?? 42,
+  propCtorDefaultValue: (pgsql['propCtorDefaultValue'] as num?)?.toInt() ?? 42,
 );
 
-const _$JsonSchemaDefaultsTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaDefaultsTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'propAnnotatedDefaultValue': {'type': 'integer', 'default': 42},
@@ -77,27 +77,27 @@ const _$JsonSchemaDefaultsTestJsonSchema = {
   },
 };
 ''')
-@JsonSerializable(createJsonSchema: true, createToJson: false)
-class JsonSchemaDefaultsTest {
-  @JsonKey(defaultValue: 42)
+@PgSqlSerializable(createPgSqlSchema: true, createToPgSql: false)
+class PgSqlSchemaDefaultsTest {
+  @PgSqlKey(defaultValue: 42)
   final int propAnnotatedDefaultValue;
 
   /// Default value is still required
   final int propCtorDefaultValue;
 
-  JsonSchemaDefaultsTest(
+  PgSqlSchemaDefaultsTest(
     this.propAnnotatedDefaultValue, {
     this.propCtorDefaultValue = 42,
   });
 }
 
 @ShouldGenerate(r'''
-JsonSchemaNullableTest _$JsonSchemaNullableTestFromJson(
-  Map<String, dynamic> json,
-) => JsonSchemaNullableTest(json['nullableStillRequired'] as String?);
+PgSqlSchemaNullableTest _$PgSqlSchemaNullableTestFromPgSql(
+  Map<String, dynamic> pgsql,
+) => PgSqlSchemaNullableTest(pgsql['nullableStillRequired'] as String?);
 
-const _$JsonSchemaNullableTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaNullableTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'nullableStillRequired': {
@@ -108,17 +108,17 @@ const _$JsonSchemaNullableTestJsonSchema = {
   'required': ['nullableStillRequired'],
 };
 ''')
-@JsonSerializable(createJsonSchema: true, createToJson: false)
-class JsonSchemaNullableTest {
+@PgSqlSerializable(createPgSqlSchema: true, createToPgSql: false)
+class PgSqlSchemaNullableTest {
   /// Nullable field is still required!
   final String? nullableStillRequired;
 
-  JsonSchemaNullableTest(this.nullableStillRequired);
+  PgSqlSchemaNullableTest(this.nullableStillRequired);
 }
 
 @ShouldGenerate(r'''
-const _$JsonSchemaNestedTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaNestedTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'inner': {r'$ref': r'#/$defs/InnerClass'},
@@ -135,21 +135,21 @@ const _$JsonSchemaNestedTestJsonSchema = {
   },
 };
 ''')
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaNestedTest {
+class PgSqlSchemaNestedTest {
   final InnerClass inner;
 
-  JsonSchemaNestedTest(this.inner);
+  PgSqlSchemaNestedTest(this.inner);
 }
 
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
 class InnerClass {
   final int value;
@@ -158,8 +158,8 @@ class InnerClass {
 }
 
 @ShouldGenerate(r'''
-const _$JsonSchemaNonCollectionTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaNonCollectionTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'intField': {'type': 'integer'},
@@ -173,12 +173,12 @@ const _$JsonSchemaNonCollectionTestJsonSchema = {
   },
 };
 ''')
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaNonCollectionTest {
+class PgSqlSchemaNonCollectionTest {
   final int? intField;
   final double? doubleField;
   final num? numField;
@@ -188,7 +188,7 @@ class JsonSchemaNonCollectionTest {
   final Uri? uriField;
   final BigInt? bigIntField;
 
-  JsonSchemaNonCollectionTest({
+  PgSqlSchemaNonCollectionTest({
     this.intField,
     this.doubleField,
     this.numField,
@@ -201,8 +201,8 @@ class JsonSchemaNonCollectionTest {
 }
 
 @ShouldGenerate(r'''
-const _$JsonSchemaGetterTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaGetterTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'renamed_name': {'type': 'string'},
@@ -210,24 +210,24 @@ const _$JsonSchemaGetterTestJsonSchema = {
   'required': ['renamed_name'],
 };
 ''')
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaGetterTest {
-  @JsonKey(name: 'renamed_name')
+class PgSqlSchemaGetterTest {
+  @PgSqlKey(name: 'renamed_name')
   final String name;
 
   // This getter should NOT be in the schema
   int get length => name.length;
 
-  JsonSchemaGetterTest(this.name);
+  PgSqlSchemaGetterTest(this.name);
 }
 
 @ShouldGenerate(r'''
-const _$JsonSchemaRecursiveListTestJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaRecursiveListTestPgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'children': {
@@ -238,35 +238,35 @@ const _$JsonSchemaRecursiveListTestJsonSchema = {
   'required': ['children'],
 };
 ''')
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaRecursiveListTest {
-  final List<JsonSchemaRecursiveListTest> children;
+class PgSqlSchemaRecursiveListTest {
+  final List<PgSqlSchemaRecursiveListTest> children;
 
-  JsonSchemaRecursiveListTest(this.children);
+  PgSqlSchemaRecursiveListTest(this.children);
 }
 
 @ShouldGenerate(r'''
-const _$JsonSchemaRecursiveListIssueJsonSchema = {
-  r'$schema': 'https://json-schema.org/draft/2020-12/schema',
+const _$PgSqlSchemaRecursiveListIssuePgSqlSchema = {
+  r'$schema': 'https://pgsql-schema.org/draft/2020-12/schema',
   'type': 'object',
   'properties': {
     'alternates': {
       'type': 'array',
-      'items': {r'$ref': r'#/$defs/JsonSchemaRecursiveListIssueA'},
+      'items': {r'$ref': r'#/$defs/PgSqlSchemaRecursiveListIssueA'},
     },
   },
   'required': ['alternates'],
   r'$defs': {
-    'JsonSchemaRecursiveListIssueA': {
+    'PgSqlSchemaRecursiveListIssueA': {
       'type': 'object',
       'properties': {
         'children': {
           'type': 'array',
-          'items': {r'$ref': r'#/$defs/JsonSchemaRecursiveListIssueA'},
+          'items': {r'$ref': r'#/$defs/PgSqlSchemaRecursiveListIssueA'},
         },
       },
       'required': ['children'],
@@ -274,19 +274,19 @@ const _$JsonSchemaRecursiveListIssueJsonSchema = {
   },
 };
 ''')
-@JsonSerializable(
-  createJsonSchema: true,
+@PgSqlSerializable(
+  createPgSqlSchema: true,
   createFactory: false,
-  createToJson: false,
+  createToPgSql: false,
 )
-class JsonSchemaRecursiveListIssue {
-  final List<JsonSchemaRecursiveListIssueA> alternates;
+class PgSqlSchemaRecursiveListIssue {
+  final List<PgSqlSchemaRecursiveListIssueA> alternates;
 
-  JsonSchemaRecursiveListIssue(this.alternates);
+  PgSqlSchemaRecursiveListIssue(this.alternates);
 }
 
-class JsonSchemaRecursiveListIssueA {
-  final List<JsonSchemaRecursiveListIssueA> children;
+class PgSqlSchemaRecursiveListIssueA {
+  final List<PgSqlSchemaRecursiveListIssueA> children;
 
-  JsonSchemaRecursiveListIssueA(this.children);
+  PgSqlSchemaRecursiveListIssueA(this.children);
 }

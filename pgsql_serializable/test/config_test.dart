@@ -8,67 +8,67 @@ library;
 import 'dart:io';
 
 import 'package:build/build.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:json_serializable/builder.dart';
-import 'package:json_serializable/src/json_serializable_generator.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
+import 'package:pgsql_serializable/builder.dart';
+import 'package:pgsql_serializable/src/pgsql_serializable_generator.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
 import 'shared_config.dart';
 
 void main() {
-  test('fields in JsonSerializable are sorted', () {
+  test('fields in PgSqlSerializable are sorted', () {
     expect(
-      generatorConfigDefaultJson.keys,
-      orderedEquals(generatorConfigDefaultJson.keys.toList()..sort()),
+      generatorConfigDefaultPgSql.keys,
+      orderedEquals(generatorConfigDefaultPgSql.keys.toList()..sort()),
     );
   });
 
   test('empty', () async {
-    final builder = jsonSerializable(BuilderOptions.empty);
+    final builder = pgsqlSerializable(BuilderOptions.empty);
     expect(builder, isNotNull);
   });
 
   test('valid default config', () async {
-    final builder = jsonSerializable(
-      BuilderOptions(generatorConfigDefaultJson),
+    final builder = pgsqlSerializable(
+      BuilderOptions(generatorConfigDefaultPgSql),
     );
     expect(builder, isNotNull);
   });
 
   test('triggers config is ignored', () async {
     // This key is used by build_runner so it's meaningful for any builder,
-    // check it doesn't cause json_serializable's config validation to throw.
-    jsonSerializable(const BuilderOptions({'run_only_if_triggered': true}));
+    // check it doesn't cause pgsql_serializable's config validation to throw.
+    pgsqlSerializable(const BuilderOptions({'run_only_if_triggered': true}));
   });
 
   test('valid, non-default config', () {
     expect(
-      generatorConfigNonDefaultJson.keys,
-      unorderedEquals(generatorConfigDefaultJson.keys),
+      generatorConfigNonDefaultPgSql.keys,
+      unorderedEquals(generatorConfigDefaultPgSql.keys),
     );
 
-    for (var entry in generatorConfigDefaultJson.entries) {
+    for (var entry in generatorConfigDefaultPgSql.entries) {
       expect(
-        generatorConfigNonDefaultJson,
+        generatorConfigNonDefaultPgSql,
         containsPair(entry.key, isNot(entry.value)),
         reason: 'should have values that are different than the defaults',
       );
     }
 
-    final builder = jsonSerializable(
-      BuilderOptions(generatorConfigNonDefaultJson),
+    final builder = pgsqlSerializable(
+      BuilderOptions(generatorConfigNonDefaultPgSql),
     );
     expect(builder, isNotNull);
   });
 
-  test('config is null-protected when passed to JsonSerializableGenerator', () {
+  test('config is null-protected when passed to PgSqlSerializableGenerator', () {
     final nullValueMap = Map.fromEntries(
-      generatorConfigDefaultJson.entries.map((e) => MapEntry(e.key, null)),
+      generatorConfigDefaultPgSql.entries.map((e) => MapEntry(e.key, null)),
     );
-    final config = JsonSerializable.fromJson(nullValueMap);
-    final generator = JsonSerializableGenerator(config: config);
-    expect(generator.config.toJson(), generatorConfigDefaultJson);
+    final config = PgSqlSerializable.fromPgSql(nullValueMap);
+    final generator = PgSqlSerializableGenerator(config: config);
+    expect(generator.config.toPgSql(), generatorConfigDefaultPgSql);
   });
 
   test('readme config', () async {
@@ -85,7 +85,7 @@ void main() {
       'targets',
       r'$default',
       'builders',
-      'json_serializable',
+      'pgsql_serializable',
       'options',
     ]) {
       yaml = yaml[key] as YamlMap;
@@ -95,18 +95,18 @@ void main() {
 
     expect(
       configMap.keys,
-      unorderedEquals(generatorConfigDefaultJson.keys),
+      unorderedEquals(generatorConfigDefaultPgSql.keys),
       reason:
           'All supported keys are documented. '
           'Did you forget to change README.md?',
     );
 
     expect(
-      JsonSerializable.fromJson(configMap).toJson(),
-      generatorConfigDefaultJson,
+      PgSqlSerializable.fromPgSql(configMap).toPgSql(),
+      generatorConfigDefaultPgSql,
     );
 
-    final builder = jsonSerializable(BuilderOptions(configMap));
+    final builder = pgsqlSerializable(BuilderOptions(configMap));
     expect(builder, isNotNull);
   });
 
@@ -114,24 +114,24 @@ void main() {
     final matcher = isA<StateError>().having(
       (v) => v.message,
       'message',
-      'Could not parse the options provided for `json_serializable`.\n'
+      'Could not parse the options provided for `pgsql_serializable`.\n'
           'Unrecognized keys: [unsupported]; '
           'supported keys: [${_invalidConfig.keys.join(', ')}]',
     );
 
     expect(
-      () => jsonSerializable(const BuilderOptions({'unsupported': 'config'})),
+      () => pgsqlSerializable(const BuilderOptions({'unsupported': 'config'})),
       throwsA(matcher),
     );
   });
 
   group('invalid config', () {
     test('validated for all supported keys', () {
-      expect(_invalidConfig.keys, generatorConfigDefaultJson.keys);
+      expect(_invalidConfig.keys, generatorConfigDefaultPgSql.keys);
     });
     for (final entry in _invalidConfig.entries) {
       test(entry.key, () {
-        final config = Map<String, dynamic>.from(generatorConfigDefaultJson);
+        final config = Map<String, dynamic>.from(generatorConfigDefaultPgSql);
         config[entry.key] = entry.value;
 
         String lastLine;
@@ -142,7 +142,7 @@ void main() {
           'constructor' =>
             "type 'int' is not a subtype of type 'String?' in type "
                 'cast',
-          'create_to_json' =>
+          'create_to_pgsql' =>
             "type 'int' is not a subtype of type 'bool?' in type "
                 'cast',
           _ => "type 'int' is not a subtype of type 'bool?' in type cast",
@@ -152,12 +152,12 @@ void main() {
           (v) => v.message,
           'message',
           '''
-Could not parse the options provided for `json_serializable`.
+Could not parse the options provided for `pgsql_serializable`.
 There is a problem with "${entry.key}".
 $lastLine''',
         );
         expect(
-          () => jsonSerializable(BuilderOptions(config)),
+          () => pgsqlSerializable(BuilderOptions(config)),
           throwsA(matcher),
         );
       });
@@ -165,20 +165,20 @@ $lastLine''',
   });
 }
 
-// #CHANGE WHEN UPDATING json_annotation
+// #CHANGE WHEN UPDATING pgsql_annotation
 const _invalidConfig = {
   'any_map': 42,
   'checked': 42,
   'constructor': 42,
   'create_factory': 42,
   'create_field_map': 42,
-  'create_json_keys': 42,
-  'create_json_schema': 42,
-  'create_per_field_to_json': 42,
-  'create_to_json': 42,
+  'create_pgsql_keys': 42,
+  'create_pgsql_schema': 42,
+  'create_per_field_to_pgsql': 42,
+  'create_to_pgsql': 42,
   'date_time_utc': 42,
   'disallow_unrecognized_keys': 42,
-  'explicit_to_json': 42,
+  'explicit_to_pgsql': 42,
   'field_rename': 42,
   'generic_argument_factories': 42,
   'ignore_unannotated': 42,

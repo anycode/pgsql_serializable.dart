@@ -228,12 +228,12 @@ Map<String, dynamic> _$RegressionTestIssue1210ToPgSql(
   RegressionTestIssue1210 instance,
 ) => <String, dynamic>{'field': instance.field};
 
-CustomList _$CustomListFromJson(Map json) => CustomList()
-  ..first = json['first'] as String
-  ..last = json['last'] as String
-  ..length = (json['length'] as num).toInt();
+CustomList _$CustomListFromPgSql(Map pgsql) => CustomList()
+  ..first = pgsql['first'] as String
+  ..last = pgsql['last'] as String
+  ..length = (pgsql['length'] as num).toInt();
 
-Map<String, dynamic> _$CustomListToJson(CustomList instance) =>
+Map<String, dynamic> _$CustomListToPgSql(CustomList instance) =>
     <String, dynamic>{
       'first': instance.first,
       'last': instance.last,

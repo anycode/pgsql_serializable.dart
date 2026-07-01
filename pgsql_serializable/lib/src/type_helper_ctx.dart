@@ -34,10 +34,10 @@ class TypeHelperCtx
   ClassConfig get config => _helperCore.config;
 
   @override
-  ConvertData? get serializeConvertData => _pairFromContext.toJson;
+  ConvertData? get serializeConvertData => _pairFromContext.toPgSql;
 
   @override
-  ConvertData? get deserializeConvertData => _pairFromContext.fromJson;
+  ConvertData? get deserializeConvertData => _pairFromContext.fromPgSql;
 
   late final _pairFromContext = _ConvertPair(fieldElement);
 
@@ -78,9 +78,9 @@ class TypeHelperCtx
   /// Like [deserialize], but does not apply nullable short-circuiting for
   /// [targetType].
   ///
-  /// Used when a JSON key is present (including when its value is JSON `null`)
-  /// for PATCH tri-state fields, so explicit `null` is passed to `fromJson`.
-  Object deserializePresentJsonValue(
+  /// Used when a PgSQL key is present (including when its value is PgSQL `null`)
+  /// for PATCH tri-state fields, so explicit `null` is passed to `fromPgSql`.
+  Object deserializePresentPgSqlValue(
     DartType targetType,
     String expression, {
     String? defaultValue,
@@ -113,21 +113,21 @@ class TypeHelperCtx
 class _ConvertPair {
   static final _expando = Expando<_ConvertPair>();
 
-  final ConvertData? fromJson, toJson;
+  final ConvertData? fromPgSql, toPgSql;
 
-  _ConvertPair._(this.fromJson, this.toJson);
+  _ConvertPair._(this.fromPgSql, this.toPgSql);
 
   factory _ConvertPair(FieldElement element) {
     var pair = _expando[element];
 
     if (pair == null) {
-      final obj = jsonKeyAnnotation(element);
+      final obj = pgsqlKeyAnnotation(element);
       if (obj.isNull) {
         pair = _ConvertPair._(null, null);
       } else {
-        final toJson = _convertData(obj.objectValue, element, false);
-        final fromJson = _convertData(obj.objectValue, element, true);
-        pair = _ConvertPair._(fromJson, toJson);
+        final toPgSql = _convertData(obj.objectValue, element, false);
+        final fromPgSql = _convertData(obj.objectValue, element, true);
+        pair = _ConvertPair._(fromPgSql, toPgSql);
       }
       _expando[element] = pair;
     }
@@ -136,7 +136,7 @@ class _ConvertPair {
 }
 
 ConvertData? _convertData(DartObject obj, FieldElement element, bool isFrom) {
-  final paramName = isFrom ? 'fromJson' : 'toJson';
+  final paramName = isFrom ? 'fromPgSql' : 'toPgSql';
   final objectValue = obj.getField(paramName);
 
   if (objectValue == null || objectValue.isNull) {
@@ -159,13 +159,13 @@ ConvertData? _convertData(DartObject obj, FieldElement element, bool isFrom) {
   final returnType = executableElement.returnType;
   final argType = executableElement.formalParameters.first.type;
   if (isFrom) {
-    final hasDefaultValue = !jsonKeyAnnotation(
+    final hasDefaultValue = !pgsqlKeyAnnotation(
       element,
     ).read('defaultValue').isNull;
 
     if (returnType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `fromJson` function.
+      // to the `fromPgSql` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!returnType.isAssignableTo(element.type)) {
       if (returnType.promoteNonNullable().isAssignableTo(element.type) &&
@@ -185,7 +185,7 @@ ConvertData? _convertData(DartObject obj, FieldElement element, bool isFrom) {
   } else {
     if (argType is TypeParameterType) {
       // We keep things simple in this case. We rely on inferred type arguments
-      // to the `fromJson` function.
+      // to the `fromPgSql` function.
       // TODO: consider adding error checking here if there is confusion.
     } else if (!element.type.isAssignableTo(argType)) {
       final argTypeCode = typeToCode(argType);

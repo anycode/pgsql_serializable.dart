@@ -2,11 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:json_annotation/json_annotation.dart';
+import 'package:pgsql_annotation/pgsql_annotation.dart';
 
 part 'schema_example.g.dart';
 
-@JsonSerializable(createJsonSchema: true)
+@PgSqlSerializable(createPgSqlSchema: true)
 final class SchemaExample {
   /// Required named constructor parameter
   final double requiredName;
@@ -20,8 +20,8 @@ final class SchemaExample {
   /// Required named constructor parameter
   final List<SchemaExample> requiredBranch;
 
-  @JsonKey(defaultValue: 3.145)
-  final double? optionalNullableFieldWithJsonKeyDefault;
+  @PgSqlKey(defaultValue: 3.145)
+  final double? optionalNullableFieldWithPgSqlKeyDefault;
 
   final Branch branch;
 
@@ -33,15 +33,15 @@ final class SchemaExample {
     required this.requiredName,
     this.nullableNotRequired = 3.145,
     required this.nullableRequiredName,
-    this.optionalNullableFieldWithJsonKeyDefault,
+    this.optionalNullableFieldWithPgSqlKeyDefault,
     required this.branch,
     this.nested,
   });
 
-  factory SchemaExample.fromJson(Map<String, dynamic> json) =>
-      _$SchemaExampleFromJson(json);
+  factory SchemaExample.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$SchemaExampleFromPgSql(pgsql);
 
-  Map<String, dynamic> toJson() => _$SchemaExampleToJson(this);
+  Map<String, dynamic> toPgSql() => _$SchemaExampleToPgSql(this);
 
   /// Getter only - should not be in schema
   double get propGetterOnly => requiredName / requiredBranch.length;
@@ -50,29 +50,29 @@ final class SchemaExample {
   bool propExtraField = false;
 
   /// Non-ctor field with `required: true` - should be required
-  @JsonKey(required: true)
+  @PgSqlKey(required: true)
   bool propExtraFieldRequired = false;
 
-  static const schema = _$SchemaExampleJsonSchema;
+  static const schema = _$SchemaExamplePgSqlSchema;
 }
 
-@JsonSerializable()
+@PgSqlSerializable()
 final class Branch {
   final double length;
   final List<Branch> branch;
 
   const Branch({required this.length, required this.branch});
 
-  factory Branch.fromJson(Map<String, dynamic> json) => _$BranchFromJson(json);
+  factory Branch.fromPgSql(Map<String, dynamic> pgsql) => _$BranchFromPgSql(pgsql);
 
   // This getter should NOT be in the schema, especially as required
-  @JsonKey(includeFromJson: false, includeToJson: false, required: false)
+  @PgSqlKey(includeFromPgSql: false, includeToPgSql: false, required: false)
   double get proportion => length / branch.length;
 
-  Map<String, dynamic> toJson() => _$BranchToJson(this);
+  Map<String, dynamic> toPgSql() => _$BranchToPgSql(this);
 }
 
-@JsonSerializable(createJsonSchema: true)
+@PgSqlSerializable(createPgSqlSchema: true)
 final class ComprehensiveNested {
   static const staticConst = 1;
   static int staticVar = 2;
@@ -80,11 +80,11 @@ final class ComprehensiveNested {
   // ignore: unused_field
   final int _privateVar = 3;
 
-  @JsonKey(includeToJson: false)
-  int noIncludeToJson = 4;
+  @PgSqlKey(includeToPgSql: false)
+  int noIncludeToPgSql = 4;
 
-  @JsonKey(includeFromJson: false)
-  int noIncludeFromJson = 4;
+  @PgSqlKey(includeFromPgSql: false)
+  int noIncludeFromPgSql = 4;
 
   /// Writable field comment
   ///
@@ -94,22 +94,22 @@ final class ComprehensiveNested {
   /// Description with a multiplication: a * b
   int regexChecks = 10;
 
-  @JsonKey(name: 'renamed_field')
+  @PgSqlKey(name: 'renamed_field')
   int renamedField = 6;
 
   int get getterOnly => 7;
 
-  @JsonKey(includeToJson: true)
+  @PgSqlKey(includeToPgSql: true)
   int get getterIncluded => 8;
 
-  @JsonKey(includeToJson: false)
+  @PgSqlKey(includeToPgSql: false)
   int get getterExcluded => 9;
 
   ComprehensiveNested();
 
-  factory ComprehensiveNested.fromJson(Map<String, dynamic> json) =>
-      _$ComprehensiveNestedFromJson(json);
-  Map<String, dynamic> toJson() => _$ComprehensiveNestedToJson(this);
+  factory ComprehensiveNested.fromPgSql(Map<String, dynamic> pgsql) =>
+      _$ComprehensiveNestedFromPgSql(pgsql);
+  Map<String, dynamic> toPgSql() => _$ComprehensiveNestedToPgSql(this);
 
-  static const schema = _$ComprehensiveNestedJsonSchema;
+  static const schema = _$ComprehensiveNestedPgSqlSchema;
 }
