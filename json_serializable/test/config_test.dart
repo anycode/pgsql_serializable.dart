@@ -36,6 +36,12 @@ void main() {
     expect(builder, isNotNull);
   });
 
+  test('triggers config is ignored', () async {
+    // This key is used by build_runner so it's meaningful for any builder,
+    // check it doesn't cause json_serializable's config validation to throw.
+    jsonSerializable(const BuilderOptions({'run_only_if_triggered': true}));
+  });
+
   test('valid, non-default config', () {
     expect(
       generatorConfigNonDefaultJson.keys,
@@ -167,8 +173,10 @@ const _invalidConfig = {
   'create_factory': 42,
   'create_field_map': 42,
   'create_json_keys': 42,
+  'create_json_schema': 42,
   'create_per_field_to_json': 42,
   'create_to_json': 42,
+  'date_time_utc': 42,
   'disallow_unrecognized_keys': 42,
   'explicit_to_json': 42,
   'field_rename': 42,

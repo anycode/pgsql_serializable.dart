@@ -21,8 +21,10 @@ JsonSerializable _$JsonSerializableFromJson(
         'create_factory',
         'create_field_map',
         'create_json_keys',
+        'create_json_schema',
         'create_per_field_to_json',
         'create_to_json',
+        'date_time_utc',
         'disallow_unrecognized_keys',
         'explicit_to_json',
         'field_rename',
@@ -37,6 +39,10 @@ JsonSerializable _$JsonSerializableFromJson(
       constructor: $checkedConvert('constructor', (v) => v as String?),
       createFieldMap: $checkedConvert('create_field_map', (v) => v as bool?),
       createJsonKeys: $checkedConvert('create_json_keys', (v) => v as bool?),
+      createJsonSchema: $checkedConvert(
+        'create_json_schema',
+        (v) => v as bool?,
+      ),
       createFactory: $checkedConvert('create_factory', (v) => v as bool?),
       createToJson: $checkedConvert('create_to_json', (v) => v as bool?),
       disallowUnrecognizedKeys: $checkedConvert(
@@ -61,6 +67,7 @@ JsonSerializable _$JsonSerializableFromJson(
         'create_per_field_to_json',
         (v) => v as bool?,
       ),
+      dateTimeUtc: $checkedConvert('date_time_utc', (v) => v as bool?),
     );
     return val;
   },
@@ -68,6 +75,7 @@ JsonSerializable _$JsonSerializableFromJson(
     'anyMap': 'any_map',
     'createFieldMap': 'create_field_map',
     'createJsonKeys': 'create_json_keys',
+    'createJsonSchema': 'create_json_schema',
     'createFactory': 'create_factory',
     'createToJson': 'create_to_json',
     'disallowUnrecognizedKeys': 'disallow_unrecognized_keys',
@@ -77,6 +85,7 @@ JsonSerializable _$JsonSerializableFromJson(
     'includeIfNull': 'include_if_null',
     'genericArgumentFactories': 'generic_argument_factories',
     'createPerFieldToJson': 'create_per_field_to_json',
+    'dateTimeUtc': 'date_time_utc',
   },
 );
 
@@ -88,8 +97,10 @@ Map<String, dynamic> _$JsonSerializableToJson(JsonSerializable instance) =>
       'create_factory': instance.createFactory,
       'create_field_map': instance.createFieldMap,
       'create_json_keys': instance.createJsonKeys,
+      'create_json_schema': instance.createJsonSchema,
       'create_per_field_to_json': instance.createPerFieldToJson,
       'create_to_json': instance.createToJson,
+      'date_time_utc': instance.dateTimeUtc,
       'disallow_unrecognized_keys': instance.disallowUnrecognizedKeys,
       'explicit_to_json': instance.explicitToJson,
       'field_rename': _$FieldRenameEnumMap[instance.fieldRename],

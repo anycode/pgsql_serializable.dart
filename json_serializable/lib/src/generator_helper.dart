@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -11,16 +11,18 @@ import 'decode_helper.dart';
 import 'encoder_helper.dart';
 import 'field_helpers.dart';
 import 'helper_core.dart';
+import 'schema_helper.dart';
 import 'settings.dart';
 import 'utils.dart';
 
-class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
+class GeneratorHelper extends HelperCore
+    with EncodeHelper, DecodeHelper, SchemaHelper {
   final Settings _generator;
   final _addedMembers = <String>{};
 
   GeneratorHelper(
     this._generator,
-    ClassElement2 element,
+    ClassElement element,
     ConstantReader annotation,
   ) : super(
         element,
@@ -38,7 +40,7 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
   Iterable<String> generate() sync* {
     assert(_addedMembers.isEmpty);
 
-    if (config.genericArgumentFactories && element.typeParameters2.isEmpty) {
+    if (config.genericArgumentFactories && element.typeParameters.isEmpty) {
       log.warning(
         'The class `${element.displayName}` is annotated '
         'with `JsonSerializable` field `genericArgumentFactories: true`. '
@@ -55,24 +57,24 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
     // these fields.
     final unavailableReasons = <String, String>{};
 
-    final accessibleFields = sortedFields.fold<Map<String, FieldElement2>>(
-      <String, FieldElement2>{},
+    final accessibleFields = sortedFields.fold<Map<String, FieldElement>>(
+      <String, FieldElement>{},
       (map, field) {
         final jsonKey = jsonKeyFor(field);
         if (!field.isPublic && !jsonKey.explicitYesFromJson) {
-          unavailableReasons[field.name3!] =
+          unavailableReasons[field.name!] =
               'It is assigned to a private field.';
-        } else if (field.getter2 == null) {
-          assert(field.setter2 != null);
-          unavailableReasons[field.name3!] =
+        } else if (field.getter == null) {
+          assert(field.setter != null);
+          unavailableReasons[field.name!] =
               'Setter-only properties are not supported.';
-          log.warning('Setters are ignored: ${element.name3!}.${field.name3!}');
+          log.warning('Setters are ignored: ${element.name}.${field.name}');
         } else if (jsonKey.explicitNoFromJson) {
-          unavailableReasons[field.name3!] =
+          unavailableReasons[field.name!] =
               'It is assigned to a field not meant to be used in fromJson.';
         } else {
-          assert(!map.containsKey(field.name3));
-          map[field.name3!] = field;
+          assert(!map.containsKey(field.name));
+          map[field.name!] = field;
         }
 
         return map;
@@ -109,9 +111,9 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
 
     accessibleFieldSet
       ..removeWhere((element) => jsonKeyFor(element).explicitNoToJson)
-      // Check for duplicate JSON keys due to colliding annotations.
-      // We do this now, since we have a final field list after any pruning done
-      // by `_writeCtor`.
+      // Check for duplicate JSON keys due to colliding annotations. We do this
+      // now, since we have a final field list after any pruning done by
+      // `_writeCtor`.
       ..fold(<String>{}, (Set<String> set, fe) {
         final jsonKey = nameAccess(fe);
         if (!set.add(jsonKey)) {
@@ -139,16 +141,10 @@ class GeneratorHelper extends HelperCore with EncodeHelper, DecodeHelper {
       yield* createToJson(accessibleFieldSet);
     }
 
+    if (config.createJsonSchema) {
+      yield createJsonSchema();
+    }
+
     yield* _addedMembers;
   }
-}
-
-extension on KeyConfig {
-  bool get explicitYesFromJson => includeFromJson == true;
-
-  bool get explicitNoFromJson => includeFromJson == false;
-
-  bool get explicitYesToJson => includeToJson == true;
-
-  bool get explicitNoToJson => includeToJson == false;
 }

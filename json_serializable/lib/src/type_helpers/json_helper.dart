@@ -2,10 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:source_helper/source_helper.dart';
 
@@ -78,10 +76,10 @@ class JsonHelper extends TypeHelper<TypeHelperContextWithConfig> {
       return null;
     }
 
-    final classElement = targetType.element3;
+    final classElement = targetType.element;
 
-    final fromJsonCtor = classElement.constructors2
-        .where((ce) => ce.name3 == 'fromJson')
+    final fromJsonCtor = classElement.constructors
+        .where((ce) => ce.name == 'fromJson')
         .singleOrNull;
 
     var output = expression;
@@ -144,10 +142,10 @@ class JsonHelper extends TypeHelper<TypeHelperContextWithConfig> {
 
 List<String> _helperParams(
   Object? Function(DartType, String) execute,
-  TypeParameterType Function(FormalParameterElement, Element2) paramMapper,
+  TypeParameterType Function(FormalParameterElement, Element) paramMapper,
   InterfaceType type,
   Iterable<FormalParameterElement> positionalParams,
-  Element2 targetElement,
+  Element targetElement,
 ) {
   final rest = <TypeParameterType>[];
   for (var param in positionalParams) {
@@ -157,8 +155,8 @@ List<String> _helperParams(
   final args = <String>[];
 
   for (var helperArg in rest) {
-    final typeParamIndex = type.element3.typeParameters2.indexOf(
-      helperArg.element3,
+    final typeParamIndex = type.element.typeParameters.indexOf(
+      helperArg.element,
     );
 
     // TODO: throw here if `typeParamIndex` is -1 ?
@@ -172,7 +170,7 @@ List<String> _helperParams(
 
 TypeParameterType _decodeHelper(
   FormalParameterElement param,
-  Element2 targetElement,
+  Element targetElement,
 ) {
   final type = param.type;
 
@@ -181,7 +179,7 @@ TypeParameterType _decodeHelper(
       type.normalParameterTypes.length == 1) {
     final funcReturnType = type.returnType;
 
-    if (param.name3 == fromJsonForName(funcReturnType.element3!.name3!)) {
+    if (param.name == fromJsonForName(funcReturnType.element!.name!)) {
       final funcParamType = type.normalParameterTypes.single;
 
       if ((funcParamType.isDartCoreObject && funcParamType.isNullableType) ||
@@ -203,7 +201,7 @@ TypeParameterType _decodeHelper(
 
 TypeParameterType _encodeHelper(
   FormalParameterElement param,
-  Element2 targetElement,
+  Element targetElement,
 ) {
   final type = param.type;
 
@@ -212,7 +210,7 @@ TypeParameterType _encodeHelper(
       type.normalParameterTypes.length == 1) {
     final funcParamType = type.normalParameterTypes.single;
 
-    if (param.name3 == toJsonForName(funcParamType.element3!.name3!)) {
+    if (param.name == toJsonForName(funcParamType.element!.name!)) {
       if (funcParamType is TypeParameterType) {
         return funcParamType;
       }
@@ -252,7 +250,7 @@ InterfaceType? _instantiate(
   InterfaceType classType,
 ) {
   final argTypes = ctorParamType.typeArguments.map((arg) {
-    final typeParamIndex = classType.element3.typeParameters2.indexWhere(
+    final typeParamIndex = classType.element.typeParameters.indexWhere(
       // TODO: not 100% sure `nullabilitySuffix` is right
       (e) => e.instantiate(nullabilitySuffix: arg.nullabilitySuffix) == arg,
     );
@@ -269,7 +267,7 @@ InterfaceType? _instantiate(
     return null;
   }
 
-  return ctorParamType.element3.instantiate(
+  return ctorParamType.element.instantiate(
     typeArguments: argTypes.cast<DartType>(),
     nullabilitySuffix: ctorParamType.nullabilitySuffix,
   );
@@ -279,22 +277,23 @@ ClassConfig? _annotation(ClassConfig config, InterfaceType source) {
   if (source.isEnum) {
     return null;
   }
-  final annotations = const TypeChecker.fromRuntime(
-    JsonSerializable,
-  ).annotationsOfExact(source.element3, throwOnUnresolved: false).toList();
+  final annotation = jsonSerializableChecker.firstAnnotationOfExact(
+    source.element,
+    throwOnUnresolved: false,
+  );
 
-  if (annotations.isEmpty) {
+  if (annotation == null) {
     return null;
   }
 
   return mergeConfig(
     config,
-    ConstantReader(annotations.single),
-    classElement: source.element3 as ClassElement2,
+    ConstantReader(annotation),
+    classElement: source.element as ClassElement,
   );
 }
 
-MethodElement2? _toJsonMethod(DartType type) => type.typeImplementations
-    .map((dt) => dt is InterfaceType ? dt.getMethod2('toJson') : null)
+MethodElement? _toJsonMethod(DartType type) => type.typeImplementations
+    .map((dt) => dt is InterfaceType ? dt.getMethod('toJson') : null)
     .where((me) => me != null)
     .firstOrNull;

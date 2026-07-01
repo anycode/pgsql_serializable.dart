@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:source_gen/source_gen.dart';
@@ -12,24 +12,33 @@ import 'package:source_helper/source_helper.dart';
 import 'shared_checkers.dart';
 import 'type_helpers/config_types.dart';
 
-const _jsonKeyChecker = TypeChecker.fromRuntime(JsonKey);
+const _jsonKeyChecker = TypeChecker.typeNamed(
+  JsonKey,
+  inPackage: 'json_annotation',
+);
 
-DartObject? _jsonKeyAnnotation(FieldElement2 element) =>
+/// If an annotation exists on `element` the source is a 'real' field.
+/// If the result is `null`, check the getter – it is a property.
+// TODO: setters: github.com/google/json_serializable.dart/issues/24
+DartObject? _jsonKeyAnnotation(FieldElement element) =>
     _jsonKeyChecker.firstAnnotationOf(element) ??
-    (element.getter2 == null
+    (element.getter == null
         ? null
-        : _jsonKeyChecker.firstAnnotationOf(element.getter2!));
+        : _jsonKeyChecker.firstAnnotationOf(element.getter!));
 
-ConstantReader jsonKeyAnnotation(FieldElement2 element) =>
+ConstantReader jsonKeyAnnotation(FieldElement element) =>
     ConstantReader(_jsonKeyAnnotation(element));
 
 /// Returns `true` if [element] is annotated with [JsonKey].
-bool hasJsonKeyAnnotation(FieldElement2 element) =>
+bool hasJsonKeyAnnotation(FieldElement element) =>
     _jsonKeyAnnotation(element) != null;
 
-Never throwUnsupported(FieldElement2 element, String message) =>
+ConstantReader jsonKeyAnnotationForCtorParam(FormalParameterElement element) =>
+    ConstantReader(_jsonKeyChecker.firstAnnotationOf(element));
+
+Never throwUnsupported(FieldElement element, String message) =>
     throw InvalidGenerationSourceError(
-      'Error with `@JsonKey` on the `${element.name3}` field. $message',
+      'Error with `@JsonKey` on the `${element.name}` field. $message',
       element: element,
     );
 
@@ -57,6 +66,7 @@ JsonSerializable _valueForAnnotation(ConstantReader reader) => JsonSerializable(
   createJsonKeys: reader.read('createJsonKeys').literalValue as bool?,
   createPerFieldToJson:
       reader.read('createPerFieldToJson').literalValue as bool?,
+  dateTimeUtc: reader.read('dateTimeUtc').literalValue as bool?,
   disallowUnrecognizedKeys:
       reader.read('disallowUnrecognizedKeys').literalValue as bool?,
   explicitToJson: reader.read('explicitToJson').literalValue as bool?,
@@ -65,6 +75,7 @@ JsonSerializable _valueForAnnotation(ConstantReader reader) => JsonSerializable(
       reader.read('genericArgumentFactories').literalValue as bool?,
   ignoreUnannotated: reader.read('ignoreUnannotated').literalValue as bool?,
   includeIfNull: reader.read('includeIfNull').literalValue as bool?,
+  createJsonSchema: reader.read('createJsonSchema').literalValue as bool?,
 );
 
 /// Returns a [ClassConfig] with values from the [JsonSerializable]
@@ -79,10 +90,10 @@ JsonSerializable _valueForAnnotation(ConstantReader reader) => JsonSerializable(
 ClassConfig mergeConfig(
   ClassConfig config,
   ConstantReader reader, {
-  required ClassElement2 classElement,
+  required ClassElement classElement,
 }) {
   final annotation = _valueForAnnotation(reader);
-  assert(config.ctorParamDefaults.isEmpty);
+  assert(config.ctorParams.isEmpty);
 
   final constructor = annotation.constructor ?? config.constructor;
   final constructorInstance = _constructorByNameOrNull(
@@ -90,13 +101,9 @@ ClassConfig mergeConfig(
     constructor,
   );
 
-  final paramDefaultValueMap = constructorInstance == null
-      ? <String, String>{}
-      : Map<String, String>.fromEntries(
-          constructorInstance.formalParameters
-              .where((element) => element.hasDefaultValue)
-              .map((e) => MapEntry(e.name3!, e.defaultValueCode!)),
-        );
+  final ctorParams = <FormalParameterElement>[
+    ...?constructorInstance?.formalParameters,
+  ];
 
   final converters = reader.read('converters');
 
@@ -116,17 +123,19 @@ ClassConfig mergeConfig(
     fieldRename: annotation.fieldRename ?? config.fieldRename,
     genericArgumentFactories:
         annotation.genericArgumentFactories ??
-        (classElement.typeParameters2.isNotEmpty &&
+        (classElement.typeParameters.isNotEmpty &&
             config.genericArgumentFactories),
     ignoreUnannotated: annotation.ignoreUnannotated ?? config.ignoreUnannotated,
     includeIfNull: annotation.includeIfNull ?? config.includeIfNull,
-    ctorParamDefaults: paramDefaultValueMap,
+    ctorParams: ctorParams,
     converters: converters.isNull ? const [] : converters.listValue,
+    createJsonSchema: annotation.createJsonSchema ?? config.createJsonSchema,
+    dateTimeUtc: annotation.dateTimeUtc ?? config.dateTimeUtc,
   );
 }
 
-ConstructorElement2? _constructorByNameOrNull(
-  ClassElement2 classElement,
+ConstructorElement? _constructorByNameOrNull(
+  ClassElement classElement,
   String name,
 ) {
   try {
@@ -136,12 +145,12 @@ ConstructorElement2? _constructorByNameOrNull(
   }
 }
 
-ConstructorElement2 constructorByName(ClassElement2 classElement, String name) {
-  final className = classElement.name3;
+ConstructorElement constructorByName(ClassElement classElement, String name) {
+  final className = classElement.name;
 
-  ConstructorElement2? ctor;
+  ConstructorElement? ctor;
   if (name.isEmpty) {
-    ctor = classElement.unnamedConstructor2;
+    ctor = classElement.unnamedConstructor;
     if (ctor == null) {
       throw InvalidGenerationSourceError(
         'The class `$className` has no default constructor.',
@@ -149,7 +158,7 @@ ConstructorElement2 constructorByName(ClassElement2 classElement, String name) {
       );
     }
   } else {
-    ctor = classElement.getNamedConstructor2(name);
+    ctor = classElement.getNamedConstructor(name);
     if (ctor == null) {
       throw InvalidGenerationSourceError(
         'The class `$className` does not have a constructor with the name '
@@ -162,21 +171,20 @@ ConstructorElement2 constructorByName(ClassElement2 classElement, String name) {
   return ctor;
 }
 
-/// If [targetType] is an enum, returns the [FieldElement2] instances associated
+/// If [targetType] is an enum, returns the [FieldElement] instances associated
 /// with its values.
 ///
 /// Otherwise, `null`.
-Iterable<FieldElement2>? iterateEnumFields(DartType targetType) {
-  if ( /*targetType is InterfaceType && */ targetType.element3
-      is EnumElement2) {
-    return (targetType.element3 as EnumElement2).constants2;
+Iterable<FieldElement>? iterateEnumFields(DartType targetType) {
+  if (targetType.element is EnumElement) {
+    return (targetType.element as EnumElement).constants;
   }
   return null;
 }
 
 extension DartTypeExtension on DartType {
   DartType promoteNonNullable() =>
-      element3?.library2?.typeSystem.promoteToNonNull(this) ?? this;
+      element?.library?.typeSystem.promoteToNonNull(this) ?? this;
 
   String toStringNonNullable() {
     final val = getDisplayString();
@@ -200,25 +208,46 @@ String encodedFieldName(FieldRename fieldRename, String declaredName) =>
 /// Return the Dart code presentation for the given [type].
 ///
 /// This function is intentionally limited, and does not support all possible
-/// types and locations of these files in code. Specifically, it supports
-/// only [InterfaceType]s, with optional type arguments that are also should
-/// be [InterfaceType]s.
-String typeToCode(DartType type, {bool forceNullable = false}) {
-  if (type is DynamicType) {
-    return 'dynamic';
-  } else if (type is InterfaceType) {
-    return [
-      type.element3.name3,
-      if (type.typeArguments.isNotEmpty)
-        '<${type.typeArguments.map(typeToCode).join(', ')}>',
-      (type.isNullableType || forceNullable) ? '?' : '',
-    ].join();
-  }
+/// types. Specifically, it supports [InterfaceType]s, [RecordType]s,
+/// [TypeParameterType]s, and [DynamicType]s.
+String typeToCode(DartType type, {bool forceNullable = false}) =>
+    switch (type) {
+      DynamicType() => 'dynamic',
+      InterfaceType() => [
+        type.element.name,
+        if (type.typeArguments.isNotEmpty)
+          '<${type.typeArguments.map(typeToCode).join(', ')}>',
+        if (type.isNullableType || forceNullable) '?',
+      ].join(),
+      TypeParameterType() => type.toStringNonNullable(),
+      RecordType() => _recordTypeToCode(type, forceNullable),
+      _ => type.getDisplayString(),
+    };
 
-  if (type is TypeParameterType) {
-    return type.toStringNonNullable();
+String _recordTypeToCode(RecordType type, bool forceNullable) {
+  final positional = type.positionalFields
+      .map((f) => typeToCode(f.type))
+      .join(', ');
+  final named = type.namedFields
+      .map((f) => '${typeToCode(f.type)} ${f.name}')
+      .join(', ');
+
+  final buffer = StringBuffer('(');
+  if (positional.isNotEmpty) {
+    buffer.write(positional);
+    if (named.isNotEmpty) buffer.write(', ');
   }
-  throw UnimplementedError('(${type.runtimeType}) $type');
+  if (named.isNotEmpty) {
+    buffer.write('{$named}');
+  }
+  if (type.positionalFields.length == 1 && type.namedFields.isEmpty) {
+    buffer.write(',');
+  }
+  buffer.write(')');
+  if (type.isNullableType || forceNullable) {
+    buffer.write('?');
+  }
+  return buffer.toString();
 }
 
 String? defaultDecodeLogic(
@@ -248,26 +277,30 @@ String? defaultDecodeLogic(
   return null;
 }
 
-extension ExecutableElementExtension on ExecutableElement2 {
+extension ExecutableElementExtension on ExecutableElement {
   /// Returns the name of `this` qualified with the class name if it's a
-  /// [MethodElement2].
+  /// [MethodElement].
   String get qualifiedName {
     if (this is TopLevelFunctionElement) {
-      return name3!;
+      return name!;
     }
 
-    if (this is MethodElement2) {
-      return '${enclosingElement2!.name3!}.${name3!}';
+    if (this is MethodElement) {
+      return '${enclosingElement!.name}.$name';
     }
 
-    if (this is ConstructorElement2) {
+    if (this is ConstructorElement) {
       // The default constructor.
-      if (name3 == 'new') {
-        return enclosingElement2!.name3!;
+      if (name == 'new') {
+        return enclosingElement!.name!;
       }
-      return '${enclosingElement2!.name3!}.${name3!}';
+      return '${enclosingElement!.name}.$name';
     }
 
     throw UnsupportedError('Not sure how to support typeof $runtimeType');
   }
 }
+
+const jsonSerializableChecker = TypeChecker.fromUrl(
+  'package:json_annotation/src/json_serializable.dart#JsonSerializable',
+);

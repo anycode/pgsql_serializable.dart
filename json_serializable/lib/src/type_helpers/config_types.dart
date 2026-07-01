@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 /// Represents values from [JsonKey] when merged with local configuration.
@@ -10,6 +11,8 @@ class KeyConfig {
   final String? defaultValue;
 
   final bool disallowNullValue;
+
+  final bool explicitJsonNullWhenNonNullField;
 
   final bool? includeFromJson;
 
@@ -28,6 +31,7 @@ class KeyConfig {
   KeyConfig({
     required this.defaultValue,
     required this.disallowNullValue,
+    required this.explicitJsonNullWhenNonNullField,
     required this.includeFromJson,
     required this.includeIfNull,
     required this.includeToJson,
@@ -36,6 +40,14 @@ class KeyConfig {
     required this.required,
     required this.unknownEnumValue,
   });
+
+  bool get explicitYesFromJson => includeFromJson == true;
+
+  bool get explicitNoFromJson => includeFromJson == false;
+
+  bool get explicitYesToJson => includeToJson == true;
+
+  bool get explicitNoToJson => includeToJson == false;
 }
 
 /// Represents values from [JsonSerializable] when merged with local
@@ -51,13 +63,15 @@ class ClassConfig {
   final bool createFieldMap;
   final bool createJsonKeys;
   final bool createPerFieldToJson;
+  final bool createJsonSchema;
+  final bool dateTimeUtc;
   final bool disallowUnrecognizedKeys;
   final bool explicitToJson;
   final FieldRename fieldRename;
   final bool genericArgumentFactories;
   final bool ignoreUnannotated;
   final bool includeIfNull;
-  final Map<String, String> ctorParamDefaults;
+  final List<FormalParameterElement> ctorParams;
   final List<DartObject> converters;
 
   const ClassConfig({
@@ -69,6 +83,8 @@ class ClassConfig {
     required this.createFieldMap,
     required this.createJsonKeys,
     required this.createPerFieldToJson,
+    required this.createJsonSchema,
+    required this.dateTimeUtc,
     required this.disallowUnrecognizedKeys,
     required this.explicitToJson,
     required this.fieldRename,
@@ -76,7 +92,7 @@ class ClassConfig {
     required this.ignoreUnannotated,
     required this.includeIfNull,
     this.converters = const [],
-    this.ctorParamDefaults = const {},
+    this.ctorParams = const [],
   });
 
   factory ClassConfig.fromJsonSerializable(JsonSerializable config) =>
@@ -92,9 +108,12 @@ class ClassConfig {
         createPerFieldToJson:
             config.createPerFieldToJson ??
             ClassConfig.defaults.createPerFieldToJson,
+        createJsonSchema:
+            config.createJsonSchema ?? ClassConfig.defaults.createJsonSchema,
         createFactory:
             config.createFactory ?? ClassConfig.defaults.createFactory,
         createToJson: config.createToJson ?? ClassConfig.defaults.createToJson,
+        dateTimeUtc: config.dateTimeUtc ?? ClassConfig.defaults.dateTimeUtc,
         ignoreUnannotated:
             config.ignoreUnannotated ?? ClassConfig.defaults.ignoreUnannotated,
         explicitToJson:
@@ -108,7 +127,6 @@ class ClassConfig {
         disallowUnrecognizedKeys:
             config.disallowUnrecognizedKeys ??
             ClassConfig.defaults.disallowUnrecognizedKeys,
-        // TODO typeConverters = []
       );
 
   /// An instance of [JsonSerializable] with all fields set to their default
@@ -122,6 +140,8 @@ class ClassConfig {
     createFieldMap: false,
     createJsonKeys: false,
     createPerFieldToJson: false,
+    createJsonSchema: false,
+    dateTimeUtc: false,
     disallowUnrecognizedKeys: false,
     explicitToJson: false,
     fieldRename: FieldRename.none,
@@ -139,12 +159,36 @@ class ClassConfig {
     createFieldMap: createFieldMap,
     createJsonKeys: createJsonKeys,
     createPerFieldToJson: createPerFieldToJson,
+    createJsonSchema: createJsonSchema,
     ignoreUnannotated: ignoreUnannotated,
     explicitToJson: explicitToJson,
     includeIfNull: includeIfNull,
     genericArgumentFactories: genericArgumentFactories,
     fieldRename: fieldRename,
     disallowUnrecognizedKeys: disallowUnrecognizedKeys,
+    dateTimeUtc: dateTimeUtc,
     // TODO typeConverters = []
   );
+
+  ClassConfig copyWith({List<FormalParameterElement>? ctorParams}) =>
+      ClassConfig(
+        anyMap: anyMap,
+        checked: checked,
+        constructor: constructor,
+        createFactory: createFactory,
+        createToJson: createToJson,
+        createFieldMap: createFieldMap,
+        createJsonKeys: createJsonKeys,
+        createPerFieldToJson: createPerFieldToJson,
+        createJsonSchema: createJsonSchema,
+        dateTimeUtc: dateTimeUtc,
+        disallowUnrecognizedKeys: disallowUnrecognizedKeys,
+        explicitToJson: explicitToJson,
+        fieldRename: fieldRename,
+        genericArgumentFactories: genericArgumentFactories,
+        ignoreUnannotated: ignoreUnannotated,
+        includeIfNull: includeIfNull,
+        ctorParams: ctorParams ?? this.ctorParams,
+        converters: converters,
+      );
 }
